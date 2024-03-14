@@ -27,9 +27,6 @@ params:
      prerelease - can be TRUE or FALSE
 -->
 
-<!--Add tabs to table of contents-->
-<body onload="tabOrder()">
-
 <!--html_preserve-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
@@ -107,13 +104,12 @@ Subsection text.
   <p style="color: white;">Please rotate your screen for optimal experience</p>
 </div>
 
+<script>
+  // Create array of alt texts for map shapes
+  const mapAlt = `r if (exists("mapAlt")) {mapAlt} else {"[]"}`;
+</script>
 
 ```{js}
-
-
-// Create array of alt texts for map shapes
-const mapAlt = `r mapAlt`;
-
 
 // Function to remove map shapes from tab order, and add tabs to table of contents
 
@@ -137,6 +133,9 @@ function tabOrder() {
   }
   
 };
+
+// Instruct web browser to run above function when loaded
+window.onload = tabOrder;
 ```
 <!-- close footer div -->
 </div>

@@ -1,4 +1,4 @@
-# RAP Skeleton
+# RAP Skeleton v1.1.0
 
 ## :newspaper: Aim
 The aim of the RAP Skeleton is to bring together the things Tech Lab has learned through its Reproducible Analytical Pipeline (RAP) projects into a reusable template. This will allow us to get started on projects more quickly and reuse (or make reusable) code developed for customers.
@@ -32,7 +32,7 @@ Initially Tech Lab itself expects to be the primary customer but we hope experie
 - Pre-release warning coded (see `prerelease` option in Rmd YAML)  
 - Notification for mobile users that some charts may not be optimised for mobile viewing
 
-## Roadmap
+## :rocket: Roadmap
 
 ![five-stages](https://user-images.githubusercontent.com/85889714/226331135-e0b45758-cdfc-43f1-800f-368391cd87d6.png)
 
@@ -68,8 +68,57 @@ No. renv introduces issues itself, but we feel these are more manageable and eas
 
 #### renv troubleshooting
 
-- `terra` `sf` `-lblosc` `-lkea` `-lsz1` related - rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
-- `mran` `aws` related - e.g. `failed to retrieve 'https://rstudio-buildtools.s3.amazonaws.com/renv/mran/packages.rds' [error code 22]`, re-run `options(renv.config.mran.enabled = FALSE)` (sometimes it re-enables itself) 
+`terra` `sf` `-lblosc` `-lkea` `-lsz1` related
+rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version[^1] of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
+</details>
+
+`mran` `aws` related
+e.g. `failed to retrieve 'https://rstudio-buildtools.s3.amazonaws.com/renv/mran/packages.rds' [error code 22]`, re-run `options(renv.config.mran.enabled = FALSE)` (sometimes it re-enables itself) 
+
+`curl` errors / IT security team contact</summary>
+When running renv, IT may contact you regarding `curl` being run on your machine. Reference i305810 is related.
+
+[^1]: If a package has been updated recently, CRAN might not be serving the binary - drop the release version down 1 notch until you can get renv to give a binary of that package. For example, on 19/03/2023, `sf` was updated to `1.0-12`. The renv.lock file asks for 1.0-10 but it is only available from source. `1.0-12` is the latest version, but the `r-release` (i.e. the current stable version of R (4.2 at the moment)) binary is listed as `1.0-.11`. Therefore, we need to ask renv for that version with `renv::record("sf@1.0-11")`. CRAN might start serving `1.0-12` as the `r-release` binary in the future.
+
+### Setting up a new repo with the rap-skeleton
+
+#### Get the skeleton
+- Download the latest release as a ZIP file from the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases)
+- Extract the contents and rename the folder to something appropriate e.g. from `rap-skeleton-1.0.0` to `01-doj-newpublication`
+- Rename the .Rproj file to something appropriate e.g. `01-doj-newpublication.Rproj`
+- Open the Rproject file
+
+#### Create your repo on Github and link your project to it
+- In Github.com, create a new repository
+  - `Repository name` should be the same as the folder you created e.g. `01-doj-newpublication`
+  - Make it Private
+- Copy the code under `…or create a new repository on the command line`
+  ```
+  echo "# 01-doj-newpublication" >> README.md   # Creates a README file for you
+  git init                                      # Initialises this folder (e.g. 01-doj-newpublication) as a Git folder
+  git add README.md                             # Adds README as a file you will commit
+  git commit -m "first commit"                  # Adds a commit message
+  git branch -M main # Creates                  # Renames the current branch to main
+  git remote add origin https://github.com/ddntl/01-doj-newpublication.git # Links your folder to your Github.com repo
+  git push -u origin main                       # Pushes your file to the main branch
+  ```
+- Paste the code into the `Terminal` tab in Rstudio
+- A popup will appear. Click `Sign in with your browser`. A tab will open in your browser and authenticate you. **If you get an error here, try running `git push -u origin main` again**
+- If you refresh your repo on Github.com, you should now see the README file
+
+#### Upload the project to Github
+- In Rstudio's `Terminal`, run 
+  - `git add .` to stage all the files. **Ignore the warnings about LF and CRLF.**
+  - `git commit -m "initial upload"` to add a commit message
+  - `git push` to push them up to the remote repository
+- Your files are now on the github repo and you can now begin development
+- It is recommended that you modify the README to include project specific information. You could change the README to something like:
+```
+# My New Project Title
+
+Please refer [the main rap-skeleton README](https://github.com/NISRA-Tech-Lab/rap-skeleton#bell-getting-started) for the most up to date information on using RAP code.
+```
+- **You need to close down Rstudio and re-open the Rproj file once it is set up to get Rstudio to show the `Git` tab**
 
 ### Key files and folders
 
@@ -97,16 +146,16 @@ No. renv introduces issues itself, but we feel these are more manageable and eas
 | --- | --- |
 | Add your raw data | Place your input data in `data/` folder |
 | Process your data | Edit `code/data_prep.R` to create your data frames |
-| Create your spreadsheets | Edit and run `code/excel_tables.R` to create your tables<sup>1</sup> |
+| Create your spreadsheets | Edit and run `code/excel_tables.R` to create your tables[^2] |
 | Update title | Edit `title` in YAML |
-| Update look and feel<sup>2</sup> | Edit `nicstheme` in YAML to your department |
+| Update look and feel[^3] | Edit `nicstheme` in YAML to your department |
 | Update publication metadata | See `code/config.R` |
-| Write your report | Edit `code/report.Rmd` to add a table/chart<sup>1</sup> and some explanatory text |
+| Write your report | Edit `code/report.Rmd` to add a table/chart[^2] and some explanatory text |
 | HTML output | Knit `code/report.Rmd` |
 | Check your outputs | Review HTML and Excel outputs in `outputs/` folder
 
-<sup>1</sup> The dataframes created in `code/data_prep.R` are included and available in both `code/report.Rmd` and `code/excel_tables.R` automatically  
-<sup>2</sup> Changes to department colour 'highlight' and logo only
+[^2]: The dataframes created in `code/data_prep.R` are included and available in both `code/report.Rmd` and `code/excel_tables.R` automatically  
+[^3]: Changes to department colour 'highlight' and logo only
 
 #### Updating an existing projects
 
