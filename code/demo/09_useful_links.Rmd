@@ -1,5 +1,5 @@
 ---
-title: "08 Useful Links Sub Report"
+title: "09 Useful Links Sub Report"
 output: html_document
 knit: (function(input, ...) {
     rmarkdown::render(
@@ -18,18 +18,19 @@ knit: (function(input, ...) {
 ```{r, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message= FALSE, echo = FALSE
+  message = FALSE, echo = FALSE
 )
 
 library(here)
 
-source(paste0(here(),"/code/config.R"))
-source(paste0(here(),"/code/demo/demo_data_prep.R"))
-source(paste0(here(),"/code/demo/demo_config.R"))
+source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/demo/demo_data_prep.R"))
+source(paste0(here(), "/code/demo/demo_config.R"))
 ```
 
-
 Some features may not work or be accessible in older browsers.
+
+The [NISRA Accessibility Statement](https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html) is now included as a link in the footer of the RAP Skeleton.
 
 [New Analysis Function website](https://analysisfunction.civilservice.gov.uk) - General guidance
 

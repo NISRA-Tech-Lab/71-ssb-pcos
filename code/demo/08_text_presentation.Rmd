@@ -1,0 +1,117 @@
+---
+title: "08 Text Presentation Sub  Report"
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../demo/demo_outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+  
+  
+
+```{r, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message = FALSE, echo = FALSE
+)
+
+library(here)
+
+source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/demo/demo_data_prep.R"))
+source(paste0(here(), "/code/demo/demo_config.R"))
+
+```
+
+This section includes a quote, more subheading levels, unordered lists, ordered lists and links.
+
+### Quote box (h3)
+
+<!-- coloured definiton boxes -->
+<p class="defboxes">
+  <font color = `r nisra_navy`>__Mid Year Estimates:__    
+    In June each year NISRA prepares data on the size of the Northern Ireland population and includes statistics on a range of administrative and statistical geographies. A style like this could be used for definitions or for emphasis.
+  </font>
+</p> 
+
+### Administrative geographies (h3)
+
+#### Local Government Districts (h4)
+
+  1. Antrim and Newtownabbey (no ampersand).
+  2. Ards and North Down.
+  3. Armagh City, Banbridge and Craigavon.
+  4. Belfast.
+  5. Causeway Coast and Glens.
+  6. Derry and Strabane.
+  7. Fermanagh and Omagh.
+  8. Lisburn and Castlereagh.
+  9. Mid and East Antrim.
+  10. Mid Ulster.
+  11. Newry, Mourne and Down.
+
+#### Health and Social Care Trusts (h4)
+
+  1. Belfast HSC Trust.
+  2. South Eastern HSC Trust.
+  3. Western HSC Trust.
+  4. Southern HSC Trust.
+  5. Northern HSC Trust.
+  6. NI Ambulance Service.
+
+### Statistical geographies (h3)
+
+  * NUTS III areas.
+  * Super Output Areas.
+  * Census Small Areas.
+
+### Former administrative and statistical geographies (h3)
+
+  -	Parliamentary Constituencies (Assembly Areas). 
+  -	Health & Social Care Trusts. 
+  -	The former Education & Library Boards. 
+  -	The former Health & Social Services Boards.
+  - The former NUTS-III areas. 
+  -	The former 582 Electoral Wards.
+
+Bullets following a heading start with a capital letter, finish with a full stop and are short (no more than one sentence)
+
+Bullets as a list within the text should always have a lead-in line, start in lowercase (unless it starts with a proper noun), don't have full stops within bullets or at the end. For more guidance see the [ONS punctuation guide](https://style.ons.gov.uk/category/house-style/punctuation/#bullet-points).
+
+### Hyperlinks (h3)
+
+When creating a hyperlink, do not use the url. Instead, create link text that describes the link destination and if appropriate a file type and size. If linking to a data download, we are advising against linking directly to the actual file, instead link to the publication page. If linking directly to the file you have to include the file type and size in the link text and tell users if it opens in a new window. The colour of hyperlinks in this demo report were changed in the cascading style sheets (CSS) because the default colour was too low contrast to meet accessibility standards. 
+
+#### Examples of adding links (h4)
+
+For a link that opens in the same window, in the R code simply give the link a relevant name in square brackets and add the link url in brackets immediately after. For accessibility it is recommended that links open in the same window/tab in so far as possible.  
+
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)  
+
+```{r, echo = TRUE, eval = FALSE}
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland)
+```
+
+  
+Where a link will open in a new window the "(opens in a new window)" text should be added to the end of the link name. In addition an icon to show the user it opens in a new window can be added with the r inline code (fa("arrow-up-right-from-square")). When target = "_blank" is set the link opens in a new window or tab.  
+
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) `r fa("arrow-up-right-from-square")`](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}  
+
+```{r, echo = TRUE, eval = FALSE}
+[NISRA - 2022 Mid Year Population Estimates for Northern Ireland (opens in a new window) `r fa("arrow-up-right-from-square")`](https://www.nisra.gov.uk/publications/2022-mid-year-population-estimates-northern-ireland){target="_blank"}
+```
+  
+  
+Where a link takes the user directly to a download or file the link text should have file type and size included as below.  
+
+[2022 Mid-year population estimates statistical bulletin pdf 545KB](https://www.nisra.gov.uk/system/files/statistics/Statistical%20Bulletin%20-%202022%20Mid-year%20Population%20Estimates%20for%20Northern%20Ireland.pdf)  
+
+```{r, echo = TRUE, eval = FALSE}
+[2022 Mid-year population estimates statistical bulletin pdf 545KB](https://www.nisra.gov.uk/system/files/statistics/Statistical%20Bulletin%20-%202022%20Mid-year%20Population%20Estimates%20for%20Northern%20Ireland.pdf)
+```

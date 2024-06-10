@@ -4,5 +4,4 @@
 .Ruserdata
 outputs
 code/demo/demo_outputs
-packages.R
-data/*.xlsx
+code/demo/demo_data/images/mini_population.png

@@ -156,7 +156,7 @@ Department of Infrastructure:
 
 /*
 
- done font - currently #333333; but maybe should be black - won't change between Department
+ done font - currently #000000;
  done h2, h3 - #1460aa
  done h2 - 30px
  done h3 - 24px
@@ -237,17 +237,17 @@ Department of Infrastructure:
   --nics-three-bar-colour-2: var(--nics-banner-highlight);
 }
 
-[data-nics-theme=bso] {
-}
+/* [data-nics-theme=bso] {
+} */
 
 body {
   background-color: #FFFFFF;
-  color: #333333;
+  color: #000000;
 }
 
 p, li, td, th {
   font-size: 16px;
-  /* color: #333333; */
+  /* color: #000000; */
 }
 
 h1, h2, h3 {
@@ -275,6 +275,14 @@ h4 {
 
 h5 {
   font-size: 16px;
+}
+
+footerheading {
+      margin-top: 30px;
+      font-weight: bold;
+      color: #ffffff;
+      font-size: 24px;
+  		margin: 0.5em;
 }
 
 a {
@@ -317,7 +325,7 @@ a:focus{
   background-color: var(--nics-banner-bg);
 }
 
-.middlenatstats {
+.middleaccoffstats {
   width: 56%;
   text-align: center;
   vertical-align: middle;
@@ -329,10 +337,14 @@ a:focus{
 
 /* Sets dimensions for logos in title area */
 .left, .right {
-  width: 22%;
+  width: 30%;
   padding-top: 25px;
   background-color: var(--nics-banner-bg);
 }
+
+.row {
+  margin: 0px;
+} 
 
 /* Indents First NISRA logo from left */
 .left {
@@ -349,6 +361,7 @@ a:focus{
 .border {
   width: 33.33%;
   height: 9px;
+  margin-bottom: 25px;
 }
 
 /* Sets dimensions for subtitle */
@@ -370,7 +383,7 @@ a:focus{
 }
 
 .row-indent {
-  width: 15px;
+  width: 0px;
 }
 
 
@@ -467,18 +480,18 @@ a:focus{
 } 
 
 .statusbox_purple {
-  background:=#DDA0DD; border:3px; border-style:solid; border-color: #800080; padding: 1em;
+  background:#DDA0DD; border:3px; border-style:solid; border-color: #800080; padding: 1em;
 } 
 
 .statusbox_grey {
-  background:=#DADADA; border:3px; border-style:solid; border-color: #808080; padding: 1em;
+  background:#DADADA; border:3px; border-style:solid; border-color: #808080; padding: 1em;
 } 
 
 
 /* Reset styles for toc */
 .tocify-item.list-group-item a {
   text-decoration: none;
-  color: #333333;
+  color: #000000;
 }
 
 .tocify-item.list-group-item.active a {
@@ -488,6 +501,16 @@ a:focus{
 
 li .tocify-item.list-group-item {
   font-size: 16px;
+}
+
+/* Unindent and then re-indent toc items */
+li.tocify-item.list-group-item.active, li.tocify-item.list-group-item {
+  text-indent: 0;
+  padding-left: 1em;
+}
+
+ul.tocify-subheader.list-group {
+  padding-left: 2em;
 }
 
 /* Fixes hyperlink print issue */
@@ -535,3 +558,172 @@ li .tocify-item.list-group-item {
   page-break-inside: avoid;
 }
 
+
+
+	footer {
+		padding-bottom: 5px;
+		font-size: 18px;
+	}
+	footer a.link {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		text-decoration: none;
+		display: inline-block;
+	}
+	footer a.link:hover {
+		text-decoration: underline;
+	}
+	footer a.link:active {
+		outline: 3px solid transparent;
+		background-color: #fd0;
+		-webkit-box-shadow: 0 -2px #fd0, 0 4px #222;
+		box-shadow: 0 -2px #fd0, 0 4px #222;
+		color: #222;
+		text-decoration: none;
+	}
+ 	footer ul {
+		padding: 0;
+		margin: 1em;
+	}
+	footer li {
+		margin-right: 18px;
+		display: block;
+	}
+/* 	.logo-img {
+		margin-bottom: 2px;
+		width: 120px;
+	} */
+/* 	.ogl-img {
+		margin: 0 0.5rem 0.2rem 0;
+		width: 59px;
+		height: 24px;
+		vertical-align: middle;
+	} */
+/* 	.license {
+		vert8ical-align: top;
+	} */
+/* 	a img:hover {
+		cursor: pointer;
+	} */
+	.column {
+  		float: left;
+  		padding: 40px;
+  		margin: 1.1em;
+	}
+	.left {
+		max-width: 40%;
+	}
+	.right {
+		max-width: 60%;
+	}
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	.flex-list {
+		position: relative;
+		margin: 1em;
+		overflow: hidden;
+
+	}
+	.flex-list ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-left: -1px;
+	}
+	.flex-list li {
+		flex-grow: 1;
+		flex-basis: auto;
+		margin: .25em 0;
+		padding: 0 1em;
+		text-align: center;
+		border-left: 1px solid #ccc;
+		background-color: #00205b;
+		font-size: 14px;
+	}
+
+#cookie-banner {
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color:RGBA(26,25,68,0.95);
+	color:#FFF;
+	padding: 10px;
+	text-align: left;
+	border-bottom: 5px solid #3878c5;
+	z-index: 100;
+}
+
+.cookies-infobar {
+background-color: rgb(26,25,68,0.95);
+color: #fff;
+width: 100%;
+left: 0;
+right: 0;
+top: 0;
+padding: 10px;
+text-align: left;
+}
+
+.cookies-infobar.cookies-infobar_accepted {
+  display: none;
+}
+
+.cookies-infobar_wrapper {
+  margin: 10px;
+}
+
+.cookies-infobar a {
+  color: inherit;
+}
+
+.cookies-infobar_btn {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #0f8243;
+  text-decoration: none;
+  color: #fff;
+  text-transform: none;
+  font-size: 1.2em;
+}
+
+a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
+	color: #fff !important;
+}
+
+.cookies-infobar_btn_reject {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #6d6e72;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #fff;
+  text-transform: none;
+  font-size: 1.2em;
+}
+
+.nav-pills>li>a {
+     font-weight: bold;
+     background-color: #E9E9E9;
+}
+
+.code-folding-btn:after {
+  content: ' Code';
+}
+
+.grid {
+	display: grid;
+	width: 100%;
+	grid-gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+	justify-content: stretch;
+	page-break-inside: avoid;
+}
+
+.mtb {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}

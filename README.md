@@ -1,135 +1,62 @@
-# RAP Skeleton v1.1.0
+# RAP Skeleton
 
-## :newspaper: Aim
-The aim of the RAP Skeleton is to bring together the things Tech Lab has learned through its Reproducible Analytical Pipeline (RAP) projects into a reusable template. This will allow us to get started on projects more quickly and reuse (or make reusable) code developed for customers.
+## :question: What is the RAP Skeleton? 
+The RAP Skeleton is a reusable template for RAP projects. It uses the R coding language (written in line with the [tidyverse style guide](https://style.tidyverse.org/)) to create HTML statistical publications. The RAP Skeleton is stored as a repository on the Tech Lab GitHub page and can be accessed by downloading the repository as a ZIP file (Git knowledge is not required for this, see further instructions found below). The RAP Skeleton project contains two sections:  
 
-## :raising_hand: Audience
-Initially Tech Lab itself expects to be the primary customer but we hope experienced R users who have already published reports using R/RMarkdown can make use of it too. Unfortunately we can only guarantee support for customers as defined in our project scopes.
+### Demo
+A demo HTML project is included within the RAP Skeleton project. The purpose of the demo is to: 
 
-## :thumbsup: What the RAP Skeleton is 
+- View, explore and interact with a demo HTML report.  
 
-:white_check_mark: A template to help Tech Lab with future RAP projects  
-:white_check_mark: A foundation for users to independently start building their RAP  
-:white_check_mark: A template for 'light touch' RAP customers to start their project with  
-:white_check_mark: A place for users to reference one way of doing things  
-:white_check_mark: A product that will change over time  
+- Show the file structure and set-up needed to organise and produce an HTML report. Use the demo to learn more about the `report.Rmd` file as well as the associated `config.R`, `data_prep.R` and `excel_tables.R` files. Each of these files will be prefixed with `demo_` in the demo report (e.g. `demo_config.R`).
 
-## :thumbsdown: What the RAP Skeleton is not 
+- Get inspiration for your own HTML report by viewing examples of elements that can be included and explore the R code used to create them. 
 
-:x: Fully documented  
-:x: A complete reference for good practice R / accessibility / programming / project management etc.  
-:x: The only way to produce a RAP / HTML / spreadsheets etc.
+- Learn more about digital accessibility requirements and how they influence the process of coding an HTML report.   
 
-## :question: What's new
+To view the demo HTML report the user must first knit the `demo_report.Rmd` file. Instructions for this procedure will follow further down this document.
 
-- Configuration now found in `code/config.R`  
-- Data processing now found in `code/data_prep.R`  
-- Spreadsheet now found in `code/excel_tables.R`  
-- Function to create and embed Excel/CSV per chart/table (see `code/functions/make_tables.R`)  
-- Departmental colours/logos baked in  
-- Project structure changes (dedicated folders for code, data, outputs)  
-- Various additions to `code/functions/` folder (for reference and untested outside of the projects they were made for)  
-- Pre-release warning coded (see `prerelease` option in Rmd YAML)  
-- Notification for mobile users that some charts may not be optimised for mobile viewing
+### Skeleton template
+This is the basis for a user to create their own HTML report. Users can get started by loading their data and adjusting the `config.R`, `data_prep.R` and `excel_tables.R` files before knitting the `report.Rmd` file. 
 
-## :rocket: Roadmap
+Users can choose to write all chapters of their report within the `report.Rmd` file or create multiple chapters using extra child `.Rmd` files. These child `.Rmd` files are then called into the `report.Rmd` file and knitted together as one HTML report.  
 
-![five-stages](https://user-images.githubusercontent.com/85889714/226331135-e0b45758-cdfc-43f1-800f-368391cd87d6.png)
+Note that although the RAP Skeleton template only provides the main `report.Rmd` file, the RAP Skeleton demo HTML is constructed using multiple child `.Rmd` files as different chapters. Users wanting to divide different chapters into multiple child `.Rmd` files should follow the instructions found later in this documentation. 
 
-## :bell: Getting started
+## Downloading the RAP Skeleton.
+In order to work with the RAP Skeleton the project folder must first be downloaded onto your local computer. Follow these steps to complete this process: 
 
-### renv
+- Download the RAP Skeleton as a ZIP file by clicking on the ‘Source code (zip)’ link under the ‘Assets’ tab on the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases). The file will be downloaded to the ‘Downloads’ folder on your PC. 
 
-#### What is renv?
+- Open your ‘Downloads’ folder using Windows Explorer and extract the Rap Skeleton contents by right-clicking on the ZIP file and selecting ‘Extract All’.  
 
-Renv is a tool that supports reproducibility in R projects. See [their website](https://rstudio.github.io/renv/index.html) for more details. 
+- The RAP Skeleton will be contained within a folder with a name such as `rap-skeleton-2.0`. Choose an appropriate location to save this folder e.g. your desktop. 
 
-#### Why are we moving to renv?
 
-Renv supports the reproducibility of projects both over time (so a project from 2 years ago is more likely to work because you can get the exact packages it was built with) and between users (if you have code problem and your colleague doesn't, you can usually rule out package version differences as the cause). It also helped us solve problems with repository issues that were presenting randomly within and between users.
+## Understanding the RAP Skeleton folder structure.
+Once downloaded and extracted, you are now able to view the files and folders within the `rap-skeleton-2.0` folder. 
+  
+Note:  
 
-#### Is renv perfect?
+- `rap-skeleton.Rproj` (rap-skeleton-2.0/rap-skeleton.Rproj) is the main R project file for the Rap Skeleton. Always open this R project file first when working on any element of your report. 
 
-No. renv introduces issues itself, but we feel these are more manageable and easier to pinpoint than alternatives. The main issue we have found is when a package updates and a user is forced to build an older version from source - with `sf`/`terra` in particular this requires updates to Rtools (a program installed alongside R to help building packages). Newer versions of Rtools seem to work with newer packages, but break building very old versions of packages. We're still exploring this area.
+- `report.Rmd` (rap-skeleton-2.0/code/report.Rmd) is the RMarkdown file that will be knitted to produce your HTML report. 
 
-#### renv setup
+- `demo_report.Rmd` (rap-skeleton-2.0/code/demo/demo_report.Rmd) is the RMarkdown file that will be knitted to produce the demo HTML report. 
 
-- Download/clone this project and open the project (`rap-skeleton.Rproj`) 
-- To install and configure renv for this project, run `source("renv/activate.R")`  
-- Disable the MRAN repository using `options(renv.config.mran.enabled = FALSE)` (it won't return any results if it works)
-- Tell renv to download and install the packages this projects needs with `renv::restore()` and then press 'y' to accept
+- Everything relating to the demo report is stored inside the `demo` folder (`rap-skeleton-2.0/code/demo/`). The entire `demo` folder can be deleted if it is not required. 
 
-#### renv setup summary
-
-- Open project 
-- `source("renv/activate.R")` 
-- `options(renv.config.mran.enabled = FALSE)` 
-- `renv::restore()` and press 'y' to accept
-
-#### renv troubleshooting
-
-`terra` `sf` `-lblosc` `-lkea` `-lsz1` related
-rspatial packages might give errors while building from source. Go to [CRAN](https://cran.r-project.org/web/packages/sf/index.html) and find out the latest version[^1] of the troublesome package. Tell renv to use that version using `renvv::record()`. For example, if the latest version of sf is `1.0-12` you would run `renv::record("sf@1.0-12")` and then run `renv::restore()` 
-</details>
-
-`mran` `aws` related
-e.g. `failed to retrieve 'https://rstudio-buildtools.s3.amazonaws.com/renv/mran/packages.rds' [error code 22]`, re-run `options(renv.config.mran.enabled = FALSE)` (sometimes it re-enables itself) 
-
-`curl` errors / IT security team contact</summary>
-When running renv, IT may contact you regarding `curl` being run on your machine. Reference i305810 is related.
-
-[^1]: If a package has been updated recently, CRAN might not be serving the binary - drop the release version down 1 notch until you can get renv to give a binary of that package. For example, on 19/03/2023, `sf` was updated to `1.0-12`. The renv.lock file asks for 1.0-10 but it is only available from source. `1.0-12` is the latest version, but the `r-release` (i.e. the current stable version of R (4.2 at the moment)) binary is listed as `1.0-.11`. Therefore, we need to ask renv for that version with `renv::record("sf@1.0-11")`. CRAN might start serving `1.0-12` as the `r-release` binary in the future.
-
-### Setting up a new repo with the rap-skeleton
-
-#### Get the skeleton
-- Download the latest release as a ZIP file from the [latest releases page](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases)
-- Extract the contents and rename the folder to something appropriate e.g. from `rap-skeleton-1.0.0` to `01-doj-newpublication`
-- Rename the .Rproj file to something appropriate e.g. `01-doj-newpublication.Rproj`
-- Open the Rproject file
-
-#### Create your repo on Github and link your project to it
-- In Github.com, create a new repository
-  - `Repository name` should be the same as the folder you created e.g. `01-doj-newpublication`
-  - Make it Private
-- Copy the code under `…or create a new repository on the command line`
-  ```
-  echo "# 01-doj-newpublication" >> README.md   # Creates a README file for you
-  git init                                      # Initialises this folder (e.g. 01-doj-newpublication) as a Git folder
-  git add README.md                             # Adds README as a file you will commit
-  git commit -m "first commit"                  # Adds a commit message
-  git branch -M main # Creates                  # Renames the current branch to main
-  git remote add origin https://github.com/ddntl/01-doj-newpublication.git # Links your folder to your Github.com repo
-  git push -u origin main                       # Pushes your file to the main branch
-  ```
-- Paste the code into the `Terminal` tab in Rstudio
-- A popup will appear. Click `Sign in with your browser`. A tab will open in your browser and authenticate you. **If you get an error here, try running `git push -u origin main` again**
-- If you refresh your repo on Github.com, you should now see the README file
-
-#### Upload the project to Github
-- In Rstudio's `Terminal`, run 
-  - `git add .` to stage all the files. **Ignore the warnings about LF and CRLF.**
-  - `git commit -m "initial upload"` to add a commit message
-  - `git push` to push them up to the remote repository
-- Your files are now on the github repo and you can now begin development
-- It is recommended that you modify the README to include project specific information. You could change the README to something like:
-```
-# My New Project Title
-
-Please refer [the main rap-skeleton README](https://github.com/NISRA-Tech-Lab/rap-skeleton#bell-getting-started) for the most up to date information on using RAP code.
-```
-- **You need to close down Rstudio and re-open the Rproj file once it is set up to get Rstudio to show the `Git` tab**
-
-### Key files and folders
+The following table lists the RAP Skeleton contents and their purpose:
 
 | Skeleton/Demo | File | Purpose  |
 | --- | --- | --- |
 | Skeleton | `code/report.Rmd` | RMarkdown report |
 | Skeleton | `code/excel_tables.R` | Produce spreadsheet output |
 | Skeleton | `code/data_prep.R` | Data prep for report & spreadsheets |
-| Skeleton | `code/config.R` | Configuration file for everything |
+| Skeleton | `code/config.R` | Configuration file primarily for skeleton template (is also read into `demo_config.R`) |
 | Skeleton | `data/` | Store your raw data files here |
 | Skeleton | `outputs/` | HTML and Excel outputs will be saved here |
+| Skeleton | `.gitignore` | A list of files and folders that you wish to be ignored by Git. These will not be uploaded to your Github repo if using one. |
 |  |  |  |
 | Demo  | `code/demo/demo_report.Rmd`  | Demo RMarkdown report  |
 | Demo  | `code/demo/demo_excel_tables.R`  | Produce demo spreadsheet output  |
@@ -138,61 +65,274 @@ Please refer [the main rap-skeleton README](https://github.com/NISRA-Tech-Lab/ra
 | Demo  | `code/demo/demo_data/`  | Raw data for the demo is stored here |
 | Demo  | `code/demo/demo_outputs/` | Demo HTML and Excel outputs will be saved here |
 
-### Example workflows
+## Initialising Renv.
+Upon opening the `rap-skeleton.Rproj` file for the first time you may see the following `Renv` warning appear in the console of R studio:
 
-#### Starting a new publication
+![Renv warning](data/images/renv_error.png)
 
-| Task | Actions | 
-| --- | --- |
-| Add your raw data | Place your input data in `data/` folder |
-| Process your data | Edit `code/data_prep.R` to create your data frames |
-| Create your spreadsheets | Edit and run `code/excel_tables.R` to create your tables[^2] |
-| Update title | Edit `title` in YAML |
-| Update look and feel[^3] | Edit `nicstheme` in YAML to your department |
-| Update publication metadata | See `code/config.R` |
-| Write your report | Edit `code/report.Rmd` to add a table/chart[^2] and some explanatory text |
-| HTML output | Knit `code/report.Rmd` |
-| Check your outputs | Review HTML and Excel outputs in `outputs/` folder
+`Renv` is used to lock the current version of the packages within the RAP Skeleton so that any future package updates do not cause any issues with running code. `Renv` only needs to be activated once at the start of each Rap Skeleton project and it will attempt to automatically activate - the above warning is a sign that this automatic activation has failed and must be activated manually. Once `Renv` has been activated manually the above warning will disappear.
 
-[^2]: The dataframes created in `code/data_prep.R` are included and available in both `code/report.Rmd` and `code/excel_tables.R` automatically  
-[^3]: Changes to department colour 'highlight' and logo only
+To manually activate `Renv`, run the following lines of code one at a time in the console:
 
-#### Updating an existing projects
+- `source("renv/activate.R")`
 
-| Area | Actions | Benefit |
-| --- | --- | --- |
-| Charts | Review demo HTML output, use source code tabs to re-use code | Some additions since Accessibility Exemplar |
-| Structure | Consider placing outputs, input data, functions etc. in folders, having separate configuration and data processing files etc. | Easier to update and maintain |
-| Sub-reports | Review `code/demo/demo_report.Rmd` for `child` chunks that import sub-sections | Allow multiple users / can work on new section while others being reviewed |
-| Something else | For other issues or advice, refer to the R Teams Channel for assistance | Tap into experience across agency, code sharing |
+- `renv::restore()` 
 
-#### Create a simple page in HTML
+- After running `renv::restore()` press 'y' to accept.
 
-| Task | Actions | 
-| --- | --- |
-| New document | Install R/Rstudio, [download the skeleton](https://github.com/NISRA-Tech-Lab/rap-skeleton/releases), unzip, open `code/report.Rmd` |
-| Word processing | Refer to the [Rmarkdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and [Definitive Guide](https://bookdown.org/yihui/rmarkdown/) |
-| Save to HTML | Click `Knit` at the top of your Rmd file in Rstudio |
+If you did not see the above warning the first time you opened the `rap-skeleton.Rproj` file, it means that `Renv` was able to activate automatically. In this case, there is no need to run `source("renv/activate.R")`. Instead just run `renv::restore()` and press `y` to accept.   
 
-## :mega: How to provide feedback
+At this stage `Renv` has been activated. For further information visit the [Renv website.](https://rstudio.github.io/renv/index.html)
 
-For the initial roll-out to Tech Lab (Group 1) and volunteer testers across NISRA, we would greatly appreciate feedback. Make sure you can run the code (let us know if you have issues) and answer as many of the questions below as you can. **Copy the questions and send us an email, thanks!**
+### Help & Troubleshooting
 
-### Testing the Rmd and spreadsheet code works for you
+If the above commands do not appear to work or error message appear, read more about troubleshooting renv in our [R Documentation](https://datavis.nisra.gov.uk/techlab/drpvze/r.html#renv_troubleshooting) 
 
-- Run skeleton
-  - report (HTML) `code/report.Rmd`
-  - spreadsheets (Excel) `code/excel_tables.R`
-- Run demo
-  - report (HTML) `code/demo/demo_report.Rmd`
-  - spreadsheets (Excel) `code/demo/demo_excel_tables.R`
 
-### Questions
+## What next?
+After downloading the RAP Skeleton project, understanding the folder structure and activating `Renv` users can either:    
 
-1. Do you think the RAP Skeleton could assist you in meeting your RAP objectives? If so, how?
-1. Have you produced any part of a publication using R before?
-1. Have you used the Accessiblity Exemplar before?
-1. Are you using Git for any of your work currently?
-1. Feedback on the structure `e.g. file locations, use of sub-section Rmds`
-1. Feedback on the demo `e.g. 'source code' tabs, types of charts relevant to your publications, accessibility notes`
-1. Any other feedback `e.g. is this better/worse than Accessibility Exemplar`
+- Knit the demo HTML report.
+
+or
+
+- Create an HTML report with the RAP Skeleton template.    
+
+It is recommended that first-time users of the RAP Skeleton knit the demo report. This will allow the user to view and interact with an HTML report and give them an idea of what their own report could look like and what elements they can consider including.
+
+## Knit the demo HTML report.
+Knitting the `demo_report.Rmd` file will produce the demo HTML report. Follow these steps to produce the demo HTML report:
+
+- Using your Windows file explorer, navigate to the `rap-skeleton-2.0` folder and open it.
+
+-	Double-click the `rap-skeleton.Rproj` file to open the RAP Skeleton R project (`rap-skeleton-2.0/rap-skeleton.Rproj`).
+
+-	Once R Studio has opened the R project, open the `demo_report.Rmd` file by selecting it under the `Files` tab in the bottom right quadrant of R Studio (`code/demo/demo_report.Rmd`).
+
+-	Press ‘knit’ at the top of the `demo_report.Rmd` window (or Ctrl+Shift+K).
+
+After several seconds, the demo HTML report should appear within your R Studio screen. It will also be saved in the `demo_outputs` folder (`code/demo/demo_outputs/`).
+
+
+## Create an HTML report with the RAP Skeleton template.
+Before creating an HTML report with the RAP Skeleton template, users should familiarise themselves with the files and folders associated with RAP Skeleton.
+There is not a set workflow for using the RAP Skeleton, however, the following steps are an example workflow that could be suitable for many reports:
+
+- Rename these files and folders to something appropriate E.g. the name of your publication:
+    - `rap-skeleton-2.0` (main folder)
+    
+    - `rap-skeleton.Rproj` (R project file)
+    
+- Insert raw data files into the `data` folder.
+
+- Open the `.Rproj` file (previously named `rap-skeleton.Rproj`). This will open the project within R Studio.
+
+-	Open the `config.R` file to edit publication metadata. Set the following variables:
+    - `nicstheme` (select appropriate department)
+    
+    - `prerelease` (default = FALSE)
+    
+    - `bilingual` (default = TRUE)
+    
+    - `currentyear`
+    
+    - `title`
+    
+    - `subtitle`
+    
+    - `statistic_type`
+    
+    - `pub_date`
+    
+    - `next_pub_date`
+    
+    - `header_publisher` 
+    
+    - `lead_statistician`
+    
+    - `header_telephone`
+    
+    - `header_email` 
+    
+    - `Excel_Rounding` (default = ‘Yes’)
+    
+- Open the `data_prep.R` file.
+    - Read in your data (view example code for reading in .csv, .xlsx, .sav files and SQL data.)
+    
+    - Process your data and create data frames.
+
+-	Open the `report.Rmd` file and edit the following:
+    - `title` in the YAML
+
+- Write the contents of your report within the `report.Rmd` file and any associated child `.Rmd` files that are called into the `report.Rmd` file.
+
+- Knit the `report.Rmd` file to create the HTML report.
+
+- Open the `excel_tables.R` file if your report requires accompanying Excel tables.
+
+    -	Create and format Excel workbooks (further instructions below). 
+
+- Review HTML and Excel outputs in the `outputs` folder.
+
+Refer to the Dissemination branch advice on [accessibility](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Accessibility.aspx?csf=1&web=1&share=ERUVgIGLxlZHrhT2Qx2TYNwBR9Wz9sVOdzU6s5szFWfKsA&e=pLQycg&CID=8717807a-fbf7-4382-addd-b996ed43e60c) and publishing via the [Datavis server](https://nicsonline.sharepoint.com/sites/TM-DOF-NISRATEAM/SitePages/DISSEMINATION%20Datavis.aspx?csf=1&web=1&share=EReyP93ozeFEozbNJWq3P_kBHxQDUBduy8sGFc335Sx3OA&e=QKW2re&CID=b3035e06-e924-4a4d-b53e-6d44cc99d466).
+
+
+## Implementing child .Rmd files as individual chapters.
+As stated previously, the whole report can be written within the ‘report.Rmd’ file or spread across multiple chapters by using child .Rmd files that are then called into the ‘report.Rmd’ file. If you wish to use child .Rmd files for creating chapters then follow these steps:
+
+- Using Windows file explorer, copy one of the child .Rmd files (e.g. 02_introduction.Rmd) from the ‘demo’ folder into the same folder that contains your main ‘report.Rmd’ file.
+
+- Rename the file to something appropriate.
+
+- Open the child .Rmd file within your R project and edit the title in the YAML.
+
+- Make any other adjustments to the YAML that may be needed e.g set the ‘output_dir’ to the required output destination.
+
+- Edit the set-up chunk to ensure that the correct ‘config.R’, and ‘data_prep.R’ files are sourced along with any other requirements.
+
+- Edit the contents of the chapter beneath the set-up chunk.
+
+- Save the changes to your child .Rmd file and open the ‘report.Rmd’ file which will call in the child .Rmd file.
+
+- To read the child .Rmd file into the ‘report.Rmd’ file follow these steps:
+
+    - Create an h2 level header as a chapter title.
+    
+    - Create an R code chunk.
+    
+    - Insert a description for this R code chunk e.g. introduction_sub_report.
+    
+    - Call in the child .Rmd file e.g. child= ‘02_introduction.Rmd’
+    
+    - Knit the `report.Rmd` and check output.
+
+
+Example: 
+
+![](data/images/child.png)
+
+
+## Create accompanying Excel tables.
+The RAP Skeleton R project contains an R script called ‘excel_tables.R’ which can be used to create accompanying Excel workbooks for your HTML report. Once created, these Excel files are saved in the ‘outputs’ folder.
+
+Creating Excel files involves the following steps within the ‘excel_tables.R’ file:
+
+-	Name the output file by changing the `output_file` variable value from `outputs/excel_tables.xlsx` to a name of your choice e.g. `outputs/economic_report_tables.xlsx`.
+
+- Set `creator` and `title` in the `new_workbook` variable.
+
+- Set fontsize and font in the `modifyBaseFont` variable.
+
+- Set cover sheet info in `df_cover_info` variable.
+
+- Set email address in `email` variable and `names(email)` code.
+
+
+- Adjust `Contents` page by setting the following variables according to how many sheets and tables your Excel workbook requires:
+
+    - `sheetnames`
+    
+    - `table_nos`
+    
+- Set table titles and create a vector of table titles.
+
+- Input text and data under each new table section e.g. `#### Table 1 ####`.
+
+- Adjust information for `Notes Sheet`.
+
+- It is recommended to view and run the `demo_excel_tables.R` file for further information creating accompanying Excel tables.
+    
+    
+## Updating from the Accessibility Template Exemplar 
+The previously released Accessibility Template Exemplar has now been superseded by the RAP Skeleton. It is recommended that any reports using the the Accessibility Exemplar as a template are now updated to the RAP Skeleton. Follow the above instructions (Create an HTML report with the RAP Skeleton template) but also take note of these additional points:
+
+- Edit the `config.R` file to set all required variables.
+
+- If your report requires any additional packages then ensure they are added to the package list in the `config.R` file using the `library` function. Also follow these two additional steps in the R Studio console:
+
+    - Run `renv::snapshot()` to update th renv lockfile with your additional packages.
+    - Run `renv::restore()` to install any of these additional packages.
+
+- Copy any additional functions that you may have created into the `functions` folder.
+
+- Note that the `header` and `footer` sections in the RAP Skeleton are now created using functions. This content is set via the `config.R` file – there is no need to copy the header HTML code from the Accessibility Template Exemplar into the RAP Skeleton.
+
+- The HTML code at the bottom of the Accessibility Template Exemplar creates download buttons, borders, page banners, the pre-release paragraph and the `tabOrder` function. The RAP Skeleton has these elements already built-in, therefore,  this HTML code does not need to be copied into the RAP Skeleton.
+
+- Copy all data loading and data prep code into the `data_prep.R` file. Bear in mind this no longer has to be written in chunks as in the Accessibility Template Exemplar.
+
+- Copy across the content of the report into the `report.Rmd` file or modularise the report by implementing chapters with child .Rmd files.
+    
+## Updating to V2 from Rap Skeleton V1
+The file structure of RAP Skeleton V2 is identical to V1 and works in a similar fashion. It is recommended that any reports created using V1 are now updated to Rap Skeleton V2.  You should copy your content out of your V1 report and put it into V2 rather than try to pull the additional features from V2 into V1. Follow these basic steps:
+
+- Edit the `config.R` file to set all required variables.
+
+- If your report requires any additional packages then ensure they are added to the package list in the `config.R` file using the `library` function. Also follow these two additional steps in the R Studio console:
+
+    - Run `renv::snapshot()` to update th renv lockfile with your additional packages.
+    - Run `renv::restore()` to install any of these additional packages.
+
+- Copy any additional functions that you may have created into the `functions` folder.
+
+- Copy any images needed into the `images` folder.
+
+- Copy all data loading and data prep code into the `data_prep.R` file. 
+
+- Copy across the content of the report into the `report.Rmd` file. If the previous report was created using child `.Rmd` files then copy these files into the correct project folder and ensure they are read in correctly in the new V2 `report.Rmd` file. 
+    
+## Storing your R project in a Github repository.    
+It is recommended that you store the R project for your HTML report in a Github repository. This safeguards your code and allows you to revert to previous versions if required. It also allows other contributors to easily access and update the project code.
+
+#### Git prerequisites
+Before attempting to store your R project on Github you must first:
+
+- Ensure your R project folder is named something appropriate (e.g. `01-doj-newpublication`) and is no longer called `rap-skeleton-2.0`.
+
+- Ensure IT Assist have installed 'Git for Windows' on your computer (remembering to install this on all new staff machines and when changing to new machines). 
+
+- Open a Github account online using your work email address.
+
+- Ensure You have run the following configuration codes in the terminal of R Studio, remembering to insert your Github user name and associated email address in the fourth and fifth lines:
+```
+git config --global http.sslVerify false
+git config --global http.proxy http://cloud-lb.nigov.net:8080
+git config --global https.proxy https://cloud-lb.nigov.net:8080
+git config --global user.name "YourUsername"
+git config --global user.email firstname.lastname@nisra.gov.uk
+```
+
+#### Create your repository on Github and upload your project
+A Github repository must be created first before you can 'push' the contents of your R project up to the repository.
+
+Once the 'Git prerequisites' are completed then follow these steps to create a repository and link your R project:
+
+- In Github.com, create a new repository
+  - Name the repository the same name as your R project folder e.g. `01-doj-newpublication`
+  - Set repo to private.
+  - Do not `Add a README file`.
+  - Select `Create repository`.
+
+- Copy the following code, making sure to edit the URL on the fifth line to include the URL of your Github repository: 
+
+```
+git init          
+git add .         
+git commit -m "initial upload"          
+git branch -M main                 
+git remote add origin https://github.com/your-organisation/name-of-your-repo.git          
+git push -u origin main         
+```
+
+- Paste this code into the terminal in R studio when you have the R project open and press enter.
+
+- A popup may appear and ask you to sign into Github with your browser. If you get an error try running: `git push -u origin main`
+
+- Refresh your repo on github.com again and you should see all the contents of your R project has now been pushed up to the repo.
+
+- Close your R studio project and re-open again. You should now see a ‘Git’ tab on the top right quadrant of the screen. 
+
+
+
+
+

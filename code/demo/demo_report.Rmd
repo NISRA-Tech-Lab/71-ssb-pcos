@@ -1,10 +1,11 @@
 ---
-title: "RAP Demo Report"
+title: "NISRA Technology & Support Lab RAP Skeleton Demo Report"
 lang: "en"
 output:
   html_document:
+    code_folding: hide
     toc: true
-    toc_float: true
+    toc_float: true 
     toc_depth: 4
     code_download: no
     css: "../style.css"
@@ -18,52 +19,37 @@ knit: (function(input, ...) {
       envir = globalenv()
     )
   })
-params:
-  nicstheme: dof
-  prerelease: TRUE
 ---
-<!-- params:
-     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj
-     prerelease - can be TRUE or FALSE
--->
 
-<!--html_preserve-->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-72688332-4');
-</script>
-<!--/html_preserve-->
+<!--Add tabs to table of contents-->
+<body onload = "tabOrder()">
+
+<div id = "cookie-banner"></div>
+<script src = "cookies_script.js"></script>
 
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message= FALSE, echo = FALSE, warning = FALSE
+  message = FALSE, warning = FALSE, echo = FALSE
 )
 ```
-<div data-nics-theme="`r params$nicstheme`">
-
 
 ```{r setup, warnings = FALSE}
-
-
 library(here)
 
-source(paste0(here(),"/code/config.R"))
-source(paste0(here(),"/code/demo/demo_data_prep.R"))
-source(paste0(here(),"/code/demo/demo_config.R"))
-
+source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/demo/demo_data_prep.R"))
+source(paste0(here(), "/code/demo/demo_config.R"))
+source(paste0(here(), "/code/demo/demo_excel_tables.R"))
 ```
+
+<div data-nics-theme="`r nicstheme`">
 
 <!-- calling the banner code -->
 `r f_banner()`
 
 <!-- Header section -->
 `r f_header()`
-
 
 
 <!-- Introduction section -->
@@ -73,7 +59,7 @@ source(paste0(here(),"/code/demo/demo_config.R"))
 
 <!-- calling the borderline code -->
 `r f_borderline()`
-
+    
 ## 1. Key points (h2)
 
 This section includes the key points of your publication (in an unordered list).  The logos used in the banner are intentionally placed in order. If no National Statistics logo is required, the departmental logo can go to the right and NISRA to the left. Logo placement is automated in the code depending on which logos are required. 
@@ -84,33 +70,53 @@ There are some key accessibility features to highlight here:
 - there is a named accessibility contact at the end of the doc
 - you will see from the code that the main sections of the html are enclosed in div elements
 
-It can help automation of reports to include sections of text that contain numerical values calculated by code. These will then update automatically when the data changes. This has been implemented below. For key points with accompanying charts or graphics, a 2 column structure can be used.
+It can help automation of reports to include sections of text that contain numerical values calculated by code. These will then update automatically when the data changes. This has been implemented below. For key points with accompanying charts or graphics, a two column structure can be used.
 
 ### Population change
 
 ```{r key_point_2_column, fig.alt="info"}
-
 # create a bullet point in unicode called 'b'
 b <- "\U2022"
 
-point_1 <- paste0(b, " the Northern Ireland population has grown from ", round(ni_earliest_total,2)," million in ", earliest_year, " to ", round(ni_latest_total,2), " million in ", latest_year, " an increase of ", round(ni_earliest_latest_change,0), " percent.")
+point_1 <- paste0(
+  b, " The Northern Ireland population has grown from ",
+  round_half_up(ni_earliest_total, 2), " million in ",
+  earliest_year, " to ", round_half_up(ni_latest_total, 2),
+  " million in ", latest_year, " an increase of ",
+  round_half_up(ni_earliest_latest_change, 0), " percent."
+)
 
-point_2 <- paste0(b," Under 25s make up the largest age group in the population")
+point_2 <- paste0(
+  b, " Under 25s make up the largest age group in the ",
+  "population"
+)
 
-point_3 <- paste0(b, " Derry City and Strabane has seen the largest increase of all the LGDs (Local Government Districts)")
-
-
-change_chart <- paste0(images_source_root_demo, "mini_population.png")
-
-div(class = "row",
-    div(class = "col-sm-6", style = "margin-top: 10px; font-size:120%;",
-        point_1, br(), p(), point_2, br(), p(),  point_3, br()),
-    div(class = "col-sm-6", img(src = change_chart, alt="Column chart showing relative increase in population")))
+point_3 <- paste0(
+  b, " Derry City and Strabane has seen the largest increase ",
+  "of all the LGDs (Local Government Districts)"
+)
 
 
+change_chart <- paste0(
+  here(), "/code/demo/demo_data/images/",
+  "mini_population.png"
+)
+
+div(
+  class = "row",
+  div(
+    class = "col-sm-6", style = "margin-top: 10px; font-size:120%;",
+    point_1, p(), point_2, p(), point_3
+  ),
+  div(
+    class = "col-sm-6",
+    img(
+      src = change_chart,
+      alt = "Column chart showing relative increase in population"
+    )
+  )
+)
 ```
-
-
 
 `r f_borderline()`
 
@@ -118,7 +124,6 @@ div(class = "row",
 
 ```{r introduction_sub_report, child='02_introduction.Rmd' }
 ```
-
 
 `r f_borderline()`
 
@@ -146,101 +151,152 @@ div(class = "row",
 ## 6. Maps (h2)
 
 ```{r maps_sub_report , child='06_maps.Rmd'}
-```
+```  
+  
+`r f_borderline()`  
 
-`r f_borderline()`
+## 7. Download data (h2)
 
-## 7. Download data
+### Download data buttons linked to charts/maps (h3)
 
-```{r data_download, eval=demo_excel_ready}
+In the functions folder the 'make_tables' R Script contains a function called 'f_make_tables' that creates the Excel and CSV download buttons that are under each of the figures in section six. The function generates a hyper-link that sits behind the download button and allows a user to click the button and download data from the corresponding chart into csv or excel format.  
+
+This function can be called after each figure and has 4 parameters fed into it - data (the data frame), title (the title to be given to the downloaded file), data_style (style applied to the excel file - styles can be viewed in the Style.R script) and data_dir (the file path the downloaded files should be stored in - in the example below the file path is set in the demo config file).  
+
+When the download buttons are clicked the excel or csv files are saved out to the 'figdata' folder. For figure 1 the code to call the f_make_tables function can be seen below when you select the show code button:
+
+```{r data_download_example, echo = TRUE}
+# call make tables function to create chart download buttons
+f_make_tables(
+  data = df_fig1_xls,
+  title = fig1_title,
+  data_style = ns_comma,
+  data_dir = paste0(here(), "/code/demo/demo_outputs/", "figdata/")
+)
+```  
+
+### Embed spreadsheet into report (h3)
+
+Another option to include downloadable data in a html report is to embed a spreadsheet into the report by adding a download data button as below. For this option edit and run the demo_excel_tables.R script first to create the required spreadsheet in the demo output folder or add the already prepared spreadsheet to the folder. Using the code below (click on show code) parameters can be set in the embed_file function to set the file path, file name and text to appear on the download button. Run this code to create the download data button with the embedded spreadsheet.
+
+It is not recommended to use this option unless necessary. This is due to the large file sizes of the embedded files. This has the potential to slow the processing and knitting time of the report and generate a html page that is very large and slow to load.
+
+```{r data_download, echo =TRUE, eval=demo_excel_ready}
 # embeds the spreadsheets
-embexcel <- embed_file(paste0(outputs_source_root_demo, "RAP_demo_tables.xlsx"),
-                       text = "Publication tables: 15KB")
- div(
-    
-    div(class = "row", style = "display: flex;",
-        div(class = "row-indent"),
-        div(class = "download", "Download data: ", style = "font-size: 12pt"),
-        div(class = "row-indent"),
-        div(class = "xl-button2", embexcel),
-        div(class="download", style="padding-top: 7px; padding-left: 5px; padding-right: 5px;"))
+embexcel <- embed_file(
+  paste0(
+    here(), "/code/demo/demo_outputs/",
+    "RAP_demo_tables.xlsx"
+  ),
+  text = "Publication tables: 15KB"
+)
+div(
+  div(
+    class = "row", style = "display: flex;",
+    div(class = "row-indent"),
+    div(class = "download", "Download data: ", style = "font-size: 12pt"),
+    div(class = "row-indent"),
+    div(class = "xl-button2", embexcel),
+    div(class = "download", style = "padding-top: 7px; padding-left: 5px;
+        padding-right: 5px;")
   )
+)
 ```
+
 `r f_borderline()`
 
+## 8. Notes for readers  (h2)
+```{r notes_for_readers_sub_report, child='07_notes_for_readers.Rmd'}
+```
+
+`r f_borderline()`
+
+## 9. Text presentation  (h2)
+```{r text_presentation_sub_report, child='08_text_presentation.Rmd'}
+```
+
+`r f_borderline()`
+
+## 10. Useful acessibility links (h2)
+
+```{r useful_links_sub_report, child='09_useful_links.Rmd'}
+```
+
+`r f_borderline()`
+
+## 11. Accredited Official Statistics & Official Statistics (h2)
+
+```{r accredited_stats_sub_report, child='10_accredited_stats.Rmd'}
+```
+
+`r f_borderline()`
+
+## 12.Contact Details (h2)
+
+`r f_contact()`
+
+### Accessibility contact (h3)
+
+Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are:
+
+**Email:** info@nisra.gov.uk
+
+**Telephone:** +44 (0)300 200 7836
+
+Dissemination Branch  
+NISRA  
+Colby House  
+Stranmillis Court  
+BELFAST  
+BT9 5RR  
+  
+  
+    
 <!-- close main div -->
 </div>
 
-<!-- open footer div -->
-<div class="footer">
 
-## 8. Text section (h2)
-```{r text_sub_report, child='07_text.Rmd'}
-
-```
-`r f_borderline()`
-
-## 9. Useful acessibility links (h2)
-
-```{r useful_links_sub_report, child='08_useful_links.Rmd'}
-
-```
-
-`r f_borderline()`
-
-## 10. National statistics statement (h2) {#NatStats}
-
-```{r national_stats_sub_report, child='09_national_stats.Rmd'}
-
-```
-
-`r f_borderline()`
-
-## 11. Accessibility
-
-### Accessibility statement
-
-This report by Tech Lab has been formally accessibility quality assured to WCAG 2.1 Level AA standards. 
-
-NISRA includes accessibility throughout our internal policies, we employ formal accessibility quality assurance methods and include people with disabilities in our user testing process.
-
-We want as many people as possible to be able to access this report. That means you should be able to:
-
-* zoom in up to 300% without the text spilling off the screen
-* navigate most of the website using just a keyboard
-* navigate most of the website using speech recognition software
-* listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver).
-
-We’ve also made the text as simple as possible to understand.
-
-It is not compatible with older browsers or Internet Explorer.
-
-This html report relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins installed on your computer:
-
-* HTML
-* WAI-ARIA
-* CSS
-* JavaScript
-
-These technologies are relied upon for conformance with the accessibility standards used.
-
-### Limitations and alternatives
-
-Despite our best efforts to ensure accessibility of this report, there may be some limitations. Below is a description of known limitations and potential solutions. Please contact us if you observe an issue not listed below.
-
-1. Mobile users: some of the charts are resized along the x-axis for display on smaller screens. Please rotate your device to view charts in landscape for a better experience
-
-1. Excel documents for screen reader users: headings are not tagged as h1 but are placed in cell A1 of each sheet. Please navigate to the relevant tables using the table of contents or by sheet starting in cell A1.
-
-1. CSV files for screen reader users: these data files only contain a single header row, no titles or definitions so users may lose context of these files in isolation. They are provided as an alternative format to charts and are also available in excel format which may be preferable.
-
-### Accessibility contact
-
-Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are at the top of this page.
+<!--html_preserve-->
+<!-- Footer section -->
+<footer style="color: #ffffff; background-color: #00205b;">
+	<div class="col-wide" data-analytics="footer">
+		<div class="row">
+			<div class="column left">
+				<footerheading>Links</footerheading>
+				<ul>
+				  <li><a href="https://www.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA</a></li>
+	        <li><a href="https://www.nidirect.gov.uk" class="link" style="color: #ffffff">NIDirect</a></li>
+					<li><a href="https://www.gov.uk/" class="link" style="color: #ffffff">GOV.UK</a></li>
+					<li><a href="https://data.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA Data Portal</a></li>
+					<li><a href="https://build.nisra.gov.uk/" class="link" style="color: #ffffff">Census Flexible Table Builder</a></li>
+				</ul>
+			</div>
+			<div class="column right">
+				<footerheading>Follow NISRA</h3></footerheading>
+				<ul>
+					<li><a href="https://www.facebook.com/nisra.gov.uk" class="link" style="color: #ffffff">Facebook</a></li>
+					<li><a href="https://twitter.com/NISRA" class="link" style="color: #ffffff">X (Twitter)</a></li>
+					<li><a href="https://www.youtube.com/user/nisrastats" class="link" style="color: #ffffff">YouTube</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="flex-list">
+			<ul>
+				<li><a href="https://www.nisra.gov.uk/crown-copyright" class="link" style="color: #ffffff">&copy Crown Copyright</a></li>
+				<li><a href="https://www.nisra.gov.uk/contact" class="link" style="color: #ffffff">Contact us</a></li>
+				<li><a href="https://www.nisra.gov.uk/terms-and-conditions" class="link" style="color: #ffffff">Terms and conditions</a></li>
+				<li><a href="https://www.nisra.gov.uk/cookies" class="link" style="color: #ffffff">Cookies</a></li>
+				<li><a href="https://www.nisra.gov.uk/nisra-privacy-notice" class="link" style="color: #ffffff">Privacy</a></li>
+				<li><a href="https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html" class="link" style="color: #ffffff">Accessibility Statement</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<!--/html_preserve-->
 
 <script>
   // Create array of alt texts for map shapes
-  const mapAlt = `r if (exists("mapAlt")) {mapAlt} else {"[]"}`;
+  const map_alt = `r if (exists("map_alt")) {map_alt} else {"[]"}`;
 </script>
 
 ```{js}
@@ -255,7 +311,7 @@ function tabOrder() {
 
   for (var i=0; i<shapes.length; i++) {
     shapes[i].tabIndex = -1;
-    shapes[i].alt = mapAlt[i];
+    shapes[i].alt = map_alt[i];
   }
   
   // Make side menu tabbable
@@ -272,10 +328,5 @@ function tabOrder() {
 window.onload = tabOrder;
 ```
 
-<!-- close footer div -->
-</div>
-
 <!-- close data-nics-theme div -->
 </div>
-
-

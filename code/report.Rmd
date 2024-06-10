@@ -18,53 +18,37 @@ knit: (function(input, ...) {
       envir = globalenv()
     )
   })
-params:
-  nicstheme: dof
-  prerelease: TRUE
 ---
-<!-- params:
-     nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj, bso
-     prerelease - can be TRUE or FALSE
--->
 
-<!--html_preserve-->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72688332-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-72688332-4');
-</script>
-<!--/html_preserve-->
+<!--Add tabs to table of contents-->
+<body onload = "tabOrder()">
 
-<!-- message to rotate screen when width is too low -->
+<div id = "cookie-banner"></div>
+<script src = "cookies_script.js"></script>
 
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message= FALSE, echo = FALSE, warning = FALSE
+  message = FALSE, echo = FALSE, warning = FALSE
 )
 ```
-<div data-nics-theme="`r params$nicstheme`">
-
 
 ```{r setup, warnings = FALSE}
-
 library(here)
-       
-source(paste0(here(),"/code/config.R"))
-source(paste0(here(),"/code/data_prep.R"))
 
+source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/data_prep.R"))
 ```
 
+<!-- message to rotate screen when width is too low -->
+
+<div data-nics-theme="`r nicstheme`">
 
 `r f_banner()`  <!-- calling the banner code -->
 
 <!-- Header section -->
 
 `r f_header()`
-
 
 
 <!-- Introduction section -->
@@ -74,7 +58,7 @@ source(paste0(here(),"/code/data_prep.R"))
  
 <!-- Single Rmd -vs- 'sub-reports' -->
 <!-- Depending on your requirements, you can edit this document - add text, charts, links etc. directly into report.Rmd and knit -->
-<!-- For larger projects with multiple large sections, or when you need many contributors to edit it simultaneously, a s'sub-report' approach is available -->
+<!-- For larger projects with multiple large sections, or when you need many contributors to edit it simultaneously, a 'sub-report' approach is available -->
 <!-- With 'sub-reports', you can dynamically reference other .Rmd content into this file, similar to a cell reference in Excel -->
 <!-- The demo code (code/demo/demo_report.Rmd) makes use of this (Note: you can have a hybrid e.g. Key points is hard-coded and sub-reports for other sections  -->
 
@@ -91,13 +75,69 @@ Section text.
 
 ### Subsection heading (h3)
 
-Subsection text.
+Subsection text.    
+
+## Contact Details
+
+`r f_contact()`  
+
+### Accessibility contact (h3)
+
+Please contact Dissemination Branch for assistance with accessibility requirements or alternative formats. Contact details are:
+
+**Email:** info@nisra.gov.uk
+
+**Telephone:** +44 (0)300 200 7836
+
+Dissemination Branch  
+NISRA  
+Colby House  
+Stranmillis Court  
+BELFAST  
+BT9 5RR  
+  
+  
 
 <!-- closing main div -->
 </div>
 
-<!-- open footer div -->
-<div class="footer">
+<!--html_preserve-->
+<!-- Footer section -->
+<footer style="color: #ffffff; background-color: #00205b;">
+	<div class="col-wide" data-analytics="footer">
+		<div class="row">
+			<div class="column left">
+				<footerheading>Links</footerheading>
+				<ul>
+				  <li><a href="https://www.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA</a></li>
+	        <li><a href="https://www.nidirect.gov.uk" class="link" style="color: #ffffff">NIDirect</a></li>
+					<li><a href="https://www.gov.uk/" class="link" style="color: #ffffff">GOV.UK</a></li>
+					<li><a href="https://data.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA Data Portal</a></li>
+					<li><a href="https://build.nisra.gov.uk/" class="link" style="color: #ffffff">Census Flexible Table Builder</a></li>
+				</ul>
+			</div>
+			<div class="column right">
+				<footerheading>Follow NISRA</h3></footerheading>
+				<ul>
+					<li><a href="https://www.facebook.com/nisra.gov.uk" class="link" style="color: #ffffff">Facebook</a></li>
+					<li><a href="https://twitter.com/NISRA" class="link" style="color: #ffffff">X (Twitter)</a></li>
+					<li><a href="https://www.youtube.com/user/nisrastats" class="link" style="color: #ffffff">YouTube</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="flex-list">
+			<ul>
+				<li><a href="https://www.nisra.gov.uk/crown-copyright" class="link" style="color: #ffffff">&copy Crown Copyright</a></li>
+				<li><a href="https://www.nisra.gov.uk/contact" class="link" style="color: #ffffff">Contact us</a></li>
+				<li><a href="https://www.nisra.gov.uk/terms-and-conditions" class="link" style="color: #ffffff">Terms and conditions</a></li>
+				<li><a href="https://www.nisra.gov.uk/cookies" class="link" style="color: #ffffff">Cookies</a></li>
+				<li><a href="https://www.nisra.gov.uk/nisra-privacy-notice" class="link" style="color: #ffffff">Privacy</a></li>
+				<li><a href="https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html" class="link" style="color: #ffffff">Accessibility Statement</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<!--/html_preserve-->
 
 <!-- message to rotate screen if it is below 400px width -->
 <div id="rotate-screen">
@@ -106,7 +146,7 @@ Subsection text.
 
 <script>
   // Create array of alt texts for map shapes
-  const mapAlt = `r if (exists("mapAlt")) {mapAlt} else {"[]"}`;
+  const map_alt = `r if (exists("map_alt")) {map_alt} else {"[]"}`;
 </script>
 
 ```{js}
@@ -121,7 +161,7 @@ function tabOrder() {
 
   for (var i=0; i<shapes.length; i++) {
     shapes[i].tabIndex = -1;
-    shapes[i].alt = mapAlt[i];
+    shapes[i].alt = map_alt[i];
   }
   
   // Make side menu tabbable
@@ -137,8 +177,7 @@ function tabOrder() {
 // Instruct web browser to run above function when loaded
 window.onload = tabOrder;
 ```
-<!-- close footer div -->
-</div>
+
 
 <!-- close data-nics-theme div-->
 </div>
