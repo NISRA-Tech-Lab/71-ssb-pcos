@@ -15,6 +15,10 @@ bilingual <- TRUE
 #  prerelease - can be TRUE or FALSE
 #  bilingual - can be TRUE or FALSE - Sets language for NISRA Logo
 
+
+data_folder <- "T:/Projects/71 - SSB PCOS/Data/"
+password <- "PCOS"
+
 ##### YEAR OF DATA & REPORT TITLE  #####
 # Specify the current year your data is for.
 # Set the report title and subtitle if required
@@ -70,20 +74,16 @@ library(plotly)
 library(here)
 library(kableExtra)
 library(scales)
-library(ggrepel)
 library(DT)
 library(AMR)
-library(ggpubr)
-library(sf)
-library(tmap)
 library(htmltools)
 library(formattable)
 library(httpuv)
 library(janitor)
-library(odbc)
-library(DBI)
 library(foreign)
 library(fontawesome)
+library(remotes)
+library(readspss)
 
 # turn off warning messages
 options(warn = -1)
