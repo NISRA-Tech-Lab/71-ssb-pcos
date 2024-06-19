@@ -1,0 +1,224 @@
+---
+title: "RAP Skeleton"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+---
+
+<!--Add tabs to table of contents-->
+<body onload = "tabOrder()">
+
+<div id = "cookie-banner"></div>
+<script src = "cookies_script.js"></script>
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message = FALSE, echo = FALSE, warning = FALSE
+)
+```
+
+```{r setup, warnings = FALSE}
+library(here)
+
+source(paste0(here(), "/code/config.R"))
+# source(paste0(here(), "/code/data_prep.R"))
+```
+
+<!-- message to rotate screen when width is too low -->
+
+<div data-nics-theme="`r nicstheme`">
+
+`r f_banner()`  <!-- calling the banner code -->
+
+<!-- Header section -->
+
+`r f_header()`
+
+This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December 2022. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate.  The figures presented in this report were obtained from a representative sample of the Northern Ireland population (1,622 persons) and are therefore estimates. The key findings are:
+
+__Awareness__
+
+ * Public awareness of NISRA was moderate in 2022 with almost half of respondents (49%) indicating that they had heard of the Agency before being contacted about the survey. 
+ 
+ * Awareness of NISRA has decreased since 2020 and 2021, when 58% and 55% of respondents respectively, had heard of NISRA. However awareness of the Agency remains higher than in earlier years (2009 to 2019) when 35% or less of respondents had heard of NISRA.
+ 
+__Trust__
+
+ * Public trust in NISRA, as an institution, is high (84%).  Of those that had heard of NISRA, 93% stated that they trusted the Agency.
+ 
+ * Public trust in the statistics produced by NISRA is also high (85%).
+ 
+__Value__
+
+ * The statistics produced by NISRA are valued, with 90% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.
+ 
+__Political Interference__
+
+ * Over four-fifths (82%) of respondents agree that statistics produced by NISRA are free from political interference.
+
+<div id="main" role="main">
+`r f_borderline()`  <!-- calling the borderline code -->
+ 
+## Introduction
+
+Official Statistics in Northern Ireland are produced by Government Departments, and in some cases Arm’s Length Bodies. The data collection, production, presentation and dissemination of official statistics are governed by the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
+
+> This Code plays an essential role in ensuring that statistics published by government command public confidence through demonstrating trustworthiness and providing high quality statistics that enhance public value.
+>
+> `r tufte::quote_footer('Preamble, Code of Practice')`
+
+NISRA is an Agency within the Department of Finance and provides statistical services across government in Northern Ireland. The majority of Northern Ireland official statistics are produced by NISRA staff and NISRA branches can be found within all Northern Ireland Departments, and several Arm’s Length Bodies . NISRA has been measuring the levels of public confidence or trust in the Agency and in the statistics it produces since the Code was produced in 2009. These levels are monitored by the Agency and used to inform communication and marketing strategies.
+
+In the UK, the Office for National Statistics (ONS) is the largest producer of official statistics. Public trust in the ONS and the statistics it produces are also monitored and this report contains comparisons between NISRA and ONS. The ONS survey samples respondents in England, Scotland and Wales whilst the NISRA survey samples respondents in Northern Ireland.  The most recent ONS survey was conducted in 2021 ([Public Confidence in Official Statistics 2021 (ONS)](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)).
+
+[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022) are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see Appendix B for a list of tables).
+
+Differences are only noted in the commentary when they are likely to represent a real difference taking account of the margin of error in the sample-based estimates (see ‘Survey Estimates’ in Appendix A for further detail).
+
+`r f_borderline()`
+
+## Awareness of NISRA
+
+Just under half of respondents (49%) said they had heard of NISRA before being contacted about the survey.
+
+This has decreased since 2020 and 2021, when 58% and 55% of respondents respectively had heard of NISRA (Chart 1). 
+
+### Chart 1: Awareness of NISRA (2009-`r current_year`)
+
+```{r Chart 1}
+
+```
+
+Although there has been a decrease since 2020 and 2021, awareness of NISRA in 2022 is notably higher than in 2019 (35%) and previous years, before the start of the COVID-19 pandemic (Chart 1).
+
+Public awareness of NISRA remains lower than awareness of ONS, with three quarters (75%) of respondents having heard of ONS based on the latest available data (2021). The difference between public awareness levels for NISRA and ONS has narrowed since 2018, which was prior to the start of the COVID-19 pandemic (Chart 2).
+
+### Chart 2: Awareness of NISRA (2014-`r current_year`) and ONS (2014-`r ons_year`)
+
+```{r Chart 2}
+
+```
+
+
+`r f_borderline()`
+
+## Awareness of NISRA Statistics
+
+`r f_borderline()`
+
+## Trust in NISRA
+
+`r f_borderline()`
+
+## Trust in NISRA Statistics
+
+`r f_borderline()`
+
+## Value
+
+`r f_borderline()`
+
+## Political Interference
+
+`r f_borderline()`
+
+## Confidentiality
+
+`r f_borderline()`
+
+## Appendix A: Methodology and Quality Information 
+
+`r f_borderline()`
+
+## Appendix B: List of Detailed Tables 
+
+`r f_borderline()`
+
+## Appendix C: Survey Questions
+
+<!-- closing main div -->
+</div>
+
+<!--html_preserve-->
+<!-- Footer section -->
+<footer style="color: #ffffff; background-color: #00205b;">
+	<div class="col-wide" data-analytics="footer">
+		<div class="row">
+			<div class="column left">
+				<footerheading>Links</footerheading>
+				<ul>
+				  <li><a href="https://www.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA</a></li>
+	        <li><a href="https://www.nidirect.gov.uk" class="link" style="color: #ffffff">NIDirect</a></li>
+					<li><a href="https://www.gov.uk/" class="link" style="color: #ffffff">GOV.UK</a></li>
+					<li><a href="https://data.nisra.gov.uk/" class="link" style="color: #ffffff">NISRA Data Portal</a></li>
+					<li><a href="https://build.nisra.gov.uk/" class="link" style="color: #ffffff">Census Flexible Table Builder</a></li>
+				</ul>
+			</div>
+			<div class="column right">
+				<footerheading>Follow NISRA</h3></footerheading>
+				<ul>
+					<li><a href="https://www.facebook.com/nisra.gov.uk" class="link" style="color: #ffffff">Facebook</a></li>
+					<li><a href="https://twitter.com/NISRA" class="link" style="color: #ffffff">X (Twitter)</a></li>
+					<li><a href="https://www.youtube.com/user/nisrastats" class="link" style="color: #ffffff">YouTube</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="flex-list">
+			<ul>
+				<li><a href="https://www.nisra.gov.uk/crown-copyright" class="link" style="color: #ffffff">&copy Crown Copyright</a></li>
+				<li><a href="https://www.nisra.gov.uk/contact" class="link" style="color: #ffffff">Contact us</a></li>
+				<li><a href="https://www.nisra.gov.uk/terms-and-conditions" class="link" style="color: #ffffff">Terms and conditions</a></li>
+				<li><a href="https://www.nisra.gov.uk/cookies" class="link" style="color: #ffffff">Cookies</a></li>
+				<li><a href="https://www.nisra.gov.uk/nisra-privacy-notice" class="link" style="color: #ffffff">Privacy</a></li>
+				<li><a href="https://datavis.nisra.gov.uk/dissemination/accessibility-statement-visualisations.html" class="link" style="color: #ffffff">Accessibility Statement</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<!--/html_preserve-->
+
+<!-- message to rotate screen if it is below 400px width -->
+<div id="rotate-screen">
+  <p style="color: white;">Please rotate your screen for optimal experience</p>
+</div>
+
+
+```{js}
+
+// Function to remove map shapes from tab order, and add tabs to table of contents
+
+function tabOrder() {
+  
+  // Make side menu tabbable
+
+  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  
+  for (let i = 0; i < headings.length; i ++) {
+    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+  }
+  
+};
+
+// Instruct web browser to run above function when loaded
+window.onload = tabOrder;
+```
+
+
+<!-- close data-nics-theme div-->
+</div>

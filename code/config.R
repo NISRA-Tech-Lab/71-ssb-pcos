@@ -7,7 +7,7 @@
 # Set Report parameters, name of department, pre release status and logo type
 
 nicstheme <- "dof"
-prerelease <- TRUE
+prerelease <- FALSE
 bilingual <- TRUE
 
 ###### parameter options:
@@ -24,14 +24,15 @@ password <- "PCOS"
 # Set the report title and subtitle if required
 # THESE SHOULD BE UPDATED FOR EACH NEW PUBLICATION
 
-currentyear <- 2024
-title <- "NISRA Technology & Support Lab RAP Skeleton Demo Report"
-subtitle <- "Version Two"
+current_year <- 2022
+ons_year <- 2021
+title <- "Public Awareness of and Trust in Official Statistics, Northern Ireland 2022"
+subtitle <- ""
 
 ##### HEADER ######
 # Select the Statistic type for the report - select from the list of five below
 
-statistic_type <- "as" # options: as  (Accredited Official Statistics),
+statistic_type <- "os" # options: as  (Accredited Official Statistics),
 #          os  (Official Statistics),
 #          osd (Official Statistics in Development),
 #          mi  (Management Information),
@@ -39,7 +40,7 @@ statistic_type <- "as" # options: as  (Accredited Official Statistics),
 
 # Set the report publication data and next publication data if required
 
-pub_date <- "10 June 2024"
+pub_date <- "25 October 2023"
 next_pub_date <- "10 June 2025"
 
 ##### CONTACT DETAILS #####
@@ -48,9 +49,9 @@ next_pub_date <- "10 June 2025"
 
 header_publisher <-
   "Dissemination Branch, Northern Ireland Statistics & Research Agency"
-lead_statistician <- "John Smith"
-header_telephone <- "028 XX XXXXXX"
-header_email <- "contact@nisra.gov.uk"
+lead_statistician <- "Norma Broomfield"
+header_telephone <- "028 9038 8481"
+header_email <- "Norma.Broomfield@nisra.gov.uk"
 
 
 #### INSTALL PACKAGES  ####
@@ -84,6 +85,7 @@ library(foreign)
 library(fontawesome)
 library(remotes)
 library(readspss)
+library(tufte)
 
 # turn off warning messages
 options(warn = -1)

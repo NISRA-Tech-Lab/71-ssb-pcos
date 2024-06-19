@@ -22,7 +22,9 @@
     "BH": {
       "Package": "BH",
       "Version": "1.84.0-0",
-      "Source": "Repository"
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "a8235afbcd6316e6e91433ea47661013"
     },
     "DT": {
       "Package": "DT",
@@ -230,6 +232,16 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "5d8225445acb167abf7797de48b2ee3c"
+    },
+    "config": {
+      "Package": "config",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "yaml"
+      ],
+      "Hash": "8b7222e9d9eb5178eea545c0c4d33fc2"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -1053,10 +1065,15 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "JanMarvin",
       "RemoteRepo": "readspss",
+      "RemoteUsername": "JanMarvin",
       "RemoteRef": "HEAD",
-      "RemoteSha": "3ba9cc27aba964df7eadbcb51419d0cf307b2396"
+      "RemoteSha": "3ba9cc27aba964df7eadbcb51419d0cf307b2396",
+      "Requirements": [
+        "BH",
+        "Rcpp"
+      ],
+      "Hash": "d4fce1985641e0c9fd2621ed03d74aaa"
     },
     "readxl": {
       "Package": "readxl",
@@ -1369,6 +1386,19 @@
         "xfun"
       ],
       "Hash": "d44e2fcd2e4e076f0aac540208559d1d"
+    },
+    "tufte": {
+      "Package": "tufte",
+      "Version": "0.13",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "htmltools",
+        "knitr",
+        "rmarkdown",
+        "xfun"
+      ],
+      "Hash": "efcde6054a0796aec89329b1eca7f886"
     },
     "utf8": {
       "Package": "utf8",
