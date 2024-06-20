@@ -74,15 +74,16 @@ f_banner <- function() {
           img(
             src = nisra_logo,
             alt = "NISRA logo",
-            width = "220px"
+            width = "200px",
+            height = "80px"
           )
         )),
-        div(
-          style = "display: flex; justify-content: center",
-          if (statistic_type == "as") {
-            img(src = acc_official_stats, alt = nat_alt, width = "100px")
-          }
-        ),
+        if (statistic_type == "as") {
+          div(
+            style = "display: flex; justify-content: center",
+              img(src = acc_official_stats, alt = nat_alt, width = "100px")
+          )
+        },
         div(
           style = "display: flex; justify-content: center",
           a(
