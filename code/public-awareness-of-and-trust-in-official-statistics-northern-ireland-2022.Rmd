@@ -634,12 +634,12 @@ In comparison, 89% of ONS respondents in 2021 agree that personal information pr
 ### Chart 15: Belief that personal information provided will be kept confidential, NISRA (`r current_year`) and ONS (`r ons_year`)
 
 ```{r Chart 15}
-chart13_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
+chart15_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
                           agree = c(92, 89),
                           disagree = c(1, 9),
                           dunno = c(6, 89))
 
-plot_ly(chart13_data,
+plot_ly(chart15_data,
         x = ~org,
         y = ~agree,
         type = "bar",
