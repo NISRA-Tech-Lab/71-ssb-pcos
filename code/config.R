@@ -6,13 +6,13 @@
 
 # Set Report parameters, name of department, pre release status and logo type
 
-nicstheme <- "dof"
-prerelease <- FALSE
+nics_theme <- "dof"
+pre_release <- FALSE
 bilingual <- TRUE
 
 ###### parameter options:
-#  nicstheme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj, bso
-#  prerelease - can be TRUE or FALSE
+#  nics_theme - can be any of teo, daera, dfc, de, dfe, dof, dfi, doh, doj, bso
+#  pre_release - can be TRUE or FALSE
 #  bilingual - can be TRUE or FALSE - Sets language for NISRA Logo
 
 
@@ -158,9 +158,9 @@ nisra_alt <- "NISRA logo"
 dep_logo <- base64enc::dataURI(file = paste0(
   here(), "/data/images/",
   "dept_logos/logo-white-",
-  nicstheme, ".png"
+  nics_theme, ".png"
 ))
-dep_alt <- paste0(toupper(nicstheme), " logo")
+dep_alt <- paste0(toupper(nics_theme), " logo")
 
 # Departmental link
 

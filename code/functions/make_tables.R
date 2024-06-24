@@ -8,9 +8,9 @@ f_make_tables <- function(data,
 
   # File name generated from sheet name
 
-  csv_file <- sub(" ", "-", tolower(paste0(
-    "TL-demo-", sheet, "-",
-    pub_date_words_my, ".csv"
+  csv_file <- gsub(" ", "-", tolower(paste0(
+    gsub("\\)", "", gsub("\\(", "", sub(":", "", title))), 
+    ".csv"
   )))
   excel_file <- sub(".csv", ".xlsx", csv_file, fixed = TRUE)
 
@@ -52,7 +52,7 @@ f_make_tables <- function(data,
 
   r <- r + 1
 
-  writeData(wb, sheet, "Source: My data source", startCol = 1, startRow = r)
+  writeData(wb, sheet, "Source: Continuous Household Survey", startCol = 1, startRow = r)
 
   r <- r + 1
 

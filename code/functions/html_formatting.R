@@ -108,7 +108,7 @@ f_banner <- function() {
 f_header <- function() {
   div(
     class = "header",
-    if (prerelease == TRUE) {
+    if (pre_release == TRUE) {
       div(
         class = "prerelease-stripes", ".",
         div(

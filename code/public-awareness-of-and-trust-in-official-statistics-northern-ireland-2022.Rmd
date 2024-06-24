@@ -39,7 +39,7 @@ source(paste0(here(), "/code/config.R"))
 
 <!-- message to rotate screen when width is too low -->
 
-<div data-nics-theme="`r nicstheme`">
+<div data-nics-theme="`r nics_theme`">
 
 `r f_banner()`  <!-- calling the banner code -->
 
@@ -109,8 +109,10 @@ plot_ly(chart1_data,
         x = ~year,
         y = ~pct,
         type = "scatter",
-        mode = "line+marker",
+        mode = "lines+markers",
         text = ~paste0(year, ": ", pct, "%"),
+        marker = list(size = 8),
+        line = list(width = 4),
         hoverinfo = "text") %>%
   layout(
     showlegend = FALSE,
@@ -130,11 +132,27 @@ plot_ly(chart1_data,
       range = c(0, 100),
       linecolor = "#000000",
       showgrid = FALSE
-    )
+    ),
+    annotations = list(
+      list(text = "Percentage",
+           x = 0,
+           xref = "paper",
+           xanchor = "center",
+           y = 1.05,
+           yref = "paper",
+           yanchor = "bottom",
+           showarrow = FALSE)
+    ),
+    margin = list(t = 50)
   ) %>%
   config(displayModeBar = FALSE)
 
+f_make_tables(data = chart1_data,
+              title = paste0("Chart 1: Awareness of NISRA (2009-",current_year, ")"))
+
+
 ```
+
 
 Although there has been a decrease since 2020 and 2021, awareness of NISRA in 2022 is notably higher than in 2019 (35%) and previous years, before the start of the COVID-19 pandemic (Chart 1).
 
@@ -177,6 +195,9 @@ plot_ly(chart2_data,
          margin = list(t = 50)) %>%
   config(displayModeBar = FALSE)
 
+f_make_tables(data = chart2_data,
+              title = paste0("Chart 2: Awareness of NISRA (2014-",current_year, ") and ONS (2014-", ons_year, ")"))
+
 ```
 
 
@@ -207,7 +228,7 @@ chart3_data <- data.frame(output = c("The NI Census every ten years",
 
 plot_ly(chart3_data,
         x = ~yes,
-        y = ~output,
+        y = ~paste0(output, " "),
         type = "bar",
         marker = list(color = nisra_navy),
         name = "Yes") %>%
@@ -228,6 +249,9 @@ plot_ly(chart3_data,
                        y = 1.1,
                        xanchor = "center")) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart3_data,
+              title = paste("Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA", current_year))
 ```
 
 Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, 12% were aware that NISRA produced all the listed statistics while 10% were unaware that NISRA produced any of the listed statistics.
@@ -253,7 +277,7 @@ chart4_data <- data.frame(output = c("The NI Census every ten years",
 
 plot_ly(chart4_data,
         x = ~yes,
-        y = ~output,
+        y = ~paste0(output, " "),
         type = "bar",
         marker = list(color = nisra_navy),
         name = "Yes") %>%
@@ -274,6 +298,9 @@ plot_ly(chart4_data,
                        y = 1.1,
                        xanchor = "center")) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart4_data,
+              title = paste("Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA", current_year))
 ```
 
 `r f_borderline()`
@@ -311,8 +338,20 @@ plot_ly(chart5_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)
+         ) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart5_data,
+              title = paste0("Chart 5: Trust in NISRA (2014-", current_year), ")")
 
 ```
 
@@ -343,8 +382,19 @@ plot_ly(chart6_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart6_data,
+              title = paste0("Chart 6: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") as institutions"))
 
 ```
 
@@ -383,6 +433,9 @@ plot_ly(chart7_data,
                        y = 1.1,
                        xanchor = "center")) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart7_data,
+              title = paste("Chart 7: Trust in institutions", current_year))
 ```
 
 `r f_borderline()`
@@ -420,8 +473,19 @@ plot_ly(chart8_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart8_data,
+              title = paste0("Chart 8: Trust in NISRA statistics (2014-", current_year, ")"))
 
 ```
 
@@ -436,7 +500,7 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (11
 chart9_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
                           trust = c(85, 84),
                           distrust = c(4, 3),
-                          dunno = c(11, 3))
+                          dunno = c(11, 13))
 
 plot_ly(chart9_data,
         x = ~org,
@@ -454,8 +518,19 @@ plot_ly(chart9_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart9_data,
+              title = paste0("Chart 9: Trust in statistics produced by NISRA (", current_year, ") and ONS (", ons_year, ")"))
 
 ```
 
@@ -492,8 +567,19 @@ plot_ly(chart10_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart10_data,
+              title = paste0("Chart 10: NISRA statistics are important to understand Northern Ireland (2016-", current_year, ")"))
 
 ```
 
@@ -524,8 +610,19 @@ plot_ly(chart11_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart11_data,
+              title = paste0("Chart 11: Statistics produced are important to understand our country, NISRA (", current_year, ") and ONS (", ons_year, ")"))
 
 ```
 
@@ -538,13 +635,13 @@ Over four-fifths (82%) of respondents agree that statistics produced by NISRA ar
 ### Chart 12: NISRA statistics are free from political interference (2014-`r current_year`)
 
 ```{r Chart 12}
-chart10_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
+chart12_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
                           agree = c(77, 77, 82, 88, 83, 82),
                           disagree = c(15, 12, 7,5, 4, 5),
                           dunno = c(9, 11, 11, 7, 12, 13)) %>%
   mutate(year = as.character(year))
 
-plot_ly(chart10_data,
+plot_ly(chart12_data,
         x = ~year,
         y = ~agree,
         type = "bar",
@@ -560,11 +657,24 @@ plot_ly(chart10_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart12_data,
+              title = paste0("Chart 12: NISRA statistics are free from political interference (2014-", current_year, ")"))
 ```
 
 In comparison, 68% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure. 
+
+### Chart 13: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
 
 ```{r Chart 13}
 chart13_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
@@ -588,8 +698,19 @@ plot_ly(chart13_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart13_data,
+              title = paste0("Chart 13: Statistics produced are free from political interference, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
 `r f_borderline()`
@@ -625,8 +746,19 @@ plot_ly(chart14_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart14_data,
+              title = paste0("Chart 14: Personal information provided to NISRA will be kept confidential (2014-", current_year, ")"))
 ```
 
 In comparison, 89% of ONS respondents in 2021 agree that personal information provided to ONS will be kept confidential. This is significantly lower than for NISRA (Chart 15).
@@ -637,7 +769,7 @@ In comparison, 89% of ONS respondents in 2021 agree that personal information pr
 chart15_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
                           agree = c(92, 89),
                           disagree = c(1, 9),
-                          dunno = c(6, 89))
+                          dunno = c(6, 2))
 
 plot_ly(chart15_data,
         x = ~org,
@@ -655,8 +787,19 @@ plot_ly(chart15_data,
          barmode = "stack",
          yaxis = list(title = ""),
          xaxis = list(title = ""),
-         legend = list(y = 0.5)) %>%
+         legend = list(y = 0.5),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
+
+f_make_tables(data = chart15_data,
+              title = paste0("Chart 15: Belief that personal information provided will be kept confidential, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
 `r f_borderline()`
