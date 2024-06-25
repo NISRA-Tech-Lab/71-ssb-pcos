@@ -18,6 +18,7 @@ bilingual <- TRUE
 
 data_folder <- "T:/Projects/71 - SSB PCOS/Data/"
 password <- "PCOS"
+raw_password <- "CHS2223"
 
 ##### YEAR OF DATA & REPORT TITLE  #####
 # Specify the current year your data is for.
