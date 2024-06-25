@@ -18,6 +18,26 @@ data22 <- data22 %>% rename("TrustCivilService2" = "PCOS2a",
                             "Political2" = "PCOS5",  
                             "Confidential2" = "PCOS6")
 
+data_nulls <- data22 %>%
+  filter(is.na(TrustCivilService2)&
+         is.na(TrustNIAssembly2)&
+         is.na(TrustMedia2)&   
+         is.na(TrustNISRA2)&
+         is.na(TrustNISRAstats2)&
+         is.na(NISRAstatsImp2)&
+         is.na(Political2)&
+         is.na(Confidential2))
+
+data22 <- data22 %>%
+  filter(TrustNIAssembly2 != "Don't know"& TrustNIAssembly2 != "Refusal" |
+           TrustMedia2 != "Don't know" & TrustMedia2 != "Refusal" |
+           TrustNISRA2 != "Don't know" & TrustNISRA2 != "Refusal" |
+           TrustNISRAstats2 != "Don't know" & TrustNISRAstats2 != "Refusal" |
+           NISRAstatsImp2 != "Don't know" & NISRAstatsImp2 != "Refusal" |
+           Political2 != "Don't know" & Political2 != "Refusal" |
+           Confidential2 != "Don't know" & Confidential2 != "Refusal"
+  )
+
 data22 <- data22 %>%
   filter(TrustNIAssembly2 != "Don't know"& TrustNIAssembly2 != "Refusal" |
            TrustMedia2 != "Don't know" & TrustMedia2 != "Refusal" |
