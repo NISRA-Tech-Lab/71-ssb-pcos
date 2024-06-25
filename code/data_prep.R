@@ -5,8 +5,8 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 
 #### Read data in ####
-
-data22 <- readspss::read.spss(paste0(data_folder, "Final/PCOS 2022 Final Dataset (14 July 2023).sav"), pass = password)
+data2223 <- readspss::read.spss(paste0(data_folder, "Final/PCOS 2022 Final Dataset (14 July 2023).sav"), pass = password)
+data22 <- readspss::read.spss(paste0(data_folder, "Raw/2223_PCOS_FINAL_WEIGHTED_PASSWORDED.sav"), pass = raw_password)
 
 #### Recode variables #####
 data22 <- data22 %>% rename("TrustCivilService2" = "PCOS2a", 
@@ -17,6 +17,16 @@ data22 <- data22 %>% rename("TrustCivilService2" = "PCOS2a",
                             "NISRAstatsImp2" = "PCOS4", 
                             "Political2" = "PCOS5",  
                             "Confidential2" = "PCOS6")
+
+data22 <- data22 %>%
+  filter(TrustNIAssembly2 != "Don't know"& TrustNIAssembly2 != "Refusal" |
+           TrustMedia2 != "Don't know" & TrustMedia2 != "Refusal" |
+           TrustNISRA2 != "Don't know" & TrustNISRA2 != "Refusal" |
+           TrustNISRAstats2 != "Don't know" & TrustNISRAstats2 != "Refusal" |
+           NISRAstatsImp2 != "Don't know" & NISRAstatsImp2 != "Refusal" |
+           Political2 != "Don't know" & Political2 != "Refusal" |
+           Confidential2 != "Don't know" & Confidential2 != "Refusal"
+  )
 
 data22 <- data22 %>%
   filter(TrustNIAssembly2 == "Don't know"| TrustNIAssembly2 == "Refusal" &
@@ -32,6 +42,7 @@ data22 <- data22 %>%
 data22$TrustCivilService2 <- fct_collapse(data22$TrustCivilService2, 
                                           "Trust a great deal/Tend to trust" = c("Trust a great deal","Tend to trust"), 
                                           "Tend to distrust/Distrust greatly" = c("Tend to distrust", "Distrust greatly"))
+table(data22$TrustCivilService2)
 
 data22$TrustCivilService2 <- fct_collapse(data22$TrustCivilService2, 
                                           "Trust a great deal/Tend to trust" = c("Trust a great deal","Tend to trust"), 
@@ -65,17 +76,6 @@ data22$Confidential2 <- fct_collapse(data22$Confidential2,
                                      "Trust a great deal/Tend to trust" = c("Trust a great deal","Tend to trust"), 
                                      "Tend to distrust/Distrust greatly" = c("Tend to distrust", "Distrust greatly"))
 
-data22 <- data22 %>%
-  rename("TrustCivilService2" = "PCOS2a",
-         "TrustNIAssembly2" = "PCOS2b",
-         "TrustMedia2" = "PCOS2c",
-         "TrustNISRA2" = "PCOS2d",
-         "TrustNISRAstats2" = "PCOS3",
-         "NISRAstatsImp2" = "PCOS4",
-         "Political2" = "PCOS5",
-         "Confidential2" = "PCOS6",
-  )
-
 data22 <- data22 %>% 
   mutate(AGE2 = case_when(AGE >= 16 & AGE <= 24 ~ "16-24",
                           AGE >= 25 & AGE <= 34 ~ "25-34",
@@ -87,7 +87,9 @@ data22 <- data22 %>%
                           TRUE ~ NA_character_))
 data22$AGE2 <- as.factor(data22$AGE2)
 
-data22[c("DERHI")][data22[c("DERHI")] == "Other qualification"] <- NA
+data22[c("DERHI")][data22[c("DERHI")] == "Other qualifications"] <- NA
+table(data22$DERHI)
+
 data22 <- data22 %>%
   rename("DERHIanalysis" = "DERHI")
   
