@@ -1,0 +1,268 @@
+---
+title: "Alcohol Information Paper Revised 23_05_24"
+lang: "en"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      output_file = paste0(
+        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
+      ),
+      envir = globalenv()
+    )
+  })
+params:
+  nicstheme: dof
+  prerelease: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  message= FALSE, warning = FALSE, echo = FALSE
+)
+
+library(here)
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(), "/code/data_prep.R"))
+```
+
+```{r banner}
+ div(
+    div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
+        div(class = "left", img(src = nisraLogo, alt = "NISRA logo")),
+        div(class = "middleaostats", if(statistic_type == "aos") { img(src = aoStats, alt = "Accredited Official Statistics Logo")} ),
+        div(class = "right", img(src =  depLogo, alt = "DoF logo"))),
+    
+    div(class = "row", style = "display: flex;  margin-left: 0px; margin-right: 0px",
+        div(class = "left"),
+        div(class = "middle", p("Alcohol-Specific Deaths", style = "margin: 0"),
+            p("Northern Ireland", style = "margin: 0"),
+            p("Information Paper", style = "margin: 0")),
+        div(class = "right")),
+
+      div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
+        div(class = "findings", "Last Reviewed: 23 May 2024"),
+        div(class = "row-indent", style = paste0("background-color: var(--nics-banner-bg);"))),
+    
+    div(class = "row", style = "display: flex;  margin-left: 0px; margin-right: 0px",
+        div(style = paste0("background-color: var(--nics-banner-highlight); height: 9px; width: 100%;"))),
+    
+    br())
+```
+
+## Introduction
+
+The purpose of this information paper is to inform users about the quality of alcohol-specific death Statistics in Northern Ireland. This document provides a range of information that describes the quality of the data and details any points that should be noted when using the outputs.
+
+## Background to Alcohol-Specific Death Data
+
+The Northern Ireland Statistics and Research Agency (NISRA) produce data on births, deaths, marriages, civil partnerships and adoptions from civil registration events which are registered with the General Register Office (GRO).  Alcohol-specific figures are derived from cause of death recorded when a death is registered in Northern Ireland. Statistics are published annually and include counts and death rates for all alcohol-related deaths registered in Northern Ireland.
+
+Statistics which are produced from vital events registered in Northern Ireland are of a high quality and should have complete population coverage as it is a legal requirement to register all such events that occur in Northern Ireland.
+
+## Contacts
+
+Further details on any of the information provided in this paper should be directed to the NISRA Vital Statistics Team at:
+
+```{r contacts}
+div(style = "font-size: 16px;",
+  div(class = "row", style = "display: flex; margin-left: 0px; margin-bottom: 16px;",
+      div(style = "width: 130px", "Telephone:"), div("+44 (0)300 200 7836")),
+  div(class = "row", style = "display: flex; margin-left: 0px; margin-bottom: 16px;",
+      div(style = "width: 130px", "Email:"), div(a(href = "mailto:demography@nisra.gov.uk", "demography@nisra.gov.uk"))),
+  div(class = "row", style = "display: flex; margin-left: 0px;",
+      div(style = "width: 130px", "Address:"), div(HTML("Vital Statistics Team<br><br>Demography & Methodology Branch<br>Northern Ireland Statistics & Research Agency<br>Colby House<br>Stranmillis Court<br>Belfast<br>BT9 5RR")))
+)
+```
+
+
+## Relevance
+
+**_The degree to which the statistical product meets user needs in both coverage and content._**
+
+The annual __Alcohol-Specific Deaths, Northern Ireland__ release presents statistics on the most recent official death registration data available on alcohol-specific mortality across Northern Ireland (NI).
+Alcohol death figures were first published in Northern Ireland in 2001.
+
+While alcohol-specific deaths account for less than 2 per cent of all deaths in NI, there has been a general upward trend in the number of such deaths, rising from 178 in 2001 to 356 in 2022. With this known effect on premature mortality, there is considerable political, media and public interest in these figures and they are used by a range of public bodies, including the Department of Health (DoH) and the Public Health Agency (PHA). In addition, alcohol-specific data is also used by academia to investigate trends in drug specific deaths and the effectiveness of public interventions.
+
+NISRA's annual release presents figures on alcohol specific deaths in NI and are broken down by cause of death, sex and geographic indicators relating to the usual residence of the deceased.
+
+The Department of Health, NI (DoH) use drug-related death statistics to inform policy and monitor the strategy: [Preventing Harm, Empowering Recovery](https://www.health-ni.gov.uk/publications/substance-use-strategy-and-reports), the aim of which is to reduce the level of alcohol and drug-related harm in Northern Ireland.
+
+## How the Output is Created
+
+### Source Data
+
+Alcohol-specific death statistics are derived from annual deaths registration data and represent all alcohol-specific deaths registered in Northern Ireland in the specific calendar year. The deaths file is a static file available at the time the dataset is closed (31st December). Revisions to registration records can still be made after the dataset has been finalised but these will not be reflected in the annual dataset or in published statistics. However, such revisions are limited and are highly unlikely to have an effect on the published statistics.
+
+The annual alcohol-specific deaths dataset includes:
+
+1. All alcohol-specific deaths registered by the 31st December of the reference year.
+
+1.	All alcohol-specific deaths where the deceased’s usual residence is outside Northern Ireland, where the death occurred in Northern Ireland (non-resident) and was registered by the 31st December of the reference year.
+
+1.	Alcohol-specific deaths to both resident and non-residents occurring in the year(s) prior to the reference year which were registered within the reference year.
+
+What the dataset doesn't include:
+
+1.	Alcohol-specific deaths to resident and non-residents occurring in the reference year, which are registered in subsequent years.
+
+1.	Alcohol-specific deaths of individuals usually resident in Northern Ireland who died abroad.
+
+### Definition
+
+_Prior to 2017_
+
+Prior to 2017 the UK-wide harmonised definition of Alcohol Related Deaths was used in NI and was defined as "when the underlying (i.e. primary) cause of death recorded on the death certificate is most directly due to alcohol consumption. These deaths can be identified solely through the [International Classification of Diseases (ICD)](http://www.who.int/classifications/icd/en/)." The previous National Statistics definition and the ICD ninth (ICD-09) and ICD tenth (ICD-10) revision codes used to define alcohol-related deaths are given in Table1 overleaf.
+
+#### Table 1: ICD9 and ICD10 codes relating to Alcohol-Related Deaths
+
+```{r table 1}
+data.frame(icd10 = c("F10", "G31.2", "G62.1", "I42.6", "K29.2", "K70, K73, K74", "K86.0", "X45", "X65", "Y15"),
+           icd09 = c("291, 303, 305.0", "", "", "425.5", "", "571", "", "E860", "", ""),
+           Description = c("Mental and behavioural disorders due to use of alcohol",
+                           "Degeneration of nervous system due to alcohol",
+                           "Alcoholic polyneuropathy",
+                           "Alcoholic polyneuropathy",
+                           "Alcoholic gastritis",
+                           "<i>Chronic liver disease (Alcoholic liver disease, Chronic hepatitis, not elsewhere classified, Fibrosis and cirrhosis of liver (Excluding K74.3-K74.5 – Biliary cirrhosis))</i>",
+                           "Alcohol induced chronic pancreatitis",
+                           "Accidental poisoning by and exposure to alcohol",
+                           "Intentional self-poisoning by and exposure to alcohol",
+                           "Poisoning by and exposure to alcohol, undetermined intent")) %>%
+  select("ICD-10 Underlying Cause Code" = icd10, "ICD-09 Underlying Cause Code" = icd09, Description) %>%
+  kbl(escape = FALSE) %>%
+  kable_styling(full_width = TRUE)
+```
+
+_2017 Onwards_
+
+The methodology for identifying alcohol-specific deaths was revised following a consultation led by the Office for National Statistics (ONS) in 2017.  The consultation and resulting methodology for identifying alcohol-specific deaths in the UK is described in the [Alcohol-specific deaths in the UK QMI](https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/methodologies/alcoholrelateddeathsintheukqmi#concepts-and-definitions) produced by ONS.
+
+The new definition, known as __Alcohol-Specific Deaths__, includes conditions known to be exclusively caused by alcohol (that is, wholly attributable causes) and excludes conditions where only a proportion of the deaths are caused by alcohol (that is, partially attributable causes). Compared with that used previously, the new definition includes several additional wholly attributable conditions.
+See Table 2 for details
+
+
+#### Table 2: Accredited Official Statistics definition of Alcohol-Specific Deaths
+
+```{r table 2}
+data.frame(icd10 = c("E24.4", "F10", "G31.2", "G62.1", "G72.1", "I42.6", "K29.2", "K70", "K85.2", "K86.0", "Q86.0", "R78.0", "X45", "X65", "Y15"),
+           description = c("Alcohol-induced pseudo-Cushing's syndrome",
+                           "Mental and behavioural disorders due to use of alcohol",
+                           "Degeneration of nervous system due to alcohol",
+                           "Alcoholic polyneuropathy",
+                           "Alcoholic myopathy",
+                           "Alcoholic cardiomyopathy",
+                           "Alcoholic gastritis",
+                           "Alcoholic liver disease",
+                           "Alcohol-induced acute pancreatitis",
+                           "Alcohol induced chronic pancreatitis",
+                           "Fetal induced alcohol syndrome (dysmorphic)",
+                           "Excess alcohol blood levels",
+                           "Accidental poisoning by and exposure to alcohol",
+                           "Intentional self-poisoning by and exposure to alcohol",
+                           "Poisoning by and exposure to alcohol, undetermined intent")) %>%
+  select("ICD-10 Code" = icd10, "Description of condition" = description) %>%
+  kbl(escape = FALSE) %>%
+  kable_styling(full_width = TRUE)
+```
+_Source: International Classification of Diseases, Tenth Revision (ICD-10)_
+
+__Notes__
+
+1. The definition agreed following a 2017 user consultation includes conditions that are wholly attributable to alcohol, based on codes from the International Classification of Diseases (10th Revision; ICD-10)
+
+This new definition is a more conservative estimate of the harms related to alcohol misuse and benefits from a consistent methodology across the UK, making it useful for robust and comparable estimates of trends in alcohol mortality. The definition however does not include diseases where there is evidence showing that only a proportion of the deaths, for a given cause, are caused by alcohol (that is, partially-attributable deaths), such as cancers of the mouth, oesophagus and liver. For more information on alcohol misuse and associated diseases see [The relationship between different dimensions of alcohol use and the burden of disease](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5434904/pdf/ADD-112-968.pdf) for examples.
+ 
+More information on this definitional change and the impact of this change can be found in ONS paper [The impact of using the new definition of alcohol-specific deaths](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/articles/theimpactofusingthenewdefinitionofalcoholspecificdeaths/2017-10-27).
+
+## Accuracy 
+
+**_The proximity between an estimate and the unknown true value._**
+ 
+Alcohol-specific death statistics are based on death registration data in Northern Ireland, which is a legal requirement under the Registration of Births and Deaths (Ireland) Act, 1863. All information provided at registration, which is normally provided by one or more family members, is collected by a District Registrar employed by the District Council. The number of cases where a death is not registered is believed to be relatively small and is not considered to adversely affect published results. Death registration data is therefore considered to be both comprehensive and highly accurate.
+
+NISRA code all causes of death mentioned on the death certificate using the _International Statistical Classification of Diseases and Related Health Problems, 10th Revision_. ICD coding rules are then applied to select the underlying cause of death. Deaths in NI are generally certified by a GP and are automatically coded using coding software, but some, including some alcohol-specific deaths, are referred to the Coroner. Due to the extra information supplied within the Coroner's forms, cause of death coding may be carried out manually. Manual coding is a potential source of error, however this risk in minimised as the coding is carried out by highly trained, experienced ONS staff who apply ICD coding rules.
+ 
+### Civil Registration Process/Timing of Alcohol Specific Deaths 
+ 
+By law, deaths occurring in Northern Ireland must be registered on the Northern Ireland civil register held by the General Register Office (GRONI). A death should be registered no later than five days from the date of death. In practice this does not always happen for a number of reasons. The most relevant being coroner’s cases, around 21 per cent of all deaths are referred to the Coroner, however, between 2016 and 2017, 47 per cent of alcohol specific deaths were referred to the Coroner.
+
+Alcohol-specific deaths in NI refer to the date of registration of the event and not to the date of occurrence. For alcohol-specific deaths, which may be referred to the coroner, it can take some time for the event to be registered. However 86 per cent of the alcohol-specific deaths recorded between 2016 and 2017 were registered in the year in which they occurred, so these mortality statistics, are much less affected by coroner referrals as some other causes of death, for example, drug related deaths.
+
+Further details on quality of death registration data in Northern Ireland can be found in the [Quality Assurance of Administrative Data (QAAD)](https://www.nisra.gov.uk/publications/quality-assurance-administrative-data-qaad-deaths-data-northern-ireland) document and the [Background Quality report (BQR)](https://www.nisra.gov.uk/publications/northern-ireland-deaths-background-quality-report) on death registration data.
+ 
+The United Kingdom Statistics Authority has designated these statistics as Accredited Official Statistics, in accordance with the Statistics and Registration Service Act 2007 and signifying compliance with the Code of Practice for Official Statistics.
+
+
+## Timeliness and Punctuality
+
+**_Timeliness refers to the time gap between publication and the reference period. Punctuality refers to the gap between planned and actual publication dates._**
+
+Provisional headline figures for alcohol-specific deaths are release in the Registrar General Quarterly tables which go out around 10 weeks after the end of the calendar quarter. Final headline figures for alcohol-specific deaths are released within the Registrar General Annual Report, around 10 months after the end of the reference year. More detailed breakdowns on alcohol-specific deaths are released within 12- 14 months after the end of the reference year.
+
+The results are based on analysis of all alcohol-specific deaths registered within the relevant reference year with summary, supplementary analysis on alcohol-specific deaths that occurred during the reference year. The year the deaths were registered is not necessarily the year these deaths will have occurred (for example, a death that occurs near the end of December 2022 may not be registered until 2023 or later).
+
+The [Vital Statistics Publication Schedule](https://www.nisra.gov.uk/publications/vital-statistics-documentation) is available on the NISRA Website and updated throughout the year. 
+
+The [UK Statistics Release Calendar](https://www.gov.uk/government/statistics/announcements) provides advance notice of releases. In the unlikely event of a change to the Publication Schedule, the public would be advised of the change via the NISRA website and any pre-announced dates would be updated on the Release Calendar. A full explanation of the reason(s) for the change would be provided as set out in the Code of Practice for Official Statistics.
+
+## Accessibility and Clarity
+
+**_Accessibility is the ease with which users are able to access the data, also reflecting the format in which the data are available and the availability of supporting information. Clarity refers to the quality and sufficiency of the metadata, illustrations and accompanying advice._**
+
+The NISRA website is the primary vehicle for the release of alcohol-specific death statistics in Northern Ireland. Data may be downloaded in Microsoft Excel format or Open Document Spreadsheet. An accompanying report is also available on the NISRA website in HTML format. 
+
+Ad-hoc analysis of alcohol-specific death data for Northern Ireland is available free of charge to users upon request.
+
+## Coherence and Comparability
+
+**_Coherence is the degree to which data that are derived from different sources or methods, but refer to the same topic, are similar. Comparability is the degree to which data can be compared over time and domain._**
+
+There is a large degree of comparability in alcohol-specific deaths statistics between countries within the UK. Annual alcohol-specific death statistics for the United Kingdom and its constituent countries are all based on the details collected when deaths are registered, and a consistent definition is applied to the derivation of these figures.
+
+In Scotland, a death must be registered within eight days rather than five days as in England, Wales and Northern Ireland. The Procurator Fiscal replaces the coroner system in England, Wales and Northern Ireland and has a duty to investigate all sudden, suspicious, accidental, unexpected and unexplained deaths, and any death occurring in circumstances that give rise to serious public concern.
+
+Throughout the UK, death statistics are based on the number of deaths registered in the reference period. Figures for the UK are produced by ONS compiling data for all jurisdictions.
+
+The definition of alcohol-specific deaths used across the UK is consistent but there are some differences in the methods used. For example, all jurisdictions use WHO ICD-10 cause of death coding and internationally agreed rules, but Scotland use bespoke software to apply these rules and produce ICD10 codes. ONS use IRIS Software to apply coding rules to all England, Wales and Northern Ireland data, insuring coding rules are being applied consistently.
+
+## Assessment of User Needs and Perceptions
+
+**_The processes for finding out about users and uses, and their views on the statistical products._**
+
+All Vital Statistics publications specifically invite users to provide any feedback they might have in respect of the content, format and relevance of the release. Following feedback from users, NISRA reviewed the presentation of these statistics on its website in 2019 and incorporated additional background and clarity on the definitional change.
+
+Feedback is also received through regular engagement with policy colleagues in Department of Health and the Public Health Agency. Additionally users are encouraged to share their feedback through the Vital Statistics Unit customer survey that open all year round and through annual, online user engagement events.
+
+## Performance, Cost and Respondent Burden
+
+**_The effectiveness, efficiency and economy of the statistical output._**
+
+While there is a legislative requirement to register a death within 5 days, there is no subsequent respondent burden unless of course they fail to fulfill their legal obligations in this respect. The production and quality assurance processes, which are considered to be both cost effective and efficient, have been streamlined wherever possible and are kept under review from a continuous improvement perspective.
+
+## Confidentiality, Transparency and Security
+
+**_The procedures and policy use to ensure sound confidentiality, security and transparent practices._**
+
+NISRA adhere to the United Kingdom Statistics Authority (UKSA) [Code of Practice for Official Statistics](https://code.statisticsauthority.gov.uk/) and the [Privacy and data confidentiality methods: a Data and Analysis Method Review (DAMR)](https://analysisfunction.civilservice.gov.uk/policy-store/privacy-and-data-confidentiality-methods-a-national-statisticians-quality-review-nsqr/) in the collection and dissemination of death statistics.
+
+Details of Demographic statistics approach to data access, physical security and disclosure control are available on the NISRA website under [Vital Statistics Documentation](https://www.nisra.gov.uk/statistics/births-deaths-and-marriages/vital-statistics-documentation).
+
+## Useful Links
+
+Alcohol death statistics in Great Britain and Ireland are available at the following links:
+
+ * [Northern Ireland](https://www.nisra.gov.uk/statistics/cause-death/alcohol-deaths)
+ * [UK](https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/bulletins/alcoholrelateddeathsintheunitedkingdom/registeredin2022)
+ * [Scotland](https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/alcohol-deaths)
+ * [Republic of Ireland](https://www.hrb.ie/data-collections-evidence/alcohol-and-drug-deaths/latest-data/)
+
+All media inquiries should be directed to DoF Communications Office at dof.pressoffice@finance-ni.gov.uk or on Telephone: 028 9081 6724.
