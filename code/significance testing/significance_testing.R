@@ -22,7 +22,7 @@ awareness_year <- data.frame(stat = c("%", "Base"),
                                               n2 = f_return_n(data_current$PCOS1)),
                                    NA))
 
-names(awareness_year) <- c("", current_year - 1, current_year, "Z Score")
+names(awareness_year) <- c(" ", current_year - 1, current_year, "Z Score")
 
 ## In Work vs Not in work ####
 
@@ -40,7 +40,7 @@ work_status <- data.frame(stat = c("%", "Base"),
                                            n2 = f_return_n_group(data_current$PCOS1, data_current$EMPST2, "Not in paid employment")),
                                 NA))
 
-names(work_status) <- c("", "In work", "Not in work", "Z Score")
+names(work_status) <- c(" ", "In work", "Not in work", "Z Score")
 
 ## Age groups ####
 
@@ -72,17 +72,17 @@ for (i in 1:length(age_groups)) {
   age_z_scores[[age_groups[i]]] <- col
 }
 
-names(age_z_scores)[names(age_z_scores) == "age"] <- ""
+names(age_z_scores)[names(age_z_scores) == "age"] <- " "
 
 ## Qualifications ####
 
-quals <- levels(data_current$DERHI)[!levels(data_current$DERHI) %in% c("Refusal", "DontKnow")]
+quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
 
 qual_stats <- data.frame(stat = c("%", "Base"))
 
 for (qual in quals) {
-  qual_stats[[qual]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHI, qual),
-                          f_return_n_group(data_current$PCOS1, data_current$DERHI, qual))
+  qual_stats[[qual]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, qual),
+                          f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, qual))
 }
 
 qual_z_scores <- data.frame(qual = quals)
@@ -91,16 +91,18 @@ for (i in 1:length(quals)) {
   col <- c()
   for(j in 1:length(quals)) {
     if (i > j) {
-      col[j] <- f_return_z(p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHI, quals[j]),
-                           n1 = f_return_n_group(data_current$PCOS1, data_current$DERHI, quals[j]),
-                           p2 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHI, quals[i]),
-                           n2 = f_return_n_group(data_current$PCOS1, data_current$DERHI, quals[i]))
+      col[j] <- f_return_z(p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, quals[j]),
+                           n1 = f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, quals[j]),
+                           p2 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, quals[i]),
+                           n2 = f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, quals[i]))
     } else {
       col[j] <- NA
     }
   }
   qual_z_scores[[quals[i]]] <- col
 }
+
+names(qual_z_scores)[names(qual_z_scores) == "qual"] <- " "
 
 # Products ####
 

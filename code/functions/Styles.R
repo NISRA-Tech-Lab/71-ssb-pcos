@@ -43,6 +43,11 @@ nsd <- createStyle(
   halign = "right"
 )
 
+ns3d <- createStyle(
+  numFmt = "#,##0.000",
+  halign = "right"
+)
+
 
 ns_comma <- createStyle(
   numFmt = "#,##0",
@@ -94,3 +99,21 @@ ts <- createStyle(
   textDecoration = "bold",
   fontSize = 14
 )
+
+# significance styles
+sig <- createStyle(
+  numFmt = "#,##0.000",
+  halign = "right",
+  fgFill = "#C6E0B4"
+)
+
+not_sig <- createStyle(
+  numFmt = "#,##0.000",
+  halign = "right",
+  fgFill = "#FCD5B4"
+)
+
+grey <- createStyle(
+  fgFill = "#D9D9D9"
+)
+
