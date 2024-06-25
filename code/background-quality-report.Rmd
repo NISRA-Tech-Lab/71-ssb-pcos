@@ -1,5 +1,5 @@
 ---
-title: "Alcohol Information Paper Revised 23_05_24"
+title: "Background Quality Report - Public Awareness of and Trust in Official Statistics, Northern Ireland"
 lang: "en"
 output: 
   html_document:
@@ -36,15 +36,15 @@ source(paste0(here(), "/code/data_prep.R"))
 ```{r banner}
  div(
     div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
-        div(class = "left", img(src = nisraLogo, alt = "NISRA logo")),
+        div(class = "left", img(src = nisra_logo, alt = "NISRA logo")),
         div(class = "middleaostats", if(statistic_type == "aos") { img(src = aoStats, alt = "Accredited Official Statistics Logo")} ),
-        div(class = "right", img(src =  depLogo, alt = "DoF logo"))),
+        div(class = "right", img(src =  dep_logo, alt = "DoF logo"))),
     
     div(class = "row", style = "display: flex;  margin-left: 0px; margin-right: 0px",
         div(class = "left"),
-        div(class = "middle", p("Alcohol-Specific Deaths", style = "margin: 0"),
-            p("Northern Ireland", style = "margin: 0"),
-            p("Information Paper", style = "margin: 0")),
+        div(class = "middle", p("Background Quality Report-", style = "margin: 0"),
+            p("Public Awareness of and Trust in", style = "margin: 0"),
+            p("Official Statistics, Northern Ireland", style = "margin: 0")),
         div(class = "right")),
 
       div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
@@ -57,212 +57,189 @@ source(paste0(here(), "/code/data_prep.R"))
     br())
 ```
 
+## Public Awareness of and Trust in Official Statistics, Northern Ireland
+
+This report provides information on the quality of the data used to produce the official statistics: [Public Awareness of and Trust in Official Statistics, Northern Ireland](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos). It informs users about the quality of the information upon which they may be drawing conclusions and making decisions.
+
+The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB))](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/e7f85f07-91db-4312-8118-f729c75878c7?t=1528447068000). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) requires that:
+
+<div style="padding: 15px; border: 1px solid transparent; border-color: #000000; margin-bottom: 20px; border-radius: 4px; color: #000000; background-color: #FFFFFF; border-color: #000000;">
+**Q3.3** *The quality of the statistics and data, including their accuracy and reliability, coherence and comparability, and timeliness and punctuality, should be monitored and reported regularly.*
+</div>
+
 ## Introduction
-
-The purpose of this information paper is to inform users about the quality of alcohol-specific death Statistics in Northern Ireland. This document provides a range of information that describes the quality of the data and details any points that should be noted when using the outputs.
-
-## Background to Alcohol-Specific Death Data
-
-The Northern Ireland Statistics and Research Agency (NISRA) produce data on births, deaths, marriages, civil partnerships and adoptions from civil registration events which are registered with the General Register Office (GRO).  Alcohol-specific figures are derived from cause of death recorded when a death is registered in Northern Ireland. Statistics are published annually and include counts and death rates for all alcohol-related deaths registered in Northern Ireland.
-
-Statistics which are produced from vital events registered in Northern Ireland are of a high quality and should have complete population coverage as it is a legal requirement to register all such events that occur in Northern Ireland.
-
-## Contacts
 
 Further details on any of the information provided in this paper should be directed to the NISRA Vital Statistics Team at:
 
-```{r contacts}
-div(style = "font-size: 16px;",
-  div(class = "row", style = "display: flex; margin-left: 0px; margin-bottom: 16px;",
-      div(style = "width: 130px", "Telephone:"), div("+44 (0)300 200 7836")),
-  div(class = "row", style = "display: flex; margin-left: 0px; margin-bottom: 16px;",
-      div(style = "width: 130px", "Email:"), div(a(href = "mailto:demography@nisra.gov.uk", "demography@nisra.gov.uk"))),
-  div(class = "row", style = "display: flex; margin-left: 0px;",
-      div(style = "width: 130px", "Address:"), div(HTML("Vital Statistics Team<br><br>Demography & Methodology Branch<br>Northern Ireland Statistics & Research Agency<br>Colby House<br>Stranmillis Court<br>Belfast<br>BT9 5RR")))
-)
-```
+The Public Awareness of and Trust in Official Statistics publication, produced by Northern Ireland Statistics and Research Agency (NISRA) Statistical Support Branch (SSB), presents findings on public awareness of NISRA and trust in official statistics in Northern Ireland. It examines changes over time and by socio-economic characteristics such as age, employment status and education. 
 
+The report also presents findings on trust in NISRA as an institution, compared to the Civil Service, the media and the NI Assembly. Information on the public’s opinion on the importance of NISRA statistics in understanding Northern Ireland is also included, as well as the public’s view on political interference and confidentiality. 
+
+Comparisons with the Office for National Statistics (ONS), the main producer of UK statistics, are made where there are appropriate data to do so.
+
+Following the initial release in 2009, the report was produced biennially until 2018 with the survey carried out in ‘even’ years (2010, 2012, 2014, 2016 & 2018). Since 2019, the report has been produced annually. Due to an issue with the data, it was only possible to report on the Awareness of NISRA question in 2018.
+
+Prior to 2018, the survey was included as a module within the [NI Omnibus Survey](https://www.nisra.gov.uk/statistics/find-your-survey/northern-ireland-omnibus-survey). In 2018, the module moved to the [Continuous Household Survey](https://www.nisra.gov.uk/statistics/find-your-survey/continuous-household-survey) (CHS) due to the suspension of the NI Omnibus Survey. From 2014, the questions have been asked in the Autumn of the year.
+
+The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. It is based on a representative sample of the general population, aged 16 and over, resident in private households. Prior to the COVID-19 pandemic, the CHS was based exclusively on face-to-face interviews carried out using computer-assisted personal interviewing (CAPI) where interviewers record responses to the questionnaire on tablets. During the pandemic, data collection switched to computer-assisted telephone interviewing (CATI). In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the CHS dual modality. Interviews are spread over the 12 months from April to March, with the ‘Public Awareness and Trust in Official Statistics’ module included from September to December in 2022.
+
+The data are used to monitor and report on awareness of NISRA, trust in NI official statistics and NISRA, as well as the public’s view on the value of official statistics, freedom from political interference and data confidentiality. This reflects the Trustworthiness, Quality and Value pillars of the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/), which all official statistics and producers of official statistics must be compliant with. 
 
 ## Relevance
 
 **_The degree to which the statistical product meets user needs in both coverage and content._**
 
-The annual __Alcohol-Specific Deaths, Northern Ireland__ release presents statistics on the most recent official death registration data available on alcohol-specific mortality across Northern Ireland (NI).
-Alcohol death figures were first published in Northern Ireland in 2001.
+NISRA provides statistical services across government in Northern Ireland. Official statistics produced by NISRA are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The [Statistics and Registration Service Act](https://www.legislation.gov.uk/ukpga/2007/18/made) 2007 states that official statistics should ‘serve the public good’ by informing the public about social and economic matters, and assisting in the development and evaluation of public policy. For the public to use official statistics effectively they must know who produces them and where to find them. The statistics in this release allow NISRA to monitor awareness levels and use these insights to inform communication and marketing strategies.
 
-While alcohol-specific deaths account for less than 2 per cent of all deaths in NI, there has been a general upward trend in the number of such deaths, rising from 178 in 2001 to 356 in 2022. With this known effect on premature mortality, there is considerable political, media and public interest in these figures and they are used by a range of public bodies, including the Department of Health (DoH) and the Public Health Agency (PHA). In addition, alcohol-specific data is also used by academia to investigate trends in drug specific deaths and the effectiveness of public interventions.
+Official statistics must be produced in accordance with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/). The Code is structured under three pillars. Together these pillars support public confidence in official statistics.
 
-NISRA's annual release presents figures on alcohol specific deaths in NI and are broken down by cause of death, sex and geographic indicators relating to the usual residence of the deceased.
+*	**Trustworthiness**: Confidence in the people and organisations that produce statistics and data
 
-The Department of Health, NI (DoH) use drug-related death statistics to inform policy and monitor the strategy: [Preventing Harm, Empowering Recovery](https://www.health-ni.gov.uk/publications/substance-use-strategy-and-reports), the aim of which is to reduce the level of alcohol and drug-related harm in Northern Ireland.
+*	**Quality**: Data and methods that produce assured statistics
 
-## How the Output is Created
+*	**Value**: Statistics that support society’s needs for information
 
-### Source Data
+The Code explicitly states that “Those producing and releasing statistics should be free from conflicts of interest, including political pressures” (T1.2) and that “All statutory obligations governing the collection of data, confidentiality, data sharing, data linking and release should be followed” (T6.1). These statistics allow the public and NISRA to monitor the effectiveness of the processes which are in place to ensure adherence to the Code and how public perception varies over time and across population subgroups.
 
-Alcohol-specific death statistics are derived from annual deaths registration data and represent all alcohol-specific deaths registered in Northern Ireland in the specific calendar year. The deaths file is a static file available at the time the dataset is closed (31st December). Revisions to registration records can still be made after the dataset has been finalised but these will not be reflected in the annual dataset or in published statistics. However, such revisions are limited and are highly unlikely to have an effect on the published statistics.
+<div style="padding: 15px; border: 1px solid transparent; border-color: #000000; margin-bottom: 20px; border-radius: 4px; color: #000000; background-color: #FFFFFF; border-color: #000000;">
+**T4.6** *Independent measures, such as internal and external audit, peer review and National Statistics Quality Reviews, should be used to evaluate the effectiveness of statistical processes. Statistics producers should be open about identified areas for improvement.*
+</div>
 
-The annual alcohol-specific deaths dataset includes:
+For each of the indicators, the report includes a population level analysis and also a breakdown by various sections of society. Comparisons are made with other institutions (the Civil Service, the media and the NI Assembly) and the Office for National Statistics (ONS), the largest producer of UK statistics, where there are appropriate data to do so.
 
-1. All alcohol-specific deaths registered by the 31st December of the reference year.
+A core set of questions have been included in each survey (since 2014) allowing trends to be monitored over time. Questions have been aligned with the equivalent survey carried out by the Office of National Statistics ([Public Confidence in Official Statistics](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)) and the OECD Committee for Statistics recommendations on [Measuring Trust in Official Statistics](https://www.oecd.org/sdd/modelsurveyquestionnaireonmeasuringtrustinofficialstatistics.htm#:~:text=In%202009%2C%20the%20OECD%20Committee%20on%20Statistics%20formally,a%20number%20of%20National%20Statistical%20Offices%20and%20Agencies.).
 
-1.	All alcohol-specific deaths where the deceased’s usual residence is outside Northern Ireland, where the death occurred in Northern Ireland (non-resident) and was registered by the 31st December of the reference year.
+Consultation is carried out prior to each run of the survey with key users to agree the questions to be included and to ensure they continue to cover the main requirements for users.
 
-1.	Alcohol-specific deaths to both resident and non-residents occurring in the year(s) prior to the reference year which were registered within the reference year.
+The statistical product includes a publication containing charts and associated commentary, as well as detailed tables and standalone infographics to meet the needs of different users. The background to the publication, as well as key methodology and quality information is included within the publication. In addition, all data is provided in Open Document spreadsheets.
 
-What the dataset doesn't include:
-
-1.	Alcohol-specific deaths to resident and non-residents occurring in the reference year, which are registered in subsequent years.
-
-1.	Alcohol-specific deaths of individuals usually resident in Northern Ireland who died abroad.
-
-### Definition
-
-_Prior to 2017_
-
-Prior to 2017 the UK-wide harmonised definition of Alcohol Related Deaths was used in NI and was defined as "when the underlying (i.e. primary) cause of death recorded on the death certificate is most directly due to alcohol consumption. These deaths can be identified solely through the [International Classification of Diseases (ICD)](http://www.who.int/classifications/icd/en/)." The previous National Statistics definition and the ICD ninth (ICD-09) and ICD tenth (ICD-10) revision codes used to define alcohol-related deaths are given in Table1 overleaf.
-
-#### Table 1: ICD9 and ICD10 codes relating to Alcohol-Related Deaths
-
-```{r table 1}
-data.frame(icd10 = c("F10", "G31.2", "G62.1", "I42.6", "K29.2", "K70, K73, K74", "K86.0", "X45", "X65", "Y15"),
-           icd09 = c("291, 303, 305.0", "", "", "425.5", "", "571", "", "E860", "", ""),
-           Description = c("Mental and behavioural disorders due to use of alcohol",
-                           "Degeneration of nervous system due to alcohol",
-                           "Alcoholic polyneuropathy",
-                           "Alcoholic polyneuropathy",
-                           "Alcoholic gastritis",
-                           "<i>Chronic liver disease (Alcoholic liver disease, Chronic hepatitis, not elsewhere classified, Fibrosis and cirrhosis of liver (Excluding K74.3-K74.5 – Biliary cirrhosis))</i>",
-                           "Alcohol induced chronic pancreatitis",
-                           "Accidental poisoning by and exposure to alcohol",
-                           "Intentional self-poisoning by and exposure to alcohol",
-                           "Poisoning by and exposure to alcohol, undetermined intent")) %>%
-  select("ICD-10 Underlying Cause Code" = icd10, "ICD-09 Underlying Cause Code" = icd09, Description) %>%
-  kbl(escape = FALSE) %>%
-  kable_styling(full_width = TRUE)
-```
-
-_2017 Onwards_
-
-The methodology for identifying alcohol-specific deaths was revised following a consultation led by the Office for National Statistics (ONS) in 2017.  The consultation and resulting methodology for identifying alcohol-specific deaths in the UK is described in the [Alcohol-specific deaths in the UK QMI](https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/methodologies/alcoholrelateddeathsintheukqmi#concepts-and-definitions) produced by ONS.
-
-The new definition, known as __Alcohol-Specific Deaths__, includes conditions known to be exclusively caused by alcohol (that is, wholly attributable causes) and excludes conditions where only a proportion of the deaths are caused by alcohol (that is, partially attributable causes). Compared with that used previously, the new definition includes several additional wholly attributable conditions.
-See Table 2 for details
-
-
-#### Table 2: Accredited Official Statistics definition of Alcohol-Specific Deaths
-
-```{r table 2}
-data.frame(icd10 = c("E24.4", "F10", "G31.2", "G62.1", "G72.1", "I42.6", "K29.2", "K70", "K85.2", "K86.0", "Q86.0", "R78.0", "X45", "X65", "Y15"),
-           description = c("Alcohol-induced pseudo-Cushing's syndrome",
-                           "Mental and behavioural disorders due to use of alcohol",
-                           "Degeneration of nervous system due to alcohol",
-                           "Alcoholic polyneuropathy",
-                           "Alcoholic myopathy",
-                           "Alcoholic cardiomyopathy",
-                           "Alcoholic gastritis",
-                           "Alcoholic liver disease",
-                           "Alcohol-induced acute pancreatitis",
-                           "Alcohol induced chronic pancreatitis",
-                           "Fetal induced alcohol syndrome (dysmorphic)",
-                           "Excess alcohol blood levels",
-                           "Accidental poisoning by and exposure to alcohol",
-                           "Intentional self-poisoning by and exposure to alcohol",
-                           "Poisoning by and exposure to alcohol, undetermined intent")) %>%
-  select("ICD-10 Code" = icd10, "Description of condition" = description) %>%
-  kbl(escape = FALSE) %>%
-  kable_styling(full_width = TRUE)
-```
-_Source: International Classification of Diseases, Tenth Revision (ICD-10)_
-
-__Notes__
-
-1. The definition agreed following a 2017 user consultation includes conditions that are wholly attributable to alcohol, based on codes from the International Classification of Diseases (10th Revision; ICD-10)
-
-This new definition is a more conservative estimate of the harms related to alcohol misuse and benefits from a consistent methodology across the UK, making it useful for robust and comparable estimates of trends in alcohol mortality. The definition however does not include diseases where there is evidence showing that only a proportion of the deaths, for a given cause, are caused by alcohol (that is, partially-attributable deaths), such as cancers of the mouth, oesophagus and liver. For more information on alcohol misuse and associated diseases see [The relationship between different dimensions of alcohol use and the burden of disease](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5434904/pdf/ADD-112-968.pdf) for examples.
- 
-More information on this definitional change and the impact of this change can be found in ONS paper [The impact of using the new definition of alcohol-specific deaths](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/articles/theimpactofusingthenewdefinitionofalcoholspecificdeaths/2017-10-27).
-
-## Accuracy 
+## Accuracy and Reliability
 
 **_The proximity between an estimate and the unknown true value._**
- 
-Alcohol-specific death statistics are based on death registration data in Northern Ireland, which is a legal requirement under the Registration of Births and Deaths (Ireland) Act, 1863. All information provided at registration, which is normally provided by one or more family members, is collected by a District Registrar employed by the District Council. The number of cases where a death is not registered is believed to be relatively small and is not considered to adversely affect published results. Death registration data is therefore considered to be both comprehensive and highly accurate.
 
-NISRA code all causes of death mentioned on the death certificate using the _International Statistical Classification of Diseases and Related Health Problems, 10th Revision_. ICD coding rules are then applied to select the underlying cause of death. Deaths in NI are generally certified by a GP and are automatically coded using coding software, but some, including some alcohol-specific deaths, are referred to the Coroner. Due to the extra information supplied within the Coroner's forms, cause of death coding may be carried out manually. Manual coding is a potential source of error, however this risk in minimised as the coding is carried out by highly trained, experienced ONS staff who apply ICD coding rules.
- 
-### Civil Registration Process/Timing of Alcohol Specific Deaths 
- 
-By law, deaths occurring in Northern Ireland must be registered on the Northern Ireland civil register held by the General Register Office (GRONI). A death should be registered no later than five days from the date of death. In practice this does not always happen for a number of reasons. The most relevant being coroner’s cases, around 21 per cent of all deaths are referred to the Coroner, however, between 2016 and 2017, 47 per cent of alcohol specific deaths were referred to the Coroner.
+The data in the most recent report are derived from the [Continuous Household Survey](https://www.nisra.gov.uk/statistics/find-your-survey/continuous-household-survey) (CHS). The CHS is one of the largest continuous surveys carried out in Northern Ireland. The survey is designed and administered by the Central Survey Unit (CSU), NISRA. It is based on a representative sample of the general population, aged 16 and over, resident in private households and has been running since 1983. 
 
-Alcohol-specific deaths in NI refer to the date of registration of the event and not to the date of occurrence. For alcohol-specific deaths, which may be referred to the coroner, it can take some time for the event to be registered. However 86 per cent of the alcohol-specific deaths recorded between 2016 and 2017 were registered in the year in which they occurred, so these mortality statistics, are much less affected by coroner referrals as some other causes of death, for example, drug related deaths.
+### Sample Design and Sampling Frame
 
-Further details on quality of death registration data in Northern Ireland can be found in the [Quality Assurance of Administrative Data (QAAD)](https://www.nisra.gov.uk/publications/quality-assurance-administrative-data-qaad-deaths-data-northern-ireland) document and the [Background Quality report (BQR)](https://www.nisra.gov.uk/publications/northern-ireland-deaths-background-quality-report) on death registration data.
- 
-The United Kingdom Statistics Authority has designated these statistics as Accredited Official Statistics, in accordance with the Statistics and Registration Service Act 2007 and signifying compliance with the Code of Practice for Official Statistics.
+The sample for the survey consists of a systematic random sample of 9,000 addresses selected from the NISRA Address Register (NAR). The NAR is developed within NISRA and is primarily based on the Land and Property Services (LPS) [Pointer](https://www.nidirect.gov.uk/articles/pointer) database which contains address information for every property in NI. The addresses on the NAR are sorted by district council and ward, so the sample is effectively stratified geographically. A starting point in the sampling frame is randomly selected and then every nth (fixed interval) is selected by counting through the frame. As the survey is asked to a representative sample of the Northern Ireland population there are no major coverage issues. People living in institutions are excluded.
 
+### Response Rate
+
+The target response rate for the CHS is 55%. That is, obtaining interviews at 55% of eligible addresses. Addresses which are vacant, derelict etc. and which do not contain people are deemed to be ineligible. Due to the ongoing impact of the COVID-19 pandemic, the achieved response rate in the 2022/23 CHS was slightly lower than normal (51%) but was still sufficient to carry out the required analyses. Of the 2,990 addresses selected for interview from September to December 2022, 1,622 persons participated in this module of the survey.
+
+### CHS data collection and processing
+
+In March 2020, due to the COVID-19 pandemic, data collection for the CHS moved from face-to-face interviewing using CAPI (computer-assisted personal interviewing) to telephone mode using CATI (computer-assisted telephone interviewing). Face-to-face interviewing was reinstated alongside telephone interviewing in July 2022, thus making the 2022/23 survey dual modality. In computer-assisted interviewing, interviewers record responses to the questionnaire on tablets which allows plausibility and consistency checks to be incorporated to improve data quality. Data are returned from the field via FTP dial up. Data are then downloaded onto secure network drives and processed through the CHS data management system. Responses are coded and fully validated by CSU statistical staff. 
+
+The CHS interviews are spread over the 12 months from April to March, with the 2022 ‘Public Awareness and Trust in Official Statistics’ module included from September to December 2022. 
+
+### CHS quality control and quality assurance
+
+Questions are pre-tested before they go into field. The questionnaire is scripted in Blaise which allows CSU staff to define range and consistency checks for each question and to control routing throughout the questionnaire. The data are subject to further validation checks including treatment of outliers and detailed consistency checking including non-credible checks. A 100% check of all coded data is undertaken by statistical staff to ensure that coding procedures are of a high standard. A random sample of 10% of completed CHS interviews are back-checked with respondents to ensure that interviews are valid. Interviewers undergo intensive induction training and are trained (face-to-face) before working on CHS. The quality of data returned by interviewers is assessed and is scored as part of their performance management.
+
+### Imputation
+
+There is no imputation on the CHS.
+
+### Weighting
+
+The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduce non-response bias to the results. A chi square goodness-of-fit test shows that the CHS achieved sample is not representative of the population by age and sex when compared with the Population Estimates for Northern Ireland. Young males are particularly underrepresented. To counter this, weights are applied to analysis on the basis of age and gender. Weights are calculated based on how the age and gender profile of the survey respondents differ from that of the latest mid-year population estimates published by NISRA. The 2021 mid-year estimates (rather than the 2022 mid-year estimates) were used for 2022/23, due to the later publication of the 2022 mid-year estimates. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults rather than of addresses, thus allowing inferences to be made about the population. 
+
+### SSB quality assurance checks 
+
+On receipt of CHS data, SSB statisticians validate and perform checks on the data, with any issues queried with the CHS team. Range and plausibility checks are performed for returned and derived variables. The data are also checked for ‘missing values’. As part of their quality assurance processes, SSB statisticians compare the data with previous years to identify any unusual trends or distributions, or values that lie outside expected norms. All anomalies are queried with CHS staff who can re-check the coding and source data. 
+
+### Sampling Error
+
+Because CHS data are based on a representative sample rather than the whole population they are subject to sampling error. Sampling error is the difference between the estimate derived from a sample and the 'true' value that would result if a census of the whole population were taken under the same conditions. 
+
+Significance tests are carried out to determine if the observed differences in the responses given by various respondent groups are likely to be real differences or due to sampling error. Any statements in the report regarding changes over time or differences between groups such as age group, educational level and economic activity are statistically significant at the 95% confidence level. This means that we can be 95% confident that the differences between groups are actual differences and have not just arisen by chance.
 
 ## Timeliness and Punctuality
 
 **_Timeliness refers to the time gap between publication and the reference period. Punctuality refers to the gap between planned and actual publication dates._**
 
-Provisional headline figures for alcohol-specific deaths are release in the Registrar General Quarterly tables which go out around 10 weeks after the end of the calendar quarter. Final headline figures for alcohol-specific deaths are released within the Registrar General Annual Report, around 10 months after the end of the reference year. More detailed breakdowns on alcohol-specific deaths are released within 12- 14 months after the end of the reference year.
+The ‘Public Awareness of and Trust in Official Statistics’ survey questions are normally asked in Autumn with the report published the following Autumn.
 
-The results are based on analysis of all alcohol-specific deaths registered within the relevant reference year with summary, supplementary analysis on alcohol-specific deaths that occurred during the reference year. The year the deaths were registered is not necessarily the year these deaths will have occurred (for example, a death that occurs near the end of December 2022 may not be registered until 2023 or later).
+The delay is primarily due to the need to wait until three months after the end of the CHS survey cycle (which runs to March) for the validation of the explanatory variables to be completed and the weights produced based on the previous year’s population estimates which are usually published towards the end of June. The data are provided to SSB in mid-July and the reported is published in September/ October.
 
-The [Vital Statistics Publication Schedule](https://www.nisra.gov.uk/publications/vital-statistics-documentation) is available on the NISRA Website and updated throughout the year. 
+Publication dates are pre-announced at least four weeks in advance in the official statistics publication calendar on gov.uk and also on the ‘Public Awareness of and Confidence (Trust) in Official Statistics (PCOS)’ page on the NISRA website. 
 
-The [UK Statistics Release Calendar](https://www.gov.uk/government/statistics/announcements) provides advance notice of releases. In the unlikely event of a change to the Publication Schedule, the public would be advised of the change via the NISRA website and any pre-announced dates would be updated on the Release Calendar. A full explanation of the reason(s) for the change would be provided as set out in the Code of Practice for Official Statistics.
+All the reports have been published on their planned publication dates, apart from the 2019 report, which was delayed by eight days to allow additional time for quality assurance. Any change to the pre-announced date is notified on both gov.uk and the NISRA website, including an explanation of the reason for the change.
 
 ## Accessibility and Clarity
 
 **_Accessibility is the ease with which users are able to access the data, also reflecting the format in which the data are available and the availability of supporting information. Clarity refers to the quality and sufficiency of the metadata, illustrations and accompanying advice._**
 
-The NISRA website is the primary vehicle for the release of alcohol-specific death statistics in Northern Ireland. Data may be downloaded in Microsoft Excel format or Open Document Spreadsheet. An accompanying report is also available on the NISRA website in HTML format. 
+The release can be accessed from the [‘Public Awareness of and Confidence (Trust) in Official Statistics (PCOS)’ page](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos) on the NISRA website, which is the same page as previous releases. It can also be accessed through the [official statistics publication calendar on gov.uk](https://www.gov.uk/search/research-and-statistics?keywords=%22public%20awareness%22%20trust%20%22official%20statistics%22&content_store_document_type=statistics_published&organisations%5B%5D=northern-ireland-statistics-and-research-agency&order=updated-newest)
 
-Ad-hoc analysis of alcohol-specific death data for Northern Ireland is available free of charge to users upon request.
+On the day of release, posts are issued from NISRA’s main social media accounts (Facebook and X (previously Twitter)) outlining some key findings from the publication, and linking to the release. A statistical press release is also made available to the media.
+
+The statistical product includes a publication containing charts and associated commentary, as well as detailed tables (including additional breakdowns) and standalone infographics to meet the needs of different users. All outputs are available to download free of charge.
+
+This publication is published in PDF format and is compliant with the AA standard under the [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/). The main part of the report includes key findings, followed by charts and accompanying commentary. All charts have appropriate titles and labels, and explanatory footnotes where required. Methodology and quality information is provided in Appendix A, with details of the accompanying tables in Appendix B and the survey questions in Appendix C.
+
+The detailed tables are available to download in ODS (Open Document Spreadsheet) format. Two infographics, summarising the main findings from the publication, are also available on the NISRA website. 
+
+The contact details of the responsible statistician have been included in the bulletin. 
+
+In addition, the data from the CHS are available on the [UK Data Service](https://www.ukdataservice.ac.uk/).
 
 ## Coherence and Comparability
 
-**_Coherence is the degree to which data that are derived from different sources or methods, but refer to the same topic, are similar. Comparability is the degree to which data can be compared over time and domain._**
+**_Coherence is the degree to which data that are derived from different sources or methods, but refer to the same topic, are similar.  Comparability is the degree to which data can be compared over time and domain._**
 
-There is a large degree of comparability in alcohol-specific deaths statistics between countries within the UK. Annual alcohol-specific death statistics for the United Kingdom and its constituent countries are all based on the details collected when deaths are registered, and a consistent definition is applied to the derivation of these figures.
+A core set of questions have been included in the survey (since 2014) allowing trends to be monitored over time. These are awareness of NISRA (which has been asked since the first run of the survey in 2009), trust in NISRA, trust in the Civil Service, trust in the media, trust in the NI assembly/ elected bodies, trust in NISRA statistics, political interference and data confidentiality, with the value question, i.e. the importance of NISRA statistics, introduced in 2016. The change in the wording of the NI assembly/ elected bodies question in 2019 reflected the collapse of the NI assembly in 2017 and feedback from respondents (in 2018) who queried the relevance of a question about a body that wasn’t sitting.  The questions on respondent’s awareness of specified NISRA official statistics have been included since 2020. Questions on awareness of NISRA statistics were previously asked between 2009 and 2016. 
 
-In Scotland, a death must be registered within eight days rather than five days as in England, Wales and Northern Ireland. The Procurator Fiscal replaces the coroner system in England, Wales and Northern Ireland and has a duty to investigate all sudden, suspicious, accidental, unexpected and unexplained deaths, and any death occurring in circumstances that give rise to serious public concern.
+For each of the key indicators (Awareness, Trust in NISRA, Trust in NISRA Statistics, Value, Political Interference and Confidentiality) the publication includes a comparison over time, as well as an analysis by age, employment status and highest qualification level. Detailed breakdowns (for these and other variables) are included in the accompanying tables. The same age breakdown has been used since 2009 allowing patterns over time to be compared (aside from 2014 when the three middle age groups (35-44, 45-54 and 55-64) were collapsed into two (35-49, 50-64)). The highest qualification level breakdown has remained the same since it was introduced in 2014 (although this question was not asked in 2020). 
 
-Throughout the UK, death statistics are based on the number of deaths registered in the reference period. Figures for the UK are produced by ONS compiling data for all jurisdictions.
+Significance tests are carried out to determine if the observed differences in the responses given by various respondent groups are likely to be real differences or due to sampling error. Any statements in the report regarding differences between groups such as age group, educational level and economic activity are statistically significant at the 95% confidence level. This means that we can be 95% confident that the differences between groups are actual differences and have not just arisen by chance.
 
-The definition of alcohol-specific deaths used across the UK is consistent but there are some differences in the methods used. For example, all jurisdictions use WHO ICD-10 cause of death coding and internationally agreed rules, but Scotland use bespoke software to apply these rules and produce ICD10 codes. ONS use IRIS Software to apply coding rules to all England, Wales and Northern Ireland data, insuring coding rules are being applied consistently.
+Trust in NISRA as an institution is compared with other institutions (the Civil Service, the media and the NI Assembly).
+
+A similar survey ([Public Confidence in Official Statistics](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)) is carried out by NatCen on behalf of the Office for National Statistics (ONS), the largest producer of UK official statistics. Where an equivalent question is asked and reported on in both surveys, the wording and response categories are aligned allowing comparisons to be made between NISRA and ONS. The Awareness of ONS/NISRA, Trust in ONS/NISRA, Trust in ONS/NISRA statistics, value, political interference and confidentiality questions are asked in both surveys. 
+
+The questions asked in the survey have also been aligned with the OECD Committee for Statistics recommendations on [Measuring Trust in Official Statistics](https://www.oecd.org/sdd/modelsurveyquestionnaireonmeasuringtrustinofficialstatistics.htm#:~:text=In%202009%2C%20the%20OECD%20Committee%20on%20Statistics%20formally,a%20number%20of%20National%20Statistical%20Offices%20and%20Agencies.).
+
+### Impact of the COVID-19 pandemic
+
+In March 2020, data collection for the CHS moved from face-to-face interviewing to telephone mode. This required a reduction in the number of questions in the overall questionnaire. While the Public Awareness and Trust in Official Statistics questions were unaltered, the change in data collection mode and the number of questions may have altered how people responded to the survey. In July 2022, face to face interviewing was reinstated alongside telephone interviewing, thus making the 2022/23 survey dual modality.
+
+The achieved response rate for the CHS was also lower than normal in 2020 (16% compared to 55%) and slightly lower than normal in 2021 (41%). As a result, the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this has maintained the precision of the 2020 estimates and enabled comparisons with 2021 and other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the CHS in 2022/23 was 51%. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
+
+### Change from NI Omnibus Survey to Continuous Household Survey (CHS)
+
+When the NI Omnibus Survey was suspended prior to the 2018 run, the questions were moved to the CHS. Both surveys use probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households. This means that comparisons can be made over time and significance tests carried out to determine if observed differences are likely to be real or due to sampling error. The questions are usually included in the CHS for three months to maintain a similar sample size to the NI Omnibus Survey. 
+
+The ‘Public Awareness of and Trust in Official Statistics’ survey has been carried out in the Autumn since 2014. Prior to this it was carried out in the Spring run of the NI Omnibus.
+
+## Trade-offs between Output Quality Components
+
+**_Trade-offs are the extent to which different aspects of quality are balanced against each other._**
+
+The main trade-off is timeliness against accuracy and comparability. Although the questions are asked in the Autumn interviews (September to December in 2022) finalised data from the CHS are not available until the following July meaning that there is a 9-13 month delay between the reference period and the results being published the following October. 
+
+Other surveys were considered but the CHS is the only survey which uses probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households at a similar cost to the NI Omnibus. Using the CHS means that the results can be generalised to the (household) population and that comparisons can be made over time.
 
 ## Assessment of User Needs and Perceptions
 
 **_The processes for finding out about users and uses, and their views on the statistical products._**
 
-All Vital Statistics publications specifically invite users to provide any feedback they might have in respect of the content, format and relevance of the release. Following feedback from users, NISRA reviewed the presentation of these statistics on its website in 2019 and incorporated additional background and clarity on the definitional change.
+Consultation is carried with key users prior to each run of the survey to agree the questions to be included and to ensure they continue to cover the main requirements for users.
 
-Feedback is also received through regular engagement with policy colleagues in Department of Health and the Public Health Agency. Additionally users are encouraged to share their feedback through the Vital Statistics Unit customer survey that open all year round and through annual, online user engagement events.
+Contact details for the responsible statistician have been provided in the report.
 
 ## Performance, Cost and Respondent Burden
 
 **_The effectiveness, efficiency and economy of the statistical output._**
 
-While there is a legislative requirement to register a death within 5 days, there is no subsequent respondent burden unless of course they fail to fulfill their legal obligations in this respect. The production and quality assurance processes, which are considered to be both cost effective and efficient, have been streamlined wherever possible and are kept under review from a continuous improvement perspective.
+In 2020, the last year for which data are available, the CHS module took on average 3 minutes to complete. In this year, there were two additional questions asked of some respondents so it is likely that the completion time for the module in 2022 was similar or slightly less.
 
 ## Confidentiality, Transparency and Security
 
-**_The procedures and policy use to ensure sound confidentiality, security and transparent practices._**
+**_The procedures and policy used to ensure sound confidentiality, security and transparent practices._**
 
-NISRA adhere to the United Kingdom Statistics Authority (UKSA) [Code of Practice for Official Statistics](https://code.statisticsauthority.gov.uk/) and the [Privacy and data confidentiality methods: a Data and Analysis Method Review (DAMR)](https://analysisfunction.civilservice.gov.uk/policy-store/privacy-and-data-confidentiality-methods-a-national-statisticians-quality-review-nsqr/) in the collection and dissemination of death statistics.
+The CHS data received by SSB are anonymised (name/address information removed). In addition, the data represent a sample of the population and there is no way to identify the sample chosen from the population. The data are held within SSB’s secure record management system (CM), with restricted access and subject to approved record retention protocols. Responses are presented as weighted percentages and analysis is only carried out if the sample size in the population sub-category is large enough. Consequently, the ‘don’t know’ category for the ‘Awareness’ question is not broken down by age group, educational achievement and employment status. There are therefore no small cells which need to have disclosure control methods applied.
 
-Details of Demographic statistics approach to data access, physical security and disclosure control are available on the NISRA website under [Vital Statistics Documentation](https://www.nisra.gov.uk/statistics/births-deaths-and-marriages/vital-statistics-documentation).
+Document last updated: October 2023
 
-## Useful Links
-
-Alcohol death statistics in Great Britain and Ireland are available at the following links:
-
- * [Northern Ireland](https://www.nisra.gov.uk/statistics/cause-death/alcohol-deaths)
- * [UK](https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/bulletins/alcoholrelateddeathsintheunitedkingdom/registeredin2022)
- * [Scotland](https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/alcohol-deaths)
- * [Republic of Ireland](https://www.hrb.ie/data-collections-evidence/alcohol-and-drug-deaths/latest-data/)
-
-All media inquiries should be directed to DoF Communications Office at dof.pressoffice@finance-ni.gov.uk or on Telephone: 028 9081 6724.
