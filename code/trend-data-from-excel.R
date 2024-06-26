@@ -79,6 +79,8 @@ chart_10_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   filter(year != 2022) %>%
   select(year:dunno)
 
+rownames(chart_10_data) <- 1:nrow(chart_10_data)
+
 saveRDS(chart_10_data, paste0(data_folder, "/Trend/2021/chart_10_data.RDS"))
 
 # Chart 12: NISRA statistics are free from political interference (2014-2021) ####

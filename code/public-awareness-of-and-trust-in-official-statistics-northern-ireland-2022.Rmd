@@ -247,7 +247,8 @@ plot_ly(chart3_data,
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
-                       xanchor = "center")) %>%
+                       xanchor = "center",
+                       traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart3_data,
@@ -256,7 +257,7 @@ f_make_tables(data = chart3_data,
 
 Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, 12% were aware that NISRA produced all the listed statistics while 10% were unaware that NISRA produced any of the listed statistics.
 
-Awareness was highest for the Northern Ireland    Census (84%), followed    by    the number of people who live in Northern Ireland (71%) and the number of deaths (62%). Statistics on qualifications of school leavers (36%), people living in poverty (35%)  and the percentage of journeys made by walking, cycling or public transport (24%) were the least recognised as being produced by NISRA.
+Awareness was highest for the Northern Ireland Census (84%), followed by the number of people who live in Northern Ireland (71%) and the number of deaths (62%). Statistics on qualifications of school leavers (36%), people living in poverty (35%) and the percentage of journeys made by walking, cycling or public transport (24%) were the least recognised as being produced by NISRA.
 
 ### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
 
@@ -296,7 +297,8 @@ plot_ly(chart4_data,
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
-                       xanchor = "center")) %>%
+                       xanchor = "center",
+                       traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart4_data,
@@ -431,7 +433,8 @@ plot_ly(chart7_data,
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
-                       xanchor = "center")) %>%
+                       xanchor = "center",
+                       traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart7_data,
