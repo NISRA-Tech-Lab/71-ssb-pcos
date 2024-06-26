@@ -246,7 +246,7 @@ body {
 }
 
 p, li, td, th {
-  font-size: 16px;
+  font-size: 12pt;
   /* color: #000000; */
 }
 
@@ -255,13 +255,13 @@ h1, h2, h3 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 22pt;
   page-break-before: always;
 }
 
 h3 {
   margin-top: 30px;
-  font-size: 24px;
+  font-size: 16pt;
 }
 
 h4, h5 {
@@ -270,18 +270,18 @@ h4, h5 {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 14pt;
 }
 
 h5 {
-  font-size: 16px;
+  font-size: 12pt;
 }
 
 footerheading {
-      margin-top: 30px;
+      margin-top: 23pt;
       font-weight: bold;
       color: #ffffff;
-      font-size: 24px;
+      font-size: 18pt;
   		margin: 0.5em;
 }
 
@@ -298,9 +298,9 @@ a:focus{
   outline: 2px solid red;
 }
 
-  caption {
-	  font-size: 120%;
-	  color: #000000;
+ caption {
+  font-size: 12pt;
+  color: #000000;
 }
 
 /* Has the title element from YAML only appear in the metadata */
@@ -310,7 +310,7 @@ a:focus{
 
 .middle p {
   color: #ffffff;
-  font-size: 30px;
+  font-size: 23pt;
   text-transform: capitalize;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -367,7 +367,7 @@ a:focus{
 /* Sets dimensions for subtitle */
 .findings {
   background-color: var(--nics-banner-bg);
-  font-size:18px;
+  font-size: 14pt;
   color: #ffffff;
   text-align: center;
   vertical-align: text-top;
@@ -408,7 +408,7 @@ a:focus{
 .csv-button a:active,
 .csv-button a:hover {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 14pt;
 } */
 
 .csv-button2 a:link,
@@ -416,7 +416,7 @@ a:focus{
 .csv-button2 a:active,
 .csv-button2 a:hover {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 14pt;
 }
 
 /* .xl-button {
@@ -445,7 +445,7 @@ a:focus{
 .xl-button2 a:active,
 .xl-button2 a:hover {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 14pt;
 }
 
 
@@ -500,7 +500,7 @@ a:focus{
 }
 
 li .tocify-item.list-group-item {
-  font-size: 16px;
+  font-size: 12pt;
 }
 
 /* Unindent and then re-indent toc items */
@@ -562,7 +562,7 @@ ul.tocify-subheader.list-group {
 
 	footer {
 		padding-bottom: 5px;
-		font-size: 18px;
+		font-size: 14pt;
 	}
 	footer a.link {
 		-webkit-box-sizing: border-box;
@@ -642,7 +642,7 @@ ul.tocify-subheader.list-group {
 		text-align: center;
 		border-left: 1px solid #ccc;
 		background-color: #00205b;
-		font-size: 14px;
+		font-size: 10.5pt;
 	}
 
 #cookie-banner {

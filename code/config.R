@@ -17,8 +17,11 @@ bilingual <- TRUE
 
 
 data_folder <- "T:/Projects/71 - SSB PCOS/Data/"
-password <- "PCOS"
-raw_password <- "CHS2223"
+
+data_filename <- "2223_PCOS_FINAL_WEIGHTED_PASSWORDED.sav"
+password <- "CHS2223"
+
+ons_filename <- "ONS PCOS Data - 2021.xlsx"
 
 ##### YEAR OF DATA & REPORT TITLE  #####
 # Specify the current year your data is for.

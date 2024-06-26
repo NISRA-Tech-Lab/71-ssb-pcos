@@ -33,17 +33,14 @@ knitr::opts_chunk$set(
 ```{r setup, warnings = FALSE}
 library(here)
 
-source(paste0(here(), "/code/config.R"))
-# source(paste0(here(), "/code/data_prep.R"))
+source(paste0(here(), "/code/data_prep.R"))
 ```
 
 <!-- message to rotate screen when width is too low -->
 
 <div data-nics-theme="`r nics_theme`">
 
-`r f_banner()`  <!-- calling the banner code -->
-
-<!-- Header section -->
+`r f_banner()` 
 
 `r f_header()`
 
@@ -102,10 +99,7 @@ This has decreased since 2020 and 2021, when 58% and 55% of respondents respecti
 
 ```{r Chart 1}
 
-chart1_data <- data.frame(year = c(2009, seq(2010, 2016, 2), 2018:2022),
-                          pct = c(30, 30, 32, 33, 33, 35, 35, 58, 55, 49))
-
-plot_ly(chart1_data,
+plot_ly(chart_1_data,
         x = ~year,
         y = ~pct,
         type = "scatter",
@@ -124,7 +118,9 @@ plot_ly(chart1_data,
       showgrid = FALSE,
       showticklabels = TRUE,
       ticks = "outside",
-      tickwidth = 2
+      tickwidth = 2,
+      tickvals = ~(min(year):max(year)),
+      tickmode = "array"
     ),
     yaxis = list(
       title = "",
@@ -147,7 +143,7 @@ plot_ly(chart1_data,
   ) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart1_data,
+f_make_tables(data = chart_1_data,
               title = paste0("Chart 1: Awareness of NISRA (2009-",current_year, ")"))
 
 
@@ -162,11 +158,7 @@ Public awareness of NISRA remains lower than awareness of ONS, with three quarte
 
 ```{r Chart 2}
 
-chart2_data <- data.frame(year = c(2014, 2016, 2018, 2019, 2020, 2021, 2022),
-                          nisra = c(33, 33, 35, 35, 58, 55, 49),
-                          ons = c(71, 71, 69, NA, NA, 75, NA))
-
-plot_ly(chart2_data,
+plot_ly(chart_2_data,
         x = ~year,
         y = ~nisra,
         type = "bar",
@@ -195,7 +187,7 @@ plot_ly(chart2_data,
          margin = list(t = 50)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart2_data,
+f_make_tables(data = chart_2_data,
               title = paste0("Chart 2: Awareness of NISRA (2014-",current_year, ") and ONS (2014-", ons_year, ")"))
 
 ```
@@ -212,21 +204,8 @@ Respondents who had not previously heard of NISRA were asked whether they had he
 ### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
 
 ```{r Chart 3}
-chart3_data <- data.frame(output = c("The NI Census every ten years",
-                                       "The unemployment rate in NI",
-                                       "Statistics on hospital waiting times in NI",
-                                       "The number of people who live in NI",
-                                       "The number of deaths in NI",
-                                       "Recorded levels of crime in NI",
-                                       "People living in poverty in NI",
-                                       "Qualifications of school leavers in NI",
-                                       "Journeys by walking, cycling, public transport"),
-                          yes = c(69, 38, 35, 34, 27, 23, 20, 18, 7),
-                          no = c(31, 62, 65, 66, 72, 76, 80, 82, 93),
-                          dunno = rep(0.6, 9)) %>%
-  arrange(yes)
 
-plot_ly(chart3_data,
+plot_ly(chart_3_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -251,7 +230,7 @@ plot_ly(chart3_data,
                        traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart3_data,
+f_make_tables(data = chart_3_data,
               title = paste("Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA", current_year))
 ```
 
@@ -262,21 +241,8 @@ Awareness was highest for the Northern Ireland Census (84%), followed by the num
 ### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
 
 ```{r Chart 4}
-chart4_data <- data.frame(output = c("The NI Census every ten years",
-                                       "The unemployment rate in NI",
-                                       "Statistics on hospital waiting times in NI",
-                                       "The number of people who live in NI",
-                                       "The number of deaths in NI",
-                                       "Recorded levels of crime in NI",
-                                       "People living in poverty in NI",
-                                       "Qualifications of school leavers in NI",
-                                       "Journeys by walking, cycling, public transport"),
-                          yes = c(84, 57, 44, 71, 62, 46, 35, 36, 24),
-                          no = c(16, 43, 56, 29, 38, 54, 65, 64, 76),
-                          dunno = 0.1, 0.1, 0.1, 0.1, 0, 0.1, 0.2, 0.1, 0.3) %>%
-  arrange(yes)
 
-plot_ly(chart4_data,
+plot_ly(chart_4_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -293,7 +259,7 @@ plot_ly(chart4_data,
          yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~output,
                       title = ""),
-         xaxis = list(title = ""),
+         xaxis = list(title = "Percentage"),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
@@ -301,7 +267,7 @@ plot_ly(chart4_data,
                        traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart4_data,
+f_make_tables(data = chart_4_data,
               title = paste("Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA", current_year))
 ```
 
@@ -318,13 +284,7 @@ Trust in NISRA in the last three years (2022, 2021 and 2020) was significantly h
 
 ```{r Chart 5}
 
-chart5_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
-                          trust = c(78, 78, 80, 90, 86, 84),
-                          distrust = c(7, 5, 5, 2, 2, 3),
-                          dunno = c(17, 17, 15, 7, 12, 13)) %>%
-  mutate(year = as.character(year))
-
-plot_ly(chart5_data,
+plot_ly(chart_5_data,
         x = ~year,
         y = ~trust,
         type = "bar",
@@ -352,7 +312,7 @@ plot_ly(chart5_data,
          ) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart5_data,
+f_make_tables(data = chart_5_data,
               title = paste0("Chart 5: Trust in NISRA (2014-", current_year), ")")
 
 ```
@@ -363,12 +323,7 @@ Trust in NISRA is similar to trust in ONS (83%) (Chart 6). However, when only th
 
 ```{r Chart 6}
 
-chart6_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
-                          trust = c(84, 83),
-                          distrust = c(3, 11),
-                          dunno = c(13, 7))
-
-plot_ly(chart6_data,
+plot_ly(chart_6_data,
         x = ~org,
         y = ~trust,
         type = "bar",
@@ -395,7 +350,7 @@ plot_ly(chart6_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart6_data,
+f_make_tables(data = chart_6_data,
               title = paste0("Chart 6: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") as institutions"))
 
 ```
@@ -409,12 +364,8 @@ A higher proportion of respondents don’t know if they trust NISRA or not (13%)
 ### Chart 7: Trust in institutions, `r current_year`
 
 ```{r Chart 7}
-chart7_data <- data.frame(org = c("NISRA", "The media", "The Civil Service", "The NI Assembly"),
-                          trust = c(84, 36, 77, 21),
-                          distrust = c(3, 61, 18, 74),
-                          dunno = c(13, 3, 5, 5))
 
-plot_ly(chart7_data,
+plot_ly(chart_7_data,
         x = ~trust,
         y = ~org,
         type = "bar",
@@ -428,7 +379,9 @@ plot_ly(chart7_data,
             name = "Don't Know") %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
+         yaxis = list(title = "",
+                      categoryorder = "array",  
+                      categoryarray = ~org),
          xaxis = list(title = ""),
          legend = list(orientation = "h",
                        x = 0.5,
@@ -437,7 +390,7 @@ plot_ly(chart7_data,
                        traceorder = "normal")) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart7_data,
+f_make_tables(data = chart_7_data,
               title = paste("Chart 7: Trust in institutions", current_year))
 ```
 
@@ -454,13 +407,7 @@ Amongst those who expressed an opinion there was no significant difference in tr
 
 ```{r Chart 8}
 
-chart8_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
-                          trust = c(83, 84, 84, 90, 86, 85),
-                          distrust = c(8, 8, 7, 4, 3, 4),
-                          dunno = c(10, 8, 9, 6, 11, 11)) %>%
-  mutate(year = as.character(year))
-
-plot_ly(chart8_data,
+plot_ly(chart_8_data,
         x = ~year,
         y = ~trust,
         type = "bar",
@@ -487,7 +434,7 @@ plot_ly(chart8_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart8_data,
+f_make_tables(data = chart_8_data,
               title = paste0("Chart 8: Trust in NISRA statistics (2014-", current_year, ")"))
 
 ```
@@ -500,12 +447,7 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (11
 
 ```{r Chart 9}
 
-chart9_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
-                          trust = c(85, 84),
-                          distrust = c(4, 3),
-                          dunno = c(11, 13))
-
-plot_ly(chart9_data,
+plot_ly(chart_9_data,
         x = ~org,
         y = ~trust,
         type = "bar",
@@ -532,7 +474,7 @@ plot_ly(chart9_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart9_data,
+f_make_tables(data = chart_9_data,
               title = paste0("Chart 9: Trust in statistics produced by NISRA (", current_year, ") and ONS (", ons_year, ")"))
 
 ```
@@ -548,13 +490,8 @@ Amongst respondents who had a view, the proportion agreeing that NISRA statistic
 ### Chart 10: NISRA statistics are important to understand Northern Ireland (2016-`r current_year`)
 
 ```{r Chart 10}
-chart10_data <- data.frame(year = c(2016, 2019, 2020, 2021, 2022),
-                          agree = c(88, 90, 94, 91, 90),
-                          disagree = c(6, 4, 2, 2, 3),
-                          dunno = c(6, 6, 4, 8, 7)) %>%
-  mutate(year = as.character(year))
 
-plot_ly(chart10_data,
+plot_ly(chart_10_data,
         x = ~year,
         y = ~agree,
         type = "bar",
@@ -581,7 +518,7 @@ plot_ly(chart10_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart10_data,
+f_make_tables(data = chart_10_data,
               title = paste0("Chart 10: NISRA statistics are important to understand Northern Ireland (2016-", current_year, ")"))
 
 ```
@@ -592,12 +529,7 @@ The percentage of respondents who agree that the statistics produced are importa
 
 ```{r Chart 11}
 
-chart11_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
-                          agree = c(90, 88),
-                          disagree = c(3, 9),
-                          dunno = c(7, 4))
-
-plot_ly(chart11_data,
+plot_ly(chart_11_data,
         x = ~org,
         y = ~agree,
         type = "bar",
@@ -624,7 +556,7 @@ plot_ly(chart11_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart11_data,
+f_make_tables(data = chart_11_data,
               title = paste0("Chart 11: Statistics produced are important to understand our country, NISRA (", current_year, ") and ONS (", ons_year, ")"))
 
 ```
@@ -638,13 +570,8 @@ Over four-fifths (82%) of respondents agree that statistics produced by NISRA ar
 ### Chart 12: NISRA statistics are free from political interference (2014-`r current_year`)
 
 ```{r Chart 12}
-chart12_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
-                          agree = c(77, 77, 82, 88, 83, 82),
-                          disagree = c(15, 12, 7,5, 4, 5),
-                          dunno = c(9, 11, 11, 7, 12, 13)) %>%
-  mutate(year = as.character(year))
 
-plot_ly(chart12_data,
+plot_ly(chart_12_data,
         x = ~year,
         y = ~agree,
         type = "bar",
@@ -671,7 +598,7 @@ plot_ly(chart12_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart12_data,
+f_make_tables(data = chart_12_data,
               title = paste0("Chart 12: NISRA statistics are free from political interference (2014-", current_year, ")"))
 ```
 
@@ -680,12 +607,8 @@ In comparison, 68% of respondents agree that statistics produced by ONS are free
 ### Chart 13: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
 
 ```{r Chart 13}
-chart13_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
-                          agree = c(82, 68),
-                          disagree = c(5, 24),
-                          dunno = c(13, 8))
 
-plot_ly(chart13_data,
+plot_ly(chart_13_data,
         x = ~org,
         y = ~agree,
         type = "bar",
@@ -712,7 +635,7 @@ plot_ly(chart13_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart13_data,
+f_make_tables(data = chart_13_data,
               title = paste0("Chart 13: Statistics produced are free from political interference, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
@@ -727,13 +650,8 @@ When only those who expressed an opinion are considered, there is no significant
 ### Chart 14: Personal information provided to NISRA will be kept confidential (2014-`r current_year`)
 
 ```{r Chart 14}
-chart14_data <- data.frame(year = c(2014, 2016, 2019, 2020, 2021, 2022),
-                          agree = c(89, 89, 92, 95, 92, 92),
-                          disagree = c(6, 6, 2, 1 , 1, 1),
-                          dunno = c(5, 5, 6, 4, 7, 6)) %>%
-  mutate(year = as.character(year))
 
-plot_ly(chart14_data,
+plot_ly(chart_14_data,
         x = ~year,
         y = ~agree,
         type = "bar",
@@ -760,7 +678,7 @@ plot_ly(chart14_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart14_data,
+f_make_tables(data = chart_14_data,
               title = paste0("Chart 14: Personal information provided to NISRA will be kept confidential (2014-", current_year, ")"))
 ```
 
@@ -769,12 +687,8 @@ In comparison, 89% of ONS respondents in 2021 agree that personal information pr
 ### Chart 15: Belief that personal information provided will be kept confidential, NISRA (`r current_year`) and ONS (`r ons_year`)
 
 ```{r Chart 15}
-chart15_data <- data.frame(org = c(paste0("NISRA (", current_year, ")"), paste0("ONS( ", ons_year, ")")),
-                          agree = c(92, 89),
-                          disagree = c(1, 9),
-                          dunno = c(6, 2))
 
-plot_ly(chart15_data,
+plot_ly(chart_15_data,
         x = ~org,
         y = ~agree,
         type = "bar",
@@ -801,7 +715,7 @@ plot_ly(chart15_data,
                             showarrow = FALSE)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart15_data,
+f_make_tables(data = chart_15_data,
               title = paste0("Chart 15: Belief that personal information provided will be kept confidential, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
