@@ -29,32 +29,51 @@ knitr::opts_chunk$set(
 )
 
 library(here)
-source(paste0(here(),"/code/config.R"))
-source(paste0(here(), "/code/data_prep.R"))
+
+source(paste0(here(), "/code/config.R"))
 ```
 
 ```{r banner}
- div(
-    div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
-        div(class = "left", img(src = nisra_logo, alt = "NISRA logo")),
-        div(class = "middleaostats", if(statistic_type == "aos") { img(src = aoStats, alt = "Accredited Official Statistics Logo")} ),
-        div(class = "right", img(src =  dep_logo, alt = "DoF logo"))),
-    
-    div(class = "row", style = "display: flex;  margin-left: 0px; margin-right: 0px",
-        div(class = "left"),
-        div(class = "middle", p("Background Quality Report-", style = "margin: 0"),
-            p("Public Awareness of and Trust in", style = "margin: 0"),
-            p("Official Statistics, Northern Ireland", style = "margin: 0")),
-        div(class = "right")),
-
-      div(class = "row", style = "display: flex; margin-left: 0px; margin-right: 0px",
-        div(class = "findings", "Last Reviewed: 23 May 2024"),
-        div(class = "row-indent", style = paste0("background-color: var(--nics-banner-bg);"))),
-    
-    div(class = "row", style = "display: flex;  margin-left: 0px; margin-right: 0px",
-        div(style = paste0("background-color: var(--nics-banner-highlight); height: 9px; width: 100%;"))),
-    
-    br())
+div(
+    div(
+      style = "background-color: var(--nics-banner-bg); padding: 10px",
+      div(
+        class = "grid mtb",
+        div(style = "display: flex; justify-content: center;
+            align-items: center;", a(
+          href = "https://nisra.gov.uk",
+          img(
+            src = nisra_logo,
+            alt = "NISRA logo",
+            width = "200px",
+            height = "80px"
+          )
+        )),
+        if (statistic_type == "as") {
+          div(
+            style = "display: flex; justify-content: center",
+              img(src = acc_official_stats, alt = nat_alt, width = "100px")
+          )
+        },
+        div(
+          style = "display: flex; justify-content: center",
+          a(
+            href = departmental_link,
+            img(src = dep_logo, alt = dep_alt, width = "200px")
+          )
+        )
+      ),
+      div(
+        style = "display: flex; justify-content: center; text-align: center;",
+        p(style = "color: #ffffff; font-size: 30px;
+            text-transform: capitalize;", class = "toc-ignore", "Background Quality Report - Public Awareness of and Trust in Official Statistics, Northern Ireland")
+      ),
+      div(style = "font-size: 18px; color: #ffffff; display: flex;
+          justify-content: center;  text-align: center;", subtitle)
+    ),
+    div(style = paste0("background-color: var(--nics-banner-highlight);
+                       height: 9px; width: 100%;"))
+)
 ```
 
 ## Public Awareness of and Trust in Official Statistics, Northern Ireland
@@ -63,9 +82,7 @@ This report provides information on the quality of the data used to produce the 
 
 The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB))](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/e7f85f07-91db-4312-8118-f729c75878c7?t=1528447068000). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) requires that:
 
-<div style="padding: 15px; border: 1px solid transparent; border-color: #000000; margin-bottom: 20px; border-radius: 4px; color: #000000; background-color: #FFFFFF; border-color: #000000;">
-**Q3.3** *The quality of the statistics and data, including their accuracy and reliability, coherence and comparability, and timeliness and punctuality, should be monitored and reported regularly.*
-</div>
+> __Q3.3__ _The quality of the statistics and data, including their accuracy and reliability, coherence and comparability, and timeliness and punctuality, should be monitored and reported regularly._
 
 ## Introduction
 
@@ -87,7 +104,7 @@ The data are used to monitor and report on awareness of NISRA, trust in NI offic
 
 ## Relevance
 
-**_The degree to which the statistical product meets user needs in both coverage and content._**
+<span style = "color: #1460aa">The degree to which the statistical product meets user needs in both coverage and content.</span>
 
 NISRA provides statistical services across government in Northern Ireland. Official statistics produced by NISRA are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The [Statistics and Registration Service Act](https://www.legislation.gov.uk/ukpga/2007/18/made) 2007 states that official statistics should ‘serve the public good’ by informing the public about social and economic matters, and assisting in the development and evaluation of public policy. For the public to use official statistics effectively they must know who produces them and where to find them. The statistics in this release allow NISRA to monitor awareness levels and use these insights to inform communication and marketing strategies.
 
@@ -101,9 +118,7 @@ Official statistics must be produced in accordance with the [Code of Practice fo
 
 The Code explicitly states that “Those producing and releasing statistics should be free from conflicts of interest, including political pressures” (T1.2) and that “All statutory obligations governing the collection of data, confidentiality, data sharing, data linking and release should be followed” (T6.1). These statistics allow the public and NISRA to monitor the effectiveness of the processes which are in place to ensure adherence to the Code and how public perception varies over time and across population subgroups.
 
-<div style="padding: 15px; border: 1px solid transparent; border-color: #000000; margin-bottom: 20px; border-radius: 4px; color: #000000; background-color: #FFFFFF; border-color: #000000;">
-**T4.6** *Independent measures, such as internal and external audit, peer review and National Statistics Quality Reviews, should be used to evaluate the effectiveness of statistical processes. Statistics producers should be open about identified areas for improvement.*
-</div>
+> __T4.6__ _Independent measures, such as internal and external audit, peer review and National Statistics Quality Reviews, should be used to evaluate the effectiveness of statistical processes. Statistics producers should be open about identified areas for improvement._
 
 For each of the indicators, the report includes a population level analysis and also a breakdown by various sections of society. Comparisons are made with other institutions (the Civil Service, the media and the NI Assembly) and the Office for National Statistics (ONS), the largest producer of UK statistics, where there are appropriate data to do so.
 
@@ -115,7 +130,7 @@ The statistical product includes a publication containing charts and associated 
 
 ## Accuracy and Reliability
 
-**_The proximity between an estimate and the unknown true value._**
+<span style = "color: #1460aa">The proximity between an estimate and the unknown true value.</span>
 
 The data in the most recent report are derived from the [Continuous Household Survey](https://www.nisra.gov.uk/statistics/find-your-survey/continuous-household-survey) (CHS). The CHS is one of the largest continuous surveys carried out in Northern Ireland. The survey is designed and administered by the Central Survey Unit (CSU), NISRA. It is based on a representative sample of the general population, aged 16 and over, resident in private households and has been running since 1983. 
 
@@ -157,7 +172,7 @@ Significance tests are carried out to determine if the observed differences in t
 
 ## Timeliness and Punctuality
 
-**_Timeliness refers to the time gap between publication and the reference period. Punctuality refers to the gap between planned and actual publication dates._**
+<span style = "color: #1460aa">Timeliness refers to the time gap between publication and the reference period. Punctuality refers to the gap between planned and actual publication dates.</span>
 
 The ‘Public Awareness of and Trust in Official Statistics’ survey questions are normally asked in Autumn with the report published the following Autumn.
 
@@ -169,7 +184,7 @@ All the reports have been published on their planned publication dates, apart fr
 
 ## Accessibility and Clarity
 
-**_Accessibility is the ease with which users are able to access the data, also reflecting the format in which the data are available and the availability of supporting information. Clarity refers to the quality and sufficiency of the metadata, illustrations and accompanying advice._**
+<span style = "color: #1460aa">Accessibility is the ease with which users are able to access the data, also reflecting the format in which the data are available and the availability of supporting information. Clarity refers to the quality and sufficiency of the metadata, illustrations and accompanying advice.</span>
 
 The release can be accessed from the [‘Public Awareness of and Confidence (Trust) in Official Statistics (PCOS)’ page](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos) on the NISRA website, which is the same page as previous releases. It can also be accessed through the [official statistics publication calendar on gov.uk](https://www.gov.uk/search/research-and-statistics?keywords=%22public%20awareness%22%20trust%20%22official%20statistics%22&content_store_document_type=statistics_published&organisations%5B%5D=northern-ireland-statistics-and-research-agency&order=updated-newest)
 
@@ -187,7 +202,7 @@ In addition, the data from the CHS are available on the [UK Data Service](https:
 
 ## Coherence and Comparability
 
-**_Coherence is the degree to which data that are derived from different sources or methods, but refer to the same topic, are similar.  Comparability is the degree to which data can be compared over time and domain._**
+<span style = "color: #1460aa">Coherence is the degree to which data that are derived from different sources or methods, but refer to the same topic, are similar.  Comparability is the degree to which data can be compared over time and domain.</span>
 
 A core set of questions have been included in the survey (since 2014) allowing trends to be monitored over time. These are awareness of NISRA (which has been asked since the first run of the survey in 2009), trust in NISRA, trust in the Civil Service, trust in the media, trust in the NI assembly/ elected bodies, trust in NISRA statistics, political interference and data confidentiality, with the value question, i.e. the importance of NISRA statistics, introduced in 2016. The change in the wording of the NI assembly/ elected bodies question in 2019 reflected the collapse of the NI assembly in 2017 and feedback from respondents (in 2018) who queried the relevance of a question about a body that wasn’t sitting.  The questions on respondent’s awareness of specified NISRA official statistics have been included since 2020. Questions on awareness of NISRA statistics were previously asked between 2009 and 2016. 
 
@@ -215,7 +230,7 @@ The ‘Public Awareness of and Trust in Official Statistics’ survey has been c
 
 ## Trade-offs between Output Quality Components
 
-**_Trade-offs are the extent to which different aspects of quality are balanced against each other._**
+<span style = "color: #1460aa">Trade-offs are the extent to which different aspects of quality are balanced against each other.</span>
 
 The main trade-off is timeliness against accuracy and comparability. Although the questions are asked in the Autumn interviews (September to December in 2022) finalised data from the CHS are not available until the following July meaning that there is a 9-13 month delay between the reference period and the results being published the following October. 
 
@@ -223,7 +238,7 @@ Other surveys were considered but the CHS is the only survey which uses probabil
 
 ## Assessment of User Needs and Perceptions
 
-**_The processes for finding out about users and uses, and their views on the statistical products._**
+<span style = "color: #1460aa">The processes for finding out about users and uses, and their views on the statistical products.</span>
 
 Consultation is carried with key users prior to each run of the survey to agree the questions to be included and to ensure they continue to cover the main requirements for users.
 
@@ -231,13 +246,13 @@ Contact details for the responsible statistician have been provided in the repor
 
 ## Performance, Cost and Respondent Burden
 
-**_The effectiveness, efficiency and economy of the statistical output._**
+<span style = "color: #1460aa">The effectiveness, efficiency and economy of the statistical output.</span>
 
 In 2020, the last year for which data are available, the CHS module took on average 3 minutes to complete. In this year, there were two additional questions asked of some respondents so it is likely that the completion time for the module in 2022 was similar or slightly less.
 
 ## Confidentiality, Transparency and Security
 
-**_The procedures and policy used to ensure sound confidentiality, security and transparent practices._**
+<span style = "color: #1460aa">The procedures and policy used to ensure sound confidentiality, security and transparent practices.</span>
 
 The CHS data received by SSB are anonymised (name/address information removed). In addition, the data represent a sample of the population and there is no way to identify the sample chosen from the population. The data are held within SSB’s secure record management system (CM), with restricted access and subject to approved record retention protocols. Responses are presented as weighted percentages and analysis is only carried out if the sample size in the population sub-category is large enough. Consequently, the ‘don’t know’ category for the ‘Awareness’ question is not broken down by age group, educational achievement and employment status. There are therefore no small cells which need to have disclosure control methods applied.
 
