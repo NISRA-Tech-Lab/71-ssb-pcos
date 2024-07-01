@@ -1,9 +1,3 @@
-# Set folder path
-library(here)
-
-# Read config file
-source(paste0(here(), "/code/config.R"))
-
 # Check Trend folder exists
 if (!exists(paste0(data_folder, "Trend"))) {
   dir.create(paste0(data_folder, "Trend"))
@@ -45,9 +39,9 @@ chart_5_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sh
   mutate(year = as.numeric(rownames(.)),
          trust = as.numeric(`3`),
          distrust = as.numeric(`2`),
-         dunno = as.numeric(`1`)) %>%
+         dont_know = as.numeric(`1`)) %>%
   filter(year != 2022) %>%
-  select(year:dunno)
+  select(year:dont_know)
 
 rownames(chart_5_data) <- 1:nrow(chart_5_data)
 
@@ -60,9 +54,9 @@ chart_8_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sh
   mutate(year = as.numeric(rownames(.)),
          trust = as.numeric(`3`),
          distrust = as.numeric(`2`),
-         dunno = as.numeric(`1`)) %>%
+         dont_know = as.numeric(`1`)) %>%
   filter(year != 2022) %>%
-  select(year:dunno)
+  select(year:dont_know)
 
 rownames(chart_8_data) <- 1:nrow(chart_8_data)
 
@@ -75,9 +69,9 @@ chart_10_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   mutate(year = as.numeric(rownames(.)),
          agree = as.numeric(`3`),
          disagree = as.numeric(`2`),
-         dunno = as.numeric(`1`)) %>%
+         dont_know = as.numeric(`1`)) %>%
   filter(year != 2022) %>%
-  select(year:dunno)
+  select(year:dont_know)
 
 rownames(chart_10_data) <- 1:nrow(chart_10_data)
 
@@ -91,9 +85,9 @@ chart_12_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   mutate(year = as.numeric(rownames(.)),
          agree = as.numeric(`3`),
          disagree = as.numeric(`2`),
-         dunno = as.numeric(`1`)) %>%
+         dont_know = as.numeric(`1`)) %>%
   filter(year != 2022) %>%
-  select(year:dunno)
+  select(year:dont_know)
 
 rownames(chart_12_data) <- 1:nrow(chart_12_data)
 
@@ -107,9 +101,9 @@ chart_14_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   mutate(year = as.numeric(rownames(.)),
          agree = as.numeric(`3`),
          disagree = as.numeric(`2`),
-         dunno = as.numeric(`1`)) %>%
+         dont_know = as.numeric(`1`)) %>%
   filter(year != 2022) %>%
-  select(year:dunno)
+  select(year:dont_know)
 
 rownames(chart_14_data) <- 1:nrow(chart_14_data)
 
