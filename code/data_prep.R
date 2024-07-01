@@ -156,7 +156,7 @@ chart_3_data <- data.frame(output = character(),
 
 for (i in 1:length(outputs)) {
   chart_3_data <- chart_3_data %>%
-    rbind(data.frame(output = f_wrap_labels(outputs[i], 30),
+    rbind(data.frame(output = f_wrap_labels(outputs[i], 40),
                      yes = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100))
@@ -180,7 +180,7 @@ chart_4_data <- data.frame(output = character(),
 
 for (i in 1:length(outputs)) {
   chart_4_data <- chart_4_data %>%
-    rbind(data.frame(output = f_wrap_labels(outputs[i], 30),
+    rbind(data.frame(output = f_wrap_labels(outputs[i], 40),
                      yes = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100))
