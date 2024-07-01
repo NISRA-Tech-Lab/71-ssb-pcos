@@ -1,8 +1,8 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-data_last <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2021 Final Dataset.RDS")
-data_current <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2022 Final Dataset.RDS")
+data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
+data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
 
 # Awareness of NISRA ####
 
@@ -137,7 +137,7 @@ products_stats <- products_stats %>%
                    z = NA,
                    diff = NA))
 
-names(products_stats) <- c("", "% Had heard of NISRA", "% Had not heard of NISRA", "Z", "Difference in %")
+names(products_stats) <- c(" ", "% Had heard of NISRA", "% Had not heard of NISRA", "Z", "Difference in %")
 
 ## Had heard of NISRA: This year vs previous year ####
 

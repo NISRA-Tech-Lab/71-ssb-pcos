@@ -33,13 +33,14 @@ library(here)
 source(paste0(here(), "/code/data_prep.R"))
 ```
 
-<!-- message to rotate screen when width is too low -->
 
 <div data-nics-theme="`r nics_theme`">
 
 `r f_banner()` 
 
 `r f_header()`
+
+<div id="main" role="main">
 
 `r f_contact()`
 
