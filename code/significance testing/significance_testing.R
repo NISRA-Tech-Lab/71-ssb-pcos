@@ -1,8 +1,8 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-data_current <- readspss::read.spss(paste0(data_folder, "Final/PCOS 2022 Final Dataset (14 July 2023).sav"), pass = password)
-data_last <- readspss::read.spss(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022).sav"))
+data_last <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2021 Final Dataset.RDS")
+data_current <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2022 Final Dataset.RDS")
 
 # Awareness of NISRA ####
 

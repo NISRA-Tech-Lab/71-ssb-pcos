@@ -1,0 +1,33 @@
+group1,grouping1,group2,grouping2
+SEX,Male,SEX,Female
+AGE2,16-24,AGE2,25-34
+AGE2,16-24,AGE2,35-44
+AGE2,16-24,AGE2,45-54
+AGE2,16-24,AGE2,55-64
+AGE2,16-24,AGE2,65-74
+AGE2,25-34,AGE2,35-44
+AGE2,25-34,AGE2,45-54
+AGE2,25-34,AGE2,55-64
+AGE2,25-34,AGE2,65-74
+AGE2,35-44,AGE2,45-54
+AGE2,35-44,AGE2,55-64
+AGE2,35-44,AGE2,65-74
+AGE2,45-54,AGE2,55-64
+AGE2,45-54,AGE2,65-74
+AGE2,55-64,AGE2,65-74
+DERHI,"Degree, or Degree equivalent and above",DERHI,Other higher education below degree level
+DERHI,"Degree, or Degree equivalent and above",DERHI,"A levels, vocational level 3 and equivalents"
+DERHI,"Degree, or Degree equivalent and above",DERHI,GCSE/O level grade A*-C. vocational level 2 and equivalents
+DERHI,"Degree, or Degree equivalent and above",DERHI,Qualifications at level 1 and below
+DERHI,"Degree, or Degree equivalent and above",DERHI,No qualification
+DERHI,Other higher education below degree level,DERHI,"A levels, vocational level 3 and equivalents"
+DERHI,Other higher education below degree level,DERHI,GCSE/O level grade A*-C. vocational level 2 and equivalents
+DERHI,Other higher education below degree level,DERHI,Qualifications at level 1 and below
+DERHI,Other higher education below degree level,DERHI,No qualification
+DERHI,"A levels, vocational level 3 and equivalents",DERHI,GCSE/O level grade A*-C. vocational level 2 and equivalents
+DERHI,"A levels, vocational level 3 and equivalents",DERHI,Qualifications at level 1 and below
+DERHI,"A levels, vocational level 3 and equivalents",DERHI,No qualification
+DERHI,GCSE/O level grade A*-C. vocational level 2 and equivalents,DERHI,Qualifications at level 1 and below
+DERHI,GCSE/O level grade A*-C. vocational level 2 and equivalents,DERHI,No qualification
+DERHI,Qualifications at level 1 and below,DERHI,No qualification
+EMPST2,In paid employment,EMPST2,Not in paid employment
