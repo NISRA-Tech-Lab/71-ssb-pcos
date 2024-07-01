@@ -484,7 +484,7 @@ f_make_tables(data = chart_9_data,
 
 ## Value
 
-The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r dont_know_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
+The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r disagree_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
 
 Amongst respondents who had a view, the proportion agreeing that NISRA statistics are important to understand Northern Ireland has decreased slightly since 2021.
 
