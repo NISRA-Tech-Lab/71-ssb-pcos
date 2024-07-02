@@ -813,6 +813,18 @@
       ],
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104"
     },
+    "minty": {
+      "Package": "minty",
+      "Version": "0.0.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "cpp11",
+        "tzdb"
+      ],
+      "Hash": "d19909f1b3fac42e7f3ac635321dbb15"
+    },
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.1",
@@ -988,6 +1000,23 @@
         "R"
       ],
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d"
+    },
+    "readODS": {
+      "Package": "readODS",
+      "Version": "2.3.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "cellranger",
+        "minty",
+        "stringi",
+        "tibble",
+        "tools",
+        "vctrs",
+        "zip"
+      ],
+      "Hash": "54bd5930f49d8f914f80eb0eedcd45e2"
     },
     "readspss": {
       "Package": "readspss",
@@ -1343,6 +1372,17 @@
         "xfun"
       ],
       "Hash": "efcde6054a0796aec89329b1eca7f886"
+    },
+    "tzdb": {
+      "Package": "tzdb",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "cpp11"
+      ],
+      "Hash": "f561504ec2897f4d46f0c7657e488ae1"
     },
     "utf8": {
       "Package": "utf8",

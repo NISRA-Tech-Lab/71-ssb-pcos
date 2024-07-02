@@ -110,13 +110,14 @@ for (file in list.files((paste0(data_folder, "Trend/", current_year - 1)))) {
 }
 
 # Check Trend folder for 2021 exists
-if (!exists(paste0(data_folder, "Trend/2021"))) {
+if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
   dir.create(paste0(data_folder, "Trend/2021"))
   source(paste0(here(), "/code/trend_data_from_excel.R"))
+  source(paste0(here(), "/code/excel tables/excel_trend_data.R"))
 }
 
 # Check Trend folder for new year exists
-if (!exists(paste0(data_folder, "Trend/", current_year))) {
+if (!dir.exists(paste0(data_folder, "Trend/", current_year))) {
   dir.create(paste0(data_folder, "Trend/", current_year))
 }
 
@@ -147,7 +148,8 @@ PCOS1d_vars <- names(data_final)[grepl("PCOS1d", names(data_final)) & names(data
 
 # Use variable label to extract output name
 outputs <- sub("\\..*", "", attributes(data_final)$var.label[grepl("Heard", attributes(data_final)$var.label)]) %>%
-  sub("transport in NI", "transport", .)
+  sub("transport in NI", "transport", .) %>%
+  trimws()
 
 chart_3_data <- data.frame(output = character(),
                            yes = numeric(),
