@@ -107,7 +107,7 @@ names(table_22_data) <- c("Number of NISRA statistics", paste(current_year, "(%)
 
 # Trust in NISRA ####
 
-## Table 23: Trust in NISRA by year
+## Table 23: Trust in NISRA by year ####
 
 table_23_data <- table_23_data %>%
   mutate(current_year = c(chart_5_data$trust[chart_5_data$year == current_year],
@@ -118,3 +118,173 @@ table_23_data <- table_23_data %>%
 names(table_23_data)[names(table_23_data) == "current_year"] <- current_year
 
 saveRDS(table_23_data, paste0(data_folder, "Trend/", current_year, "/table_23_data.RDS"))
+
+## Table 24: Trust in NISRA and ONS
+ 
+table_24_data <- table_23_data[c("Response (%)", current_year)] %>%
+  mutate(ONS = c(chart_6_data$trust[grepl("ONS", chart_6_data$org)],
+                 chart_6_data$distrust[grepl("ONS", chart_6_data$org)],
+                 chart_6_data$dont_know[grepl("ONS", chart_6_data$org)],
+                 read_xlsx(ons_xl, sheet = "Trust in ONS", range = "D9", col_names = FALSE) %>%
+                   pull(`...1`)))
+
+names(table_24_data)[names(table_24_data) == current_year] <- "NISRA"
+
+# Trust Civil Service ####
+
+## Table 25: Trust in Civil Service by year ####
+
+table_25_data <- table_25_data %>%
+  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The Civil Service"],
+                          chart_7_data$distrust[trimws(chart_7_data$org) == "The Civil Service"],
+                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The Civil Service"],
+                          sum(!is.na(data_final$TrustCivilService2))))
+
+names(table_25_data)[names(table_25_data) == "current_year"] <- current_year
+
+saveRDS(table_25_data, paste0(data_folder, "Trend/", current_year, "/table_25_data.RDS"))
+
+## Table 26: Trust in Northern Ireland Assembly by year ####
+
+table_26_data <- table_26_data %>%
+  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The NI Assembly"],
+                          chart_7_data$distrust[trimws(chart_7_data$org) == "The NI Assembly"],
+                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The NI Assembly"],
+                          sum(!is.na(data_final$TrustNIAssembly2))))
+
+names(table_26_data)[names(table_26_data) == "current_year"] <- current_year
+
+saveRDS(table_26_data, paste0(data_folder, "Trend/", current_year, "/table_26_data.RDS"))
+
+## Table 27: Trust in the Media by year ####
+
+table_27_data <- table_27_data %>%
+  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The media"],
+                          chart_7_data$distrust[trimws(chart_7_data$org) == "The media"],
+                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The media"],
+                          sum(!is.na(data_final$TrustMedia2))))
+
+names(table_27_data)[names(table_27_data) == "current_year"] <- current_year
+
+saveRDS(table_27_data, paste0(data_folder, "Trend/", current_year, "/table_27_data.RDS"))
+
+# Trust NISRA Statistics ####
+
+## Table 28: Trust in NISRA statistics by year ####
+
+table_28_data <- table_28_data %>%
+  mutate(current_year = c(chart_8_data$trust[chart_8_data$year == current_year],
+                          chart_8_data$distrust[chart_8_data$year == current_year],
+                          chart_8_data$dont_know[chart_8_data$year == current_year],
+                          sum(!is.na(data_final$TrustNISRAstats2))))
+
+names(table_28_data)[names(table_28_data) == "current_year"] <- current_year
+
+saveRDS(table_28_data, paste0(data_folder, "Trend/", current_year, "/table_28_data.RDS"))
+
+## Table 29: Trust in NISRA and ONS statistics ####
+ 
+table_29_data <- table_28_data[c("Response (%)", current_year)] %>%
+  mutate(ONS = c(chart_9_data$trust[grepl("ONS", chart_9_data$org)],
+                 chart_9_data$distrust[grepl("ONS", chart_9_data$org)],
+                 chart_9_data$dont_know[grepl("ONS", chart_9_data$org)],
+                 read_xlsx(ons_xl, sheet = "Trust in ONS stats", range = "D9", col_names = FALSE) %>%
+                   pull(`...1`)))
+
+names(table_29_data)[names(table_29_data) == current_year] <- "NISRA"
+
+## Table 30: Trust in NISRA statistics by respondent's awareness of NISRA ####
+
+table_30_data <- table_29_data["Response (%)"] %>%
+  mutate(`Had heard of NISRA` = c(sum(data_final$W3[data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(data_final$W3[data_final$TrustNISRAstats2 == "Tend to distrust/Distrust greatly" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(data_final$W3[data_final$TrustNISRAstats2 == "Don't know" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(!is.na(data_final$TrustNISRAstats2) & data_final$PCOS1 == "Yes")),
+         `Had not heard of NISRA` = c(sum(data_final$W3[data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(data_final$W3[data_final$TrustNISRAstats2 == "Tend to distrust/Distrust greatly" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(data_final$W3[data_final$TrustNISRAstats2 == "Don't know" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(!is.na(data_final$TrustNISRAstats2) & data_final$PCOS1 == "No")))
+
+# Value ####
+
+## Table 31: Statistics produced by NISRA are important to understand Northern Ireland by year ####
+
+table_31_data <- table_31_data %>%
+  mutate(current_year = c(chart_10_data$agree[chart_10_data$year == current_year],
+                          chart_10_data$disagree[chart_10_data$year == current_year],
+                          chart_10_data$dont_know[chart_10_data$year == current_year],
+                          sum(!is.na(data_final$NISRAstatsImp2))))
+
+names(table_31_data)[names(table_31_data) == "current_year"] <- current_year
+
+saveRDS(table_31_data, paste0(data_folder, "Trend/", current_year, "/table_31_data.RDS"))
+
+## Table 32: Statistics produced are important to understand our country (NISRA and ONS) ####
+
+table_32_data <- table_31_data[c("Response (%)", current_year)] %>%
+  mutate(ONS = c(chart_11_data$agree[grepl("ONS", chart_11_data$org)],
+                 chart_11_data$disagree[grepl("ONS", chart_11_data$org)],
+                 chart_11_data$dont_know[grepl("ONS", chart_11_data$org)],
+                 read_xlsx(ons_xl, sheet = "Stats important", range = "D9", col_names = FALSE) %>%
+                   pull(`...1`)))
+
+names(table_32_data)[names(table_32_data) == current_year] <- "NISRA"
+
+## Table 33: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA ####
+
+table_33_data <- table_32_data["Response (%)"] %>%
+  mutate(`Had heard of NISRA` = c(sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
+                                  sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "Yes")),
+         `Had not heard of NISRA` = c(sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
+                                      sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "No")))
+
+# Political Interference ####
+
+## Table 34: Statistics produced by NISRA are free from political interference by year ####
+
+table_34_data <- table_34_data %>%
+  mutate(current_year = c(chart_12_data$agree[chart_12_data$year == current_year],
+                          chart_12_data$disagree[chart_12_data$year == current_year],
+                          chart_12_data$dont_know[chart_12_data$year == current_year],
+                          sum(!is.na(data_final$Political2))))
+
+names(table_34_data)[names(table_34_data) == "current_year"] <- current_year
+
+saveRDS(table_34_data, paste0(data_folder, "Trend/", current_year, "/table_34_data.RDS"))
+
+## Table 35: Statistics produced are free from political interference (NISRA and ONS) ####
+
+table_35_data <- table_34_data[c("Response (%)", current_year)] %>%
+  mutate(ONS = c(chart_13_data$agree[grepl("ONS", chart_13_data$org)],
+                 chart_13_data$disagree[grepl("ONS", chart_13_data$org)],
+                 chart_13_data$dont_know[grepl("ONS", chart_13_data$org)],
+                 read_xlsx(ons_xl, sheet = "Pol interfere", range = "D9", col_names = FALSE) %>%
+                   pull(`...1`)))
+
+names(table_35_data)[names(table_35_data) == current_year] <- "NISRA"
+
+# Confidentiality ####
+
+## Table 36: Personal information provided to NISRA will be kept confidential ####
+
+table_36_data <- table_36_data %>%
+  mutate(current_year = c(chart_14_data$agree[chart_14_data$year == current_year],
+                          chart_14_data$disagree[chart_14_data$year == current_year],
+                          chart_14_data$dont_know[chart_14_data$year == current_year],
+                          sum(!is.na(data_final$Confidential2))))
+
+names(table_36_data)[names(table_36_data) == "current_year"] <- current_year
+
+## Table 37: Personal information provided will be kept confidential (NISRA and ONS) ####
+
+table_37_data <- table_36_data[c("Response (%)", current_year)] %>%
+  mutate(ONS = c(chart_15_data$agree[grepl("ONS", chart_15_data$org)],
+                 chart_15_data$disagree[grepl("ONS", chart_15_data$org)],
+                 chart_15_data$dont_know[grepl("ONS", chart_15_data$org)],
+                 read_xlsx(ons_xl, sheet = "Confidential", range = "D9", col_names = FALSE) %>%
+                   pull(`...1`)))
+
