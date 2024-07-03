@@ -28,21 +28,19 @@ knit: (function(input, ...) {
 knitr::opts_chunk$set(
   message = FALSE, echo = FALSE, warning = FALSE, out.width = "100%"
 )
-```
 
-```{r setup, warnings = FALSE}
 library(here)
-
 source(paste0(here(), "/code/data_prep.R"))
 ```
 
-<!-- message to rotate screen when width is too low -->
 
 <div data-nics-theme="`r nics_theme`">
 
 `r f_banner()` 
 
 `r f_header()`
+
+<div id="main" role="main">
 
 `r f_contact()`
 
@@ -71,7 +69,7 @@ __Political Interference__
 <div id="main" role="main">
 `r f_borderline()`  <!-- calling the borderline code -->
  
-## Introduction
+## 1. Introduction
 
 Official Statistics in Northern Ireland are produced by Government Departments, and in some cases Arm’s Length Bodies. The data collection, production, presentation and dissemination of official statistics are governed by the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
 
@@ -89,7 +87,7 @@ Differences are only noted in the commentary when they are likely to represent a
 
 `r f_borderline()`
 
-## Awareness of NISRA
+## 2. Awareness of NISRA
 
 Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey.
 
@@ -104,12 +102,19 @@ plot_ly(chart_1_data,
         y = ~pct,
         type = "scatter",
         mode = "lines+markers",
-        text = ~paste0(year, ": ", pct, "%"),
+        text = ~paste0(year, ": ", round_half_up(pct), "%"),
         marker = list(size = 8),
         line = list(width = 4),
-        hoverinfo = "text") %>%
+        hoverinfo = "text",
+        name = "Awareness of NISRA") %>%
   layout(
-    showlegend = FALSE,
+    showlegend = TRUE,
+    legend = list(x = 0.5,
+                  xanchor = "center",
+                  xref = "paper",
+                  y = -0.1,
+                  yref = "paper",
+                  yanchor = "top"),
     font = list(family = "Arial", size = 14),
     xaxis = list(
       title = "",
@@ -120,14 +125,16 @@ plot_ly(chart_1_data,
       ticks = "outside",
       tickwidth = 2,
       tickvals = ~(min(year):max(year)),
-      tickmode = "array"
+      tickmode = "array",
+      fixedrange = TRUE
     ),
     yaxis = list(
       title = "",
       showline = TRUE,
       range = c(0, 100),
       linecolor = "#000000",
-      showgrid = FALSE
+      showgrid = FALSE,
+      fixedrange = TRUE
     ),
     annotations = list(
       list(text = "Percentage",
@@ -139,7 +146,8 @@ plot_ly(chart_1_data,
            yanchor = "bottom",
            showarrow = FALSE)
     ),
-    margin = list(t = 50)
+    margin = list(t = 50),
+    hovermode = "x unified"
   ) %>%
   config(displayModeBar = FALSE)
 
@@ -163,10 +171,13 @@ plot_ly(chart_2_data,
         y = ~nisra,
         type = "bar",
         name = "NISRA",
-        marker = list(color = nisra_navy)) %>%
+        marker = list(color = nisra_navy),
+        hovertext = ~paste0(year, ": ", round_half_up(nisra), "%"),
+        hoverinfo = "name+text") %>%
   add_trace(y = ~ons,
             name = "ONS",
-            marker = list(color = nisra_blue)) %>%
+            marker = list(color = nisra_blue),
+            hovertext = ~paste0(year, ": ", round_half_up(ons), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          legend = list(orientation = "h",
                        x = 0.5,
@@ -174,8 +185,10 @@ plot_ly(chart_2_data,
                        xanchor = "center"),
          yaxis = list(title = "",
                       range = c(0,100),
-                      showline = TRUE),
-         xaxis = list(title = ""),
+                      showline = TRUE,
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          annotations = list(text = "Percentage",
                             x = 0,
                             xref = "paper",
@@ -195,7 +208,7 @@ f_make_tables(data = chart_2_data,
 
 `r f_borderline()`
 
-## Awareness of NISRA Statistics
+## 3. Awareness of NISRA Statistics
 
 Respondents who had not previously heard of NISRA were asked whether they had heard of specific NISRA statistics. `r not_heard_aware_none`% of these respondents had not heard of any of the statistics listed, while `r not_heard_aware_all`% had heard of all the statistics.
 
@@ -210,24 +223,31 @@ plot_ly(chart_3_data,
         y = ~paste0(output, " "),
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Yes") %>%
+        name = "Yes",
+        hovertext = ~paste0(output, ": ", round_half_up(yes), "%"),
+        hoverinfo = "name+text") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
-            name = "No") %>%
+            name = "No",
+            hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
   add_trace(x = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
          yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~output,
-                      title = ""),
-         xaxis = list(title = "Percentage"),
+                      title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "Percentage",
+                      fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
                        xanchor = "center",
-                       traceorder = "normal")) %>%
+                       traceorder = "normal"),
+         bargap = 0.3) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_3_data,
@@ -247,24 +267,31 @@ plot_ly(chart_4_data,
         y = ~paste0(output, " "),
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Yes") %>%
+        name = "Yes",
+        hovertext = ~paste0(output, ": ", round_half_up(yes), "%"),
+        hoverinfo = "name+text") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
-            name = "No") %>%
+            name = "No",
+            hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
   add_trace(x = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
          yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~output,
-                      title = ""),
-         xaxis = list(title = "Percentage"),
+                      title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "Percentage",
+                      fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
                        xanchor = "center",
-                       traceorder = "normal")) %>%
+                       traceorder = "normal"),
+         bargap = 0.3) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_4_data,
@@ -273,7 +300,7 @@ f_make_tables(data = chart_4_data,
 
 `r f_borderline()`
 
-## Trust in NISRA
+## 4. Trust in NISRA
 
 Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respondents trusting NISRA a great deal or tending to trust NISRA. Most of the remaining respondents (`r dont_know_trust_nisra`%) didn’t know whether they trusted NISRA or not, while `r distrust_nisra`% of respondents tended to distrust or distrusted NISRA greatly (Chart 5). Trust in NISRA was higher among those who had heard of NISRA (`r heard_of_and_trust_nisra`%).
 
@@ -290,17 +317,23 @@ plot_ly(chart_5_data,
         y = ~trust,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal") %>%
+        name = "Tend to trust/\ntrust a great deal",
+        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~distrust,
             marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal") %>%
+            name = "Tend to distrust/\ndistrust a great deal",
+            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -309,8 +342,8 @@ plot_ly(chart_5_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)
-         ) %>%
+                            showarrow = FALSE),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_5_data,
@@ -329,17 +362,23 @@ plot_ly(chart_6_data,
         y = ~trust,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal") %>%
+        name = "Tend to trust/\ntrust a great deal",
+        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~distrust,
             marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal") %>%
+            name = "Tend to distrust/\ndistrust a great deal",
+            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -348,7 +387,8 @@ plot_ly(chart_6_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.5) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_6_data,
@@ -382,13 +422,16 @@ plot_ly(chart_7_data,
          barmode = "stack",
          yaxis = list(title = "",
                       categoryorder = "array",  
-                      categoryarray = ~org),
-         xaxis = list(title = ""),
+                      categoryarray = ~org,
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
                        xanchor = "center",
-                       traceorder = "normal")) %>%
+                       traceorder = "normal"),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_7_data,
@@ -397,7 +440,7 @@ f_make_tables(data = chart_7_data,
 
 `r f_borderline()`
 
-## Trust in NISRA Statistics
+## 5. Trust in NISRA Statistics
 
 The majority of respondents (`r trust_in_nisra_stats`%) trust NISRA statistics a great deal or tend to trust them while `r distrust_nisra_stats`% of respondents distrust greatly or tend to distrust them. The remaining respondents (`r dont_know_trust_nisra_stats`%) don’t know whether they trust NISRA statistics or not (Chart 8). Trust in NISRA statistics is higher among those that have heard of NISRA as an institution (`r heard_of_and_trust_nisra_stats`%).
 
@@ -413,17 +456,23 @@ plot_ly(chart_8_data,
         y = ~trust,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal") %>%
+        name = "Tend to trust/\ntrust a great deal",
+        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~distrust,
             marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal") %>%
+            name = "Tend to distrust/\ndistrust a great deal",
+            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -432,7 +481,8 @@ plot_ly(chart_8_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_8_data,
@@ -453,17 +503,23 @@ plot_ly(chart_9_data,
         y = ~trust,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal") %>%
+        name = "Tend to trust/\ntrust a great deal",
+        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~distrust,
             marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal") %>%
+            name = "Tend to distrust/\ndistrust a great deal",
+            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -472,7 +528,8 @@ plot_ly(chart_9_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.5) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_9_data,
@@ -482,9 +539,9 @@ f_make_tables(data = chart_9_data,
 
 `r f_borderline()`
 
-## Value
+## 6. Value
 
-The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r dont_know_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
+The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r disagree_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
 
 Amongst respondents who had a view, the proportion agreeing that NISRA statistics are important to understand Northern Ireland has decreased slightly since 2021.
 
@@ -497,17 +554,23 @@ plot_ly(chart_10_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -516,7 +579,8 @@ plot_ly(chart_10_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_10_data,
@@ -535,17 +599,23 @@ plot_ly(chart_11_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -554,7 +624,8 @@ plot_ly(chart_11_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.5) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_11_data,
@@ -564,7 +635,7 @@ f_make_tables(data = chart_11_data,
 
 `r f_borderline()`
 
-## Political Interference
+## 7. Political Interference
 
 Over four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. `r disagree_interference`% of respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 12).
 
@@ -577,17 +648,23 @@ plot_ly(chart_12_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -596,7 +673,8 @@ plot_ly(chart_12_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_12_data,
@@ -614,17 +692,23 @@ plot_ly(chart_13_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -633,7 +717,8 @@ plot_ly(chart_13_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.5) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_13_data,
@@ -642,7 +727,7 @@ f_make_tables(data = chart_13_data,
 
 `r f_borderline()`
 
-## Confidentiality
+## 8. Confidentiality
 
 Over nine out of every ten respondents (`r agree_confidential`%) agree that personal information provided to NISRA will be kept confidential. The majority of the remaining respondents don’t know (`r dont_know_confidential`%) while 1 in every 100 (`r disagree_confidential`%) respondents disagree (Chart 14).
 
@@ -657,17 +742,23 @@ plot_ly(chart_14_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -676,7 +767,8 @@ plot_ly(chart_14_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.4) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_14_data,
@@ -694,17 +786,23 @@ plot_ly(chart_15_data,
         y = ~agree,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree") %>%
+        name = "Strongly agree/\nTend to agree",
+        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
+        hoverinfo = "x+text") %>%
   add_trace(y = ~disagree,
             marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree") %>%
+            name = "Tend to disagree/\nStrongly disagree",
+            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
   add_trace(y = ~dont_know,
             marker = list(color = "#666666"),
-            name = "Don't Know") %>%
+            name = "Don't Know",
+            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
   layout(font = list(family = "Arial", size = 14),
          barmode = "stack",
-         yaxis = list(title = ""),
-         xaxis = list(title = ""),
+         yaxis = list(title = "",
+                      fixedrange = TRUE),
+         xaxis = list(title = "",
+                      fixedrange = TRUE),
          legend = list(y = 0.5),
          annotations = list(text = "Percentage",
                             x = 0,
@@ -713,7 +811,8 @@ plot_ly(chart_15_data,
                             y = 1,
                             yref = "paper",
                             yanchor = "bottom",
-                            showarrow = FALSE)) %>%
+                            showarrow = FALSE),
+         bargap = 0.5) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_15_data,

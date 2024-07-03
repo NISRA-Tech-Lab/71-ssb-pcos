@@ -247,6 +247,95 @@ addStyle(wb, "Products",
 
 r <- r + 2
 
+## Heard of NISRA vs Had not heard of NISRA ####
+ 
+writeData(wb, "Products",
+          x = paste0("Heard of NISRA vs Not heard of NISRA - ", current_year),
+          startRow = r)
+
+addStyle(wb, "Products",
+         style = pt2,
+         rows = r,
+         cols = 1)
+
+r <- r + 1
+
+writeDataTable(wb, "Products",
+               x = products_stats,
+               startRow = r,
+               tableStyle = "none",
+               headerStyle = ch,
+               withFilter = FALSE)
+
+addStyle(wb, "Products",
+         style = ns3d,
+         rows = (r + 1):(r + nrow(products_stats) - 1),
+         cols = 2:ncol(products_stats),
+         gridExpand = TRUE)
+
+r <- r + nrow(products_stats) + 2
+
+## Had heard of NISRA: This year vs previous year ####
+ 
+writeData(wb, "Products",
+          x = paste0("Heard of NISRA: ", current_year - 1, " vs ", current_year),
+          startRow = r)
+
+addStyle(wb, "Products",
+         style = pt2,
+         rows = r,
+         cols = 1)
+
+r <- r + 1
+
+writeDataTable(wb, "Products",
+               x = heard_stats,
+               startRow = r,
+               tableStyle = "none",
+               headerStyle = ch,
+               withFilter = FALSE)
+
+addStyle(wb, "Products",
+         style = ns3d,
+         rows = (r + 1):(r + nrow(heard_stats) - 1),
+         cols = 2:ncol(heard_stats),
+         gridExpand = TRUE)
+
+r <- r + nrow(heard_stats) + 2
+
+## Had not heard of NISRA: This year vs previous year ####
+ 
+writeData(wb, "Products",
+          x = paste0("Had not heard of NISRA: ", current_year - 1, " vs ", current_year),
+          startRow = r)
+
+addStyle(wb, "Products",
+         style = pt2,
+         rows = r,
+         cols = 1)
+
+r <- r + 1
+
+writeDataTable(wb, "Products",
+               x = not_heard_stats,
+               startRow = r,
+               tableStyle = "none",
+               headerStyle = ch,
+               withFilter = FALSE)
+
+addStyle(wb, "Products",
+         style = ns3d,
+         rows = (r + 1):(r + nrow(not_heard_stats) - 1),
+         cols = 2:ncol(not_heard_stats),
+         gridExpand = TRUE)
+
+r <- r + nrow(not_heard_stats) + 2
+
+setColWidths(wb, "Products",
+             cols = 1:ncol(products_stats),
+             widths = c(55, rep(12, ncol(products_stats) - 1)))
+
+
 # Save Workbook ####
 
 saveWorkbook(wb,

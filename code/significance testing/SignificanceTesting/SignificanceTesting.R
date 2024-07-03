@@ -1,5 +1,4 @@
 library(dplyr)
-library(foreign)
 library(data.table)
 library(tidyr)
 library(forcats)
@@ -8,7 +7,6 @@ library(forcats)
 source("code/significance testing/SignificanceTesting/functions/SignificanceTestingFunctions.R")
 
 ### **** DATA **** ####
-#data1718 <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2021 Final Dataset.RDS")
 data2021 <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2021 Final Dataset.RDS")
 data2022 <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2022 Final Dataset.RDS")
 

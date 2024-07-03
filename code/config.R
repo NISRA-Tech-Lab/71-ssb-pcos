@@ -90,6 +90,7 @@ library(fontawesome)
 library(remotes)
 library(readspss)
 library(tufte)
+library(readODS)
 
 # turn off warning messages
 options(warn = -1)
