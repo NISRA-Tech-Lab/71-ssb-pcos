@@ -2,6 +2,7 @@ library(dplyr)
 library(foreign)
 library(data.table)
 library(tidyr)
+library(forcats)
 
 # R Scripts containing bespoke functions for significance testing
 source("code/significance testing/SignificanceTesting/functions/SignificanceTestingFunctions.R")
