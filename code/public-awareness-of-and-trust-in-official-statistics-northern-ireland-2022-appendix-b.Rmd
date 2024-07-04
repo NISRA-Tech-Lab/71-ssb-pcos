@@ -1,0 +1,149 @@
+---
+title: "Public Awareness Of And Trust In Official Statistics, Northern Ireland 2022"
+lang: "en"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_download: no
+    css: "style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      envir = globalenv()
+    )
+  })
+---
+
+<div id = "cookie-banner"></div>
+<script src = "cookies_script.js"></script>
+
+```{r settings, include=FALSE}
+# this chunk sets chunk options for all chunks in this file
+knitr::opts_chunk$set(
+  message = FALSE, echo = FALSE, warning = FALSE, out.width = "100%", fig.height = 4
+)
+
+library(here)
+source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
+```
+
+
+<div data-nics-theme="`r nics_theme`">
+
+`r f_banner()` 
+
+<div id="main" role="main">
+
+
+## Appendix B: List of Detailed Tables
+
+[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
+
+### Awareness of the Northern Ireland Statistics and Research Agency (NISRA)
+
+ * `r f_embed_xl(df = table_1_data, sheet_title = paste0("Table 1: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
+ * `r f_embed_xl(df = table_2_data, sheet_title = paste0("Table 2: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
+
+### Awareness of NISRA statistics among those who had not previously heard of NISRA
+
+* `r f_embed_xl(df = table_3_data, sheet_title = paste0("Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_of_death_statistics")`
+* `r f_embed_xl(df = table_4_data, sheet_title = paste0("Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_of_crime_statistics")`
+* Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, `r current_year`
+* Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, `r current_year`
+* Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, `r current_year`
+* Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, `r current_year`
+* Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, `r current_year`
+* Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, `r current_year`
+* Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, `r current_year`
+* Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), `r current_year`
+
+### Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA
+
+* Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, `r current_year`
+* Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by * NISRA statisticians, `r current_year`
+* Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in NI are produced by NISRA statisticians, `r current_year`
+* Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), `r current_year`
+
+### Trust in NISRA
+
+* Table 23: Trust in NISRA, 2014-`r current_year`
+* Table 24: Trust in NISRA (`r current_year`) and ONS (`r ons_year`)
+* Table 25: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
+
+### Trust in the Civil Service
+
+* Table 26: Trust in the Civil Service, 2014-`r current_year`
+
+### Trust in the Northern Ireland Assembly
+
+* Table 27: Trust in the Northern Ireland Assembly, 2014-`r current_year`
+
+### Trust in the Media
+
+* Table 28: Trust in the Media, 2014-`r current_year`
+
+### Trust in the statistics produced by NISRA
+
+* Table 29: Trust in NISRA Statistics, 2014-`r current_year`
+* Table 30: Trust in NISRA (`r current_year`) and ONS (`r ons_year`) statistics 
+* Table 31: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
+
+### Value
+
+* Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-`r current_year`
+* Table 33: Statistics produced are important to understand our country (NISRA `r current_year` and ONS `r ons_year`)
+* Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, `r current_year`
+
+### Political Interference
+
+* Table 35: Statistics produced by NISRA are free from political interference, 2014-`r current_year`
+* Table 36: Statistics produced are free from political interference (NISRA `r current_year` and ONS `r ons_year`) 
+
+### Confidentiality
+
+* Table 37: Personal information provided to NISRA will be kept confidential, 2014-`r current_year`
+* Table 38: Personal information provided will be kept confidential (NISRA `r current_year` and ONS `r ons_year`)
+
+<!-- closing main div -->
+</div>
+
+`r f_footer()`
+
+<!-- message to rotate screen if it is below 400px width -->
+<div id="rotate-screen">
+  <p style="color: white;">Please rotate your screen for optimal experience</p>
+</div>
+
+
+```{js}
+
+// Function to remove map shapes from tab order, and add tabs to table of contents
+
+function tabOrder() {
+  
+  // Make side menu tabbable
+
+  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  
+  for (let i = 0; i < headings.length; i ++) {
+    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+  }
+  
+};
+
+// Instruct web browser to run above function when loaded
+window.onload = tabOrder;
+```
+
+
+<!-- close data-nics-theme div-->
+</div>
