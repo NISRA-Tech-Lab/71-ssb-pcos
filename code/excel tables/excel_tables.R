@@ -16,7 +16,6 @@ df.list <- list(table_1_data,  table_10_data, table_11_data, table_12_data, tabl
                 table_32_data, table_33_data, table_34_data, table_35_data, table_36_data,
                 table_37_data, table_4_data,  table_5_data,  table_6_data,  table_7_data,
                 table_8_data,  table_9_data)
-# lapply(df.list, round_half_up)
 
 text <- read_excel("C:/Users/2352605/Documents/71-ssb-pcos/code/excel tables/Text.xlsx", sheet = "Text")
 num_rows <- nrow(text)
@@ -64,6 +63,43 @@ tables_dataframe <- data.frame(Table_Name = c("table_1_data", "table_2_data", "t
                                               "table_26_data", "table_27_data", "table_28_data", "table_29_data", "table_30_data", 
                                               "table_31_data", "table_32_data", "table_33_data", "table_34_data", "table_35_data",
                                               "table_36_data", "table_37_data"),
+                               table_name_col = c("Table 1: Awareness of NISRA, 2009-2022",
+                                                  "Table 2: Awareness of NISRA (2022) and ONS (2021)",
+                                                  "Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, 2022",
+                                                  "Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, 2022",
+                                                  "Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, 2022",
+                                                  "Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, 2022",
+                                                  "Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, 2022",
+                                                  "Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, 2022",
+                                                  "Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, 2022",
+                                                  "Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, 2022",
+                                                  "Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, 2022",
+                                                  "Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), 2022",
+                                                  "Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, 2022",
+                                                  "Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians, 2022",
+                                                  "Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), 2022",
+                                                  "Table 23: Trust in NISRA, 2014-2022",
+                                                  "Table 24: Trust in NISRA (2022) and ONS (2021)",
+                                                  "Table 25: Trust in the Civil Service, 2014-2022",
+                                                  "Table 26: Trust in the Northern Ireland Assembly, 2014-2022",
+                                                  "Table 27: Trust in the Media, 2014-2022",
+                                                  "Table 28: Trust in NISRA Statistics, 2014-2022",
+                                                  "Table 29: Trust in NISRA (2022) and ONS (2021) statistics",
+                                                  "Table 30: Trust in NISRA statistics by respondent's awareness of NISRA, 2022",
+                                                  "Table 31: Statistics produced by NISRA are important to understand Northern Ireland, 2016-2022",
+                                                  "Table 32: Statistics produced are important to understand our country (NISRA 2022 and ONS 2021) ",
+                                                  "Table 33: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, 2022",
+                                                  "Table 34: Statistics produced by NISRA are free from political interference, 2014-2022",
+                                                  "Table 35: Statistics produced are free from political interference (NISRA 2022 and ONS 2021) ",
+                                                  "Table 36: Personal information provided to NISRA will be kept confidential, 2014-2022",
+                                                  "Table 37: Personal information provided will be kept confidential (NISRA 2022 and ONS 2021)"),
                                Sheet = c("Awareness_of_NISRA", "Awareness_of_NISRA",
                                          "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", 
                                          "Awareness_NISRA_Statistics",
@@ -95,46 +131,15 @@ for (i in 1:nrow(tables_dataframe)) {
                  bandedRows = FALSE,
                  headerStyle = bold15)
   
+  writeData(new_workbook,
+            sheet = paste0(df$Sheet),
+            x = df$table_name_col,
+            startRow = df$Start_Row-1,
+            colNames = TRUE)
+  
+  
 }
 
-table_name_col = c("Table 1: Awareness of NISRA, 2009-2022",
-                   "Table 2: Awareness of NISRA (2022) and ONS (2021)",
-                   "Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, 2022",
-                   "Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, 2022",
-                   "Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, 2022",
-                   "Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, 2022",
-                   "Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, 2022",
-                   "Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, 2022",
-                   "Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, 2022",
-                   "Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, 2022",
-                   "Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, 2022",
-                   "Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), 2022",
-                   "Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, 2022",
-                   "Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians, 2022",
-                   "Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), 2022",
-                   "Table 23: Trust in NISRA, 2014-2022",
-                   "Table 24: Trust in NISRA (2022) and ONS (2021)",
-                   "Table 25: Trust in the Civil Service, 2014-2022",
-                   "Table 26: Trust in the Northern Ireland Assembly, 2014-2022",
-                   "Table 27: Trust in the Media, 2014-2022",
-                   "Table 28: Trust in NISRA Statistics, 2014-2022",
-                   "Table 29: Trust in NISRA (2022) and ONS (2021) statistics",
-                   "Table 30: Trust in NISRA statistics by respondent's awareness of NISRA, 2022",
-                   "Table 31: Statistics produced by NISRA are important to understand Northern Ireland, 2016-2022",
-                   "Table 32: Statistics produced are important to understand our country (NISRA 2022 and ONS 2021) ",
-                   "Table 33: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, 2022",
-                   "Table 34: Statistics produced by NISRA are free from political interference, 2014-2022",
-                   "Table 35: Statistics produced are free from political interference (NISRA 2022 and ONS 2021) ",
-                   "Table 36: Personal information provided to NISRA will be kept confidential, 2014-2022",
-                   "Table 37: Personal information provided will be kept confidential (NISRA 2022 and ONS 2021)")
-                               
 worksheet_name_col <- c("Awareness_of_NISRA", "Awareness_of_NISRA",
           "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", 
           "Awareness_NISRA_Statistics",
@@ -154,7 +159,9 @@ Start_Row = c(4, 11, 5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 5, 11, 17, 23, 29, 3
 
 # Contents Page
 worksheet_name_df <- data.frame(worksheet_name = worksheet_name_col,
-                                row_number = 2:38, Start_Row, table_name_col)
+                                row_number = 2:38, 
+                                Start_Row, 
+                                tables_dataframe$table_name_col)
 
 contents_row_number <- nrow(worksheet_name_df)
 
@@ -258,12 +265,6 @@ addStyle(new_workbook, sheet = "Confidentiality",
 
 addStyle(new_workbook, sheet = "Confidentiality",
          style = header2, rows = c(3:14), cols = c(1))
-
-single_border <- createStyle(border = c("Bottom"))
-double_border <- createStyle(border = c("Bottom"), borderStyle = "double")
-
-addStyle(new_workbook, sheet = "Confidentiality",
-         style = border_style, rows = c(1), cols = c(1))
 
 # Column and row widths
 setColWidths(new_workbook, sheet = "Introduction", cols = c(1), widths = c(109))
