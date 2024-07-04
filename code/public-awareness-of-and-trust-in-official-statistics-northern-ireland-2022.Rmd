@@ -26,7 +26,7 @@ knit: (function(input, ...) {
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
-  message = FALSE, echo = FALSE, warning = FALSE, out.width = "100%"
+  message = FALSE, echo = FALSE, warning = FALSE, out.width = "100%", fig.height = 4
 )
 
 library(here)
@@ -103,10 +103,18 @@ plot_ly(chart_1_data,
         type = "scatter",
         mode = "lines+markers",
         text = ~paste0(year, ": ", round_half_up(pct), "%"),
-        marker = list(size = 8),
-        line = list(width = 4),
+        marker = list(size = 8,
+                      color = nisra_navy),
+        line = list(width = 4,
+                    color = nisra_navy),
         hoverinfo = "text",
         name = "Awareness of NISRA") %>%
+  add_annotations(x = ~year + 0.1,
+                  y = ~pct - 3,
+                  yanchor = "top",
+                  text = ~paste0("<b>", round_half_up(pct), "%</b>"),
+                  showarrow = FALSE,
+                  font = list(color = nisra_navy)) %>%
   layout(
     showlegend = TRUE,
     legend = list(x = 0.5,
@@ -115,7 +123,7 @@ plot_ly(chart_1_data,
                   y = -0.1,
                   yref = "paper",
                   yanchor = "top"),
-    font = list(family = "Arial", size = 14),
+    font = list(family = "Arial", size = 12),
     xaxis = list(
       title = "",
       showline = TRUE,
@@ -123,7 +131,7 @@ plot_ly(chart_1_data,
       showgrid = FALSE,
       showticklabels = TRUE,
       ticks = "outside",
-      tickwidth = 2,
+      tickwidth = 1,
       tickvals = ~(min(year):max(year)),
       tickmode = "array",
       fixedrange = TRUE
@@ -151,9 +159,6 @@ plot_ly(chart_1_data,
   ) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart_1_data,
-              title = paste0("Chart 1: Awareness of NISRA (2009-",current_year, ")"))
-
 
 ```
 
@@ -173,12 +178,15 @@ plot_ly(chart_2_data,
         name = "NISRA",
         marker = list(color = nisra_navy),
         hovertext = ~paste0(year, ": ", round_half_up(nisra), "%"),
-        hoverinfo = "name+text") %>%
+        hoverinfo = "name+text",
+        texttemplate = "<b>%{y:.0f}</b>",
+        textposition = "inside",
+        insidetextanchor = "middle") %>%
   add_trace(y = ~ons,
             name = "ONS",
             marker = list(color = nisra_blue),
             hovertext = ~paste0(year, ": ", round_half_up(ons), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
+  layout(font = list(family = "Arial", size = 12),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = -0.05,
@@ -200,8 +208,6 @@ plot_ly(chart_2_data,
          margin = list(t = 50)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart_2_data,
-              title = paste0("Chart 2: Awareness of NISRA (2014-",current_year, ") and ONS (2014-", ons_year, ")"))
 
 ```
 
@@ -225,16 +231,22 @@ plot_ly(chart_3_data,
         marker = list(color = nisra_navy),
         name = "Yes",
         hovertext = ~paste0(output, ": ", round_half_up(yes), "%"),
-        hoverinfo = "name+text") %>%
+        hoverinfo = "name+text",
+        texttemplate = "<b>%{x:.0f}</b>",
+        textposition = "inside",
+        insidetextanchor = "middle") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
             name = "No",
             hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
   add_trace(x = ~dont_know,
-            marker = list(color = "#666666"),
+            marker = list(color = "#757575"),
             name = "Don't Know",
-            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
+            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%"),
+            texttemplate = "<b>%{x:.1f}</b>",
+            textposition = "outside",
+            font = list (color = "#757575")) %>%
+  layout(font = list(family = "Arial", size = 12),
          barmode = "stack",
          yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~output,
@@ -247,11 +259,10 @@ plot_ly(chart_3_data,
                        y = 1.1,
                        xanchor = "center",
                        traceorder = "normal"),
-         bargap = 0.3) %>%
+         bargap = 0.3,
+         margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart_3_data,
-              title = paste("Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA", current_year))
 ```
 
 Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics.
@@ -269,16 +280,22 @@ plot_ly(chart_4_data,
         marker = list(color = nisra_navy),
         name = "Yes",
         hovertext = ~paste0(output, ": ", round_half_up(yes), "%"),
-        hoverinfo = "name+text") %>%
+        hoverinfo = "name+text",
+        texttemplate = "<b>%{x:.0f}</b>",
+        textposition = "inside",
+        insidetextanchor = "middle") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
             name = "No",
             hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
   add_trace(x = ~dont_know,
-            marker = list(color = "#666666"),
+            marker = list(color = "#757575"),
             name = "Don't Know",
-            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
+            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%"),
+            texttemplate = "<b>%{x:.1f}</b>",
+            textposition = "outside",
+            font = list (color = "#757575")) %>%
+  layout(font = list(family = "Arial", size = 12),
          barmode = "stack",
          yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~output,
@@ -291,7 +308,8 @@ plot_ly(chart_4_data,
                        y = 1.1,
                        xanchor = "center",
                        traceorder = "normal"),
-         bargap = 0.3) %>%
+         bargap = 0.3,
+         margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
 f_make_tables(data = chart_4_data,
@@ -312,42 +330,7 @@ Trust in NISRA in the last three years (2022, 2021 and 2020) was significantly h
 
 ```{r Chart 5}
 
-plot_ly(chart_5_data,
-        x = ~year,
-        y = ~trust,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal",
-        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~distrust,
-            marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal",
-            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.4) %>%
-  config(displayModeBar = FALSE)
-
-f_make_tables(data = chart_5_data,
-              title = paste0("Chart 5: Trust in NISRA (2014-", current_year), ")")
+f_stacked_bar_vertical(chart_5_data)
 
 ```
 
@@ -357,42 +340,8 @@ Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However
 
 ```{r Chart 6}
 
-plot_ly(chart_6_data,
-        x = ~org,
-        y = ~trust,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal",
-        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~distrust,
-            marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal",
-            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.5) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_6_data)
 
-f_make_tables(data = chart_6_data,
-              title = paste0("Chart 6: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") as institutions"))
 
 ```
 
@@ -411,31 +360,40 @@ plot_ly(chart_7_data,
         y = ~org,
         type = "bar",
         marker = list(color = nisra_navy),
-        name = "Tend to trust/trust a great deal") %>%
+        name = "Tend to trust/trust a great deal",
+        hovertext = ~paste0(org, ": ", round_half_up(trust), "%"),
+        hoverinfo = "name+text",
+        texttemplate = "<b>%{x:.0f}</b>",
+        textposition = "inside",
+        insidetextanchor = "start") %>%
   add_trace(x = ~distrust,
             marker = list(color = nisra_blue),
-            name = "Tend to distrust/distrust a great deal") %>%
+            name = "Tend to distrust/distrust a great deal",
+            hovertext = ~paste0(org, ": ", round_half_up(distrust), "%"),
+            insidetextanchor = "middle") %>%
   add_trace(x = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know") %>%
-  layout(font = list(family = "Arial", size = 14),
+            marker = list(color = "#757575"),
+            name = "Don't Know",
+            hovertext = ~paste0(org, ": ", round_half_up(dont_know, 1), "%"),
+            textposition = "inside",
+            insidetextanchor = "middle") %>%
+  layout(font = list(family = "Arial", size = 12),
          barmode = "stack",
-         yaxis = list(title = "",
-                      categoryorder = "array",  
+         yaxis = list(categoryorder = "array",  # How to order the categories
                       categoryarray = ~org,
+                      title = "",
                       fixedrange = TRUE),
-         xaxis = list(title = "",
+         xaxis = list(title = "Percentage",
                       fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
                        y = 1.1,
                        xanchor = "center",
                        traceorder = "normal"),
-         bargap = 0.4) %>%
+         bargap = 0.3,
+         margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
-f_make_tables(data = chart_7_data,
-              title = paste("Chart 7: Trust in institutions", current_year))
 ```
 
 `r f_borderline()`
@@ -451,42 +409,8 @@ Amongst those who expressed an opinion there was no significant difference in tr
 
 ```{r Chart 8}
 
-plot_ly(chart_8_data,
-        x = ~year,
-        y = ~trust,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal",
-        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~distrust,
-            marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal",
-            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.4) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_8_data)
 
-f_make_tables(data = chart_8_data,
-              title = paste0("Chart 8: Trust in NISRA statistics (2014-", current_year, ")"))
 
 ```
 
@@ -498,42 +422,8 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (`r
 
 ```{r Chart 9}
 
-plot_ly(chart_9_data,
-        x = ~org,
-        y = ~trust,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Tend to trust/\ntrust a great deal",
-        hovertext = ~paste0("Tend to trust/trust a great deal: ", round_half_up(trust), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~distrust,
-            marker = list(color = nisra_blue),
-            name = "Tend to distrust/\ndistrust a great deal",
-            hovertext = ~paste0("Tend to distrust/distrust a great deal: ", round_half_up(distrust), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.5) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_9_data)
 
-f_make_tables(data = chart_9_data,
-              title = paste0("Chart 9: Trust in statistics produced by NISRA (", current_year, ") and ONS (", ons_year, ")"))
 
 ```
 
@@ -549,42 +439,7 @@ Amongst respondents who had a view, the proportion agreeing that NISRA statistic
 
 ```{r Chart 10}
 
-plot_ly(chart_10_data,
-        x = ~year,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.4) %>%
-  config(displayModeBar = FALSE)
-
-f_make_tables(data = chart_10_data,
-              title = paste0("Chart 10: NISRA statistics are important to understand Northern Ireland (2016-", current_year, ")"))
+f_stacked_bar_vertical(chart_10_data)
 
 ```
 
@@ -594,42 +449,7 @@ The percentage of respondents who agree that the statistics produced are importa
 
 ```{r Chart 11}
 
-plot_ly(chart_11_data,
-        x = ~org,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.5) %>%
-  config(displayModeBar = FALSE)
-
-f_make_tables(data = chart_11_data,
-              title = paste0("Chart 11: Statistics produced are important to understand our country, NISRA (", current_year, ") and ONS (", ons_year, ")"))
+f_stacked_bar_vertical(chart_11_data)
 
 ```
 
@@ -643,42 +463,8 @@ Over four-fifths (`r free_from_interference`%) of respondents agree that statist
 
 ```{r Chart 12}
 
-plot_ly(chart_12_data,
-        x = ~year,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.4) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_12_data)
 
-f_make_tables(data = chart_12_data,
-              title = paste0("Chart 12: NISRA statistics are free from political interference (2014-", current_year, ")"))
 ```
 
 In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure. 
@@ -687,42 +473,8 @@ In comparison, `r free_from_interference_ons`% of respondents agree that statist
 
 ```{r Chart 13}
 
-plot_ly(chart_13_data,
-        x = ~org,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.5) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_13_data)
 
-f_make_tables(data = chart_13_data,
-              title = paste0("Chart 13: Statistics produced are free from political interference, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
 `r f_borderline()`
@@ -737,42 +489,8 @@ When only those who expressed an opinion are considered, there is no significant
 
 ```{r Chart 14}
 
-plot_ly(chart_14_data,
-        x = ~year,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.4) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_14_data)
 
-f_make_tables(data = chart_14_data,
-              title = paste0("Chart 14: Personal information provided to NISRA will be kept confidential (2014-", current_year, ")"))
 ```
 
 In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` agree that personal information provided to ONS will be kept confidential. This is significantly lower than for NISRA (Chart 15).
@@ -781,42 +499,8 @@ In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` ag
 
 ```{r Chart 15}
 
-plot_ly(chart_15_data,
-        x = ~org,
-        y = ~agree,
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Strongly agree/\nTend to agree",
-        hovertext = ~paste0("Strongly agree/Tend to agree: ", round_half_up(agree), "%"),
-        hoverinfo = "x+text") %>%
-  add_trace(y = ~disagree,
-            marker = list(color = nisra_blue),
-            name = "Tend to disagree/\nStrongly disagree",
-            hovertext = ~paste0("Tend to disagree/Strongly disagree: ", round_half_up(disagree), "%")) %>%
-  add_trace(y = ~dont_know,
-            marker = list(color = "#666666"),
-            name = "Don't Know",
-            hovertext = ~paste0("Don't Know: ", round_half_up(dont_know), "%")) %>%
-  layout(font = list(family = "Arial", size = 14),
-         barmode = "stack",
-         yaxis = list(title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "",
-                      fixedrange = TRUE),
-         legend = list(y = 0.5),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         bargap = 0.5) %>%
-  config(displayModeBar = FALSE)
+f_stacked_bar_vertical(chart_15_data)
 
-f_make_tables(data = chart_15_data,
-              title = paste0("Chart 15: Belief that personal information provided will be kept confidential, NISRA (", current_year ,") and ONS (", ons_year,")"))
 ```
 
 `r f_borderline()`
@@ -825,7 +509,7 @@ f_make_tables(data = chart_15_data,
 
 ### Data Source
 
-This report presents the results of questions relating to Public Awareness and Trust in Official Statistics in Northern Ireland that were included in the __Continuous Household Survey (CHS)__. The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. Prior to 2018, the questions were included as a module within the NI Omnibus Survey but following the temporary suspension of the NI Omnibus Survey in 2018, the questions were moved to the CHS. Both surveys use probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households. This means that comparisons can continue to be made over time and significance tests carried out to determine if observed differences are likely to be real or due to sampling error.
+This report presents the results of questions relating to Public Awareness and Trust in Official Statistics in Northern Ireland that were included in the Continuous Household Survey (CHS). The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. Prior to 2018, the questions were included as a module within the NI Omnibus Survey but following the temporary suspension of the NI Omnibus Survey in 2018, the questions were moved to the CHS. Both surveys use probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households. This means that comparisons can continue to be made over time and significance tests carried out to determine if observed differences are likely to be real or due to sampling error.
 
 Each year CSU sets the content of the CHS questionnaire in consultation with clients. The questionnaire consists of both an overall household interview, and an individual interview with each person aged 16 and over. Both the household and individual questionnaires consist of core items that are included each year, and modules that recur on a regular cycle. Core items include household and individual demographics, accommodation, tenure, internet access, environmental issues, domestic tourism, participation in sports, arts and leisure, employment status, health and section 75 classifications. Interviews are spread over 12 months from April to March, with the module on ‘Public Awareness and Trust in Official Statistics’ normally included during the Autumn months (September to December in `r current_year`). The questions included in the `r current_year` module are available in Appendix C of this report.
 
@@ -868,74 +552,74 @@ More information on the methodology used to produce these official statistics an
 
 __Awareness of the Northern Ireland Statistics and Research Agency (NISRA)__
 
- * Table 1: Awareness of NISRA, 2009-2022
- * Table 2: Awareness of NISRA (2022) and ONS (2021)
+ * Table 1: Awareness of NISRA, 2009-`r current_year`
+ * Table 2: Awareness of NISRA (`r current_year`) and ONS (`r ons_year`)
 
 __Awareness of NISRA statistics among those who had not previously heard of NISRA__
 
-* Table 6: Aware of NISRA statistics on the number of deaths in Northern Ireland, 2022
-* Table 7: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, 2022
-* Table 8: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, 2022
-* Table 9: Aware of NISRA statistics on the number of people who live in Northern Ireland, 2022
-* Table 10: Aware of NISRA statistics on hospital waiting times in Northern Ireland, 2022
-* Table 11: Aware of NISRA statistics on the Northern Ireland Census every ten years, 2022
-* Table 12: Aware of NISRA statistics on the unemployment rate in Northern Ireland, 2022
-* Table 13: Aware of NISRA statistics on people living in poverty in Northern Ireland, 2022
-* Table 14: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, 2022
-* Table 15: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), 2022
+* Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, `r current_year`
+* Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, `r current_year`
+* Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, `r current_year`
+* Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, `r current_year`
+* Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, `r current_year`
+* Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, `r current_year`
+* Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, `r current_year`
+* Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, `r current_year`
+* Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, `r current_year`
+* Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), `r current_year`
 
 __Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA__
 
-* Table 16: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 17: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 18: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 19: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 20: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 21: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, 2022
-* Table 22: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, 2022
-* Table 23: Aware that statistics on people living in poverty in Northern Ireland are produced by * NISRA statisticians, 2022
-* Table 24: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in NI are produced by NISRA statisticians, 2022
-* Table 25: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), 2022
+* Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, `r current_year`
+* Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, `r current_year`
+* Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by * NISRA statisticians, `r current_year`
+* Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in NI are produced by NISRA statisticians, `r current_year`
+* Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), `r current_year`
 
 __Trust in NISRA__
 
-* Table 26: Trust in NISRA, 2014-2022
-* Table 27: Trust in NISRA (2022) and ONS (2021)
-* Table 31: Trust in NISRA by respondent’s awareness of NISRA, 2022
+* Table 23: Trust in NISRA, 2014-`r current_year`
+* Table 24: Trust in NISRA (`r current_year`) and ONS (`r ons_year`)
+* Table 25: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
 
 __Trust in the Civil Service__
 
-* Table 32: Trust in the Civil Service, 2014-2022
+* Table 26: Trust in the Civil Service, 2014-`r current_year`
 
 __Trust in the Northern Ireland Assembly__
 
-* Table 36: Trust in the Northern Ireland Assembly, 2014-2022
+* Table 27: Trust in the Northern Ireland Assembly, 2014-`r current_year`
 
 __Trust in the Media__
 
-* Table 40: Trust in the Media, 2014-2022
+* Table 28: Trust in the Media, 2014-`r current_year`
 
 __Trust in the statistics produced by NISRA__
 
-* Table 44: Trust in NISRA Statistics, 2014-2022
-* Table 45: Trust in NISRA (2022) and ONS (2021) statistics 
-* Table 49: Trust in NISRA by respondent’s awareness of NISRA, 2022
+* Table 29: Trust in NISRA Statistics, 2014-`r current_year`
+* Table 30: Trust in NISRA (`r current_year`) and ONS (`r ons_year`) statistics 
+* Table 31: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
 
 __Value__
 
-* Table 50: Statistics produced by NISRA are important to understand Northern Ireland, 2016-2022
-* Table 51: Statistics produced are important to understand our country (NISRA 2022 and ONS 2021)
-* Table 55: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, 2022
+* Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-`r current_year`
+* Table 33: Statistics produced are important to understand our country (NISRA `r current_year` and ONS `r ons_year`)
+* Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, `r current_year`
 
 __Political Interference__
 
-* Table 56: Statistics produced by NISRA are free from political interference, 2014-2022
-* Table 57: Statistics produced are free from political interference (NISRA 2022 and ONS 2021) 
+* Table 35: Statistics produced by NISRA are free from political interference, 2014-`r current_year`
+* Table 36: Statistics produced are free from political interference (NISRA `r current_year` and ONS `r ons_year`) 
 
 __Confidentiality__
 
-* Table 61: Personal information provided to NISRA will be kept confidential, 2014-2022
-* Table 62: Personal information provided will be kept confidential (NISRA 2022 and ONS 2021)
+* Table 37: Personal information provided to NISRA will be kept confidential, 2014-`r current_year`
+* Table 38: Personal information provided will be kept confidential (NISRA `r current_year` and ONS `r ons_year`)
 
 
 `r f_borderline()`
@@ -1029,6 +713,7 @@ Personally, how much trust do you have in statistics produced by NISRA?
 __PCOS4__
 
 To what extent do you agree or disagree with the following statement ‘Statistics produced by NISRA are important to understand Northern Ireland?’
+
 1.Strongly agree
 1. Tend to agree
 1. Tend to disagree
