@@ -129,15 +129,13 @@ for (i in 1:nrow(tables_dataframe)) {
                  tableName = df$Table_Name,
                  withFilter = FALSE,
                  bandedRows = FALSE,
-                 headerStyle = bold15)
+                 headerStyle = pt)
   
   writeData(new_workbook,
             sheet = paste0(df$Sheet),
             x = df$table_name_col,
             startRow = df$Start_Row-1,
             colNames = TRUE)
-  
-  
 }
 
 worksheet_name_col <- c("Awareness_of_NISRA", "Awareness_of_NISRA",
