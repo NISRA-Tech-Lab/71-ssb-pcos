@@ -12,9 +12,6 @@ knit: (function(input, ...) {
     rmarkdown::render(
       input,
       output_dir = "../outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
       envir = globalenv()
     )
   })
@@ -43,6 +40,8 @@ source(paste0(here(), "/code/data_prep.R"))
 <div id="main" role="main">
 
 `r f_contact()`
+
+## Summary
 
 This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate.  The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
 
@@ -548,194 +547,16 @@ More information on the methodology used to produce these official statistics an
 
 ## Appendix B: List of Detailed Tables
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
+[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
 
-__Awareness of the Northern Ireland Statistics and Research Agency (NISRA)__
-
- * Table 1: Awareness of NISRA, 2009-`r current_year`
- * Table 2: Awareness of NISRA (`r current_year`) and ONS (`r ons_year`)
-
-__Awareness of NISRA statistics among those who had not previously heard of NISRA__
-
-* Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, `r current_year`
-* Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, `r current_year`
-* Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, `r current_year`
-* Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, `r current_year`
-* Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, `r current_year`
-* Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, `r current_year`
-* Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, `r current_year`
-* Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, `r current_year`
-* Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, `r current_year`
-* Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), `r current_year`
-
-__Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA__
-
-* Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, `r current_year`
-* Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by * NISRA statisticians, `r current_year`
-* Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in NI are produced by NISRA statisticians, `r current_year`
-* Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), `r current_year`
-
-__Trust in NISRA__
-
-* Table 23: Trust in NISRA, 2014-`r current_year`
-* Table 24: Trust in NISRA (`r current_year`) and ONS (`r ons_year`)
-* Table 25: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
-
-__Trust in the Civil Service__
-
-* Table 26: Trust in the Civil Service, 2014-`r current_year`
-
-__Trust in the Northern Ireland Assembly__
-
-* Table 27: Trust in the Northern Ireland Assembly, 2014-`r current_year`
-
-__Trust in the Media__
-
-* Table 28: Trust in the Media, 2014-`r current_year`
-
-__Trust in the statistics produced by NISRA__
-
-* Table 29: Trust in NISRA Statistics, 2014-`r current_year`
-* Table 30: Trust in NISRA (`r current_year`) and ONS (`r ons_year`) statistics 
-* Table 31: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
-
-__Value__
-
-* Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-`r current_year`
-* Table 33: Statistics produced are important to understand our country (NISRA `r current_year` and ONS `r ons_year`)
-* Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, `r current_year`
-
-__Political Interference__
-
-* Table 35: Statistics produced by NISRA are free from political interference, 2014-`r current_year`
-* Table 36: Statistics produced are free from political interference (NISRA `r current_year` and ONS `r ons_year`) 
-
-__Confidentiality__
-
-* Table 37: Personal information provided to NISRA will be kept confidential, 2014-`r current_year`
-* Table 38: Personal information provided will be kept confidential (NISRA `r current_year` and ONS `r ons_year`)
+See [this link for full list of Detailed Tables](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)
 
 
 `r f_borderline()`
 
 ## Appendix C: Survey Questions
 
-__PCOS1__
-
-"Before being contacted about this survey had you heard of NISRA, the Northern Ireland Statistics and Research Agency?"
-
-1. Yes
-1. No
-
-_If answered 'yes' to PCOS1 then_
-
-__PCOS1c__ 
-
-NISRA produces official statistics for Northern Ireland on a wide range of issues. 
-
-I am going to list a number of these and want you to tell me if you knew before today that this information was produced by NISRA statisticians. 
-
-```{r PCOS1c}
-
-pcos1 <- data.frame(
-  Question = outputs) %>%
-  mutate(`Aware produced by NISRA?` = rep("Yes/No", nrow(.)))
-
-kbl(pcos1) %>%
-  kable_styling()
-
-```
-
-_If answered 'no' to PCOS1 then_
-
-__PCOS1d__ 
-
-I am going to list a number of these and want you to tell me if you have heard of them or not.
-
-```{r PCOS1d}
-kbl(pcos1) %>%
-  kable_styling()
-```
-
-__PCOS2a__
-
-I will name a list of institutions. For each, please indicate whether you tend to trust it or tend not to trust it.
-
-How much do you trust the Civil Service?
-
-1. Trust a great deal
-1. Tend to trust
-1. Tend to distrust
-1. Distrust greatly
-
-__PCOS2b__
-
-How much do you trust the NI Assembly?
-
-1. Trust a great deal
-1. Tend to trust
-1. Tend to distrust
-1. Distrust greatly
-
-__PCOS2c__
-
-How much do you trust the media?
-
-1. Trust a great deal
-1. Tend to trust
-1. Tend to distrust
-1. Distrust greatly
-
-__PCOS2d__
-
-How much do you trust NISRA?
-
-1. Trust a great deal
-1. Tend to trust
-1. Tend to distrust
-1. Distrust greatly
-
-__PCOS3__
-
-Personally, how much trust do you have in statistics produced by NISRA? 
-
-1. Trust them greatly
-1. Tend to trust them
-1. Tend not to trust them
-1. Distrust them greatly
-
-__PCOS4__
-
-To what extent do you agree or disagree with the following statement ‘Statistics produced by NISRA are important to understand Northern Ireland?’
-
-1.Strongly agree
-1. Tend to agree
-1. Tend to disagree
-1. Strongly disagree
-
-__PCOS5__
-
-To what extent do you agree or disagree with the following statement ‘I believe that the statistics produced by NISRA are free from political interference’
-
-1. Strongly agree
-1. Tend to agree
-1. Tend to disagree
-1. Strongly disagree
-
-__PCOS6__
-
-To what extent do you agree or disagree with the following statement: 'I believe that personal information that is provided to NISRA will be kept confidential.'
-
-1. Strongly agree
-1. Tend to agree
-1. Tend to disagree
-1. Strongly disagree
+See [this link for full list of Survey Questions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
 
 
 <!-- closing main div -->

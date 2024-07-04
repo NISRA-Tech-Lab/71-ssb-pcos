@@ -51,8 +51,7 @@ next_pub_date <- "10 June 2025"
 # Set contact details for the report - these details will feed into the contact
 # function and appear at the bottom of the report above the footer
 
-header_publisher <-
-  "Dissemination Branch, Northern Ireland Statistics & Research Agency"
+header_publisher <- "NISRA Statistical Support Branch "
 lead_statistician <- "Norma Broomfield"
 header_telephone <- "028 9038 8481"
 header_email <- "Norma.Broomfield@nisra.gov.uk"
