@@ -37,6 +37,7 @@ source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 
 <div id="main" role="main">
 
+[Back to full report](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`.html)
 
 ## Appendix B: List of Detailed Tables
 
