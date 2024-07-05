@@ -49,69 +49,69 @@ source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 
 ### Awareness of NISRA statistics among those who had not previously heard of NISRA
 
-* `r f_embed_xl(df = table_3_data, sheet_title = paste0("Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_of_death_statistics")`
-* `r f_embed_xl(df = table_4_data, sheet_title = paste0("Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_of_crime_statistics")`
-* Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, `r current_year`
-* Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, `r current_year`
-* Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, `r current_year`
-* Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, `r current_year`
-* Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, `r current_year`
-* Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, `r current_year`
-* Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, `r current_year`
-* Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), `r current_year`
+* `r f_embed_xl(df = table_3_data, sheet_title = paste0("Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics")`
+* `r f_embed_xl(df = table_4_data, sheet_title = paste0("Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics")`
+* `r f_embed_xl(df = table_5_data, sheet_title = paste0("Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, ", current_year), tab_name = "aware_school_leavers")`
+* `r f_embed_xl(df = table_6_data, sheet_title = paste0("Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, ", current_year), tab_name = "aware_num_people")`
+* `r f_embed_xl(df = table_7_data, sheet_title = paste0("Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, ", current_year), tab_name = "aware_hospital")`
+* `r f_embed_xl(df = table_8_data, sheet_title = paste0("Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, ", current_year), tab_name = "aware_census")`
+* `r f_embed_xl(df = table_9_data, sheet_title = paste0("Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy")`
+* `r f_embed_xl(df = table_10_data, sheet_title = paste0("Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty")`
+* `r f_embed_xl(df = table_11_data, sheet_title = paste0("Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport")`
+* `r f_embed_xl(df = table_12_data, sheet_title = paste0("Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), ", current_year), tab_name = "aware_num_stats")`
 
 ### Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA
 
-* Table 13: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 14: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 15: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 16: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 17: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 18: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, `r current_year`
-* Table 19: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, `r current_year`
-* Table 20: Aware that statistics on people living in poverty in Northern Ireland are produced by * NISRA statisticians, `r current_year`
-* Table 21: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in NI are produced by NISRA statisticians, `r current_year`
-* Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), `r current_year`
+* `r f_embed_xl(df = table_13_data, sheet_title = paste0("Table 13: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics")`
+* `r f_embed_xl(df = table_14_data, sheet_title = paste0("Table 14: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics")`
+* `r f_embed_xl(df = table_15_data, sheet_title = paste0("Table 15: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, ", current_year), tab_name = "aware_school_leavers")`
+* `r f_embed_xl(df = table_16_data, sheet_title = paste0("Table 16: Aware of NISRA statistics on the number of people who live in Northern Ireland, ", current_year), tab_name = "aware_num_people")`
+* `r f_embed_xl(df = table_17_data, sheet_title = paste0("Table 17: Aware of NISRA statistics on hospital waiting times in Northern Ireland, ", current_year), tab_name = "aware_hospital")`
+* `r f_embed_xl(df = table_18_data, sheet_title = paste0("Table 18: Aware of NISRA statistics on the Northern Ireland Census every ten years, ", current_year), tab_name = "aware_census")`
+* `r f_embed_xl(df = table_19_data, sheet_title = paste0("Table 19: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy")`
+* `r f_embed_xl(df = table_20_data, sheet_title = paste0("Table 20: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty")`
+* `r f_embed_xl(df = table_21_data, sheet_title = paste0("Table 21: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport")`
+* `r f_embed_xl(df = table_22_data, sheet_title = paste0("Table 22: Number of selected NISRA statistics respondents had heard of (among those who had previously heard of NISRA), ", current_year), tab_name = "aware_num_stats")`
 
 ### Trust in NISRA
 
-* Table 23: Trust in NISRA, 2014-`r current_year`
-* Table 24: Trust in NISRA (`r current_year`) and ONS (`r ons_year`)
-* Table 25: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
+* `r f_embed_xl(df = table_23_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
+* `r f_embed_xl(df = table_24_data, sheet_title = paste0("Table 24: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")"), tab_name = "trust_nisra_ons")`
+* `r f_embed_xl(df = table_25_data, sheet_title = paste0("Table 25: Trust in NISRA by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_nisra_awareness")`
 
 ### Trust in the Civil Service
 
-* Table 26: Trust in the Civil Service, 2014-`r current_year`
+* `r f_embed_xl(df = table_26_data, sheet_title = paste0("Table 26: Trust in the Civil Service, 2014-", current_year), tab_name = "trust_nics")`
 
 ### Trust in the Northern Ireland Assembly
 
-* Table 27: Trust in the Northern Ireland Assembly, 2014-`r current_year`
+* `r f_embed_xl(df = table_27_data, sheet_title = paste0("Table 27: Trust in the Northern Ireland Assembly, 2014-", current_year), tab_name = "trust_assembly")`
 
 ### Trust in the Media
 
-* Table 28: Trust in the Media, 2014-`r current_year`
+* `r f_embed_xl(df = table_28_data, sheet_title = paste0("Table 28: Trust in the Media, 2014-", current_year), tab_name = "trust_media")`
 
 ### Trust in the statistics produced by NISRA
 
-* Table 29: Trust in NISRA Statistics, 2014-`r current_year`
-* Table 30: Trust in NISRA (`r current_year`) and ONS (`r ons_year`) statistics 
-* Table 31: Trust in NISRA by respondent’s awareness of NISRA, `r current_year`
+* `r f_embed_xl(df = table_29_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
+* `r f_embed_xl(df = table_30_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
+* `r f_embed_xl(df = table_31_data, sheet_title = paste0("Table 31: Trust in NISRA Statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness")`
 
 ### Value
 
-* Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-`r current_year`
-* Table 33: Statistics produced are important to understand our country (NISRA `r current_year` and ONS `r ons_year`)
-* Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, `r current_year`
+* `r f_embed_xl(df = table_32_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
+* `r f_embed_xl(df = table_33_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
+* `r f_embed_xl(df = table_34_data, sheet_title = paste0("Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, ", current_year), tab_name = "trust_stats_awareness")`
 
 ### Political Interference
 
-* Table 35: Statistics produced by NISRA are free from political interference, 2014-`r current_year`
-* Table 36: Statistics produced are free from political interference (NISRA `r current_year` and ONS `r ons_year`) 
+* `r f_embed_xl(df = table_35_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
+* `r f_embed_xl(df = table_36_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
 
 ### Confidentiality
 
-* Table 37: Personal information provided to NISRA will be kept confidential, 2014-`r current_year`
-* Table 38: Personal information provided will be kept confidential (NISRA `r current_year` and ONS `r ons_year`)
+* `r f_embed_xl(df = table_37_data, sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year), tab_name = "confidential_nisra")`
+* `r f_embed_xl(df = table_38_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
 
 <!-- closing main div -->
 </div>

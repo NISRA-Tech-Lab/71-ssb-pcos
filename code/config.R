@@ -15,8 +15,8 @@ bilingual <- TRUE
 #  pre_release - can be TRUE or FALSE
 #  bilingual - can be TRUE or FALSE - Sets language for NISRA Logo
 
-
-data_folder <- "T:/Projects/71 - SSB PCOS/Data/"
+# Location of data folder - see sourced script
+source(paste0(here(), "/code/path_to_data.R"))
 
 data_filename <- "2223_PCOS_FINAL_WEIGHTED_PASSWORDED.sav"
 password <- "CHS2223"

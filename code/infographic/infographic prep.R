@@ -1,5 +1,5 @@
 library(here)
-source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
+source(paste0(here(), "/code/data_prep.R"))
 
 # Overview ####
 
@@ -35,22 +35,10 @@ names(importance)[2:ncol(importance)] <- paste0(names(importance)[2:ncol(importa
 
 ## NISRA compared to other institutions ####
 
-institutions <- data.frame(year = current_year,
-                           trust_nisra = chart_7_data$trust[grepl("NISRA", chart_7_data)],
-                           distrust_nisra = chart_7_data$distrust[grepl("NISRA", chart_7_data)],
-                           dont_know_nisra = chart_7_data$dont_know[grepl("NISRA", chart_7_data)],
-                           trust_media = chart_7_data$trust[grepl("media", chart_7_data)],
-                           distrust_media = chart_7_data$distrust[grepl("media", chart_7_data)],
-                           dont_know_media = chart_7_data$dont_know[grepl("media", chart_7_data)],
-                           trust_nics = chart_7_data$trust[grepl("Civil Service", chart_7_data)],
-                           distrust_nics = chart_7_data$distrust[grepl("Civil Service", chart_7_data)],
-                           dont_know_nics = chart_7_data$dont_know[grepl("Civil Service", chart_7_data)],
-                           trust_assembly = chart_7_data$trust[grepl("Assembly", chart_7_data)],
-                           distrust_assembly = chart_7_data$distrust[grepl("Assembly", chart_7_data)],
-                           dont_know_assembly = chart_7_data$dont_know[grepl("Assembly", chart_7_data)])
+institutions <- chart_7_data
 
-institutions <- data.frame(year = rep(current_year, 3),
-                           trust = )
+names(institutions)[names(institutions) != "org"] <- paste0(names(institutions)[names(institutions) != "org"], "_institution")
+names(institutions)[names(institutions) == "org"] <- "institution"
 
 # Join all data ####
  
@@ -61,8 +49,7 @@ infographic_data <- full_join(awareness_of_nisra,
             by = "year") %>%
   full_join(importance,
             by = "year") %>%
-  full_join(institutions, 
-            by = "year") %>%
+  bind_rows(institutions) %>%
   arrange(year)
 
 write.csv(infographic_data,
