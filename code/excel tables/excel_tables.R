@@ -17,7 +17,7 @@ df.list <- list(table_1_data,  table_10_data, table_11_data, table_12_data, tabl
                 table_37_data, table_4_data,  table_5_data,  table_6_data,  table_7_data,
                 table_8_data,  table_9_data)
 
-text <- read_excel("C:/Users/2352605/Documents/71-ssb-pcos/code/excel tables/Text.xlsx", sheet = "Text")
+text <- read_excel(paste0(here(), "/code/excel tables/Text.xlsx"), sheet = "Text")
 num_rows <- nrow(text)
 
 #### create new workbook ####
@@ -129,7 +129,7 @@ for (i in 1:nrow(tables_dataframe)) {
                  tableName = df$Table_Name,
                  withFilter = FALSE,
                  bandedRows = FALSE,
-                 headerStyle = pt)
+                 headerStyle = hs)
   
   writeData(new_workbook,
             sheet = paste0(df$Sheet),
@@ -299,5 +299,5 @@ setColWidths(new_workbook, sheet = "Confidentiality", cols = c(2:table_36_cols),
 
 #### Save workbook ####
 # naming output file
-saveWorkbook(new_workbook, "code/excel tables/excel_output_tables.xlsx", overwrite = TRUE)
+saveWorkbook(new_workbook, paste0(here(), "/outputs/excel_output_tables.xlsx"), overwrite = TRUE)
 

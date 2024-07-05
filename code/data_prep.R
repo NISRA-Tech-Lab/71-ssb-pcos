@@ -112,7 +112,7 @@ for (file in list.files((paste0(data_folder, "Trend/", current_year - 1)))) {
 # Check Trend folder for 2021 exists
 if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
   dir.create(paste0(data_folder, "Trend/2021"))
-  source(paste0(here(), "/code/trend_data_from_excel.R"))
+  source(paste0(here(), "/code/trend_data_for_charts.R"))
   source(paste0(here(), "/code/excel tables/excel_trend_data.R"))
 }
 
