@@ -1,5 +1,5 @@
 library(here)
-source(paste0(here(), "/code/significance testing/significance_testing.R"))
+source(paste0(here(), "/code/significance testing/final_output/significance_testing.R"))
 
 if (!exists (paste0(here(), "/outputs/significance outputs"))) {
   dir.create(paste0(here(), "/outputs/significance outputs"))

@@ -90,6 +90,8 @@ library(remotes)
 library(readspss)
 library(tufte)
 library(readODS)
+library(data.table)
+library(forcats)
 
 # turn off warning messages
 options(warn = -1)

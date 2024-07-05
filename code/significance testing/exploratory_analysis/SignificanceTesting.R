@@ -1,88 +1,86 @@
-library(dplyr)
-library(data.table)
-library(tidyr)
-library(forcats)
+
 
 # R Scripts containing bespoke functions for significance testing
-source("code/significance testing/SignificanceTesting/functions/SignificanceTestingFunctions.R")
+source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/significance testing/exploratory_analysis/functions/SignificanceTestingFunctions.R"))
 
 ### **** DATA **** ####
-data2021 <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2021 Final Dataset.RDS")
-data2022 <- readRDS("T:/Projects/71 - SSB PCOS/Data/Final/PCOS 2022 Final Dataset.RDS")
+data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
+data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
 
-data2021$PCOS2a <- fct_collapse(data2021$PCOS2a, 
+data_last$PCOS2a <- fct_collapse(data_last$PCOS2a, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2021$PCOS2b <- fct_collapse(data2021$PCOS2b, 
+data_last$PCOS2b <- fct_collapse(data_last$PCOS2b, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2021$PCOS2c <- fct_collapse(data2021$PCOS2c, 
+data_last$PCOS2c <- fct_collapse(data_last$PCOS2c, 
                                "yes" = c("Trust a great deal","Tend to trust"), 
                                "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2021$PCOS2d <- fct_collapse(data2021$PCOS2d, 
+data_last$PCOS2d <- fct_collapse(data_last$PCOS2d, 
                                "yes" = c("Trust a great deal","Tend to trust"), 
                                "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2021$PCOS3 <- fct_collapse(data2021$PCOS3, 
+data_last$PCOS3 <- fct_collapse(data_last$PCOS3, 
                                "yes" = c("Tend to trust them", "Trust them greatly"), 
                                "no" = c("Tend not to trust them", "Distrust them greatly"))
 
-data2021$PCOS4 <- fct_collapse(data2021$PCOS4, 
+data_last$PCOS4 <- fct_collapse(data_last$PCOS4, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
-data2021$PCOS5 <- fct_collapse(data2021$PCOS5, 
+data_last$PCOS5 <- fct_collapse(data_last$PCOS5, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
-data2021$PCOS6 <- fct_collapse(data2021$PCOS6, 
+data_last$PCOS6 <- fct_collapse(data_last$PCOS6, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
-data2022$PCOS2a <- fct_collapse(data2022$PCOS2a, 
+data_current$PCOS2a <- fct_collapse(data_current$PCOS2a, 
                                             "yes" = c("Trust a great deal","Tend to trust"), 
                                             "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2022$PCOS2b <- fct_collapse(data2022$PCOS2b, 
+data_current$PCOS2b <- fct_collapse(data_current$PCOS2b, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2022$PCOS2c <- fct_collapse(data2022$PCOS2c, 
+data_current$PCOS2c <- fct_collapse(data_current$PCOS2c, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2022$PCOS2d <- fct_collapse(data2022$PCOS2d, 
+data_current$PCOS2d <- fct_collapse(data_current$PCOS2d, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"))
 
-data2022$PCOS3 <- fct_collapse(data2022$PCOS3, 
+data_current$PCOS3 <- fct_collapse(data_current$PCOS3, 
                                "yes" = c("Tend to trust them", "Trust them greatly"), 
                                "no" = c("Tend not to trust them", "Distrust them greatly"))
 
-data2022$PCOS4 <- fct_collapse(data2022$PCOS4, 
+data_current$PCOS4 <- fct_collapse(data_current$PCOS4, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
-data2022$PCOS5 <- fct_collapse(data2022$PCOS5, 
+data_current$PCOS5 <- fct_collapse(data_current$PCOS5, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
-data2022$PCOS6 <- fct_collapse(data2022$PCOS6, 
+data_current$PCOS6 <- fct_collapse(data_current$PCOS6, 
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
 ### **** CURRENT YEAR **** ####
-currentYear = "data2022"
+currentYear = "data_current"
 
 # Re-labelling some fields
-data2022$SEX <- recode(data2022$SEX, "M" = "Male", "F" = "Female")
+data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
 
 ### **** INPUTS **** ####
-vars <- read.csv("code/significance testing/SignificanceTesting/inputs/var.csv") 
-groupings <- read.csv("code/significance testing/SignificanceTesting/inputs/grouping.csv")
+vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
+groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
 
 ### **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs 
@@ -121,7 +119,7 @@ vardf <- vardf %>%
   select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, question2, n2, p2,significance, direction, score) %>%
   arrange(desc(significance))
 
-outputfile <- paste0('outputs/significanceTestingAll1920-', Sys.Date(), '.csv') 
+outputfile <- paste0('outputs/significanceTestingAll2022-', Sys.Date(), '.csv') 
 
 write.csv(vardf,outputfile) #a csv file with the results will be written to the outputs folder.
 

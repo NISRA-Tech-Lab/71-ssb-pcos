@@ -49,6 +49,9 @@ institutions <- data.frame(year = current_year,
                            distrust_assembly = chart_7_data$distrust[grepl("Assembly", chart_7_data)],
                            dont_know_assembly = chart_7_data$dont_know[grepl("Assembly", chart_7_data)])
 
+institutions <- data.frame(year = rep(current_year, 3),
+                           trust = )
+
 # Join all data ####
  
 infographic_data <- full_join(awareness_of_nisra,
