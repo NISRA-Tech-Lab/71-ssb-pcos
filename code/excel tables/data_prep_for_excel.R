@@ -21,7 +21,7 @@ table_2_data <- table_1_data[c("Response (%)", current_year)] %>%
   mutate(ONS = read_xlsx(ons_xl, sheet = "Awareness of ONS", range = "D4:D7", col_names = FALSE) %>%
            pull(`...1`))
 
-names(table_2_data)[names(table_1_data) == current_year] <- "NISRA"
+names(table_2_data)[names(table_2_data) == current_year] <- "NISRA"
 
 # Awareness of NISRA Statistics by those not previously aware of NISRA ####
 
