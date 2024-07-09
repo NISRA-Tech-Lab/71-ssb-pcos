@@ -236,6 +236,30 @@ addStyle(new_workbook, sheet = "Confidentiality",
 addStyle(new_workbook, sheet = "Confidentiality",
          style = header2, rows = c(3:14), cols = c(1))
 
+# Rounding
+list_of_sheets <- c("Introduction", "Contents", "Awareness_of_NISRA", "Awareness_NISRA_Statistics", 
+                    "Aware_Statistics_by_NISRA", "Trust_NISRA", "Trust_Civil_Service", "Trust_NI_Assembly", 
+                    "Trust_Media", "Trust_NISRA_Statistics", "Value", "Political_Interference",
+                    "Confidentiality")
+
+sheets <- seq_along(new_workbook)
+walk2(sheets, dat_grouped, ~ addStyle(new_workbook, .x, round2, cols = 7, rows = 2:nrow(.y)))
+
+for (i in 3:13) {
+
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=2, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=3, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=4, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=5, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=6, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=7, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=8, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=9, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=10, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=11, stack=TRUE)
+  
+  }
+
 # Column and row widths
 setColWidths(new_workbook, sheet = "Introduction", cols = c(1), widths = c(109))
 setColWidths(new_workbook, sheet = "Contents", cols = c(1), widths = c(139))
