@@ -4,19 +4,7 @@ library(here)
 # Creating spreadsheets
 source(paste0(here(),"/code/excel tables/data_prep_for_excel.R"))
 
-bold15 <- createStyle(textDecoration = "bold",
-                      fontSize = 11)
-
 # Rounding
-df.list <- list(table_1_data,  table_10_data, table_11_data, table_12_data, table_13_data,
-                table_14_data, table_15_data, table_16_data, table_17_data, table_18_data,
-                table_19_data, table_2_data, table_20_data, table_21_data, table_22_data,
-                table_23_data, table_24_data, table_25_data, table_26_data, table_27_data,
-                table_28_data, table_29_data, table_3_data,  table_30_data, table_31_data,
-                table_32_data, table_33_data, table_34_data, table_35_data, table_36_data,
-                table_37_data, table_4_data,  table_5_data,  table_6_data,  table_7_data,
-                table_8_data,  table_9_data)
-
 text <- read_excel(paste0(here(), "/code/excel tables/Text.xlsx"), sheet = "Text")
 num_rows <- nrow(text)
 
@@ -62,7 +50,7 @@ tables_dataframe <- data.frame(Table_Name = c("table_1_data", "table_2_data", "t
                                               "table_21_data", "table_22_data", "table_23_data", "table_24_data", "table_25_data",
                                               "table_26_data", "table_27_data", "table_28_data", "table_29_data", "table_30_data", 
                                               "table_31_data", "table_32_data", "table_33_data", "table_34_data", "table_35_data",
-                                              "table_36_data", "table_37_data"),
+                                              "table_36_data", "table_37_data", "table_38_data"),
                                table_name_col = c("Table 1: Awareness of NISRA, 2009-2022",
                                                   "Table 2: Awareness of NISRA (2022) and ONS (2021)",
                                                   "Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, 2022",
@@ -87,19 +75,20 @@ tables_dataframe <- data.frame(Table_Name = c("table_1_data", "table_2_data", "t
                                                   "Table 22: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), 2022",
                                                   "Table 23: Trust in NISRA, 2014-2022",
                                                   "Table 24: Trust in NISRA (2022) and ONS (2021)",
-                                                  "Table 25: Trust in the Civil Service, 2014-2022",
-                                                  "Table 26: Trust in the Northern Ireland Assembly, 2014-2022",
-                                                  "Table 27: Trust in the Media, 2014-2022",
-                                                  "Table 28: Trust in NISRA Statistics, 2014-2022",
-                                                  "Table 29: Trust in NISRA (2022) and ONS (2021) statistics",
-                                                  "Table 30: Trust in NISRA statistics by respondent's awareness of NISRA, 2022",
-                                                  "Table 31: Statistics produced by NISRA are important to understand Northern Ireland, 2016-2022",
-                                                  "Table 32: Statistics produced are important to understand our country (NISRA 2022 and ONS 2021) ",
-                                                  "Table 33: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, 2022",
-                                                  "Table 34: Statistics produced by NISRA are free from political interference, 2014-2022",
-                                                  "Table 35: Statistics produced are free from political interference (NISRA 2022 and ONS 2021) ",
-                                                  "Table 36: Personal information provided to NISRA will be kept confidential, 2014-2022",
-                                                  "Table 37: Personal information provided will be kept confidential (NISRA 2022 and ONS 2021)"),
+                                                  "Table 25: Trust in NISRA by respondent's awareness of NISRA, 2022",
+                                                  "Table 26: Trust in the Civil Service, 2014-2022",
+                                                  "Table 27: Trust in the Northern Ireland Assembly, 2014-2022",
+                                                  "Table 28: Trust in the Media, 2014-2022",
+                                                  "Table 29: Trust in NISRA Statistics, 2014-2022",
+                                                  "Table 30: Trust in NISRA (2022) and ONS (2021) statistics",
+                                                  "Table 31: Trust in NISRA statistics by respondent's awareness of NISRA, 2022",
+                                                  "Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-2022",
+                                                  "Table 33: Statistics produced are important to understand our country (NISRA 2022 and ONS 2021) ",
+                                                  "Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, 2022",
+                                                  "Table 35: Statistics produced by NISRA are free from political interference, 2014-2022",
+                                                  "Table 36: Statistics produced are free from political interference (NISRA 2022 and ONS 2021) ",
+                                                  "Table 37: Personal information provided to NISRA will be kept confidential, 2014-2022",
+                                                  "Table 38: Personal information provided will be kept confidential (NISRA 2022 and ONS 2021)"),
                                Sheet = c("Awareness_of_NISRA", "Awareness_of_NISRA",
                                          "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", 
                                          "Awareness_NISRA_Statistics",
@@ -108,13 +97,13 @@ tables_dataframe <- data.frame(Table_Name = c("table_1_data", "table_2_data", "t
                                          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
                                          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
                                          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
-                                         "Aware_Statistics_by_NISRA", "Trust_NISRA",
+                                         "Aware_Statistics_by_NISRA", "Trust_NISRA", "Trust_NISRA",
                                          "Trust_NISRA", "Trust_Civil_Service", "Trust_NI_Assembly", "Trust_Media",
                                          "Trust_NISRA_Statistics", "Trust_NISRA_Statistics", "Trust_NISRA_Statistics",
                                          "Value", "Value", "Value", "Political_Interference", "Political_Interference",
                                          "Confidentiality", "Confidentiality"),
                                Start_Row = c(4, 11, 5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 5, 11, 17, 23, 29, 35, 41,
-                                             47, 53, 59, 4, 10, 5, 4, 3, 4, 10, 16, 4, 10, 16, 4, 10, 4, 10))
+                                             47, 53, 59, 4, 10, 15, 5, 4, 3, 4, 10, 16, 4, 10, 16, 4, 10, 4, 10))
 
 for (i in 1:nrow(tables_dataframe)) {
   df <- tables_dataframe[i,]
@@ -129,7 +118,7 @@ for (i in 1:nrow(tables_dataframe)) {
                  tableName = df$Table_Name,
                  withFilter = FALSE,
                  bandedRows = FALSE,
-                 headerStyle = hs)
+                 headerStyle = pt)
   
   writeData(new_workbook,
             sheet = paste0(df$Sheet),
@@ -138,27 +127,10 @@ for (i in 1:nrow(tables_dataframe)) {
             colNames = TRUE)
 }
 
-worksheet_name_col <- c("Awareness_of_NISRA", "Awareness_of_NISRA",
-          "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", 
-          "Awareness_NISRA_Statistics",
-          "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics",
-          "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics", "Awareness_NISRA_Statistics",
-          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
-          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
-          "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA", "Aware_Statistics_by_NISRA",
-          "Aware_Statistics_by_NISRA", "Trust_NISRA",
-          "Trust_NISRA", "Trust_Civil_Service", "Trust_NI_Assembly", "Trust_Media",
-          "Trust_NISRA_Statistics", "Trust_NISRA_Statistics", "Trust_NISRA_Statistics",
-          "Value", "Value", "Value", "Political_Interference", "Political_Interference",
-          "Confidentiality", "Confidentiality")
-
-Start_Row = c(4, 11, 5, 11, 17, 23, 29, 35, 41, 47, 53, 59, 5, 11, 17, 23, 29, 35, 41,
-              47, 53, 59, 4, 10, 5, 4, 3, 4, 10, 16, 4, 10, 16, 4, 10, 4, 10)
-
 # Contents Page
-worksheet_name_df <- data.frame(worksheet_name = worksheet_name_col,
-                                row_number = 2:38, 
-                                Start_Row, 
+worksheet_name_df <- data.frame(worksheet_name = tables_dataframe$Sheet,
+                                row_number = 2:39, 
+                                Start_Row = tables_dataframe$Start_Row, 
                                 tables_dataframe$table_name_col)
 
 contents_row_number <- nrow(worksheet_name_df)
@@ -220,7 +192,7 @@ addStyle(new_workbook, sheet = "Trust_NISRA",
          style = header2, rows = c(1), cols = c(1))
 
 addStyle(new_workbook, sheet = "Trust_NISRA",
-         style = header2, rows = c(3:14), cols = c(1))
+         style = header2, rows = c(3:19), cols = c(1))
 
 addStyle(new_workbook, sheet = "Trust_Civil_Service",
          style = header3, rows = c(1), cols = c(1))
