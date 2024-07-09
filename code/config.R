@@ -92,6 +92,7 @@ library(tufte)
 library(readODS)
 library(data.table)
 library(forcats)
+library(english)
 
 # turn off warning messages
 options(warn = -1)

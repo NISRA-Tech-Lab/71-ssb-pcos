@@ -46,6 +46,8 @@ saveRDS(table_26_data, paste0(data_folder, "Trend/2021/table_26_data.RDS"))
 
 table_27_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A10:F14")
 
+names(table_27_data) <- gsub("Note 5", "Note 2", names(table_27_data))
+
 saveRDS(table_27_data, paste0(data_folder, "Trend/2021/table_27_data.RDS"))
 
 ## Table 28: Trust in the Media by year ####

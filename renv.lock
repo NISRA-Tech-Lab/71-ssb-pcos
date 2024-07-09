@@ -323,6 +323,13 @@
       ],
       "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
     },
+    "english": {
+      "Package": "english",
+      "Version": "1.2-6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "eae5ce5432c3e995bc4aab2e612df7a5"
+    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.24.0",
