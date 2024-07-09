@@ -54,7 +54,19 @@ f_embed_xl <- function(df, sheet_title, tab_name) {
     "kB"
   )
   
-  embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"),
-             text = paste0(sheet_title, " (.XLSX format; ", xl_size,")"))
+  write.csv(df, paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv"), row.names = FALSE)
+  
+  csv_size <- round_half_up(file.size(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv")) / 1000)
+  
+  csv_size <- if (csv_size == 0) {
+    "1kB"
+  } else {
+    paste0(csv_size, "kB")
+  }
+  
+  paste(embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"),
+             text = paste0(sheet_title, " (.XLSX format; ", xl_size,")")),
+    embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv"),
+               text = paste0("(.CSV format; ", csv_size,")")))
   
 }

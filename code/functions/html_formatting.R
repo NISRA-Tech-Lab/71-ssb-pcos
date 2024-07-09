@@ -26,6 +26,10 @@ f_borderline <- function() {
   )
 }
 
+f_separator <- function() {
+  div(style = "width: 100%; height: 3px; background-color: var(--nics-three-bar-colour-2)")
+}
+
 
 if (!exists("nicstheme")) {
   departmental_link <- NULL

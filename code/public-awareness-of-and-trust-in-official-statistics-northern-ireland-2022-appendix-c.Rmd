@@ -38,6 +38,8 @@ source(paste0(here(), "/code/data_prep.R"))
 <div id="main" role="main">
 
 
+[Back to full report](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`.html)
+
 ## Appendix C: Survey Questions
 
 ### Qu1
@@ -48,6 +50,8 @@ source(paste0(here(), "/code/data_prep.R"))
 1. No
 
 _If answered 'yes' to Qu1 then_
+
+<div style = "margin-left: 30px">
 
 #### Qu1c 
 
@@ -66,7 +70,11 @@ kbl(pcos1) %>%
 
 ```
 
+</div>
+
 _If answered 'no' to Qu1 then_
+
+<div style = "margin-left: 30px">
 
 #### Qu1d 
 
@@ -77,9 +85,13 @@ kbl(pcos1) %>%
   kable_styling()
 ```
 
+</div>
+
 ### Qu2
 
 I will name a list of institutions. For each, please indicate whether you tend to trust it or tend not to trust it.
+
+<div style = "margin-left: 30px">
 
 #### Qu2a
 
@@ -116,6 +128,8 @@ How much do you trust NISRA?
 1. Tend to trust
 1. Tend to distrust
 1. Distrust greatly
+
+</div>
 
 ### Qu3
 
