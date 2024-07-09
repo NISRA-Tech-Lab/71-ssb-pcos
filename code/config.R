@@ -93,6 +93,10 @@ library(readODS)
 library(data.table)
 library(forcats)
 library(english)
+library(svgtools)
+library(rsvg)
+
+# https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
 
 # turn off warning messages
 options(warn = -1)

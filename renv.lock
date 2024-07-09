@@ -759,6 +759,18 @@
       ],
       "Hash": "680ad542fbcf801442c83a6ac5a2126c"
     },
+    "magick": {
+      "Package": "magick",
+      "Version": "2.8.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "Rcpp",
+        "curl",
+        "magrittr"
+      ],
+      "Hash": "3f6bcbb8a0c1c9365b2f02d5d04ad7bc"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -1138,6 +1150,13 @@
       "Repository": "RSPM",
       "Hash": "96710351d642b70e8f02ddeb237c46a7"
     },
+    "rsvg": {
+      "Package": "rsvg",
+      "Version": "2.6.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "7aaf92c4adddc8a85696ae7f0123a725"
+    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.9",
@@ -1268,6 +1287,20 @@
         "systemfonts"
       ],
       "Hash": "124a41fdfa23e8691cb744c762f10516"
+    },
+    "svgtools": {
+      "Package": "svgtools",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "magick",
+        "rsvg",
+        "stringr",
+        "xml2"
+      ],
+      "Hash": "f18e25c133d349ebee1478c9152217f9"
     },
     "sys": {
       "Package": "sys",
