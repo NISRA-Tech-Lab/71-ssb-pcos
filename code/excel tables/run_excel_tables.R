@@ -298,6 +298,7 @@ f_worksheet(wb,
 
 ## Value ####
 
+<<<<<<< HEAD
 f_worksheet(wb,
             sheet_name = "Value",
             contents = "Value",
@@ -318,6 +319,64 @@ f_worksheet(wb,
               )  
             )
 )
+=======
+# Rounding
+list_of_sheets <- c("Introduction", "Contents", "Awareness_of_NISRA", "Awareness_NISRA_Statistics", 
+                    "Aware_Statistics_by_NISRA", "Trust_NISRA", "Trust_Civil_Service", "Trust_NI_Assembly", 
+                    "Trust_Media", "Trust_NISRA_Statistics", "Value", "Political_Interference",
+                    "Confidentiality")
+
+sheets <- seq_along(new_workbook)
+walk2(sheets, dat_grouped, ~ addStyle(new_workbook, .x, round2, cols = 7, rows = 2:nrow(.y)))
+
+for (i in 3:13) {
+
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=2, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=3, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=4, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=5, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=6, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=7, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=8, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=9, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=10, stack=TRUE)
+  addStyle(new_workbook, sheet=i, ns, rows=1:70, cols=11, stack=TRUE)
+  
+  }
+
+# Column and row widths
+setColWidths(new_workbook, sheet = "Introduction", cols = c(1), widths = c(109))
+setColWidths(new_workbook, sheet = "Contents", cols = c(1), widths = c(139))
+table_1_cols <- ncol(table_1_data) - 1  
+setColWidths(new_workbook, sheet = "Awareness_of_NISRA", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Awareness_of_NISRA", cols = c(2:table_1_cols), widths = c(22))
+setColWidths(new_workbook, sheet = "Awareness_NISRA_Statistics", cols = c(1, 2), widths = c(46, 22))
+setColWidths(new_workbook, sheet = "Aware_Statistics_by_NISRA", cols = c(1, 2), widths = c(46, 22))
+table_23_cols <- ncol(table_23_data) - 1  
+setColWidths(new_workbook, sheet = "Trust_NISRA", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Trust_NISRA", cols = c(2:table_23_cols), widths = c(22))
+table_25_cols <- ncol(table_25_data) - 1  
+setColWidths(new_workbook, sheet = "Trust_Civil_Service", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Trust_Civil_Service", cols = c(2:table_25_cols), widths = c(22))
+table_26_cols <- ncol(table_26_data) - 1  
+setColWidths(new_workbook, sheet = "Trust_NI_Assembly", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Trust_NI_Assembly", cols = c(2:table_26_cols), widths = c(22))
+table_27_cols <- ncol(table_27_data) - 1  
+setColWidths(new_workbook, sheet = "Trust_Media", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Trust_Media", cols = c(2:table_27_cols), widths = c(22))
+table_28_cols <- ncol(table_28_data) - 1  
+setColWidths(new_workbook, sheet = "Trust_NISRA_Statistics", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Trust_NISRA_Statistics", cols = c(2:table_28_cols), widths = c(22))
+table_31_cols <- ncol(table_31_data) - 1  
+setColWidths(new_workbook, sheet = "Value", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Value", cols = c(2:table_31_cols), widths = c(22))
+table_34_cols <- ncol(table_34_data) - 1  
+setColWidths(new_workbook, sheet = "Political_Interference", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Political_Interference", cols = c(2:table_34_cols), widths = c(22))
+table_36_cols <- ncol(table_36_data) - 1  
+setColWidths(new_workbook, sheet = "Confidentiality", cols = c(1), widths = c(46))
+setColWidths(new_workbook, sheet = "Confidentiality", cols = c(2:table_36_cols), widths = c(22))
+>>>>>>> 44d1d67543bd1317a2d4c8cc30e6eff9fc9eac3f
 
 
 
