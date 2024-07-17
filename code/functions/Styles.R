@@ -36,6 +36,13 @@ ns <- createStyle(
   halign = "right"
 )
 
+ns_bold <- createStyle(
+  numFmt = "#,##0",
+  halign = "right",
+  textDecoration = "bold"
+)
+
+
 
 # Style for decimal numbers
 nsd <- createStyle(

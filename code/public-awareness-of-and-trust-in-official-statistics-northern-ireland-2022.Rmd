@@ -413,7 +413,7 @@ plot_ly(chart_7_data,
 
 
 
-* [Tables 26 - 28: Trust in institutions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html#trust-in-the-civil-service)
+[Tables 26 - 28: Trust in institutions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html#trust-in-the-civil-service)
 
 `r f_borderline()`
 

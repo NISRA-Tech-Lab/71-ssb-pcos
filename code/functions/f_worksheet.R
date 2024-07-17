@@ -80,14 +80,20 @@ f_worksheet <- function(wb,
                    tableName = table_name)
     
     addStyle(wb, sheet_name,
-             rows = r,
+             rows = c(r, (r + nrow(tables[[i]]$data))),
              cols = 1,
              style = chl)
     
     addStyle(wb, sheet_name,
-             rows = (r + 1):(r + nrow(tables[[i]]$data)),
+             rows = (r + 1):(r + nrow(tables[[i]]$data) - 1),
              cols = 2:(ncol(tables[[i]]$data)),
              style = ns,
+             gridExpand = TRUE)
+    
+    addStyle(wb, sheet_name,
+             rows = (r + nrow(tables[[i]]$data)),
+             cols = 2:(ncol(tables[[i]]$data)),
+             style = ns_bold,
              gridExpand = TRUE)
     
     
