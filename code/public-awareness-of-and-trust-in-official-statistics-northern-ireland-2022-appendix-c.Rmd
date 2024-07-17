@@ -33,7 +33,7 @@ source(paste0(here(), "/code/data_prep.R"))
 
 <div data-nics-theme="`r nics_theme`">
 
-`r f_banner()` 
+`r f_banner(subtitle = "Appendix C")` 
 
 <div id="main" role="main">
 

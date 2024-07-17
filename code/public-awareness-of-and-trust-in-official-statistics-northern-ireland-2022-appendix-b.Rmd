@@ -31,9 +31,16 @@ source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 ```
 
 
+```{css}
+h3 {
+  color: black;
+  font-weight: bold;
+}
+```
+
 <div data-nics-theme="`r nics_theme`">
 
-`r f_banner()` 
+`r f_banner(subtitle = "Appendix B")` 
 
 <div id="main" role="main">
 

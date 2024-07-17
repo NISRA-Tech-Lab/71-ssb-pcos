@@ -64,8 +64,8 @@ f_embed_xl <- function(df, sheet_title, tab_name) {
     paste0(csv_size, "kB")
   }
   
-  paste(embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"),
-             text = paste0(sheet_title, " (.XLSX format; ", xl_size,")")),
+  paste(sheet_title, embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"),
+             text = paste0(" (.XLSX format; ", xl_size,")")),
     embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv"),
                text = paste0("(.CSV format; ", csv_size,")")))
   

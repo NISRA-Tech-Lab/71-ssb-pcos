@@ -66,7 +66,7 @@ if (!exists("nicstheme")) {
   departmental_link <- NULL
 }
 
-f_banner <- function() {
+f_banner <- function(subtitle = "") {
   div(
     div(
       style = "background-color: var(--nics-banner-bg); padding: 10px",
@@ -147,11 +147,11 @@ f_header <- function() {
     div(
       class = "row", style = "display:flex",
       div(
-        style = "width: 60%; padding-left:15px; font-size: 120%;",
-        p(strong("Status: "), statistic_type_text)
+        style = "width: 60%; padding-left:15px; font-size: 12pt;",
+        a(href = "#status", strong("Status: "), statistic_type_text)
       ),
       div(
-        style = "width: 40%; font-size: 120%;",
+        style = "width: 40%; font-size: 12pt;",
         p(strong("Publication date: "), pub_date_words_dmy)
       )
     )
@@ -164,7 +164,7 @@ f_contact <- function() {
     div(
       class = "row", style = "display:flex",
       div(
-        style = "width: 100%; padding-left:15px; font-size: 120%;",
+        style = "width: 100%; padding-left:15px; font-size: 12pt;",
         p(strong("Published by: "), header_publisher),
         p(strong("Lead Statistician: "), lead_statistician),
         p(strong("Telephone: "), header_telephone),
@@ -183,7 +183,7 @@ f_footer <- function() {
 HTML('
 <footer style="color: #ffffff; background-color: #00205b;">
   <div class="col-wide" data-analytics="footer">
-    <div class="row">
+    <div class="row" style = "display: flex;">
       <div class="column left">
         <footerheading>Links</footerheading>
         <ul>
