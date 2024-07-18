@@ -103,17 +103,17 @@ saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year," Final Data
 
 # Create data frames for charts ####
 
-## Read in all last year's trend data ####
-for (file in list.files((paste0(data_folder, "Trend/", current_year - 1)))) {
-  assign(sub(".RDS", "", file),
-         readRDS(paste0(data_folder, "Trend/", current_year - 1, "/", file)))
-}
-
 # Check Trend folder for 2021 exists
 if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
   dir.create(paste0(data_folder, "Trend/2021"))
   source(paste0(here(), "/code/trend_data_for_charts.R"))
   source(paste0(here(), "/code/excel tables/excel_trend_data.R"))
+}
+
+## Read in all last year's trend data ####
+for (file in list.files((paste0(data_folder, "Trend/", current_year - 1)))) {
+  assign(sub(".RDS", "", file),
+         readRDS(paste0(data_folder, "Trend/", current_year - 1, "/", file)))
 }
 
 # Check Trend folder for new year exists
@@ -134,7 +134,7 @@ saveRDS(chart_1_data, paste0(data_folder, "Trend/", current_year, "/chart_1_data
 chart_2_data <- chart_2_data %>%
   rbind(data.frame(year = current_year,
                    nisra = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100,
-                   ons = NA))
+                   ons = if (current_year == ons_year) as.numeric(read_xlsx(ons_xl, sheet = "Awareness of ONS", range = "D4", col_names = FALSE)) else NA))
 
 saveRDS(chart_2_data, paste0(data_folder, "Trend/", current_year, "/chart_2_data.RDS"))
 
