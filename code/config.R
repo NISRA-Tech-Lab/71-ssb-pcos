@@ -95,6 +95,7 @@ library(forcats)
 library(english)
 library(svgtools)
 library(rsvg)
+library(sjPlot)
 
 # https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
 
