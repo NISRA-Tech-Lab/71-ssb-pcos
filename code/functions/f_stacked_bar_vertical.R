@@ -12,6 +12,26 @@ f_stacked_bar_vertical <- function (df) {
     0.5
   }
   
+  df <- df %>%
+    mutate(cat_1_inside = case_when(.[[2]] >= 3.5 ~ paste0("<b>", round_half_up(.[[2]]), "</b>"),
+                                    TRUE ~ ""),
+           cat_1_outside = case_when(.[[2]] < 3.5 ~ paste0("<b>", round_half_up(.[[2]]), "</b>"),
+                                     TRUE ~ ""),
+           cat_2_inside = case_when(.[[3]] >= 3.5 ~ paste0("<b>", round_half_up(.[[3]]), "</b>"),
+                                    TRUE ~ ""),
+           cat_2_outside = case_when(.[[3]] < 3.5 ~ paste0("<b>", round_half_up(.[[3]]), "</b>"),
+                                    TRUE ~ ""),
+           cat_3_inside = case_when(dont_know >= 3.5 ~ paste0("<b>", round_half_up(dont_know), "</b>"),
+                                    TRUE ~ ""),
+           cat_3_outside = case_when(dont_know < 3.5 ~ paste0("<b>", round_half_up(dont_know), "</b>"),
+                                     TRUE ~ ""))
+  
+  offset <- if ("org" %in% names(df)) {
+    0.72
+  } else if ("year" %in% names(df)) {
+    0.6
+  }
+  
   plot_ly(df,
           x = df[[1]],
           y = df[[2]],
@@ -31,21 +51,39 @@ f_stacked_bar_vertical <- function (df) {
     add_annotations(x = as.numeric(row.names(df)) - 1,
                     y = df[[2]] / 2,
                     yanchor = "middle",
-                    text = paste0("<b>", round_half_up(df[[2]]), "</b>"),
+                    text = ~cat_1_inside,
                     showarrow = FALSE,
                     font = list(color = "#ffffff")) %>%
+    add_annotations(x = as.numeric(row.names(df)) - offset,
+                    y = df[[2]] / 2,
+                    yanchor = "middle",
+                    text = ~cat_1_outside,
+                    showarrow = FALSE,
+                    font = list(color = nisra_navy)) %>%
     add_annotations(x = as.numeric(row.names(df)) - 1,
                     y = df[[2]] + df[[3]] / 2,
                     yanchor = "middle",
-                    text = paste0("<b>", round_half_up(df[[3]]), "</b>"),
+                    text = ~cat_2_inside,
                     showarrow = FALSE,
                     font = list(color = "#ffffff")) %>%
+    add_annotations(x = as.numeric(row.names(df)) - offset,
+                    y = df[[2]] + df[[3]] / 2,
+                    yanchor = "middle",
+                    text = ~cat_2_outside,
+                    showarrow = FALSE,
+                    font = list(color = nisra_blue)) %>%
     add_annotations(x = as.numeric(row.names(df)) - 1,
                     y = ~df[[2]] + df[[3]] + dont_know / 2,
                     yanchor = "middle",
-                    text = ~paste0("<b>", round_half_up(dont_know), "</b>"),
+                    text = ~cat_3_inside,
                     showarrow = FALSE,
                     font = list(color = "#ffffff")) %>%
+    add_annotations(x = as.numeric(row.names(df)) - offset,
+                    y = ~df[[2]] + df[[3]] + dont_know / 2,
+                    yanchor = "middle",
+                    text = ~cat_3_outside,
+                    showarrow = FALSE,
+                    font = list(color = "#757575")) %>%
     layout(font = list(family = "Arial", size = 12),
            barmode = "stack",
            yaxis = list(title = "",
