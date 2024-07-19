@@ -173,6 +173,7 @@ git config --global http.proxy http://cloud-lb.nigov.net:8080
 git config --global https.proxy https://cloud-lb.nigov.net:8080
 git config --global user.name "YourUsername"
 git config --global user.email firstname.lastname@nisra.gov.uk
+git update-index --assume-unchanged code/path_to_data.R
 ```
 
 ### Links
