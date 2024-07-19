@@ -165,6 +165,16 @@ Google analytics are included in the cookies banner code and these analytics can
 
 For more information on Git look at the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
 
+Enter the following lines of code in the R terminal:
+
+```         
+git config --global http.sslVerify false
+git config --global http.proxy http://cloud-lb.nigov.net:8080
+git config --global https.proxy https://cloud-lb.nigov.net:8080
+git config --global user.name "YourUsername"
+git config --global user.email firstname.lastname@nisra.gov.uk
+```
+
 ### Links
 
 The [NISRA Technology & Support Lab RAP Skeleton Git Page](https://github.com/NISRA-Tech-Lab/rap-skeleton) has lots of useful information that forms the basis for the development of this project.
