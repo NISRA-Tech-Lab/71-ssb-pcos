@@ -4,7 +4,7 @@ library(here)
 # Read config file
 source(paste0(here(), "/code/config.R"))
 
-# Read data in ####
+# Read data in from SPSS ####
 
 data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
                                 pass = password,
