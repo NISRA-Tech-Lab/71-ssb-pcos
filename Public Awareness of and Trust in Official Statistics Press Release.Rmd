@@ -1,0 +1,54 @@
+---
+output:
+  officedown::rdocx_document:
+    reference_docx: style_template.docx
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      envir = globalenv()
+    )
+  })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, echo = FALSE)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/data_prep.R"))
+```
+
+<!---BLOCK_MULTICOL_START--->
+
+::: {custom-style="heading_style"}
+Public Awareness of and Trust in Official Statistics, Northern Ireland `r latest_year`\
+:::
+
+`r run_columnbreak()` `r external_img(paste0(here(),"/data/images/NISRA_logo_bilingual_colour.png"), height = 3.33, width = 8.33, unit = "cm")` <!---BLOCK_MULTICOL_STOP{widths: [3.5, 3.5], space: 0.2, sep: false}--->
+
+<!---  Months?  -->
+
+This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r latest_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
+
+::: {custom-style="heading_style"}
+Awareness
+:::
+
+```{r Figs for Awareness}
+
+aware_nisra_2020 <- chart_1_data %>% filter(year == 2020) %>%
+  pull("pct")
+
+aware_nisra_2021 <- chart_1_data %>% filter(year == '2021') %>%
+  pull("pct")
+```
+
+:::{custom-style="paragraph_style"}
+
+-   Public awareness of NISRA was moderate in `r latest_year` with almost half of respondents (`r heard_of_nisra`) indicating that they had heard of the Agency before being contacted about the survey.
+
+-   Awareness of NISRA has decreased since 2020 and 2021, when 58% and 55% of respondents respectively, had heard of NISRA. However awareness of the Agency remains higher than in earlier years (2009 to 2019) when 35% or less of respondents had heard of NISRA.
+
+:::
