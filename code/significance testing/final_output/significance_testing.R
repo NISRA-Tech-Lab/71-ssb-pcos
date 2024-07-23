@@ -1,8 +1,10 @@
 library(here)
-# source(paste0(here(), "/code/config.R"))
-# 
-# data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
-# data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
+source(paste0(here(), "/code/config.R"))
+
+data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))
+data_current <- readRDS(paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
+
+ons_xl <- paste0(data_folder, "ONS/", ons_filename)
 
 # Awareness of NISRA ####
 
@@ -153,16 +155,7 @@ dont_know_trust <- f_significance_year("TrustNISRA2", "Don't know")
 
 ## Trust in NISRA - unweighted and base figures by age group ####
 
-trust_age_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
-
-for (age in age_groups) {
-  trust_age_stats[[age]] <- c(f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$AGE2, age) * 100,
-                              f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$AGE2, age) * 100,
-                              f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$AGE2, age) * 100,
-                              f_return_n_group(data_current$TrustNISRA2, data_current$AGE2, age))
-}
-
-names(trust_age_stats)[names(trust_age_stats) == "stat"] <- ""
+trust_age_stats <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
 ## Trust in NISRA by Age group compare ####
 
@@ -178,16 +171,7 @@ dont_know_trust_age_z_scores <- f_age_z_scores("TrustNISRA2", "Don't know")
 
 ## Trust in NISRA - unweighted and base figures by qualification ####
 
-trust_qual_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
-
-for (qual in quals) {
-  trust_qual_stats[[qual]] <- c(f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$DERHIanalysis, qual) * 100,
-                               f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$DERHIanalysis, qual) * 100,
-                               f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$DERHIanalysis, qual) * 100,
-                               f_return_n_group(data_current$TrustNISRA2, data_current$DERHIanalysis, qual))
-}
-
-names(trust_qual_stats)[names(trust_qual_stats) == "stat"] <- ""
+trust_qual_stats <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
 ## Trust in NISRA by qualification compare ####
 
@@ -203,33 +187,7 @@ dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
 ## Trust in NISRA by Work Status ####
 
-trust_work_status <- data.frame(stat = c("% Trust", "% Distrust", "% DK", "Base"),
-                          
-                          work = c(f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$EMPST2, "In paid employment") * 100,
-                                   f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$EMPST2, "In paid employment") * 100,
-                                   f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$EMPST2, "In paid employment") * 100,
-                                   f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "In paid employment")),
-                          
-                          not = c(f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$EMPST2, "Not in paid employment") * 100,
-                                  f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$EMPST2, "Not in paid employment") * 100,
-                                  f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$EMPST2, "Not in paid employment") * 100,
-                                  f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "Not in paid employment")),
-                          
-                          z = c(f_return_z(p1 = f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$EMPST2, "In paid employment"),
-                                           n1 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "In paid employment"),
-                                           p2 = f_return_p_group(data_current$TrustNISRA2, "Trust a great deal/Tend to trust", data_current$EMPST2, "Not in paid employment"),
-                                           n2 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "Not in paid employment")),
-                                f_return_z(p1 = f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$EMPST2, "In paid employment"),
-                                           n1 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "In paid employment"),
-                                           p2 = f_return_p_group(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly", data_current$EMPST2, "Not in paid employment"),
-                                           n2 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "Not in paid employment")),
-                                f_return_z(p1 = f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$EMPST2, "In paid employment"),
-                                           n1 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "In paid employment"),
-                                           p2 = f_return_p_group(data_current$TrustNISRA2, "Don't know", data_current$EMPST2, "Not in paid employment"),
-                                           n2 = f_return_n_group(data_current$TrustNISRA2, data_current$EMPST2, "Not in paid employment")),
-                                NA))
-
-names(trust_work_status) <- c(" ", "In work", "Not in work", "Z Score")
+trust_work_status <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
 # ValueIntConfYears ####
 
@@ -241,10 +199,124 @@ confidential_year <- f_significance_year("Confidential2", "Strongly Agree/Tend t
 
 # Value ####
 
+value_work_stats <- f_work_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
+value_age_stats <- f_age_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+value_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+value_disagree_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+value_dont_know_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Don't know")
+
+value_qual_stats <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+value_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+value_disagree_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+value_dont_know_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Don't know")
 
 # Interference ####
+
+interference_work_stats <- f_work_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_stats <- f_age_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_z_scores <- f_age_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_age_z_scores <- f_age_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_age_z_scores <- f_age_z_scores("Political2", "Don't know")
+
+interference_qual_stats <- f_qual_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_qual_z_scores <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_qual_z_scores <- f_qual_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_qual_z_scores <- f_qual_z_scores("Political2", "Don't know") 
+
 # Confidentiality ####
+
+confidential_work_stats <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_stats <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_z_scores <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_age_z_scores <- f_age_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_age_z_scores <- f_age_z_scores("Confidential2", "Don't know")
+
+confidential_qual_stats <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_qual_z_scores <- f_qual_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't know") 
+
 # ONS vs NISRA ####
+
+nisra_ons_trust <- as.data.frame(read_xlsx(ons_xl, sheet = "Trust in ONS", range = "B4:D9", col_names = FALSE)) %>%
+  select(trust = `...1`, ons = `...3`) %>%
+  mutate(trust = factor(trust,
+                        levels = unique(trust),
+                        labels = c("Trust", "Trust", "Distrust", "Distrust", "Don't know", "Base"))) %>%
+  group_by(trust) %>%
+  summarise(ons = sum(ons)) %>%
+  mutate(nisra = c(trust_year[[as.character(current_year)]][1],
+                   distrust_year[[as.character(current_year)]][1],
+                   dont_know_trust[[as.character(current_year)]][1],
+                   trust_year[[as.character(current_year)]][2]),
+         Z = case_when(trust == "Base" ~ NA,
+                       TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+
+names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z")
+
+trust_stats_year <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+distrust_stats_year <- f_significance_year("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_stats_year <- f_significance_year("TrustNISRAstats2", "Don't know")
+
 # Trust NISRA Statistics ####
-# Institutions Trust this year vs last year ####
+
+trust_stats_work_stats <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_age_stats <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Don't know")
+
+trust_stats_qual_stats <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
+
+# Institutions ####
+
+trust_nics_year <- f_significance_year("TrustCivilService2", "Trust a great deal/Tend to trust")
+
+distrust_nics_year <- f_significance_year("TrustCivilService2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_nics <- f_significance_year("TrustCivilService2", "Don't know")
+
+trust_assembly_year <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust")
+
+distrust_assembly_year <- f_significance_year("TrustNIAssembly2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_assembly <- f_significance_year("TrustNIAssembly2", "Don't know")
+
+trust_media_year <- f_significance_year("TrustMedia2", "Trust a great deal/Tend to trust")
+
+distrust_media_year <- f_significance_year("TrustMedia2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_media <- f_significance_year("TrustMedia2", "Don't know")

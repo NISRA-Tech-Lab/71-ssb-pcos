@@ -28,207 +28,32 @@ addStyle(wb, "Awareness",
 r <- r + 2
 
 ## Current Year vs Previous Year ####
-
-writeData(wb, "Awareness",
-          x = paste0("Awareness of NISRA - ", current_year - 1, " vs ", current_year),
-          startRow = r)
-
-addStyle(wb, "Awareness",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Awareness",
-               x = awareness_year,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Awareness",
-         style = ns3d,
-         rows = r + 1,
-         cols = 2:ncol(awareness_year),
-         gridExpand = TRUE)
-
-addStyle(wb, "Awareness",
-         style = ns_comma,
-         rows = r + 2,
-         cols = 2:ncol(awareness_year),
-         gridExpand = TRUE)
-
-if (abs(awareness_year$`Z Score`[1]) > 1.96) {
-  addStyle(wb, "Awareness",
-           style = sig,
-           rows = r + 1,
-           cols = ncol(awareness_year))
-} else {
-  addStyle(wb, "Awareness",
-           style = not_sig,
-           rows = r + 1,
-           cols = ncol(awareness_year))
-}
-
-r <- r + nrow(awareness_year) + 2
+ 
+f_insert_sig_table(df = awareness_year,
+                   sheet = "Awareness",
+                   title = paste0("Awareness of NISRA - ", current_year - 1, " vs ", current_year))
 
 ## In Work vs Not in work ####
 
-writeData(wb, "Awareness",
-x = paste0("Awareness of NISRA - In Work vs Not in Work - ", current_year),
-startRow = r)
-
-addStyle(wb, "Awareness",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Awareness",
-               x = work_status,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Awareness",
-         style = ns3d,
-         rows = r + 1,
-         cols = 2:ncol(work_status),
-         gridExpand = TRUE)
-
-addStyle(wb, "Awareness",
-         style = ns_comma,
-         rows = r + 2,
-         cols = 2:ncol(work_status),
-         gridExpand = TRUE)
-
-if (abs(work_status$`Z Score`[1]) > 1.96) {
-  addStyle(wb, "Awareness",
-           style = sig,
-           rows = r + 1,
-           cols = ncol(work_status))
-} else {
-  addStyle(wb, "Awareness",
-           style = not_sig,
-           rows = r + 1,
-           cols = ncol(work_status))
-}
-
-r <- r + nrow(work_status) + 2
-
+f_insert_sig_table(df = work_status,
+                   sheet = "Awareness",
+                   title = paste0("Awareness of NISRA - In Work vs Not in Work - ", current_year))
 
 ## Age groups ####
-
-writeData(wb, "Awareness",
-          x = paste0("Awareness of NISRA by Age Group - ", current_year),
-          startRow = r)
-
-addStyle(wb, "Awareness",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Awareness",
-               x = age_z_scores,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Awareness",
-         style = ns3d,
-         rows = (r + 1):(r + nrow(age_z_scores)),
-         cols = 2:ncol(age_z_scores),
-         gridExpand = TRUE)
-
-for (i in 1:nrow(age_z_scores)) {
-  for (j in 2:ncol(age_z_scores)) {
-    if (!is.na(age_z_scores[i, j])) {
-      if (abs(age_z_scores[i, j]) > 1.96) {
-        addStyle(wb, "Awareness",
-                 style = sig,
-                 rows = r + i,
-                 cols = j)
-      } else {
-        addStyle(wb, "Awareness",
-                 style = not_sig,
-                 rows = r + i,
-                 cols = j)
-      }
-    }
-  }
-}
-
-for (i in 1:nrow(age_z_scores)) {
-  addStyle(wb, "Awareness",
-           style = grey,
-           rows = r + i,
-           cols = 1 + i)
-}
-
-r <- r + nrow(age_z_scores) + 2
+ 
+f_insert_z_table(df = age_z_scores,
+                 sheet = "Awareness",
+                 title = paste0("Awareness of NISRA by Age Group - ", current_year))
 
 ## Qualifications ####
- 
-writeData(wb, "Awareness",
-          x = paste0("Awareness of NISRA by Highest Qualification Achieved - ", current_year),
-          startRow = r)
 
-addStyle(wb, "Awareness",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Awareness",
-               x = qual_z_scores,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Awareness",
-         style = ns3d,
-         rows = (r + 1):(r + nrow(qual_z_scores)),
-         cols = 2:ncol(qual_z_scores),
-         gridExpand = TRUE)
-
-for (i in 1:nrow(qual_z_scores)) {
-  for (j in 2:ncol(qual_z_scores)) {
-    if (!is.na(qual_z_scores[i, j])) {
-      if (abs(qual_z_scores[i, j]) > 1.96) {
-        addStyle(wb, "Awareness",
-                 style = sig,
-                 rows = r + i,
-                 cols = j)
-      } else {
-        addStyle(wb, "Awareness",
-                 style = not_sig,
-                 rows = r + i,
-                 cols = j)
-      }
-    }
-  }
-}
-
-for (i in 1:nrow(qual_z_scores)) {
-  addStyle(wb, "Awareness",
-           style = grey,
-           rows = r + i,
-           cols = 1 + i)
-}
-
-r <- r + nrow(qual_z_scores) + 2
+f_insert_z_table(df = qual_z_scores,
+                 sheet = "Awareness",
+                 title = paste0("Awareness of NISRA by Highest Qualification Achieved - ", current_year))
 
 setColWidths(wb, "Awareness",
              cols = 1:ncol(age_z_scores),
-             widths = c(47, rep(12, ncol(qual_z_scores) - 1)))
+             widths = c(47, rep(12, ncol(age_z_scores) - 1)))
 
 # Products ####
  
@@ -273,6 +98,24 @@ addStyle(wb, "Products",
          cols = 2:ncol(products_stats),
          gridExpand = TRUE)
 
+for (i in 1:nrow(products_stats)) {
+  
+  if (!is.na(products_stats[i, "Z"])) {
+    if (abs(products_stats[i, "Z"]) > 1.96) {
+      addStyle(wb, "Products",
+               style = sig,
+               rows = r + i,
+               cols = which(names(products_stats) == "Z"))
+    } else {
+      addStyle(wb, "Products",
+               style = not_sig,
+               rows = r + i,
+               cols = which(names(products_stats) == "Z"))
+    }
+  }
+  
+}
+
 r <- r + nrow(products_stats) + 2
 
 ## Had heard of NISRA: This year vs previous year ####
@@ -300,6 +143,24 @@ addStyle(wb, "Products",
          rows = (r + 1):(r + nrow(heard_stats) - 1),
          cols = 2:ncol(heard_stats),
          gridExpand = TRUE)
+
+for (i in 1:nrow(heard_stats)) {
+  
+  if (!is.na(heard_stats[i, "Z"])) {
+    if (abs(heard_stats[i, "Z"]) > 1.96) {
+      addStyle(wb, "Products",
+               style = sig,
+               rows = r + i,
+               cols = which(names(heard_stats) == "Z"))
+    } else {
+      addStyle(wb, "Products",
+               style = not_sig,
+               rows = r + i,
+               cols = which(names(heard_stats) == "Z"))
+    }
+  }
+  
+}
 
 r <- r + nrow(heard_stats) + 2
 
@@ -329,6 +190,24 @@ addStyle(wb, "Products",
          cols = 2:ncol(not_heard_stats),
          gridExpand = TRUE)
 
+for (i in 1:nrow(not_heard_stats)) {
+  
+  if (!is.na(not_heard_stats[i, "Z"])) {
+    if (abs(not_heard_stats[i, "Z"]) > 1.96) {
+      addStyle(wb, "Products",
+               style = sig,
+               rows = r + i,
+               cols = which(names(not_heard_stats) == "Z"))
+    } else {
+      addStyle(wb, "Products",
+               style = not_sig,
+               rows = r + i,
+               cols = which(names(not_heard_stats) == "Z"))
+    }
+  }
+  
+}
+
 r <- r + nrow(not_heard_stats) + 2
 
 setColWidths(wb, "Products",
@@ -353,195 +232,69 @@ addStyle(wb, "Trust in NISRA",
 r <- r + 2
 
 ## Trust in NISRA: This year vs previous year ####
- 
-writeData(wb, "Trust in NISRA",
-          x = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1),
-          startRow = r)
 
-addStyle(wb, "Trust in NISRA",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Trust in NISRA",
-               x = trust_year,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns3d,
-         rows = r + 1,
-         cols = 2:ncol(trust_year),
-         gridExpand = TRUE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns_comma,
-         rows = r + 2,
-         cols = 2:ncol(trust_year),
-         gridExpand = TRUE)
-
-if (abs(trust_year$`Z Score`[1]) > 1.96) {
-  addStyle(wb, "Trust in NISRA",
-           style = sig,
-           rows = r + 1,
-           cols = ncol(trust_year))
-} else {
-  addStyle(wb, "Trust in NISRA",
-           style = not_sig,
-           rows = r + 1,
-           cols = ncol(trust_year))
-}
-
-r <- r + nrow(trust_year) + 2
+f_insert_sig_table(df = trust_year,
+                   sheet = "Trust in NISRA",
+                   title = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1))
 
 ## Distrust in NISRA: This year vs previous year ####
 
-writeData(wb, "Trust in NISRA",
-          x = paste0("Disrust in NISRA - ", current_year, " vs ", current_year - 1),
-          startRow = r)
-
-addStyle(wb, "Trust in NISRA",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Trust in NISRA",
-               x = distrust_year,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns3d,
-         rows = r + 1,
-         cols = 2:ncol(distrust_year),
-         gridExpand = TRUE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns_comma,
-         rows = r + 2,
-         cols = 2:ncol(distrust_year),
-         gridExpand = TRUE)
-
-if (abs(trust_year$`Z Score`[1]) > 1.96) {
-  addStyle(wb, "Trust in NISRA",
-           style = sig,
-           rows = r + 1,
-           cols = ncol(distrust_year))
-} else {
-  addStyle(wb, "Trust in NISRA",
-           style = not_sig,
-           rows = r + 1,
-           cols = ncol(distrust_year))
-}
-
-r <- r + nrow(distrust_year) + 2
+f_insert_sig_table(df = distrust_year,
+                   sheet = "Trust in NISRA",
+                   title = paste0("Distrust in NISRA - ", current_year, " vs ", current_year - 1))
 
 ## Don't Know trust in NISRA: This year vs previous year ####
 
-writeData(wb, "Trust in NISRA",
-          x = paste0("Don't Know responses - ", current_year, " vs ", current_year - 1),
-          startRow = r)
-
-addStyle(wb, "Trust in NISRA",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Trust in NISRA",
-               x = dont_know_trust,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns3d,
-         rows = r + 1,
-         cols = 2:ncol(dont_know_trust),
-         gridExpand = TRUE)
-
-addStyle(wb, "Trust in NISRA",
-         style = ns_comma,
-         rows = r + 2,
-         cols = 2:ncol(dont_know_trust),
-         gridExpand = TRUE)
-
-if (abs(trust_year$`Z Score`[1]) > 1.96) {
-  addStyle(wb, "Trust in NISRA",
-           style = sig,
-           rows = r + 1,
-           cols = ncol(dont_know_trust))
-} else {
-  addStyle(wb, "Trust in NISRA",
-           style = not_sig,
-           rows = r + 1,
-           cols = ncol(dont_know_trust))
-}
-
-r <- r + nrow(dont_know_trust) + 2
+f_insert_sig_table(df = dont_know_trust,
+                   sheet = "Trust in NISRA",
+                   title = paste0("Don't Know responses - ", current_year, " vs ", current_year - 1))
 
 ## Trust in NISRA by Age group compare ####
+
+f_insert_z_table(df = trust_age_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("Trust in NISRA by Age Group - ", current_year))
+
+## Distrust in NISRA by Age group compare ####
  
-writeData(wb, "Trust in NISRA",
-          x = paste0("Trust in NISRA by Age Group - ", current_year),
+f_insert_z_table(df = distrust_age_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("Distrust in NISRA by Age Group - ", current_year))
+
+## Don't know trust in NISRA by Age group compare ####
+ 
+f_insert_z_table(df = dont_know_trust_age_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("Don't know trust in NISRA by Age Group - ", current_year))
+
+# ValueIntConfYears ####
+ 
+addWorksheet(wb, "ValueIntConfYears")
+
+r <- 1
+
+writeData(wb, "ValueIntConfYears",
+          x = "Years",
           startRow = r)
 
-addStyle(wb, "Trust in NISRA",
-         style = pt2,
+addStyle(wb, "ValueIntConfYears",
+         style = pt,
          rows = r,
          cols = 1)
 
-r <- r + 1
+r <- r + 2
 
-writeDataTable(wb, "Trust in NISRA",
-               x = trust_age_z_scores,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
+f_insert_sig_table(df = value_year,
+                   sheet = "ValueIntConfYears",
+                   title = paste0("NISRA stats are important - ", current_year , " vs ", current_year - 1))
 
-addStyle(wb, "Trust in NISRA",
-         style = ns3d,
-         rows = (r + 1):(r + nrow(trust_age_z_scores)),
-         cols = 2:ncol(trust_age_z_scores),
-         gridExpand = TRUE)
+f_insert_sig_table(df = interference_year,
+                   sheet = "ValueIntConfYears",
+                   title = paste0("NISRA stats are free from interference - ", current_year , " vs ", current_year - 1))
 
-for (i in 1:nrow(trust_age_z_scores)) {
-  for (j in 2:ncol(trust_age_z_scores)) {
-    if (!is.na(trust_age_z_scores[i, j])) {
-      if (abs(trust_age_z_scores[i, j]) > 1.96) {
-        addStyle(wb, "Trust in NISRA",
-                 style = sig,
-                 rows = r + i,
-                 cols = j)
-      } else {
-        addStyle(wb, "Trust in NISRA",
-                 style = not_sig,
-                 rows = r + i,
-                 cols = j)
-      }
-    }
-  }
-}
-
-for (i in 1:nrow(trust_age_z_scores)) {
-  addStyle(wb, "Trust in NISRA",
-           style = grey,
-           rows = r + i,
-           cols = 1 + i)
-}
-
-r <- r + nrow(trust_age_z_scores) + 2
+f_insert_sig_table(df = confidential_year,
+                   sheet = "ValueIntConfYears",
+                   title = paste0("NISRA will keep my information confidential - ", current_year , " vs ", current_year - 1))
 
 # Save Workbook ####
 
