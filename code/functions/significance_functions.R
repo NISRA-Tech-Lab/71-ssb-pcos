@@ -107,7 +107,7 @@ f_qual_z_scores <- function (var, value) {
 
 f_work_stats <- function(var, value1, value2) {
 
-  work_stats <- data.frame(stat = c("% Trust", "% Distrust", "% DK", "Base"),
+  work_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
                                   
                                   work = c(f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment") * 100,
                                            f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment") * 100,
@@ -146,13 +146,13 @@ f_age_stats <- function(var, value1, value2) {
   age_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
   
   for (age in age_groups) {
-    age_stats[[age]] <- c(f_return_p_group(data_current[[var]], "Trust a great deal/Tend to trust", data_current$AGE2, age) * 100,
-                                f_return_p_group(data_current[[var]], "Tend to distrust/Distrust greatly", data_current$AGE2, age) * 100,
+    age_stats[[age]] <- c(f_return_p_group(data_current[[var]], value1, data_current$AGE2, age) * 100,
+                                f_return_p_group(data_current[[var]], value2, data_current$AGE2, age) * 100,
                                 f_return_p_group(data_current[[var]], "Don't know", data_current$AGE2, age) * 100,
                                 f_return_n_group(data_current[[var]], data_current$AGE2, age))
   }
   
-  names(age_stats)[names(age_stats) == "stat"] <- ""
+  names(age_stats)[names(age_stats) == "stat"] <- " "
   
   age_stats
   
@@ -170,8 +170,8 @@ f_qual_stats <- function(var, value1, value2) {
                             f_return_p_group(data_current[[var]], "Don't know", data_current$DERHIanalysis, qual) * 100,
                             f_return_n_group(data_current[[var]], data_current$DERHIanalysis, qual))
   }
-  
-  names(qual_stats)[names(qual_stats) == "stat"] <- ""
+   
+  names(qual_stats)[names(qual_stats) == "stat"] <- " "
   
   qual_stats
 }
@@ -198,26 +198,34 @@ f_insert_sig_table <- function (df, sheet, title) {
   
   addStyle(wb, sheet,
            style = ns3d,
-           rows = r + 1,
+           rows = (r + 1):(r + nrow(df) - 1),
            cols = 2:ncol(df),
            gridExpand = TRUE)
   
   addStyle(wb, sheet,
            style = ns_comma,
-           rows = r + 2,
+           rows = r + nrow(df),
            cols = 2:ncol(df),
            gridExpand = TRUE)
   
-  if (abs(df$`Z Score`[1]) > 1.96) {
-    addStyle(wb, sheet,
-             style = sig,
-             rows = r + 1,
-             cols = ncol(df))
-  } else {
-    addStyle(wb, sheet,
-             style = not_sig,
-             rows = r + 1,
-             cols = ncol(df))
+  if ("Z Score" %in% names(df)) {
+    
+    for (i in 1:(nrow(df) - 1)) {
+  
+      if (abs(df$`Z Score`[i]) > 1.96) {
+        addStyle(wb, sheet,
+                 style = sig,
+                 rows = r + i,
+                 cols = ncol(df))
+      } else {
+        addStyle(wb, sheet,
+                 style = not_sig,
+                 rows = r + i,
+                 cols = ncol(df))
+      }
+      
+    }
+    
   }
   
   r <<- r + nrow(df) + 2

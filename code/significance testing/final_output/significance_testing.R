@@ -75,8 +75,8 @@ products <- c("Number of deaths in NI",
 products_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  products_stats$heard[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes")
-  products_stats$not[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes")
+  products_stats$heard[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
+  products_stats$not[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
   products_stats$z[i] <- f_return_z(p1 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
                                     n1 = f_return_n(data_current[[paste0("PCOS1c", i)]]),
                                     p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
@@ -98,8 +98,8 @@ names(products_stats) <- c(" ", "% Had heard of NISRA", "% Had not heard of NISR
 heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes")
-  heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes")
+  heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes") * 100
+  heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
   heard_stats$z[i] <- f_return_z(p1 = f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes"),
                                  n1 = f_return_n(data_last[[paste0("PCOS1c", i)]]),
                                  p2 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
@@ -121,8 +121,8 @@ names(heard_stats) <- c("Had heard of NISRA", current_year - 1, current_year, "Z
 not_heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  not_heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes")
-  not_heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes")
+  not_heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes") * 100
+  not_heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
   not_heard_stats$z[i] <- f_return_z(p1 = f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes"),
                                      n1 = f_return_n(data_last[[paste0("PCOS1d", i)]]),
                                      p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
@@ -273,7 +273,7 @@ nisra_ons_trust <- as.data.frame(read_xlsx(ons_xl, sheet = "Trust in ONS", range
          Z = case_when(trust == "Base" ~ NA,
                        TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
 
-names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z")
+names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z Score")
 
 trust_stats_year <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust")
 
