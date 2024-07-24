@@ -10,6 +10,8 @@ data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
                                 pass = password,
                                 use.missings = FALSE)
 
+source(paste0(here(), "/code/check_raw_variables.R"))
+
 ons_xl <- paste0(data_folder, "ONS/", ons_filename)
 
 # Recode variables #####
@@ -100,6 +102,10 @@ data_final <- data_final %>%
   relocate("DERHIanalysis", .after = "Confidential2")
 
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year," Final Dataset.RDS"))
+
+## Check created variables against originals ####
+
+source(paste0(here(), "/code/check_created_variables.R"))
 
 # Create data frames for charts ####
 
