@@ -320,3 +320,19 @@ trust_media_year <- f_significance_year("TrustMedia2", "Trust a great deal/Tend 
 distrust_media_year <- f_significance_year("TrustMedia2", "Tend to distrust/Distrust greatly")
 
 dont_know_trust_media <- f_significance_year("TrustMedia2", "Don't know")
+
+# This year vs last year with DKs ####
+
+## NISRA Stats Importance ####
+
+no_value_year <- f_significance_year("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+dont_know_value_year <- f_significance_year("NISRAstatsImp2", "Don't know")
+
+## Interference ####
+ 
+no_interference_year <- f_significance_year("Political2", "Tend to disagree/Strongly disagree")
+
+dont_know_interference_year <- f_significance_year("Political2", "Don't know")
+
+## Confidential ####

@@ -176,22 +176,24 @@ f_qual_stats <- function(var, value1, value2) {
   qual_stats
 }
 
-f_insert_sig_table <- function (df, sheet, title) {
+f_insert_sig_table <- function (df, sheet, title, c = 1) {
   
   writeData(wb, sheet,
             x = title,
-            startRow = r)
+            startRow = r,
+            startCol = c)
   
   addStyle(wb, sheet,
            style = pt2,
            rows = r,
-           cols = 1)
+           cols = c)
   
   r <<- r + 1
   
   writeDataTable(wb, sheet,
                  x = df,
                  startRow = r,
+                 startCol = c,
                  tableStyle = "none",
                  headerStyle = ch,
                  withFilter = FALSE)
@@ -199,13 +201,13 @@ f_insert_sig_table <- function (df, sheet, title) {
   addStyle(wb, sheet,
            style = ns3d,
            rows = (r + 1):(r + nrow(df) - 1),
-           cols = 2:ncol(df),
+           cols = (c + 1):(c + ncol(df) - 1),
            gridExpand = TRUE)
   
   addStyle(wb, sheet,
            style = ns_comma,
            rows = r + nrow(df),
-           cols = 2:ncol(df),
+           cols = (c + 1):(c + ncol(df) - 1),
            gridExpand = TRUE)
   
   if ("Z Score" %in% names(df)) {
@@ -216,12 +218,12 @@ f_insert_sig_table <- function (df, sheet, title) {
         addStyle(wb, sheet,
                  style = sig,
                  rows = r + i,
-                 cols = ncol(df))
+                 cols = c + ncol(df) - 1)
       } else {
         addStyle(wb, sheet,
                  style = not_sig,
                  rows = r + i,
-                 cols = ncol(df))
+                 cols = c + ncol(df) - 1)
       }
       
     }
