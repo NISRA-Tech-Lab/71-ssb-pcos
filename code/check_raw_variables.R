@@ -29,7 +29,8 @@ for (var in PCOS_vars) {
            unweighted_current_pct = round_half_up(unweighted_current / sum(unweighted_current) * 100, 3),
            weighted_current_pct = round_half_up(weighted_current / sum(weighted_current) * 100, 3)) %>%
     select(var, unweighted_last, unweighted_current, unweighted_last_pct, unweighted_current_pct,
-           weighted_last, weighted_current, weighted_last_pct, weighted_current_pct) 
+           weighted_last, weighted_current, weighted_last_pct, weighted_current_pct) %>%
+    adorn_totals()
   
   names(frequency_table) <- c(var,
                               paste("Unweighted n\n", current_year - 1),

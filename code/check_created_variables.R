@@ -13,7 +13,8 @@ for (i in 1:length(old_q)) {
     group_by(var = .[[old_q[i]]]) %>%
     summarise(n = n()) %>%
     mutate(var = case_when(is.na(var) ~ "Missing",
-                           TRUE ~ var))
+                           TRUE ~ var)) %>%
+    adorn_totals()
   
   names(old) <- c(old_q[i], "n")
   
@@ -21,7 +22,8 @@ for (i in 1:length(old_q)) {
     group_by(var = .[[new_q[i]]]) %>%
     summarise(n = n()) %>%
     mutate(var = case_when(is.na(var) ~ "Missing",
-                           TRUE ~ var))
+                           TRUE ~ var)) %>%
+    adorn_totals()
   
   names(new) <- c(new_q[i], "n")
   
