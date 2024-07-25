@@ -12,7 +12,12 @@ data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
 
 source(paste0(here(), "/code/check_raw_variables.R"))
 
-ons_xl <- paste0(data_folder, "ONS/", ons_filename)
+# Read in ONS data from Excel ####
+
+data_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
+  filter(Year == ons_year)
+
+names(data_ons) <- gsub(".", " ", names(data_ons), fixed = TRUE)
 
 # Recode variables #####
 
@@ -140,7 +145,7 @@ saveRDS(chart_1_data, paste0(data_folder, "Trend/", current_year, "/chart_1_data
 chart_2_data <- chart_2_data %>%
   rbind(data.frame(year = current_year,
                    nisra = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100,
-                   ons = if (current_year == ons_year) as.numeric(read_xlsx(ons_xl, sheet = "Awareness of ONS", range = "D4", col_names = FALSE)) else NA))
+                   ons = if (current_year == ons_year) data_ons$Yes[data_ons$`Related Variable` == "PCOS1"] else NA))
 
 saveRDS(chart_2_data, paste0(data_folder, "Trend/", current_year, "/chart_2_data.RDS"))
 
@@ -214,21 +219,17 @@ chart_5_data <- chart_5_data %>%
 
 ## Chart 6: Trust in NISRA and ONS as institutions ####
 
-ons_chart_6 <- read_xlsx(ons_xl, sheet = "Trust in ONS", range = "B4:D8", col_names = FALSE) %>%
-  mutate(response = case_when(`...1` %in% c("Trust it a great deal", "Tend to trust it") ~ "trust",
-                              `...1` %in% c("Tend to distrust it", "Distrust it greatly") ~ "distrust",
-                              `...1` == c("Don't know") ~ "dont_know")) %>%
-  group_by(response) %>%
-  summarise(ons = sum(`...3`))
+ons_chart_6 <- data_ons %>%
+  filter(`Related Variable` == "TrustNISRA2")
 
 chart_6_data <- chart_5_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_6$ons[ons_chart_6$response == "trust"],
-                   distrust = ons_chart_6$ons[ons_chart_6$response == "distrust"],
-                   dont_know = ons_chart_6$ons[ons_chart_6$response == "dont_know"]))
+                   trust = ons_chart_6$`Trust it a great deal` + ons_chart_6$`Tend to trust it`,
+                   distrust = ons_chart_6$`Tend to distrust it` + ons_chart_6$`Distrust it greatly`,
+                   dont_know = ons_chart_6$`Don't know`))
 
 
 ## Chart 7: Trust in institutions ####
@@ -264,22 +265,18 @@ chart_8_data <- chart_8_data %>%
   mutate(year = as.character(year))
 
 ## Chart 9: Trust in statistics produced by NISRA  and ONS ####
- 
-ons_chart_9 <- read_xlsx(ons_xl, sheet = "Trust in ONS stats", range = "B4:D8", col_names = FALSE) %>%
-  mutate(response = case_when(`...1` %in% c("Trust them greatly", "Tend to trust them") ~ "trust",
-                              `...1` %in% c("Tend not to trust them", "Distrust them greatly") ~ "distrust",
-                              `...1` == c("Don't know") ~ "dont_know")) %>%
-  group_by(response) %>%
-  summarise(ons = sum(`...3`))
+
+ons_chart_9 <- data_ons %>%
+  filter(`Related Variable` == "TrustNISRAstats2")
 
 chart_9_data <- chart_8_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_9$ons[ons_chart_9$response == "trust"],
-                   distrust = ons_chart_9$ons[ons_chart_9$response == "distrust"],
-                   dont_know = ons_chart_9$ons[ons_chart_9$response == "dont_know"]))
+                   trust = ons_chart_9$`Trust them greatly` + ons_chart_9$`Tend to trust them`,
+                   distrust = ons_chart_9$`Tend not to trust them` + ons_chart_9$`Distrust them greatly`,
+                   dont_know = ons_chart_9$`Don't know`))
 
 
 ## Chart 10: NISRA statistics are important to understand Northern Ireland by year ####
@@ -297,21 +294,17 @@ chart_10_data <- chart_10_data %>%
 
 ## Chart 11: Statistics produced are important to understand our country, NISRA and ONS ####
 
-ons_chart_11 <- read_xlsx(ons_xl, sheet = "Stats important", range = "B4:D8", col_names = FALSE) %>%
-  mutate(response = case_when(`...1` %in% c("Strongly agree", "Tend to agree") ~ "agree",
-                              `...1` %in% c("Tend to disagree", "Strongly disagree") ~ "disagree",
-                              `...1` == c("Don't know") ~ "dont_know")) %>%
-  group_by(response) %>%
-  summarise(ons = sum(`...3`))
+ons_chart_11 <- data_ons %>%
+  filter(`Related Variable` == "NISRAstatsImp2")
 
 chart_11_data <- chart_10_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_11$ons[ons_chart_11$response == "agree"],
-                   disagree = ons_chart_11$ons[ons_chart_11$response == "disagree"],
-                   dont_know = ons_chart_11$ons[ons_chart_11$response == "dont_know"]))
+                   agree = ons_chart_11$`Strongly agree` + ons_chart_11$`Tend to agree`,
+                   disagree = ons_chart_11$`Strongly disagree` + ons_chart_11$`Tend to disagree`,
+                   dont_know = ons_chart_11$`Don't know`))
 
 ## Chart 12: NISRA statistics are free from political interference by year ####
 
@@ -328,21 +321,17 @@ chart_12_data <- chart_12_data %>%
 
 ## Chart 13: Statistics produced are free from political interference, NISRA and ONS ####
  
-ons_chart_13 <- read_xlsx(ons_xl, sheet = "Pol interfere", range = "B4:D8", col_names = FALSE) %>%
-  mutate(response = case_when(`...1` %in% c("Strongly agree", "Tend to agree") ~ "agree",
-                              `...1` %in% c("Tend to disagree", "Strongly disagree") ~ "disagree",
-                              `...1` == c("Don't know") ~ "dont_know")) %>%
-  group_by(response) %>%
-  summarise(ons = sum(`...3`))
+ons_chart_13 <- data_ons %>%
+  filter(`Related Variable` == "Political2")
 
 chart_13_data <- chart_12_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_13$ons[ons_chart_13$response == "agree"],
-                   disagree = ons_chart_13$ons[ons_chart_13$response == "disagree"],
-                   dont_know = ons_chart_13$ons[ons_chart_13$response == "dont_know"]))
+                   agree = ons_chart_13$`Strongly agree` + ons_chart_13$`Tend to agree`,
+                   disagree = ons_chart_13$`Strongly disagree` + ons_chart_13$`Tend to disagree`,
+                   dont_know = ons_chart_13$`Don't know`))
 
 ## Chart 14: Personal information provided to NISRA will be kept confidential by year ####
 
@@ -359,21 +348,17 @@ chart_14_data <- chart_14_data %>%
 
 ## Chart 15: Belief that personal information provided will be kept confidential, NISRA and ONS ####
 
-ons_chart_15 <- read_xlsx(ons_xl, sheet = "Confidential", range = "B4:D8", col_names = FALSE) %>%
-  mutate(response = case_when(`...1` %in% c("Strongly agree", "Tend to agree") ~ "agree",
-                              `...1` %in% c("Tend to disagree", "Strongly disagree") ~ "disagree",
-                              `...1` == c("Don’t know") ~ "dont_know")) %>%
-  group_by(response) %>%
-  summarise(ons = sum(`...3`))
+ons_chart_15 <- data_ons %>%
+  filter(`Related Variable` == "Confidential2")
 
 chart_15_data <- chart_14_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_15$ons[ons_chart_15$response == "agree"],
-                   disagree = ons_chart_15$ons[ons_chart_15$response == "disagree"],
-                   dont_know = ons_chart_15$ons[ons_chart_15$response == "dont_know"]))
+                   agree = ons_chart_15$`Strongly agree` + ons_chart_15$`Tend to agree`,
+                   disagree = ons_chart_15$`Strongly disagree` + ons_chart_15$`Tend to disagree`,
+                   dont_know = ons_chart_15$`Don't know`))
 
 # Figures for commentary ####
 
