@@ -1,0 +1,115 @@
+---
+output:
+  officedown::rdocx_document:
+    reference_docx: style_template.docx
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../outputs/",
+      envir = globalenv()
+    )
+  })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, echo = FALSE)
+
+library(here)
+
+source(paste0(here(),"/code/config.R"))
+source(paste0(here(),"/code/data_prep.R"))
+```
+
+<!---BLOCK_MULTICOL_START--->
+
+`r external_img(paste0(here(),"/data/images/NISRA_logo_bilingual_colour.png"), height = 2.22, width = 5, unit = "cm")`
+
+::: {custom-style="heading_style"}
+`r run_columnbreak()` Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`
+:::
+
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
+
+<!---BLOCK_MULTICOL_START--->
+
+**Lead Statistician**\
+Norma Broomfield\
+Statistical Support Branch, NISRA\
+Colby House,\
+Stranmillis Court\
+Belfast, BT9 5RR\
+028 9038 8481\
+[Norma.Broomfield\@nisra.gov.uk](mailto:Norma.Broomfield@nisra.gov.uk){.email}
+
+`r run_columnbreak()` Status: Official Statistics\
+Published: 25 October 2023\
+Frequency: Annual\
+Coverage: Northern Ireland\
+Theme: Government
+
+<!---BLOCK_MULTICOL_STOP{widths: [3.5, 3.5], space: 1, sep: false}--->
+
+This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
+
+**Awareness**
+
+```{r Figs for Awareness}
+
+aware_nisra_2020 <- chart_1_data %>% filter(year == 2020) %>%
+  pull("pct")
+
+aware_nisra_2021 <- chart_1_data %>% filter(year == '2021') %>%
+  pull("pct")
+```
+
+-   Public awareness of NISRA was moderate in `r current_year` with almost half of respondents (`r heard_of_nisra`%) indicating that they had heard of the Agency before being contacted about the survey.
+
+-   Awareness of NISRA has decreased since 2020 and 2021, when 58% and 55% of respondents respectively, had heard of NISRA. However awareness of the Agency remains higher than in earlier years (2009 to 2019) when 35% or less of respondents had heard of NISRA.
+
+**Trust**
+
+-   Public trust in NISRA, as an institution, is high (`r trust_in_nisra`%). Of those that had heard of NISRA, `r heard_of_and_trust_nisra`% stated that they trusted the Agency.
+
+-   Public trust in the statistics produced by NISRA is also high (`r trust_in_nisra_stats`%).
+
+**Value**
+
+-   The statistics produced by NISRA are valued, with `r importance_of_stats`% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.
+
+**Political Interference**
+
+-   Over four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference
+
+`r run_columnbreak()`
+
+::: {custom-style="heading_style"}
+Contents:
+:::
+
+*	**1 Introduction**
+*	**2 Awareness of NISRA**
+*	**3 Awareness of NISRA Statistics**
+*	**4 Trust – Institutions**
+*	**5 Trust – NISRA Statistics**
+*	**6 Value**
+*	**7 Political Interference**
+*	**8 Confidentiality**
+\
+\
+*	Appendix
+*	A. Methodology & Quality Information
+*	B. List of Detailed Tables
+*	C. Survey Questions
+\
+\
+*	**Tables**
+*	Public Awareness of and Trust in Official Statistics 2022 – Detailed Tables
+\
+\
+\
+*	**Useful Links:**
+*	Previous bulletins in this series
+*	Code of Practice for Statistics
+*	Statistics produced by NISRA
+*	Public Confidence in Official Statistics (ONS)
+
