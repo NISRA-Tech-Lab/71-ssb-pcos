@@ -72,6 +72,7 @@ library(forcats)
 library(xfun)
 library(htmltools)
 library(openxlsx)
+library(officer)
 library(readxl)
 library(lubridate)
 library(plotly)
@@ -96,6 +97,8 @@ library(english)
 library(svgtools)
 library(rsvg)
 library(sjPlot)
+library(officedown)
+library(fontawesome)
 
 # https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
 
