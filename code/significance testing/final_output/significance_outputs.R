@@ -699,19 +699,119 @@ f_insert_sig_table(df = interference_year,
 
 r <- r - nrow(value_year) - 3
 
-f_insert_sig_table(df = no_value_year,
+f_insert_sig_table(df = no_interference_year,
                    sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
                    title = paste0("NISRA stats are not free from political interference - ", current_year, " vs ", current_year - 1),
                    c = ncol(value_year) + 2)
 
 r <- r - nrow(no_value_year) - 3
 
-f_insert_sig_table(df = dont_know_value_year,
+f_insert_sig_table(df = dont_know_interference_year,
                    sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
                    title = paste0("Don't know if NISRA stats are free from political interference - ", current_year, " vs ", current_year - 1),
                    c = ncol(value_year) + ncol(no_value_year) + 3)
 
 ## Confidential ####
+
+f_insert_sig_table(df = confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(value_year) - 3
+
+f_insert_sig_table(df = no_confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA does not keep my information confidential - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + 2)
+
+r <- r - nrow(no_value_year) - 3
+
+f_insert_sig_table(df = dont_know_confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + ncol(no_value_year) + 3)
+
+# ONSvNISRAexcDKs ####
+
+addWorksheet(wb, "ONSvNISRAexcDKs")
+
+r <- 1
+
+writeData(wb, "ONSvNISRAexcDKs",
+          x = "NISRA vs ONS (exc DKs)",
+          startRow = r)
+
+addStyle(wb, "ONSvNISRAexcDKs",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## Trust in NISRA vs Trust in ONS (exc DKs) ####
+
+f_insert_sig_table(df = nisra_ons_trust_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "Trust in NISRA vs Trust in ONS (exc DKs)")
+
+## Trust in NISRA stats vs Trust in ONS stats (exc DKs) ####
+
+f_insert_sig_table(df = nisra_ons_trust_stats_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "Trust in NISRA stats vs Trust in ONS stats (exc DKs)")
+
+## NISRA stats are important vs ONS stats are important (exc DKs) ####
+
+f_insert_sig_table(df = nisra_ons_important_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "NISRA stats are important vs ONS stats are important (exc DKs)")
+
+## NISRA stats are free from political interference vs ONS stats are free from political interference (exc DKs) ####
+
+f_insert_sig_table(df = nisra_ons_political_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "Free from political interference: NISRA stats vs ONS stats (exc DKs)")
+
+## NISRA will keep my information confidential vs ONS will keep my information confidential (exc DKs) ####
+ 
+f_insert_sig_table(df = nisra_ons_confidential_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "Will keep my information confidential: NISRA vs ONS (exc DKs)")
+
+## Heard of NISRA vs heard of ONS (exc DKs) ####
+ 
+f_insert_sig_table(df = nisra_ons_heard_ex_dk,
+                   sheet = "ONSvNISRAexcDKs",
+                   title = "Awareness of NISRA vs awareness of ONS (exc DKs")
+
+# Trust in NISRA (exc DK) ####
+ 
+addWorksheet(wb, "TruNISRAexcDK")
+
+r <- 1
+
+writeData(wb, "TruNISRAexcDK",
+          x = "Trust in NISRA (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "TruNISRAexcDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+ 
+f_insert_sig_table(df = trust_nisra_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = trust_nisra_age_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: by Age Group (exc DKs)")
 
 # Save Workbook ####
 

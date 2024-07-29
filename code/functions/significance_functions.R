@@ -139,17 +139,37 @@ f_work_stats <- function(var, value1, value2) {
 
 }
 
-f_age_stats <- function(var, value1, value2) {
+f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   
   age_groups <- levels(data_current$AGE2)
   
-  age_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
+  if (dk) {
   
-  for (age in age_groups) {
-    age_stats[[age]] <- c(f_return_p_group(data_current[[var]], value1, data_current$AGE2, age) * 100,
-                                f_return_p_group(data_current[[var]], value2, data_current$AGE2, age) * 100,
-                                f_return_p_group(data_current[[var]], "Don't know", data_current$AGE2, age) * 100,
-                                f_return_n_group(data_current[[var]], data_current$AGE2, age))
+    age_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
+    
+    for (age in age_groups) {
+      age_stats[[age]] <- c(f_return_p_group(data_current[[var]], value1, data_current$AGE2, age) * 100,
+                                  f_return_p_group(data_current[[var]], value2, data_current$AGE2, age) * 100,
+                                  f_return_p_group(data_current[[var]], "Don't know", data_current$AGE2, age) * 100,
+                                  f_return_n_group(data_current[[var]], data_current$AGE2, age))
+    }
+  
+  } else {
+    
+    age_stats <- data.frame(stat = c("% Yes", "Base"))
+    
+    for (age in age_groups) {
+      age_stats[[age]] <- c(data_current %>%
+                              filter(!is.na(.[[var]]) & .[[var]] == value1 & data_current$AGE2 == age) %>%
+                              nrow() /
+                              data_current %>%
+                                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & data_current$AGE2 == age) %>%
+                                nrow() * 100,
+                            data_current %>%
+                              filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & data_current$AGE2 == age) %>%
+                              nrow())
+    }
+    
   }
   
   names(age_stats)[names(age_stats) == "stat"] <- " "
@@ -289,3 +309,28 @@ f_insert_z_table <- function (df, sheet, title) {
   
 }
 
+f_nisra_ons_ex_dk <- function (var, nisra_val, ons_val_1, ons_val_2 = NA) {
+  
+  df <- data.frame(trust = c("% Trust", "Base"),
+                                      nisra = c(data_current %>%
+                                                  filter(.[[var]] == nisra_val) %>%
+                                                  nrow() / data_current %>%
+                                                  filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
+                                                  nrow() * 100,
+                                                data_current %>%
+                                                  filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
+                                                  nrow()),
+                                      ons = c((unweighted_ons[[ons_val_1]][unweighted_ons$`Related Variable` == var] +
+                                                 if (!is.na(ons_val_2)) unweighted_ons[[ons_val_2]][unweighted_ons$`Related Variable` == var] else 0) /
+                                                (unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
+                                                   unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var]) * 100,
+                                              unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
+                                                unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var])) %>%
+    mutate(Z = case_when(trust == "Base" ~ NA,
+                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+  
+  names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
+  
+  df
+  
+}
