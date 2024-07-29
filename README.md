@@ -43,7 +43,7 @@ Carry out the following updates each year to create new publication:
 ### Key files and folders
 
 | File                        | Purpose                                                          |
-|------------------------------------|------------------------------------|
+|----------------------|-------------------------------------------------|
 | `code/`                     | Main RMarkdown report; Appendices; and Background Quality Report |
 | `code/excel_tables`         | Code to produce excel tables booklet                             |
 | `code/infographic`          | Code to produce infographics                                     |

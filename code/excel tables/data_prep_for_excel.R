@@ -18,8 +18,10 @@ saveRDS(table_1_data, paste0(data_folder, "Trend/", current_year, "/table_1_data
 ## Table 2: Awareness of NISRA and ONS ####
 
 table_2_data <- table_1_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = read_xlsx(ons_xl, sheet = "Awareness of ONS", range = "D4:D7", col_names = FALSE) %>%
-           pull(`...1`))
+  mutate(ONS = c(data_ons$Yes[data_ons$`Related Variable` == "PCOS1"],
+                 data_ons$No[data_ons$`Related Variable` == "PCOS1"],
+                 data_ons$`Don't know`[data_ons$`Related Variable` == "PCOS1"],
+                 data_ons$`Unweighted base`[data_ons$`Related Variable` == "PCOS1"]))
 
 names(table_2_data)[names(table_2_data) == current_year] <- "NISRA"
 
@@ -125,8 +127,7 @@ table_24_data <- table_23_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(chart_6_data$trust[grepl("ONS", chart_6_data$org)],
                  chart_6_data$distrust[grepl("ONS", chart_6_data$org)],
                  chart_6_data$dont_know[grepl("ONS", chart_6_data$org)],
-                 read_xlsx(ons_xl, sheet = "Trust in ONS", range = "D9", col_names = FALSE) %>%
-                   pull(`...1`)))
+                 ons_chart_6$`Unweighted base`))
 
 names(table_24_data)[names(table_24_data) == current_year] <- "NISRA"
 
@@ -200,8 +201,7 @@ table_30_data <- table_29_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(chart_9_data$trust[grepl("ONS", chart_9_data$org)],
                  chart_9_data$distrust[grepl("ONS", chart_9_data$org)],
                  chart_9_data$dont_know[grepl("ONS", chart_9_data$org)],
-                 read_xlsx(ons_xl, sheet = "Trust in ONS stats", range = "D9", col_names = FALSE) %>%
-                   pull(`...1`)))
+                 ons_chart_9$`Unweighted base`))
 
 names(table_30_data)[names(table_30_data) == current_year] <- "NISRA"
 
@@ -237,8 +237,7 @@ table_33_data <- table_32_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(chart_11_data$agree[grepl("ONS", chart_11_data$org)],
                  chart_11_data$disagree[grepl("ONS", chart_11_data$org)],
                  chart_11_data$dont_know[grepl("ONS", chart_11_data$org)],
-                 read_xlsx(ons_xl, sheet = "Stats important", range = "D9", col_names = FALSE) %>%
-                   pull(`...1`)))
+                 ons_chart_11$`Unweighted base`))
 
 names(table_33_data)[names(table_33_data) == current_year] <- "NISRA"
 
@@ -274,8 +273,7 @@ table_36_data <- table_35_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(chart_13_data$agree[grepl("ONS", chart_13_data$org)],
                  chart_13_data$disagree[grepl("ONS", chart_13_data$org)],
                  chart_13_data$dont_know[grepl("ONS", chart_13_data$org)],
-                 read_xlsx(ons_xl, sheet = "Pol interfere", range = "D9", col_names = FALSE) %>%
-                   pull(`...1`)))
+                 ons_chart_13$`Unweighted base`))
 
 names(table_36_data)[names(table_36_data) == current_year] <- "NISRA"
 
@@ -299,6 +297,5 @@ table_38_data <- table_37_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(chart_15_data$agree[grepl("ONS", chart_15_data$org)],
                  chart_15_data$disagree[grepl("ONS", chart_15_data$org)],
                  chart_15_data$dont_know[grepl("ONS", chart_15_data$org)],
-                 read_xlsx(ons_xl, sheet = "Confidential", range = "D9", col_names = FALSE) %>%
-                   pull(`...1`)))
+                 ons_chart_15$`Unweighted base`))
 

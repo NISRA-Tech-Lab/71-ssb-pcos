@@ -1,28 +1,16 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
-data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
+data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))
+data_current <- readRDS(paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
+
+ons_xl <- paste0(data_folder, "ONS/", ons_filename)
 
 # Awareness of NISRA ####
 
 ## Current Year vs Previous Year ####
 
-awareness_year <- data.frame(stat = c("%", "Base"),
-                             
-                             last = c(f_return_p(data_last$PCOS1, "Yes"),
-                                      f_return_n((data_last$PCOS1))),
-                             
-                             current = c(f_return_p(data_current$PCOS1, "Yes"),
-                                         f_return_n(data_current$PCOS1)),
-                             
-                             z = c(f_return_z(p1 = f_return_p(data_last$PCOS1, "Yes"),
-                                              n1 = f_return_n(data_last$PCOS1),
-                                              p2 = f_return_p(data_current$PCOS1, "Yes"),
-                                              n2 = f_return_n(data_current$PCOS1)),
-                                   NA))
-
-names(awareness_year) <- c(" ", current_year - 1, current_year, "Z Score")
+awareness_year <- f_significance_year("PCOS1", "Yes")
 
 ## In Work vs Not in work ####
 
@@ -55,24 +43,7 @@ for (age in age_groups) {
 
 names(age_stats)[names(age_stats) == "stat"] <- ""
 
-age_z_scores <- data.frame(age = age_groups)
-
-for (i in 1:length(age_groups)) {
-  col <- c()
-  for(j in 1:length(age_groups)) {
-    if (i > j) {
-      col[j] <- f_return_z(p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$AGE2, age_groups[j]),
-                           n1 = f_return_n_group(data_current$PCOS1, data_current$AGE2, age_groups[j]),
-                           p2 = f_return_p_group(data_current$PCOS1, "Yes", data_current$AGE2, age_groups[i]),
-                           n2 = f_return_n_group(data_current$PCOS1, data_current$AGE2, age_groups[i]))
-    } else {
-      col[j] <- NA
-    }
-  }
-  age_z_scores[[age_groups[i]]] <- col
-}
-
-names(age_z_scores)[names(age_z_scores) == "age"] <- " "
+age_z_scores <- f_age_z_scores("PCOS1", "Yes")
 
 ## Qualifications ####
 
@@ -85,24 +56,7 @@ for (qual in quals) {
                           f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, qual))
 }
 
-qual_z_scores <- data.frame(qual = quals)
-
-for (i in 1:length(quals)) {
-  col <- c()
-  for(j in 1:length(quals)) {
-    if (i > j) {
-      col[j] <- f_return_z(p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, quals[j]),
-                           n1 = f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, quals[j]),
-                           p2 = f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, quals[i]),
-                           n2 = f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, quals[i]))
-    } else {
-      col[j] <- NA
-    }
-  }
-  qual_z_scores[[quals[i]]] <- col
-}
-
-names(qual_z_scores)[names(qual_z_scores) == "qual"] <- " "
+qual_z_scores <- f_qual_z_scores("PCOS1", "Yes")
 
 # Products ####
 
@@ -121,8 +75,8 @@ products <- c("Number of deaths in NI",
 products_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  products_stats$heard[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes")
-  products_stats$not[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes")
+  products_stats$heard[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
+  products_stats$not[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
   products_stats$z[i] <- f_return_z(p1 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
                                     n1 = f_return_n(data_current[[paste0("PCOS1c", i)]]),
                                     p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
@@ -144,8 +98,8 @@ names(products_stats) <- c(" ", "% Had heard of NISRA", "% Had not heard of NISR
 heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes")
-  heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes")
+  heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes") * 100
+  heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
   heard_stats$z[i] <- f_return_z(p1 = f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes"),
                                  n1 = f_return_n(data_last[[paste0("PCOS1c", i)]]),
                                  p2 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
@@ -167,8 +121,8 @@ names(heard_stats) <- c("Had heard of NISRA", current_year - 1, current_year, "Z
 not_heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  not_heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes")
-  not_heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes")
+  not_heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes") * 100
+  not_heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
   not_heard_stats$z[i] <- f_return_z(p1 = f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes"),
                                      n1 = f_return_n(data_last[[paste0("PCOS1d", i)]]),
                                      p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
@@ -186,9 +140,199 @@ not_heard_stats <- not_heard_stats %>%
 names(not_heard_stats) <- c("Had not heard of NISRA", current_year - 1, current_year, "Z", "Difference in %")
 
 # Trust in NISRA ####
+
+## Trust in NISRA: This year vs previous year ####
+
+trust_year <- f_significance_year("TrustNISRA2", "Trust a great deal/Tend to trust")
+
+## Distrust in NISRA: This year vs previous year ####
+
+distrust_year <- f_significance_year("TrustNISRA2", "Tend to distrust/Distrust greatly")
+
+## Don't Know trust in NISRA: This year vs previous year ####
+
+dont_know_trust <- f_significance_year("TrustNISRA2", "Don't know")
+
+## Trust in NISRA - unweighted and base figures by age group ####
+
+trust_age_stats <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## Trust in NISRA by Age group compare ####
+
+trust_age_z_scores <- f_age_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust")
+
+## Distrust in NISRA by Age group compare ####
+
+distrust_age_z_scores <- f_age_z_scores("TrustNISRA2", "Tend to distrust/Distrust greatly")
+
+## Don't know trust in NISRA by Age group compare ####
+
+dont_know_trust_age_z_scores <- f_age_z_scores("TrustNISRA2", "Don't know")
+
+## Trust in NISRA - unweighted and base figures by qualification ####
+
+trust_qual_stats <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## Trust in NISRA by qualification compare ####
+
+trust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust")
+
+## Distrust in NISRA by Age group compare ####
+
+distrust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Tend to distrust/Distrust greatly")
+
+## Don't know trust in NISRA by Age group compare ####
+
+dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
+
+## Trust in NISRA by Work Status ####
+
+trust_work_status <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+# ValueIntConfYears ####
+
+value_year <- f_significance_year("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+interference_year <- f_significance_year("Political2", "Strongly Agree/Tend to Agree")
+
+confidential_year <- f_significance_year("Confidential2", "Strongly Agree/Tend to Agree")
+
 # Value ####
+
+value_work_stats <- f_work_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+value_age_stats <- f_age_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+value_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+value_disagree_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+value_dont_know_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Don't know")
+
+value_qual_stats <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+value_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+value_disagree_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+value_dont_know_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Don't know")
+
 # Interference ####
+
+interference_work_stats <- f_work_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_stats <- f_age_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_z_scores <- f_age_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_age_z_scores <- f_age_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_age_z_scores <- f_age_z_scores("Political2", "Don't know")
+
+interference_qual_stats <- f_qual_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_qual_z_scores <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_qual_z_scores <- f_qual_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_qual_z_scores <- f_qual_z_scores("Political2", "Don't know") 
+
 # Confidentiality ####
+
+confidential_work_stats <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_stats <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_z_scores <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_age_z_scores <- f_age_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_age_z_scores <- f_age_z_scores("Confidential2", "Don't know")
+
+confidential_qual_stats <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_qual_z_scores <- f_qual_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't know") 
+
 # ONS vs NISRA ####
+
+nisra_ons_trust <- as.data.frame(read_xlsx(ons_xl, sheet = "Trust in ONS", range = "B4:D9", col_names = FALSE)) %>%
+  select(trust = `...1`, ons = `...3`) %>%
+  mutate(trust = factor(trust,
+                        levels = unique(trust),
+                        labels = c("Trust", "Trust", "Distrust", "Distrust", "Don't know", "Base"))) %>%
+  group_by(trust) %>%
+  summarise(ons = sum(ons)) %>%
+  mutate(nisra = c(trust_year[[as.character(current_year)]][1],
+                   distrust_year[[as.character(current_year)]][1],
+                   dont_know_trust[[as.character(current_year)]][1],
+                   trust_year[[as.character(current_year)]][2]),
+         Z = case_when(trust == "Base" ~ NA,
+                       TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+
+names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z Score")
+
+trust_stats_year <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+distrust_stats_year <- f_significance_year("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_stats_year <- f_significance_year("TrustNISRAstats2", "Don't know")
+
 # Trust NISRA Statistics ####
-# Institutions Trust this year vs last year ####
+
+trust_stats_work_stats <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_age_stats <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Don't know")
+
+trust_stats_qual_stats <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
+
+# Institutions ####
+
+trust_nics_year <- f_significance_year("TrustCivilService2", "Trust a great deal/Tend to trust")
+
+distrust_nics_year <- f_significance_year("TrustCivilService2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_nics <- f_significance_year("TrustCivilService2", "Don't know")
+
+trust_assembly_year <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust")
+
+distrust_assembly_year <- f_significance_year("TrustNIAssembly2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_assembly <- f_significance_year("TrustNIAssembly2", "Don't know")
+
+trust_media_year <- f_significance_year("TrustMedia2", "Trust a great deal/Tend to trust")
+
+distrust_media_year <- f_significance_year("TrustMedia2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_media <- f_significance_year("TrustMedia2", "Don't know")
+
+# This year vs last year with DKs ####
+
+## NISRA Stats Importance ####
+
+no_value_year <- f_significance_year("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+dont_know_value_year <- f_significance_year("NISRAstatsImp2", "Don't know")
+
+## Interference ####
+ 
+no_interference_year <- f_significance_year("Political2", "Tend to disagree/Strongly disagree")
+
+dont_know_interference_year <- f_significance_year("Political2", "Don't know")
+
+## Confidential ####
