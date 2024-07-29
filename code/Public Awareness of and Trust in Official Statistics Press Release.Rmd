@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, echo = FALSE)
 
 library(here)
 
-source(paste0(here(),"/code/config.R"))
 source(paste0(here(),"/code/data_prep.R"))
 ```
 
@@ -43,7 +42,7 @@ Ireland Official Statistics’ questions in the Northern Ireland Continuous Hous
 \
 The report shows the majority of respondents (`r trust_in_nisra_stats`%), surveyed in September to December 
 2022, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA 
-statistics increases to (`r heard_of_and_trust_in_nisra_stats`%) for those respondents who have heard of NISRA by name.\
+statistics increases to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.\
 \
 Trust in NISRA as the body which produces official statistics is also high, with (`r trust_in_nisra`%) of 
 respondents trusting NISRA a great deal or tending to trust NISRA; this remains higher than 
