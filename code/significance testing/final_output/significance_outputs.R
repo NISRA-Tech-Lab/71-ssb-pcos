@@ -788,6 +788,10 @@ f_insert_sig_table(df = nisra_ons_heard_ex_dk,
  
 addWorksheet(wb, "TruNISRAexcDK")
 
+setColWidths(wb, "TruNISRAexcDK",
+             cols = 1:ncol(trust_nisra_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(trust_nisra_age_z_scores_ex_dk) - 1)))
+
 r <- 1
 
 writeData(wb, "TruNISRAexcDK",
@@ -803,7 +807,7 @@ r <- r + 2
 
 ## In work vs not in work ####
  
-f_insert_sig_table(df = trust_nisra_ex_dk,
+f_insert_sig_table(df = trust_nisra_work_ex_dk,
                    sheet = "TruNISRAexcDK",
                    title = "Trust in NISRA: in work vs not in work (exc DKs)")
 
@@ -812,6 +816,281 @@ f_insert_sig_table(df = trust_nisra_ex_dk,
 f_insert_sig_table(df = trust_nisra_age_ex_dk,
                    sheet = "TruNISRAexcDK",
                    title = "Trust in NISRA: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = trust_nisra_age_z_scores_ex_dk,
+                 sheet = "TruNISRAexcDK",
+                 title = "Trust in NISRA: by Age Group (exc DKs)")
+
+## By qualification ####
+ 
+f_insert_sig_table(df = trust_nisra_qual_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = trust_nisra_qual_z_scores_ex_dk,
+                 sheet = "TruNISRAexcDK",
+                 title = "Trust in NISRA: by Age Group (exc DKs)")
+
+# Trust NISRA stats (exc DK) ####
+
+addWorksheet(wb, "TruNISRAStatsexcDK")
+
+setColWidths(wb, "TruNISRAStatsexcDK",
+             cols = 1:ncol(trust_stats_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(trust_stats_age_z_scores_ex_dk) - 1)))
+
+r <- 1
+
+writeData(wb, "TruNISRAStatsexcDK",
+          x = "Trust NISRA stats (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "TruNISRAStatsexcDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+
+f_insert_sig_table(df = trust_stats_work_ex_dk,
+                   sheet = "TruNISRAStatsexcDK",
+                   title = "Trust NISRA stats: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = trust_stats_age_ex_dk,
+                   sheet = "TruNISRAStatsexcDK",
+                   title = "Trust NISRA stats: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = trust_stats_age_z_scores_ex_dk,
+                 sheet = "TruNISRAStatsexcDK",
+                 title = "Trust NISRA stats: by Age Group (exc DKs)")
+
+## By qualification ####
+
+f_insert_sig_table(df = trust_stats_qual_ex_dk,
+                   sheet = "TruNISRAStatsexcDK",
+                   title = "Trust NISRA stats: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = trust_stats_qual_z_scores_ex_dk,
+                 sheet = "TruNISRAStatsexcDK",
+                 title = "Trust NISRA stats: by Age Group (exc DKs)")
+
+# Value NISRA stats (exc DK) ####
+
+addWorksheet(wb, "ValuesExDK")
+
+setColWidths(wb, "ValuesExDK",
+             cols = 1:ncol(value_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(value_age_z_scores_ex_dk) - 1)))
+
+r <- 1
+
+writeData(wb, "ValuesExDK",
+          x = "Value NISRA stats (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "ValuesExDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+
+f_insert_sig_table(df = value_work_ex_dk,
+                   sheet = "ValuesExDK",
+                   title = "Value NISRA stats: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = value_age_ex_dk,
+                   sheet = "ValuesExDK",
+                   title = "Value NISRA stats: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = value_age_z_scores_ex_dk,
+                 sheet = "ValuesExDK",
+                 title = "Value NISRA stats: by Age Group (exc DKs)")
+
+## By qualification ####
+
+f_insert_sig_table(df = value_qual_ex_dk,
+                   sheet = "ValuesExDK",
+                   title = "Value NISRA stats: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = value_qual_z_scores_ex_dk,
+                 sheet = "ValuesExDK",
+                 title = "Value NISRA stats: by Age Group (exc DKs)")
+
+# NISRA stats free from interference (exc DK) ####
+ 
+addWorksheet(wb, "InterfExDK")
+
+setColWidths(wb, "InterfExDK",
+             cols = 1:ncol(interference_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(interference_age_z_scores_ex_dk) - 1)))
+
+r <- 1
+
+writeData(wb, "InterfExDK",
+          x = "NISRA stats are free from political interference (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "InterfExDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+
+f_insert_sig_table(df = interference_work_ex_dk,
+                   sheet = "InterfExDK",
+                   title = "NISRA stats are free from political interference: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = interference_age_ex_dk,
+                   sheet = "InterfExDK",
+                   title = "NISRA stats are free from political interference: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = interference_age_z_scores_ex_dk,
+                 sheet = "InterfExDK",
+                 title = "NISRA stats are free from political interference: by Age Group (exc DKs)")
+
+## By qualification ####
+
+f_insert_sig_table(df = interference_qual_ex_dk,
+                   sheet = "InterfExDK",
+                   title = "NISRA stats are free from political interference: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = interference_qual_z_scores_ex_dk,
+                 sheet = "InterfExDK",
+                 title = "NISRA stats are free from political interference: by Age Group (exc DKs)")
+
+# NISRA will keep my information confidential (exc DK) ####
+
+addWorksheet(wb, "ConfExDK")
+
+setColWidths(wb, "ConfExDK",
+             cols = 1:ncol(confidential_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(confidential_age_z_scores_ex_dk) - 1)))
+
+r <- 1
+
+writeData(wb, "ConfExDK",
+          x = "NISRA will keep my information confidential (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "ConfExDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+
+f_insert_sig_table(df = confidential_work_ex_dk,
+                   sheet = "ConfExDK",
+                   title = "NISRA will keep my information confidential: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = confidential_age_ex_dk,
+                   sheet = "ConfExDK",
+                   title = "NISRA will keep my information confidential: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = confidential_age_z_scores_ex_dk,
+                 sheet = "ConfExDK",
+                 title = "NISRA will keep my information confidential: by Age Group (exc DKs)")
+
+## By qualification ####
+
+f_insert_sig_table(df = confidential_qual_ex_dk,
+                   sheet = "ConfExDK",
+                   title = "NISRA will keep my information confidential: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = confidential_qual_z_scores_ex_dk,
+                 sheet = "ConfExDK",
+                 title = "NISRA will keep my information confidential: by Age Group (exc DKs)")
+
+# NatCen comparisons ####
+ 
+addWorksheet(wb, "NatCen Comparisons")
+
+r <- 1
+
+writeData(wb, "NatCen Comparisons",
+          x = "NISRA vs ONS Comparisons",
+          startRow = r)
+
+addStyle(wb, "NatCen Comparisons",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## Heard of NISRA vs heard of ONS ####
+
+f_insert_sig_table(df = heard_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Heard of NISRA vs Heard of ONS")
+
+## Trust NISRA vs Trust ONS ####
+
+f_insert_sig_table(df = trust_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Trust in NISRA vs Trust in ONS")
+
+## Trust NISRA stats vs Trust ONS stats ####
+
+f_insert_sig_table(df = trust_stats_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Trust NISRA stats vs Trust ONS stats")
+
+## Stats are important: NISRA vs ONS ####
+
+f_insert_sig_table(df = value_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Stats are important: NISRA vs ONS")
+
+## Stats are free from political interference: NISRA vs ONS ####
+
+f_insert_sig_table(df = interference_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Stats are free from political interference: NISRA vs ONS")
+
+## Information will be kept confidential: NISRA vs ONS ####
+
+f_insert_sig_table(df = confidential_nisra_ons,
+                   sheet = "NatCen Comparisons",
+                   title = "Information will be kept confidential: NISRA vs ONS")
 
 # Save Workbook ####
 

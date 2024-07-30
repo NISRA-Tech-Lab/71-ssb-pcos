@@ -377,28 +377,168 @@ nisra_ons_heard_ex_dk <- f_nisra_ons_ex_dk("PCOS1", "Yes", "Yes")
 
 ## In work vs not in work ####
 
-trust_nisra_ex_dk <- data.frame(trust = c("%", "Base"),
-                                work = c(data_current %>%
-                                           filter(!is.na(TrustNISRA2) & TrustNISRA2 == "Trust a great deal/Tend to trust" & EMPST2 == "In paid employment") %>%
-                                           nrow() / data_current %>%
-                                           filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know" & EMPST2 == "In paid employment") %>%
-                                           nrow() * 100,
-                                         data_current %>%
-                                           filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know" & EMPST2 == "In paid employment") %>%
-                                           nrow()),
-                                no_work = c(data_current %>%
-                                            filter(!is.na(TrustNISRA2) & TrustNISRA2 == "Trust a great deal/Tend to trust" & EMPST2 == "Not in paid employment") %>%
-                                            nrow() / data_current %>%
-                                            filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know" & EMPST2 == "Not in paid employment") %>%
-                                            nrow() * 100,
-                                          data_current %>%
-                                            filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know" & EMPST2 == "Not in paid employment") %>%
-                                            nrow())) %>%
-  mutate(Z = case_when(trust == "Base" ~ NA,
-                       TRUE ~ f_return_z(work / 100, work[trust == "Base"], no_work / 100, no_work[trust == "Base"])))
-
-names(trust_nisra_ex_dk) <- c(" ", "In work", "Not in work", "Z Score")
+trust_nisra_work_ex_dk <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 ##  By Age ####
 
 trust_nisra_age_ex_dk <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+trust_nisra_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+trust_nisra_qual_ex_dk <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust NISRA stats (exc DK) ####
+
+## In work vs not in work ####
+
+trust_stats_work_ex_dk <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+##  By Age ####
+
+trust_stats_age_ex_dk <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+trust_stats_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+trust_stats_qual_ex_dk <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Value NISRA stats (exc DK) ####
+
+## In work vs not in work ####
+
+value_work_ex_dk <- f_work_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+##  By Age ####
+
+value_age_ex_dk <- f_age_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Age comparison ####
+
+value_age_z_scores_ex_dk <- f_age_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## By qualification ####
+
+value_qual_ex_dk <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Qualification comparison ####
+
+value_qual_z_scores_ex_dk <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+# NISRA stats free from interference (exc DK) ####
+
+## In work vs not in work ####
+
+interference_work_ex_dk <- f_work_stats("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+##  By Age ####
+
+interference_age_ex_dk <- f_age_stats("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Age comparison ####
+
+interference_age_z_scores_ex_dk <- f_age_z_scores("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## By qualification ####
+
+interference_qual_ex_dk <- f_qual_stats("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Qualification comparison ####
+
+interference_qual_z_scores_ex_dk <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+# NISRA will keep my information confidential (exc DK) ####
+
+## In work vs not in work ####
+
+confidential_work_ex_dk <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+##  By Age ####
+
+confidential_age_ex_dk <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Age comparison ####
+
+confidential_age_z_scores_ex_dk <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## By qualification ####
+
+confidential_qual_ex_dk <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Qualification comparison ####
+
+confidential_qual_z_scores_ex_dk <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+# NatCen comparisons ####
+
+## Heard of NISRA vs heard of ONS ####
+
+heard_nisra_ons <- f_nisra_ons(var = "PCOS1",
+                               nisra_val_1 = "Yes",
+                               nisra_val_2 = "No",
+                               ons_val_1a = "Yes",
+                               ons_val_2a = "No")
+
+## Trust NISRA vs Trust ONS ####
+
+trust_nisra_ons <- f_nisra_ons(var = "TrustNISRA2",
+                               nisra_val_1 = "Trust a great deal/Tend to trust",
+                               nisra_val_2 = "Tend to distrust/Distrust greatly",
+                               ons_val_1a = "Trust it a great deal",
+                               ons_val_1b = "Tend to trust it",
+                               ons_val_2a = "Tend to distrust it",
+                               ons_val_2b = "Distrust it greatly")
+
+## Trust NISRA stats vs Trust ONS stats ####
+
+trust_stats_nisra_ons <- f_nisra_ons(var = "TrustNISRAstats2",
+                               nisra_val_1 = "Trust a great deal/Tend to trust",
+                               nisra_val_2 = "Tend to distrust/Distrust greatly",
+                               ons_val_1a = "Trust them greatly",
+                               ons_val_1b = "Tend to trust them",
+                               ons_val_2a = "Tend not to trust them",
+                               ons_val_2b = "Distrust them greatly")
+
+## Stats are important: NISRA vs ONS ####
+
+value_nisra_ons <- f_nisra_ons(var = "NISRAstatsImp2",
+                               nisra_val_1 = "Strongly Agree/Tend to Agree",
+                               nisra_val_2 = "Tend to disagree/Strongly disagree",
+                               ons_val_1a = "Strongly agree",
+                               ons_val_1b = "Tend to agree",
+                               ons_val_2a = "Tend to disagree",
+                               ons_val_2b = "Strongly disagree")
+
+## Stats are free from political interference: NISRA vs ONS ####
+
+interference_nisra_ons <- f_nisra_ons(var = "Political2",
+                                      nisra_val_1 = "Strongly Agree/Tend to Agree",
+                                      nisra_val_2 = "Tend to disagree/Strongly disagree",
+                                      ons_val_1a = "Strongly agree",
+                                      ons_val_1b = "Tend to agree",
+                                      ons_val_2a = "Tend to disagree",
+                                      ons_val_2b = "Strongly disagree")
+
+## Information will be kept confidential: NISRA vs ONS ####
+
+confidential_nisra_ons <- f_nisra_ons(var = "Confidential2",
+                                      nisra_val_1 = "Strongly Agree/Tend to Agree",
+                                      nisra_val_2 = "Tend to disagree/Strongly disagree",
+                                      ons_val_1a = "Strongly agree",
+                                      ons_val_1b = "Tend to agree",
+                                      ons_val_2a = "Tend to disagree",
+                                      ons_val_2b = "Strongly disagree")

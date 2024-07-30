@@ -52,7 +52,7 @@ f_significance_year <- function(var, value) {
   
 }
 
-f_age_z_scores <- function(var, value) {
+f_age_z_scores <- function(var, value, dk = TRUE) {
   
   age_groups <- levels(data_current$AGE2)
   
@@ -62,10 +62,29 @@ f_age_z_scores <- function(var, value) {
     col <- c()
     for(j in 1:length(age_groups)) {
       if (i > j) {
-        col[j] <- f_return_z(p1 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[j]),
-                             n1 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[j]),
-                             p2 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[i]),
-                             n2 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[i]))
+        if (dk) {
+          col[j] <- f_return_z(p1 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[j]),
+                               n1 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[j]),
+                               p2 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[i]),
+                               n2 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[i]))
+        } else {
+          col[j] <- f_return_z(p1 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] == value & AGE2 == age_groups[j]) %>%
+                                 nrow() / data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[j]) %>%
+                                 nrow(),
+                               n1 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[j]) %>%
+                                 nrow(),
+                               p2 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] == value & AGE2 == age_groups[i]) %>%
+                                 nrow() / data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[i]) %>%
+                                 nrow(),
+                               n2 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[i]) %>%
+                                 nrow())
+        }
       } else {
         col[j] <- NA
       }
@@ -79,7 +98,7 @@ f_age_z_scores <- function(var, value) {
   
 }
 
-f_qual_z_scores <- function (var, value) {
+f_qual_z_scores <- function (var, value, dk = TRUE) {
   
   quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
   
@@ -89,10 +108,29 @@ f_qual_z_scores <- function (var, value) {
     col <- c()
     for(j in 1:length(quals)) {
       if (i > j) {
-        col[j] <- f_return_z(p1 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[j]),
-                             n1 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[j]),
-                             p2 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[i]),
-                             n2 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[i]))
+        if (dk) {
+          col[j] <- f_return_z(p1 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[j]),
+                               n1 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[j]),
+                               p2 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[i]),
+                               n2 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[i]))
+        } else {
+          col[j] <- f_return_z(p1 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] == value & DERHIanalysis == quals[j]) %>%
+                                 nrow() / data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[j]) %>%
+                                 nrow(),
+                               n1 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[j]) %>%
+                                 nrow(),
+                               p2 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] == value & DERHIanalysis == quals[i]) %>%
+                                 nrow() / data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[i]) %>%
+                                 nrow(),
+                               n2 = data_current %>%
+                                 filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[i]) %>%
+                                 nrow())
+        }
       } else {
         col[j] <- NA
       }
@@ -105,33 +143,59 @@ f_qual_z_scores <- function (var, value) {
   qual_z_scores
 }
 
-f_work_stats <- function(var, value1, value2) {
+f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
+  
+  if (dk) {
 
-  work_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
-                                  
-                                  work = c(f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment") * 100,
-                                           f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment") * 100,
-                                           f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment") * 100,
-                                           f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment")),
-                                  
-                                  not = c(f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment") * 100,
-                                          f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment") * 100,
-                                          f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment") * 100,
-                                          f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
-                                  
-                                  z = c(f_return_z(p1 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment"),
-                                                   n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-                                                   p2 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment"),
-                                                   n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
-                                        f_return_z(p1 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment"),
-                                                   n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-                                                   p2 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment"),
-                                                   n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
-                                        f_return_z(p1 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment"),
-                                                   n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-                                                   p2 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment"),
-                                                   n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
-                                        NA))
+    work_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
+                                    
+                                    work = c(f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment") * 100,
+                                             f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment") * 100,
+                                             f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment") * 100,
+                                             f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment")),
+                                    
+                                    not = c(f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment") * 100,
+                                            f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment") * 100,
+                                            f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment") * 100,
+                                            f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
+                                    
+                                    z = c(f_return_z(p1 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment"),
+                                                     n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
+                                                     p2 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment"),
+                                                     n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
+                                          f_return_z(p1 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment"),
+                                                     n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
+                                                     p2 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment"),
+                                                     n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
+                                          f_return_z(p1 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment"),
+                                                     n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
+                                                     p2 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment"),
+                                                     n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")),
+                                          NA))
+  
+  } else {
+    
+    work_stats <- data.frame(trust = c("%", "Base"),
+                                    work = c(data_current %>%
+                                               filter(!is.na(.[[var]]) & .[[var]] == value1 & EMPST2 == "In paid employment") %>%
+                                               nrow() / data_current %>%
+                                               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "In paid employment") %>%
+                                               nrow() * 100,
+                                             data_current %>%
+                                               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "In paid employment") %>%
+                                               nrow()),
+                                    not = c(data_current %>%
+                                              filter(!is.na(.[[var]]) & .[[var]] == value1 & EMPST2 == "Not in paid employment") %>%
+                                              nrow() / data_current %>%
+                                              filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "Not in paid employment") %>%
+                                              nrow() * 100,
+                                            data_current %>%
+                                              filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "Not in paid employment") %>%
+                                              nrow())) %>%
+      mutate(Z = case_when(trust == "Base" ~ NA,
+                           TRUE ~ f_return_z(work / 100, work[trust == "Base"], not / 100, not[trust == "Base"])))
+    
+  }
   
   names(work_stats) <- c(" ", "In work", "Not in work", "Z Score")
   
@@ -178,17 +242,36 @@ f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   
 }
 
-f_qual_stats <- function(var, value1, value2) {
+f_qual_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   
   quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
   
-  qual_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
+  if (dk) {
   
-  for (qual in quals) {
-    qual_stats[[qual]] <- c(f_return_p_group(data_current[[var]], value1, data_current$DERHIanalysis, qual) * 100,
-                            f_return_p_group(data_current[[var]], value2, data_current$DERHIanalysis, qual) * 100,
-                            f_return_p_group(data_current[[var]], "Don't know", data_current$DERHIanalysis, qual) * 100,
-                            f_return_n_group(data_current[[var]], data_current$DERHIanalysis, qual))
+    qual_stats <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"))
+    
+    for (qual in quals) {
+      qual_stats[[qual]] <- c(f_return_p_group(data_current[[var]], value1, data_current$DERHIanalysis, qual) * 100,
+                              f_return_p_group(data_current[[var]], value2, data_current$DERHIanalysis, qual) * 100,
+                              f_return_p_group(data_current[[var]], "Don't know", data_current$DERHIanalysis, qual) * 100,
+                              f_return_n_group(data_current[[var]], data_current$DERHIanalysis, qual))
+    }
+  
+  } else {
+    
+    qual_stats <- data.frame(stat = c("% Yes", "Base"))
+    
+    for (qual in quals) {
+      qual_stats[[qual]] <- c(data_current %>%
+                                filter(!is.na(.[[var]]) & .[[var]] == value1 & DERHIanalysis == qual) %>%
+                                nrow() / data_current %>%
+                                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == qual) %>%
+                                nrow() * 100,
+                              data_current %>%
+                                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == qual) %>%
+                                nrow())
+    }
+    
   }
    
   names(qual_stats)[names(qual_stats) == "stat"] <- " "
@@ -311,7 +394,7 @@ f_insert_z_table <- function (df, sheet, title) {
 
 f_nisra_ons_ex_dk <- function (var, nisra_val, ons_val_1, ons_val_2 = NA) {
   
-  df <- data.frame(trust = c("% Trust", "Base"),
+  df <- data.frame(trust = c("% Yes", "Base"),
                                       nisra = c(data_current %>%
                                                   filter(.[[var]] == nisra_val) %>%
                                                   nrow() / data_current %>%
@@ -326,6 +409,29 @@ f_nisra_ons_ex_dk <- function (var, nisra_val, ons_val_1, ons_val_2 = NA) {
                                                    unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var]) * 100,
                                               unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
                                                 unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var])) %>%
+    mutate(Z = case_when(trust == "Base" ~ NA,
+                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+  
+  names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
+  
+  df
+  
+}
+
+f_nisra_ons <- function (var, nisra_val_1, nisra_val_2, ons_val_1a,  ons_val_1b = NA, ons_val_2a, ons_val_2b = NA) {
+  
+  ons_values <- unweighted_ons %>%
+    filter(`Related Variable` == var)
+  
+  df <- data.frame(trust = c("% Yes", "% No", "% Don't know", "Base"),
+                   nisra = c(f_return_p(data_current[[var]], nisra_val_1) * 100,
+                             f_return_p(data_current[[var]], nisra_val_2) * 100,
+                             f_return_p(data_current[[var]], "Don't know") * 100,
+                             f_return_n(data_current[[var]])),
+                   ons = c(if (!is.na(ons_val_1b)) (ons_values[[ons_val_1a]] + ons_values[[ons_val_1b]]) / ons_values$`Unweighted base` * 100 else ons_values[[ons_val_1a]] / ons_values$`Unweighted base` * 100,
+                           if (!is.na(ons_val_2b)) (ons_values[[ons_val_2a]] + ons_values[[ons_val_2b]]) / ons_values$`Unweighted base` * 100 else ons_values[[ons_val_2a]] / ons_values$`Unweighted base` * 100,
+                           ons_values$`Don't know` / ons_values$`Unweighted base` * 100,
+                           ons_values$`Unweighted base`)) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,
                          TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
   
