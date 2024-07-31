@@ -4,15 +4,24 @@ source(paste0(here(), "/code/config.R"))
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
 
-data_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
+data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
   filter(Year == ons_year)
 
-names(data_ons) <- gsub(".", " ", names(data_ons), fixed = TRUE)
+names(data_ons_raw) <- gsub(".", " ", names(data_ons_raw), fixed = TRUE)
+
+data_ons <- data_ons_raw %>%
+  mutate(`Weighted base` = 100 - `Prefer not to answer`,
+         across(.cols = `Don't know`:`Strongly disagree`, ~ .x / `Weighted base` * 100)) %>%
+  select(-`Prefer not to answer`, -`Weighted base`)
 
 unweighted_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "unweighted_n") %>%
   filter(Year == ons_year)
 
 names(unweighted_ons) <- gsub(".", " ", names(unweighted_ons), fixed = TRUE)
+
+unweighted_ons <- unweighted_ons %>%
+  mutate(`Unweighted base` = `Unweighted base` - `Prefer not to answer`) %>%
+  select(-`Prefer not to answer`)
 
 # Awareness of NISRA ####
 
@@ -268,10 +277,10 @@ confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't 
 # ONS vs NISRA ####
 
 nisra_ons_trust <- data.frame(trust = c("Trust", "Distrust", "Don't know", "Base"),
-                              ons = c(data_ons$`Trust it a great deal`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Tend to trust it`[data_ons$`Related Variable` == "TrustNISRA2"],
-                                      data_ons$`Tend to distrust it`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Distrust it greatly`[data_ons$`Related Variable` == "TrustNISRA2"],
+                              ons = c(data_ons$`Trust a great deal`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Tend to trust`[data_ons$`Related Variable` == "TrustNISRA2"],
+                                      data_ons$`Tend to distrust`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Distrust greatly`[data_ons$`Related Variable` == "TrustNISRA2"],
                                       data_ons$`Don't know`[data_ons$`Related Variable` == "TrustNISRA2"],
-                                      data_ons$`Unweighted base`[data_ons$`Related Variable` == "TrustNISRA2"]),
+                                      unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == "TrustNISRA2"]),
                               nisra = c(trust_year[[as.character(current_year)]][1],
                                         distrust_year[[as.character(current_year)]][1],
                                         dont_know_trust[[as.character(current_year)]][1],
@@ -351,11 +360,11 @@ dont_know_confidential_year <- f_significance_year("Confidential2", "Don't know"
 
 ## Trust in NISRA vs Trust in ONS (exc DKs) ####
 
-nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust", "Trust it a great deal", "Tend to trust it")
+nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust", "Trust a great deal", "Tend to trust")
 
 ## Trust in NISRA stats vs Trust in ONS stats (exc DKs) ####
 
-nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Trust them greatly", "Tend to trust them")
+nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Trust a great deal", "Tend to trust")
 
 ## NISRA stats are important vs ONS stats are important (exc DKs) ####
  
@@ -498,20 +507,20 @@ heard_nisra_ons <- f_nisra_ons(var = "PCOS1",
 trust_nisra_ons <- f_nisra_ons(var = "TrustNISRA2",
                                nisra_val_1 = "Trust a great deal/Tend to trust",
                                nisra_val_2 = "Tend to distrust/Distrust greatly",
-                               ons_val_1a = "Trust it a great deal",
-                               ons_val_1b = "Tend to trust it",
-                               ons_val_2a = "Tend to distrust it",
-                               ons_val_2b = "Distrust it greatly")
+                               ons_val_1a = "Trust a great deal",
+                               ons_val_1b = "Tend to trust",
+                               ons_val_2a = "Tend to distrust",
+                               ons_val_2b = "Distrust greatly")
 
 ## Trust NISRA stats vs Trust ONS stats ####
 
 trust_stats_nisra_ons <- f_nisra_ons(var = "TrustNISRAstats2",
                                nisra_val_1 = "Trust a great deal/Tend to trust",
                                nisra_val_2 = "Tend to distrust/Distrust greatly",
-                               ons_val_1a = "Trust them greatly",
-                               ons_val_1b = "Tend to trust them",
-                               ons_val_2a = "Tend not to trust them",
-                               ons_val_2b = "Distrust them greatly")
+                               ons_val_1a = "Trust a great deal",
+                               ons_val_1b = "Tend to trust",
+                               ons_val_2a = "Tend to distrust",
+                               ons_val_2b = "Distrust greatly")
 
 ## Stats are important: NISRA vs ONS ####
 
