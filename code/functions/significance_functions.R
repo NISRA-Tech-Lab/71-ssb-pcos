@@ -392,19 +392,18 @@ f_insert_z_table <- function (df, sheet, title) {
   
 }
 
-f_nisra_ons_ex_dk <- function (var, nisra_val, ons_val_1, ons_val_2 = NA) {
+f_nisra_ons_ex_dk <- function (var, val) {
   
   df <- data.frame(trust = c("% Yes", "Base"),
                                       nisra = c(data_current %>%
-                                                  filter(.[[var]] == nisra_val) %>%
+                                                  filter(.[[var]] == val) %>%
                                                   nrow() / data_current %>%
                                                   filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
                                                   nrow() * 100,
                                                 data_current %>%
                                                   filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
                                                   nrow()),
-                                      ons = c((unweighted_ons[[ons_val_1]][unweighted_ons$`Related Variable` == var] +
-                                                 if (!is.na(ons_val_2)) unweighted_ons[[ons_val_2]][unweighted_ons$`Related Variable` == var] else 0) /
+                                      ons = c(unweighted_ons[[val]][unweighted_ons$`Related Variable` == var] /
                                                 (unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
                                                    unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var]) * 100,
                                               unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
@@ -418,18 +417,18 @@ f_nisra_ons_ex_dk <- function (var, nisra_val, ons_val_1, ons_val_2 = NA) {
   
 }
 
-f_nisra_ons <- function (var, nisra_val_1, nisra_val_2, ons_val_1a,  ons_val_1b = NA, ons_val_2a, ons_val_2b = NA) {
+f_nisra_ons <- function (var, val_1, val_2) {
   
   ons_values <- unweighted_ons %>%
     filter(`Related Variable` == var)
   
   df <- data.frame(trust = c("% Yes", "% No", "% Don't know", "Base"),
-                   nisra = c(f_return_p(data_current[[var]], nisra_val_1) * 100,
-                             f_return_p(data_current[[var]], nisra_val_2) * 100,
+                   nisra = c(f_return_p(data_current[[var]], val_1) * 100,
+                             f_return_p(data_current[[var]], val_2) * 100,
                              f_return_p(data_current[[var]], "Don't know") * 100,
                              f_return_n(data_current[[var]])),
-                   ons = c(if (!is.na(ons_val_1b)) (ons_values[[ons_val_1a]] + ons_values[[ons_val_1b]]) / ons_values$`Unweighted base` * 100 else ons_values[[ons_val_1a]] / ons_values$`Unweighted base` * 100,
-                           if (!is.na(ons_val_2b)) (ons_values[[ons_val_2a]] + ons_values[[ons_val_2b]]) / ons_values$`Unweighted base` * 100 else ons_values[[ons_val_2a]] / ons_values$`Unweighted base` * 100,
+                   ons = c(ons_values[[val_1]] / ons_values$`Unweighted base` * 100,
+                           ons_values[[val_2]] / ons_values$`Unweighted base` * 100,
                            ons_values$`Don't know` / ons_values$`Unweighted base` * 100,
                            ons_values$`Unweighted base`)) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,

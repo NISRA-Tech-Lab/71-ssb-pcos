@@ -20,7 +20,11 @@ unweighted_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "
 names(unweighted_ons) <- gsub(".", " ", names(unweighted_ons), fixed = TRUE)
 
 unweighted_ons <- unweighted_ons %>%
-  mutate(`Unweighted base` = `Unweighted base` - `Prefer not to answer`) %>%
+  mutate(`Unweighted base` = `Unweighted base` - `Prefer not to answer`,
+         `Trust a great deal/Tend to trust` = `Trust a great deal` + `Tend to trust`,
+         `Tend to distrust/Distrust greatly` = `Tend to distrust` + `Distrust greatly`,
+         `Strongly Agree/Tend to Agree` = `Strongly agree` + `Tend to agree`,
+         `Tend to disagree/Strongly disagree` = `Tend to disagree` + `Strongly disagree`) %>%
   select(-`Prefer not to answer`)
 
 # Awareness of NISRA ####
@@ -360,27 +364,27 @@ dont_know_confidential_year <- f_significance_year("Confidential2", "Don't know"
 
 ## Trust in NISRA vs Trust in ONS (exc DKs) ####
 
-nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust", "Trust a great deal", "Tend to trust")
+nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust")
 
 ## Trust in NISRA stats vs Trust in ONS stats (exc DKs) ####
 
-nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Trust a great deal", "Tend to trust")
+nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust")
 
 ## NISRA stats are important vs ONS stats are important (exc DKs) ####
  
-nisra_ons_important_ex_dk <- f_nisra_ons_ex_dk("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Strongly agree", "Tend to agree")
+nisra_ons_important_ex_dk <- f_nisra_ons_ex_dk("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
 
 ## NISRA stats are free from political interference vs ONS stats are free from political interference (exc DKs) ####
  
-nisra_ons_political_ex_dk <- f_nisra_ons_ex_dk("Political2", "Strongly Agree/Tend to Agree", "Strongly agree", "Tend to agree") 
+nisra_ons_political_ex_dk <- f_nisra_ons_ex_dk("Political2", "Strongly Agree/Tend to Agree") 
 
 ## NISRA will keep my information confidential vs ONS will keep my information confidential (exc DKs) ####
 
-nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agree/Tend to Agree", "Strongly agree", "Tend to agree") 
+nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agree/Tend to Agree") 
 
 ## Heard of NISRA vs heard of ONS (exc DKs) ####
 
-nisra_ons_heard_ex_dk <- f_nisra_ons_ex_dk("PCOS1", "Yes", "Yes")
+nisra_ons_heard_ex_dk <- f_nisra_ons_ex_dk("PCOS1", "Yes")
 
 # Trust in NISRA (exc DK) ####
 
@@ -497,57 +501,35 @@ confidential_qual_z_scores_ex_dk <- f_qual_z_scores("Confidential2", "Strongly A
 ## Heard of NISRA vs heard of ONS ####
 
 heard_nisra_ons <- f_nisra_ons(var = "PCOS1",
-                               nisra_val_1 = "Yes",
-                               nisra_val_2 = "No",
-                               ons_val_1a = "Yes",
-                               ons_val_2a = "No")
+                               val_1 = "Yes",
+                               val_2 = "No")
 
 ## Trust NISRA vs Trust ONS ####
 
 trust_nisra_ons <- f_nisra_ons(var = "TrustNISRA2",
-                               nisra_val_1 = "Trust a great deal/Tend to trust",
-                               nisra_val_2 = "Tend to distrust/Distrust greatly",
-                               ons_val_1a = "Trust a great deal",
-                               ons_val_1b = "Tend to trust",
-                               ons_val_2a = "Tend to distrust",
-                               ons_val_2b = "Distrust greatly")
+                               val_1 = "Trust a great deal/Tend to trust",
+                               val_2 = "Tend to distrust/Distrust greatly")
 
 ## Trust NISRA stats vs Trust ONS stats ####
 
 trust_stats_nisra_ons <- f_nisra_ons(var = "TrustNISRAstats2",
-                               nisra_val_1 = "Trust a great deal/Tend to trust",
-                               nisra_val_2 = "Tend to distrust/Distrust greatly",
-                               ons_val_1a = "Trust a great deal",
-                               ons_val_1b = "Tend to trust",
-                               ons_val_2a = "Tend to distrust",
-                               ons_val_2b = "Distrust greatly")
+                                     val_1 = "Trust a great deal/Tend to trust",
+                                     val_2 = "Tend to distrust/Distrust greatly")
 
 ## Stats are important: NISRA vs ONS ####
 
 value_nisra_ons <- f_nisra_ons(var = "NISRAstatsImp2",
-                               nisra_val_1 = "Strongly Agree/Tend to Agree",
-                               nisra_val_2 = "Tend to disagree/Strongly disagree",
-                               ons_val_1a = "Strongly agree",
-                               ons_val_1b = "Tend to agree",
-                               ons_val_2a = "Tend to disagree",
-                               ons_val_2b = "Strongly disagree")
+                               val_1 = "Strongly Agree/Tend to Agree",
+                               val_2 = "Tend to disagree/Strongly disagree")
 
 ## Stats are free from political interference: NISRA vs ONS ####
 
 interference_nisra_ons <- f_nisra_ons(var = "Political2",
-                                      nisra_val_1 = "Strongly Agree/Tend to Agree",
-                                      nisra_val_2 = "Tend to disagree/Strongly disagree",
-                                      ons_val_1a = "Strongly agree",
-                                      ons_val_1b = "Tend to agree",
-                                      ons_val_2a = "Tend to disagree",
-                                      ons_val_2b = "Strongly disagree")
+                                      val_1 = "Strongly Agree/Tend to Agree",
+                                      val_2 = "Tend to disagree/Strongly disagree")
 
 ## Information will be kept confidential: NISRA vs ONS ####
 
 confidential_nisra_ons <- f_nisra_ons(var = "Confidential2",
-                                      nisra_val_1 = "Strongly Agree/Tend to Agree",
-                                      nisra_val_2 = "Tend to disagree/Strongly disagree",
-                                      ons_val_1a = "Strongly agree",
-                                      ons_val_1b = "Tend to agree",
-                                      ons_val_2a = "Tend to disagree",
-                                      ons_val_2b = "Strongly disagree")
+                                      val_1 = "Strongly Agree/Tend to Agree",
+                                      val_2 = "Tend to disagree/Strongly disagree")
