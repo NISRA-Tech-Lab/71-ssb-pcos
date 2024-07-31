@@ -4,6 +4,14 @@ library(here)
 # Read config file
 source(paste0(here(), "/code/config.R"))
 
+# Old and new names for all "trust" based answers
+trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
+trust_q_new <- c("TrustCivilService2", "TrustNIAssembly2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
+
+# Old and new names for all "agree" based answers
+agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
+agree_q_new <- c("NISRAstatsImp2", "Political2" , "Confidential2")
+
 # Read data in from SPSS ####
 
 data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
@@ -14,10 +22,25 @@ source(paste0(here(), "/code/check_raw_variables.R"))
 
 # Read in ONS data from Excel ####
 
-data_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
+data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
   filter(Year == ons_year)
 
-names(data_ons) <- gsub(".", " ", names(data_ons), fixed = TRUE)
+names(data_ons_raw) <- gsub(".", " ", names(data_ons_raw), fixed = TRUE)
+
+unweighted_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "unweighted_n") %>%
+  filter(Year == ons_year)
+
+names(unweighted_ons) <- gsub(".", " ", names(unweighted_ons), fixed = TRUE)
+
+unweighted_ons_base <- unweighted_ons %>%
+  mutate(`Unweighted base` = `Unweighted base` - `Prefer not to answer`) %>%
+  select(`Related Variable`, `Unweighted base`)
+
+data_ons <- data_ons_raw %>%
+  mutate(`Weighted base` = 100 - `Prefer not to answer`,
+         across(.cols = `Don't know`:`Strongly disagree`, ~ .x / `Weighted base` * 100)) %>%
+  select(-`Prefer not to answer`, -`Weighted base`) %>%
+  left_join(unweighted_ons_base, by = "Related Variable")
 
 # Recode variables #####
 
@@ -38,13 +61,12 @@ data_final <- data_raw %>%
                                      TRUE ~ "60+")),
          DERHIanalysis = case_when(DERHI == "Other qualifications" ~ NA,
                                    TRUE ~ DERHI),
-         remove = FALSE) %>%  ## Added for later
+         remove = FALSE,
+         AwareNISRA2 = PCOS1) %>%  ## Added for later
   relocate("AGE2a", .after = "Age1") %>%
   relocate("AGE2", .after = "W3")
 
 ## Loop to recode all "Trust" based answers ####
-trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
-trust_q_new <- c("TrustCivilService2", "TrustNIAssembly2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
 
 for (i in 1:length(trust_q_old)) {
   
@@ -57,9 +79,6 @@ for (i in 1:length(trust_q_old)) {
 }
 
 ## Loop to recode all "agree" based answers ####
-
-agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
-agree_q_new <- c("NISRAstatsImp2", "Political2" , "Confidential2")
 
 for (i in 1:length(agree_q_old)) {
   
@@ -227,8 +246,8 @@ chart_6_data <- chart_5_data %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_6$`Trust it a great deal` + ons_chart_6$`Tend to trust it`,
-                   distrust = ons_chart_6$`Tend to distrust it` + ons_chart_6$`Distrust it greatly`,
+                   trust = ons_chart_6$`Trust a great deal` + ons_chart_6$`Tend to trust`,
+                   distrust = ons_chart_6$`Tend to distrust` + ons_chart_6$`Distrust greatly`,
                    dont_know = ons_chart_6$`Don't know`))
 
 
@@ -274,8 +293,8 @@ chart_9_data <- chart_8_data %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_9$`Trust them greatly` + ons_chart_9$`Tend to trust them`,
-                   distrust = ons_chart_9$`Tend not to trust them` + ons_chart_9$`Distrust them greatly`,
+                   trust = ons_chart_9$`Trust a great deal` + ons_chart_9$`Tend to trust`,
+                   distrust = ons_chart_9$`Tend to distrust` + ons_chart_9$`Distrust greatly`,
                    dont_know = ons_chart_9$`Don't know`))
 
 
