@@ -71,6 +71,8 @@ The data prep script loads all the data for the report from SPSS and Excel files
 -   **Create data frames for charts:** Separate data frames containing only the data needed to produce a particular chart are created. The data for Chart 1 will be stored under the name `chart_1_data` etc. Any trend series data up to the previous year is read in at this point, and data points for the new year are appended.
 -   **Figures for commentary:** Individual values are calculated from the data and stored so they can be inserted in the report's commentary.
 
+![](data/images/Data flow.svg)
+
 ### Charts
 
 Within the report there are 15 charts. There is one line chart, one grouped bar chart and the remaining charts are stacked bar charts.
