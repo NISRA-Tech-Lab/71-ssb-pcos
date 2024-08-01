@@ -1,4 +1,4 @@
-
+library(here)
 
 # R Scripts containing bespoke functions for significance testing
 source(paste0(here(), "/code/config.R"))
@@ -84,7 +84,7 @@ groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_ana
 
 ### **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs 
-vardf<- stCombinations(vars, groupings, currentYear)
+vardf <- stCombinations(vars, groupings, currentYear)
 
 # flatten file to extract all variable info needed for significance testing
 stVars <- rbindlist(split.default(as.data.table(vardf), c(0, sequence(ncol(vardf)-1) %/% 4)), use.names = FALSE) 
@@ -121,7 +121,7 @@ vardf <- vardf %>%
 
 outputfile <- paste0('outputs/significanceTestingAll2022-', Sys.Date(), '.csv') 
 
-write.csv(vardf,outputfile) #a csv file with the results will be written to the outputs folder.
+write.csv(vardf, outputfile) #a csv file with the results will be written to the outputs folder.
 
 
 wb2 <- createWorkbook()
@@ -139,39 +139,49 @@ addWorksheet(wb2, "PCOS5")
 addWorksheet(wb2, "PCOS6")
 
 excel_df <- vardf %>%
-  select(grouping1, var1, grouping2, var2, score) %>%
+  mutate(year1 = case_when(year1 == "data_current" ~ current_year,
+                           year1 == "data_last" ~ current_year - 1),
+         year2 = case_when(year2 == "data_current" ~ current_year,
+                           year2 == "data_last" ~ current_year - 1),
+         score = as.numeric(score)) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
-excel_df$`z Score` <- as.numeric(excel_df$`z Score`)
-library(stringr)
+  
 
 PCOS1_df <- subset(excel_df, var1 == "PCOS1") %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS1c_df <- excel_df %>%
   filter(str_detect(var1, "PCOS1c")) %>%
-  select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS1d_df <- excel_df %>%
   filter(str_detect(var1, "PCOS1d")) %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS2a_df <- excel_df %>%
   filter(str_detect(var1, "PCOS2a")) %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS2b_df <- excel_df %>%
   filter(str_detect(var1, "PCOS2b")) %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS2c_df <- excel_df %>%
   filter(str_detect(var1, "PCOS2c")) %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS2d_df <- excel_df %>%
   filter(str_detect(var1, "PCOS2d")) %>%
   select(-var1, -var2) %>%
   arrange(`Grouping 1`)
+
 PCOS3_df <- excel_df %>%
   filter(str_detect(var1, "PCOS3")) %>%
   select(-var1, -var2) %>%
@@ -214,177 +224,177 @@ for (i in 1:nrow(sig_df)) {
 }
 
 for (i in 1:nrow(PCOS1_df)) {
-  if (!is.na(PCOS1_df[i, 3])) {
-    if (abs(PCOS1_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS1_df[i, 5])) {
+    if (abs(PCOS1_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS1",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS1",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS1c_df)) {
-  if (!is.na(PCOS1c_df[i, 3])) {
-    if (abs(PCOS1c_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS1c_df[i, 7])) {
+    if (abs(PCOS1c_df[i, 7]) > 1.96) {
       addStyle(wb2, "PCOS1c",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 7)
     } else {
       addStyle(wb2, "PCOS1c",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 7)
     }
   }
 }
 
 for (i in 1:nrow(PCOS1d_df)) {
-  if (!is.na(PCOS1d_df[i, 3])) {
-    if (abs(PCOS1d_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS1d_df[i, 5])) {
+    if (abs(PCOS1d_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS1d",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS1d",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS2a_df)) {
-  if (!is.na(PCOS2a_df[i, 3])) {
-    if (abs(PCOS2a_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS2a_df[i, 5])) {
+    if (abs(PCOS2a_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS2a",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS2a",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS2b_df)) {
-  if (!is.na(PCOS2b_df[i, 3])) {
-    if (abs(PCOS2b_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS2b_df[i, 5])) {
+    if (abs(PCOS2b_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS2b",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS2b",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS2c_df)) {
-  if (!is.na(PCOS2c_df[i, 3])) {
-    if (abs(PCOS2c_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS2c_df[i, 5])) {
+    if (abs(PCOS2c_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS2c",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS2c",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS2d_df)) {
-  if (!is.na(PCOS2d_df[i, 3])) {
-    if (abs(PCOS2d_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS2d_df[i, 5])) {
+    if (abs(PCOS2d_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS2d",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS2d",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS3_df)) {
-  if (!is.na(PCOS3_df[i, 3])) {
-    if (abs(PCOS3_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS3_df[i, 5])) {
+    if (abs(PCOS3_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS3",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS3",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS4_df)) {
-  if (!is.na(PCOS4_df[i, 3])) {
-    if (abs(PCOS4_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS4_df[i, 5])) {
+    if (abs(PCOS4_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS4",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS4",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS5_df)) {
-  if (!is.na(PCOS5_df[i, 3])) {
-    if (abs(PCOS5_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS5_df[i, 5])) {
+    if (abs(PCOS5_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS5",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS5",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }
 
 for (i in 1:nrow(PCOS6_df)) {
-  if (!is.na(PCOS6_df[i, 3])) {
-    if (abs(PCOS6_df[i, 3]) > 1.96) {
+  if (!is.na(PCOS6_df[i, 5])) {
+    if (abs(PCOS6_df[i, 5]) > 1.96) {
       addStyle(wb2, "PCOS6",
                style = sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     } else {
       addStyle(wb2, "PCOS6",
                style = not_sig,
                rows = r + i,
-               cols = 3)
+               cols = 5)
     }
   }
 }

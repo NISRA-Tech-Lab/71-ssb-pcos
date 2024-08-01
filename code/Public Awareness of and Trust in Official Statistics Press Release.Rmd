@@ -18,7 +18,7 @@ library(here)
 
 source(paste0(here(),"/code/data_prep.R"))
 
-format_text <- function(text) {
+red_text <- function(text) {
   ftext(text = text,
         prop = fp_text_lite(color = "red")
         )
@@ -38,29 +38,29 @@ Public Awareness of and Trust in Official Statistics, Northern Ireland `r curren
 :::
 
 :::{custom-style="paragraph_style"}
-The level of public trust in official statistics produced by the Northern Ireland Statistics and Research Agency (NISRA), the government agency which produces the majority of Northern Ireland official statistics across all government departments `r format_text("remains high")`.
+The level of public trust in official statistics produced by the Northern Ireland Statistics and Research Agency (NISRA), the government agency which produces the majority of Northern Ireland official statistics across all government departments `r red_text("remains high")`.\
 
-This is according to the latest findings from the ‘Public Awareness of and Trust in Northern Ireland Official Statistics’ questions in the Northern Ireland Continuous Household Survey.
+This is according to the latest findings from the ‘Public Awareness of and Trust in Northern Ireland Official Statistics’ questions in the Northern Ireland Continuous Household Survey.\
 
-The report shows the `r format_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in September to December `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r format_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.
+The report shows the `r red_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in September to December `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r red_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.\
 
-Trust in NISRA as the body which produces official statistics is `r format_text("also high")`, with (`r trust_in_nisra`%) of respondents trusting NISRA a great deal or tending to trust NISRA; this `r format_text("remains higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. Trust in NISRA is `r format_text("also higher")` than trust in the Civil Service (`r trust_in_nics`%) and compares favourably with trust in the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assembly`%).
+Trust in NISRA as the body which produces official statistics is `r red_text("also high")`, with (`r trust_in_nisra`%) of respondents trusting NISRA a great deal or tending to trust NISRA; this `r red_text("remains higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. Trust in NISRA is `r red_text("also higher")` than trust in the Civil Service (`r trust_in_nics`%) and compares `r red_text("favourably")` with trust in the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assembly`%).\
 
-Other key findings are as follows:
+Other key findings are as follows:\
 :::
 
 :::{custom-style="paragraph_style"}
 **Awareness**
 
-1. `r format_text("Almost half of respondents")` (`r heard_of_nisra`%) indicated they had heard of NISRA before being contacted about the survey. 
+1. `r red_text("Almost half of respondents")` (`r heard_of_nisra`%) indicated they had heard of NISRA before being contacted about the survey. 
 
 **Value** 
 
-2. Statistics produced by NISRA are valued - `r format_text("9 out of 10")` respondents (`r importance_of_stats`%) agree that statistics produced by NISRA are important to understand Northern Ireland.
+2. Statistics produced by NISRA are valued - `r red_text("9 out of 10")` respondents (`r importance_of_stats`%) agree that statistics produced by NISRA are important to understand Northern Ireland.
 
 **Political Interference**
 
-3. `r format_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference.
+3. `r red_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference.
 :::
 
 \newpage
