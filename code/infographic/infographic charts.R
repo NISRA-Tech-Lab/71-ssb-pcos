@@ -158,7 +158,9 @@ aware_trust_chart_2 <- ggplot(trust_df, aes(fill=Category, y=Percentage, x=Year)
         panel.border = element_blank(),
         panel.background = element_blank(),
         axis.title.y =element_blank(),
-        text = element_text(size = 18)) + 
+        text = element_text(size = 18),
+        legend.spacing.x = unit(3, 'cm'),
+        legend.text = element_text(margin = margin(t = 6))) + 
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20))
 aware_trust_chart_2
 
@@ -176,8 +178,10 @@ aware_trust_chart_3 <- ggplot(confidentiality, aes(fill=Category, y=Percentage, 
         panel.border = element_blank(),
         panel.background = element_blank(),
         axis.title.x =element_blank(),
-        text = element_text(size = 16)) +
+        text = element_text(size = 16),
+        legend.key.size = unit(1, 'cm')) +
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20))
+
 aware_trust_chart_3
 save_plot("code/infographic/Awareness3.svg", fig = aware_trust_chart_3, width=11, height=7.4)
 
@@ -208,23 +212,23 @@ aware_trust_chart_5 <- ggplot(trust_compared_df, aes(fill=Category,
   geom_bar(position="stack", width = 0.6, stat="identity", colour=NA,size=0) +
   coord_flip() +
   scale_fill_manual(values = alpha(c("#888A87", "#CBE346", "#00205b"))) +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 19.5)) +
   theme(legend.position = "top",
+        legend.justification='right',
         axis.title.y = element_blank(),
         legend.title=element_blank(),
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
         axis.ticks = element_blank(),
-        legend.text=element_text(size=9),
+        legend.text=element_text(size=12),
         axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         panel.background = element_blank()) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  geom_text(size = 3, color = "white", nudge_y = 10)
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5))
 aware_trust_chart_5
-save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=16, height=8)
+save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=18, height=10)
 
 # Awareness/Trust Output
 save_plot("code/infographic/Awareness1.svg", fig = aware_trust_chart_1, width=11, height=9)
@@ -248,6 +252,7 @@ awareness_info_data1$end <- awareness_info_data1$Percentage/2
 max <- max(awareness_info_data1$Percentage)
 n.bubbles <- nrow(awareness_info_data1)
 scale <- 0.4/sum(sqrt(awareness_info_data1$Percentage))
+
 # calculate scaled centers and radii of bubbles
 radii <- scale*sqrt(awareness_info_data1$Percentage)
 ctr.x <- cumsum(c(radii[1],head(radii,-1)+tail(radii,-1)+.01))
@@ -293,14 +298,15 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
                                                   y=Percentage, 
                                                   x=year,
                                                   label = Percentage)) + 
-  geom_bar(position="dodge", stat="identity", height = 0.8) +
-  scale_fill_manual(values = alpha(c("#3878c5", "#00205b"))) +
+  geom_bar(position="dodge", stat="identity", height = 0.8,
+           colour=NA,size=0) +
+  scale_fill_manual(values = alpha(c("#3878c5", "#CBE346"))) +
   ggtitle(paste0(title1, title2, title3)) +
   theme(legend.position = "bottom",
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
         legend.title=element_blank(),
-        legend.text=element_text(size=15),
+        legend.text=element_text(size=13),
         axis.text.y=element_blank(),
         axis.ticks=element_blank(),
         axis.text.x =element_text(size=15),
@@ -317,13 +323,14 @@ pub_awareness_chart_2
 save_plot("code/infographic/info3.svg", fig = pub_awareness_chart_2, width=11, height=10)
 
 # Chart 4
+aes(reorder(variable, value), value)
 pub_awareness_chart_3 <- ggplot(awareness_info_data3, aes(fill=Answer, 
                                                   y=Percentage, 
-                                                  x=Group,
+                                                  x=reorder(Group, -Percentage),
                                                   label = Percentage)) + 
-  geom_bar(width=0.5, position="stack", stat="identity") +
+  geom_bar(width=0.5, position="stack", stat="identity", colour=NA,size=0) +
   ggtitle("Awareness of specific NISRA statistics for respondents who were not aware of NISRA") +
-  scale_fill_manual(values = alpha(c("#757575", "#3878c5", "#00205b"))) +
+  scale_fill_manual(values = alpha(c("#757575", "#98b4d4", "#00205b"))) +
   coord_flip() +
   theme(text = element_text(size = 12),
         axis.text.x = element_text(size = 15),
@@ -339,7 +346,6 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3, aes(fill=Answer,
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         panel.background = element_blank()) +
-  geom_text(size = 5, colour = "black", position = position_stack(vjust = 0.5), hjust = -0.3) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5))
 pub_awareness_chart_3
 

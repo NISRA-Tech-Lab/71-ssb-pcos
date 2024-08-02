@@ -96,6 +96,10 @@ library(english)
 library(svgtools)
 library(rsvg)
 library(sjPlot)
+library(officedown)
+library(fontawesome)
+library(pkgbuild)
+library(purrr)
 
 # https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
 
