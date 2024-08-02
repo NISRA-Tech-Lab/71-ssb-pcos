@@ -1794,13 +1794,8 @@
     },
     "uuid": {
       "Package": "uuid",
-      "Version": "1.2-0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "303c19bfd970bece872f93a824e323d9"
+      "Version": "1.2-1",
+      "Source": "Repository"
     },
     "vctrs": {
       "Package": "vctrs",
