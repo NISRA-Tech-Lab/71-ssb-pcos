@@ -1861,15 +1861,8 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.45",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "grDevices",
-        "stats",
-        "tools"
-      ],
-      "Hash": "ca59c87fe305b16a9141a5874c3a7889"
+      "Version": "0.46",
+      "Source": "Repository"
     },
     "xml2": {
       "Package": "xml2",
