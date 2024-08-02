@@ -97,14 +97,8 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.12",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "methods",
-        "utils"
-      ],
-      "Hash": "5ea2700d21e038ace58269ecdbeb9ec0"
+      "Version": "1.0.13",
+      "Source": "Repository"
     },
     "askpass": {
       "Package": "askpass",
