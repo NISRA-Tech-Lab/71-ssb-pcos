@@ -53,6 +53,10 @@ Carry out the following updates each year to create new publication:
 
 This `Rmd` file is the key file that is used to build the html report. When a report is knitted it is saved out to the `outputs` folder.
 
+<div style="width: 100%;">
+  <img src="data/images/Data flow.svg" style="width: 100%;" alt="Click to see the source">
+</div>
+
 ### Config file - config.R
 
 `config.R` is the configuration file for the html report. This file is where specific report parameters can be set including the name of the department (DoF in this case) to set colours, the current year for the report, report title and the statistic type (e.g, Accredited Statistic, Official Statistic etc). There is also a section that loads in the required R packages using the `library` command. If packages are not loading check they are installed using the `install.packages()` function.
@@ -70,8 +74,6 @@ The data prep script loads all the data for the report from SPSS and Excel files
     -   and remove any cases where a respondent refused to answer all questions
 -   **Create data frames for charts:** Separate data frames containing only the data needed to produce a particular chart are created. The data for Chart 1 will be stored under the name `chart_1_data` etc. Any trend series data up to the previous year is read in at this point, and data points for the new year are appended.
 -   **Figures for commentary:** Individual values are calculated from the data and stored so they can be inserted in the report's commentary.
-
-![](data/images/Data flow.svg)
 
 ### Charts
 
