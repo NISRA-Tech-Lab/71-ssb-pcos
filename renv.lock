@@ -1891,10 +1891,8 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.3.8",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "29240487a071f535f5e5d5a323b7afbd"
+      "Version": "2.3.10",
+      "Source": "Repository"
     },
     "zip": {
       "Package": "zip",
