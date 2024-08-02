@@ -218,17 +218,8 @@
     },
     "colorspace": {
       "Package": "colorspace",
-      "Version": "2.1-0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "grDevices",
-        "graphics",
-        "methods",
-        "stats"
-      ],
-      "Hash": "f20c47fd52fae58b4e377c37bb8c335b"
+      "Version": "2.1-1",
+      "Source": "Repository"
     },
     "commonmark": {
       "Package": "commonmark",
