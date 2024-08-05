@@ -41,7 +41,7 @@ source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 
 `r f_contact()`
 
-## Summary
+## Overview
 
 This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate.  The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
 
@@ -67,7 +67,7 @@ __Political Interference__
 
 `r f_borderline()`
  
-## 1. Introduction
+## 0. Introduction
 
 Official Statistics in Northern Ireland are produced by Government Departments, and in some cases Arm’s Length Bodies. The data collection, production, presentation and dissemination of official statistics are governed by the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
 
@@ -85,7 +85,7 @@ Differences are only noted in the commentary when they are likely to represent a
 
 `r f_borderline()`
 
-## 2. Awareness of NISRA
+## 3. Awareness of NISRA
 
 Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey.
 

@@ -144,7 +144,7 @@ Personally, how much trust do you have in statistics produced by NISRA?
 
 To what extent do you agree or disagree with the following statement ‘Statistics produced by NISRA are important to understand Northern Ireland?’
 
-1.Strongly agree
+1. Strongly agree
 1. Tend to agree
 1. Tend to disagree
 1. Strongly disagree
