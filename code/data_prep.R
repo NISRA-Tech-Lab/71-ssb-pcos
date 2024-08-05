@@ -21,7 +21,6 @@ data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
 source(paste0(here(), "/code/check_raw_variables.R"))
 
 # Read in ONS data from Excel ####
-
 data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
   filter(Year == ons_year)
 
@@ -128,7 +127,6 @@ data_final <- data_final %>%
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year," Final Dataset.RDS"))
 
 ## Check created variables against originals ####
-
 source(paste0(here(), "/code/check_created_variables.R"))
 
 # Create data frames for charts ####

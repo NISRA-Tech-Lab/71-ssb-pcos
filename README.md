@@ -53,10 +53,6 @@ Carry out the following updates each year to create new publication:
 
 This `Rmd` file is the key file that is used to build the html report. When a report is knitted it is saved out to the `outputs` folder.
 
-<div style="width: 100%;">
-  <img src="data/images/Data flow.svg" style="width: 100%;" alt="Click to see the source">
-</div>
-
 ### Config file - config.R
 
 `config.R` is the configuration file for the html report. This file is where specific report parameters can be set including the name of the department (DoF in this case) to set colours, the current year for the report, report title and the statistic type (e.g, Accredited Statistic, Official Statistic etc). There is also a section that loads in the required R packages using the `library` command. If packages are not loading check they are installed using the `install.packages()` function.
