@@ -104,8 +104,6 @@ library(odsconvertr)
 library(devtools)
 library(remotes)
 
-# https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
-
 # turn off warning messages
 options(warn = -1)
 
