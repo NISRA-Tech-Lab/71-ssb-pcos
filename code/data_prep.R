@@ -179,23 +179,23 @@ outputs <- sub("\\..*", "", attributes(data_final)$var.label[grepl("Heard", attr
   sub("transport in NI", "transport", .) %>%
   trimws()
 
-chart_3_data <- data.frame(output = character(),
+aware_stats_data <- data.frame(output = character(),
                            yes = numeric(),
                            no = numeric(),
                            dont_know = numeric())
 
 for (i in 1:length(outputs)) {
-  chart_3_data <- chart_3_data %>%
+  aware_stats_data <- aware_stats_data %>%
     rbind(data.frame(output = f_wrap_labels(outputs[i], 38),
                      yes = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100))
 }
 
-chart_3_data <- chart_3_data %>%
+aware_stats_data <- aware_stats_data %>%
   arrange(yes)
 
-sort_order <- chart_3_data %>%
+sort_order <- aware_stats_data %>%
   mutate(order = as.numeric(rownames(.))) %>%
   select(output, order)
 
@@ -203,20 +203,20 @@ sort_order <- chart_3_data %>%
 
 PCOS1c_vars <- names(data_final)[grepl("PCOS1c", names(data_final)) & names(data_final) != "PCOS1c"]
 
-chart_4_data <- data.frame(output = character(),
+aware_stats_by_nisra_data <- data.frame(output = character(),
                            yes = numeric(),
                            no = numeric(),
                            dont_know = numeric())
 
 for (i in 1:length(outputs)) {
-  chart_4_data <- chart_4_data %>%
+  aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
     rbind(data.frame(output = f_wrap_labels(outputs[i], 38),
                      yes = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100))
 }
 
-chart_4_data <- chart_4_data %>%
+aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
   left_join(sort_order) %>%
   arrange(order) %>%
   select(-order)
@@ -236,22 +236,22 @@ trust_nisra_data <- trust_nisra_data %>%
 
 ## Chart 6: Trust in NISRA and ONS as institutions ####
 
-ons_chart_6 <- data_ons %>%
+trust_ons_data <- data_ons %>%
   filter(`Related Variable` == "TrustNISRA2")
 
-chart_6_data <- trust_nisra_data %>%
+trust_nisra_ons_data <- trust_nisra_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_6$`Trust a great deal` + ons_chart_6$`Tend to trust`,
-                   distrust = ons_chart_6$`Tend to distrust` + ons_chart_6$`Distrust greatly`,
-                   dont_know = ons_chart_6$`Don't know`))
+                   trust = trust_ons_data$`Trust a great deal` + trust_ons_data$`Tend to trust`,
+                   distrust = trust_ons_data$`Tend to distrust` + trust_ons_data$`Distrust greatly`,
+                   dont_know = trust_ons_data$`Don't know`))
 
 
 ## Chart 7: Trust in institutions ####
  
-chart_7_data <- 
+trust_institutions_data <- 
   rbind(data.frame(org = c("The NI Assembly", "The Civil Service", "The media"),
                    trust = c(sum(data_final$W3[data_final$TrustNIAssembly2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNIAssembly2)]) * 100,
                              sum(data_final$W3[data_final$TrustCivilService2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
@@ -283,17 +283,17 @@ trust_stats_data <- trust_stats_data %>%
 
 ## Chart 9: Trust in statistics produced by NISRA  and ONS ####
 
-ons_chart_9 <- data_ons %>%
+trust_ons_stats_data <- data_ons %>%
   filter(`Related Variable` == "TrustNISRAstats2")
 
-chart_9_data <- trust_stats_data %>%
+trust_stats_nisra_ons_data <- trust_stats_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   trust = ons_chart_9$`Trust a great deal` + ons_chart_9$`Tend to trust`,
-                   distrust = ons_chart_9$`Tend to distrust` + ons_chart_9$`Distrust greatly`,
-                   dont_know = ons_chart_9$`Don't know`))
+                   trust = trust_ons_stats_data$`Trust a great deal` + trust_ons_stats_data$`Tend to trust`,
+                   distrust = trust_ons_stats_data$`Tend to distrust` + trust_ons_stats_data$`Distrust greatly`,
+                   dont_know = trust_ons_stats_data$`Don't know`))
 
 
 ## Chart 10: NISRA statistics are important to understand Northern Ireland by year ####
@@ -311,17 +311,17 @@ stats_important_data <- stats_important_data %>%
 
 ## Chart 11: Statistics produced are important to understand our country, NISRA and ONS ####
 
-ons_chart_11 <- data_ons %>%
+stats_important_ons_data <- data_ons %>%
   filter(`Related Variable` == "NISRAstatsImp2")
 
-chart_11_data <- stats_important_data %>%
+stats_important_nisra_ons_data <- stats_important_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_11$`Strongly agree` + ons_chart_11$`Tend to agree`,
-                   disagree = ons_chart_11$`Strongly disagree` + ons_chart_11$`Tend to disagree`,
-                   dont_know = ons_chart_11$`Don't know`))
+                   agree = stats_important_ons_data$`Strongly agree` + stats_important_ons_data$`Tend to agree`,
+                   disagree = stats_important_ons_data$`Strongly disagree` + stats_important_ons_data$`Tend to disagree`,
+                   dont_know = stats_important_ons_data$`Don't know`))
 
 ## Chart 12: NISRA statistics are free from political interference by year ####
 
@@ -338,17 +338,17 @@ political_data <- political_data %>%
 
 ## Chart 13: Statistics produced are free from political interference, NISRA and ONS ####
  
-ons_chart_13 <- data_ons %>%
+political_ons_data <- data_ons %>%
   filter(`Related Variable` == "Political2")
 
-chart_13_data <- political_data %>%
+political_nisra_ons_data <- political_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_13$`Strongly agree` + ons_chart_13$`Tend to agree`,
-                   disagree = ons_chart_13$`Strongly disagree` + ons_chart_13$`Tend to disagree`,
-                   dont_know = ons_chart_13$`Don't know`))
+                   agree = political_ons_data$`Strongly agree` + political_ons_data$`Tend to agree`,
+                   disagree = political_ons_data$`Strongly disagree` + political_ons_data$`Tend to disagree`,
+                   dont_know = political_ons_data$`Don't know`))
 
 ## Chart 14: Personal information provided to NISRA will be kept confidential by year ####
 
@@ -365,17 +365,17 @@ confidential_data <- confidential_data %>%
 
 ## Chart 15: Belief that personal information provided will be kept confidential, NISRA and ONS ####
 
-ons_chart_15 <- data_ons %>%
+condifential_ons_data <- data_ons %>%
   filter(`Related Variable` == "Confidential2")
 
-chart_15_data <- confidential_data %>%
+condifential_nisra_ons_data <- confidential_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
   rbind(data.frame(org = paste0("ONS (", ons_year, ")"),
-                   agree = ons_chart_15$`Strongly agree` + ons_chart_15$`Tend to agree`,
-                   disagree = ons_chart_15$`Strongly disagree` + ons_chart_15$`Tend to disagree`,
-                   dont_know = ons_chart_15$`Don't know`))
+                   agree = condifential_ons_data$`Strongly agree` + condifential_ons_data$`Tend to agree`,
+                   disagree = condifential_ons_data$`Strongly disagree` + condifential_ons_data$`Tend to disagree`,
+                   dont_know = condifential_ons_data$`Don't know`))
 
 # Figures for commentary ####
 
@@ -438,23 +438,23 @@ not_heard_aware_all <- round_half_up(sum(data_final$W3[data_final$not_heard_awar
 
 ### Not heard of NISRA but aware of outputs ####
 
-not_heard_aware_census <- round_half_up(chart_3_data$yes[grepl("NI Census", chart_3_data$output)])
-not_heard_aware_unemployment <- round_half_up(chart_3_data$yes[grepl("unemployment", chart_3_data$output)])
-not_heard_aware_hospital <- round_half_up(chart_3_data$yes[grepl("hospital", chart_3_data$output)])
-not_heard_aware_people <- round_half_up(chart_3_data$yes[grepl("number of people", chart_3_data$output)])
-not_heard_aware_cycling <- round_half_up(chart_3_data$yes[grepl("cycling", chart_3_data$output)])
+not_heard_aware_census <- round_half_up(aware_stats_data$yes[grepl("NI Census", aware_stats_data$output)])
+not_heard_aware_unemployment <- round_half_up(aware_stats_data$yes[grepl("unemployment", aware_stats_data$output)])
+not_heard_aware_hospital <- round_half_up(aware_stats_data$yes[grepl("hospital", aware_stats_data$output)])
+not_heard_aware_people <- round_half_up(aware_stats_data$yes[grepl("number of people", aware_stats_data$output)])
+not_heard_aware_cycling <- round_half_up(aware_stats_data$yes[grepl("cycling", aware_stats_data$output)])
 
 ### Heard of NISRA and aware of all / none of the statistics ####
 
 heard_aware_none <- round_half_up(sum(data_final$W3[data_final$heard_aware_none]) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 heard_aware_all <- round_half_up(sum(data_final$W3[data_final$heard_aware_all]) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 
-heard_aware_census <- round_half_up(chart_4_data$yes[grepl("NI Census", chart_4_data$output)])
-heard_aware_people <- round_half_up(chart_4_data$yes[grepl("number of people", chart_4_data$output)])
-heard_aware_deaths <- round_half_up(chart_4_data$yes[grepl("deaths", chart_4_data$output)])
-heard_of_aware_qualifications  <- round_half_up(chart_4_data$yes[grepl("Qualifications", chart_4_data$output)])
-heard_of_aware_poverty  <- round_half_up(chart_4_data$yes[grepl("poverty", chart_4_data$output)])
-heard_of_aware_cycling  <- round_half_up(chart_4_data$yes[grepl("cycling", chart_4_data$output)])
+heard_aware_census <- round_half_up(aware_stats_by_nisra_data$yes[grepl("NI Census", aware_stats_by_nisra_data$output)])
+heard_aware_people <- round_half_up(aware_stats_by_nisra_data$yes[grepl("number of people", aware_stats_by_nisra_data$output)])
+heard_aware_deaths <- round_half_up(aware_stats_by_nisra_data$yes[grepl("deaths", aware_stats_by_nisra_data$output)])
+heard_of_aware_qualifications  <- round_half_up(aware_stats_by_nisra_data$yes[grepl("Qualifications", aware_stats_by_nisra_data$output)])
+heard_of_aware_poverty  <- round_half_up(aware_stats_by_nisra_data$yes[grepl("poverty", aware_stats_by_nisra_data$output)])
+heard_of_aware_cycling  <- round_half_up(aware_stats_by_nisra_data$yes[grepl("cycling", aware_stats_by_nisra_data$output)])
 
 ## Trust in NISRA ####
 
@@ -463,10 +463,10 @@ distrust_nisra <- round_half_up(trust_nisra_data$distrust[trust_nisra_data$year 
 
 heard_of_and_trust_nisra <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRA2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 
-trust_in_ons <- round_half_up(chart_6_data$trust[grepl("ONS", chart_6_data$org)])
-trust_in_media <- round_half_up(chart_7_data$trust[grepl("The media", chart_7_data$org)])
-trust_in_assembly <- round_half_up(chart_7_data$trust[grepl("Assembly", chart_7_data$org)])
-trust_in_nics <- round_half_up(chart_7_data$trust[grepl("Civil Service", chart_7_data$org)])
+trust_in_ons <- round_half_up(trust_nisra_ons_data$trust[grepl("ONS", trust_nisra_ons_data$org)])
+trust_in_media <- round_half_up(trust_institutions_data$trust[grepl("The media", trust_institutions_data$org)])
+trust_in_assembly <- round_half_up(trust_institutions_data$trust[grepl("Assembly", trust_institutions_data$org)])
+trust_in_nics <- round_half_up(trust_institutions_data$trust[grepl("Civil Service", trust_institutions_data$org)])
 
 
 ## Trust in NISRA Statistics ####
@@ -476,25 +476,25 @@ dont_know_trust_nisra_stats <- round_half_up(trust_stats_data$dont_know[trust_st
 
 heard_of_and_trust_nisra_stats <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 
-trust_in_ons_stats <- round_half_up(chart_9_data$trust[grepl("ONS", chart_9_data$org)])
-distrust_ons_stats <- round_half_up(chart_9_data$distrust[grepl("ONS", chart_9_data$org)])
-dont_know_trust_ons_stats  <- round_half_up(chart_9_data$dont_know[grepl("ONS", chart_9_data$org)])
+trust_in_ons_stats <- round_half_up(trust_stats_nisra_ons_data$trust[grepl("ONS", trust_stats_nisra_ons_data$org)])
+distrust_ons_stats <- round_half_up(trust_stats_nisra_ons_data$distrust[grepl("ONS", trust_stats_nisra_ons_data$org)])
+dont_know_trust_ons_stats  <- round_half_up(trust_stats_nisra_ons_data$dont_know[grepl("ONS", trust_stats_nisra_ons_data$org)])
 
 ## Value ####
 
 disagree_importance <- round_half_up(stats_important_data$disagree[stats_important_data$year == current_year])
 dont_know_importance <- round_half_up(stats_important_data$dont_know[stats_important_data$year == current_year])
 
-importance_of_ons <- round_half_up(chart_11_data$agree[grepl("ONS", chart_11_data$org)])
-disagre_importance_ons  <- round_half_up(chart_11_data$disagree[grepl("ONS", chart_11_data$org)])
-dont_know_importance_ons  <- round_half_up(chart_11_data$dont_know[grepl("ONS", chart_11_data$org)])
+importance_of_ons <- round_half_up(stats_important_nisra_ons_data$agree[grepl("ONS", stats_important_nisra_ons_data$org)])
+disagre_importance_ons  <- round_half_up(stats_important_nisra_ons_data$disagree[grepl("ONS", stats_important_nisra_ons_data$org)])
+dont_know_importance_ons  <- round_half_up(stats_important_nisra_ons_data$dont_know[grepl("ONS", stats_important_nisra_ons_data$org)])
 
 ## Political Interference ####
 
 disagree_interference <- round_half_up(political_data$disagree[political_data == current_year])
 dont_know_interference <- round_half_up(political_data$dont_know[political_data == current_year])
 
-free_from_interference_ons <- round_half_up(chart_13_data$agree[grepl("ONS", chart_13_data$org)])
+free_from_interference_ons <- round_half_up(political_nisra_ons_data$agree[grepl("ONS", political_nisra_ons_data$org)])
 
 ## Confidentiality ####
 
@@ -502,4 +502,4 @@ agree_confidential <- round_half_up(confidential_data$agree[confidential_data$ye
 dont_know_confidential <- round_half_up(confidential_data$dont_know[confidential_data$year == current_year]) 
 disagree_confidential <- round_half_up(confidential_data$disagree[confidential_data$year == current_year])
 
-agree_confidential_ons <- round_half_up(chart_15_data$agree[grepl("ONS", chart_15_data$org)])
+agree_confidential_ons <- round_half_up(condifential_nisra_ons_data$agree[grepl("ONS", condifential_nisra_ons_data$org)])

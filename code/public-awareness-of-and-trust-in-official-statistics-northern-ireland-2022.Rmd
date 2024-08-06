@@ -228,7 +228,7 @@ Respondents who had not previously heard of NISRA were asked whether they had he
 
 ```{r Chart 3}
 
-plot_ly(chart_3_data,
+plot_ly(aware_stats_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -279,7 +279,7 @@ Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%),
 
 ```{r Chart 4}
 
-plot_ly(chart_4_data,
+plot_ly(aware_stats_by_nisra_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -352,7 +352,7 @@ Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However
 
 ```{r Chart 6}
 
-f_stacked_bar_vertical(chart_6_data)
+f_stacked_bar_vertical(trust_nisra_ons_data)
 
 ```
 
@@ -370,7 +370,7 @@ A higher proportion of respondents don’t know if they trust NISRA or not (`r d
 
 ```{r Chart 7}
 
-plot_ly(chart_7_data,
+plot_ly(trust_institutions_data,
         x = ~trust,
         y = ~org,
         type = "bar",
@@ -444,7 +444,7 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (`r
 
 ```{r Chart 9}
 
-f_stacked_bar_vertical(chart_9_data)
+f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
 ```
 
@@ -480,7 +480,7 @@ The percentage of respondents who agree that the statistics produced are importa
 
 ```{r Chart 11}
 
-f_stacked_bar_vertical(chart_11_data)
+f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
 ```
 
@@ -511,7 +511,7 @@ In comparison, `r free_from_interference_ons`% of respondents agree that statist
 
 ```{r Chart 13}
 
-f_stacked_bar_vertical(chart_13_data)
+f_stacked_bar_vertical(political_nisra_ons_data)
 
 ```
 
@@ -543,7 +543,7 @@ In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` ag
 
 ```{r Chart 15}
 
-f_stacked_bar_vertical(chart_15_data)
+f_stacked_bar_vertical(condifential_nisra_ons_data)
 
 ```
 

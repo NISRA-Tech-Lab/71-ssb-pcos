@@ -42,9 +42,9 @@ for (i in 1:length(outputs)) {
   df_name <- paste0("table_", i + 2, "_data")
   
   df <- data.frame(response = c("Yes", "No", "Don't Know", "Number of Respondents"),
-                   current_year = c(chart_3_data$yes[gsub("\n", "", chart_3_data$output) == outputs[i]],
-                                    chart_3_data$no[gsub("\n", "", chart_3_data$output) == outputs[i]],
-                                    chart_3_data$dont_know[gsub("\n", "", chart_3_data$output) == outputs[i]],
+                   current_year = c(aware_stats_data$yes[gsub("\n", "", aware_stats_data$output) == outputs[i]],
+                                    aware_stats_data$no[gsub("\n", "", aware_stats_data$output) == outputs[i]],
+                                    aware_stats_data$dont_know[gsub("\n", "", aware_stats_data$output) == outputs[i]],
                                     nrow(data_final[!is.na(data_final[[paste0("PCOS1d", i)]]), ])))
   
   names(df) <- c("Response (%)", current_year)
@@ -83,9 +83,9 @@ for (i in 1:length(outputs)) {
   df_name <- paste0("table_", i + 12, "_data")
   
   df <- data.frame(response = c("Yes", "No", "Don't Know", "Number of Respondents"),
-                   current_year = c(chart_4_data$yes[gsub("\n", "", chart_4_data$output) == outputs[i]],
-                                    chart_4_data$no[gsub("\n", "", chart_4_data$output) == outputs[i]],
-                                    chart_4_data$dont_know[gsub("\n", "", chart_4_data$output) == outputs[i]],
+                   current_year = c(aware_stats_by_nisra_data$yes[gsub("\n", "", aware_stats_by_nisra_data$output) == outputs[i]],
+                                    aware_stats_by_nisra_data$no[gsub("\n", "", aware_stats_by_nisra_data$output) == outputs[i]],
+                                    aware_stats_by_nisra_data$dont_know[gsub("\n", "", aware_stats_by_nisra_data$output) == outputs[i]],
                                     nrow(data_final[!is.na(data_final[[paste0("PCOS1c", i)]]), ])))
   
   names(df) <- c("Response (%)", current_year)
@@ -124,10 +124,10 @@ saveRDS(table_23_data, paste0(data_folder, "Trend/", current_year, "/table_23_da
 ## Table 24: Trust in NISRA and ONS
  
 table_24_data <- table_23_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = c(chart_6_data$trust[grepl("ONS", chart_6_data$org)],
-                 chart_6_data$distrust[grepl("ONS", chart_6_data$org)],
-                 chart_6_data$dont_know[grepl("ONS", chart_6_data$org)],
-                 ons_chart_6$`Unweighted base`))
+  mutate(ONS = c(trust_nisra_ons_data$trust[grepl("ONS", trust_nisra_ons_data$org)],
+                 trust_nisra_ons_data$distrust[grepl("ONS", trust_nisra_ons_data$org)],
+                 trust_nisra_ons_data$dont_know[grepl("ONS", trust_nisra_ons_data$org)],
+                 trust_ons_data$`Unweighted base`))
 
 names(table_24_data)[names(table_24_data) == current_year] <- "NISRA"
 
@@ -148,9 +148,9 @@ table_25_data <- table_24_data["Response (%)"] %>%
 ## Table 26: Trust in Civil Service by year ####
 
 table_26_data <- table_26_data %>%
-  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The Civil Service"],
-                          chart_7_data$distrust[trimws(chart_7_data$org) == "The Civil Service"],
-                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The Civil Service"],
+  mutate(current_year = c(trust_institutions_data$trust[trimws(trust_institutions_data$org) == "The Civil Service"],
+                          trust_institutions_data$distrust[trimws(trust_institutions_data$org) == "The Civil Service"],
+                          trust_institutions_data$dont_know[trimws(trust_institutions_data$org) == "The Civil Service"],
                           sum(!is.na(data_final$TrustCivilService2))))
 
 names(table_26_data)[names(table_26_data) == "current_year"] <- current_year
@@ -160,9 +160,9 @@ saveRDS(table_26_data, paste0(data_folder, "Trend/", current_year, "/table_26_da
 ## Table 27: Trust in Northern Ireland Assembly by year ####
 
 table_27_data <- table_27_data %>%
-  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The NI Assembly"],
-                          chart_7_data$distrust[trimws(chart_7_data$org) == "The NI Assembly"],
-                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The NI Assembly"],
+  mutate(current_year = c(trust_institutions_data$trust[trimws(trust_institutions_data$org) == "The NI Assembly"],
+                          trust_institutions_data$distrust[trimws(trust_institutions_data$org) == "The NI Assembly"],
+                          trust_institutions_data$dont_know[trimws(trust_institutions_data$org) == "The NI Assembly"],
                           sum(!is.na(data_final$TrustNIAssembly2))))
 
 names(table_27_data)[names(table_27_data) == "current_year"] <- current_year
@@ -172,9 +172,9 @@ saveRDS(table_27_data, paste0(data_folder, "Trend/", current_year, "/table_27_da
 ## Table 28: Trust in the Media by year ####
 
 table_28_data <- table_28_data %>%
-  mutate(current_year = c(chart_7_data$trust[trimws(chart_7_data$org) == "The media"],
-                          chart_7_data$distrust[trimws(chart_7_data$org) == "The media"],
-                          chart_7_data$dont_know[trimws(chart_7_data$org) == "The media"],
+  mutate(current_year = c(trust_institutions_data$trust[trimws(trust_institutions_data$org) == "The media"],
+                          trust_institutions_data$distrust[trimws(trust_institutions_data$org) == "The media"],
+                          trust_institutions_data$dont_know[trimws(trust_institutions_data$org) == "The media"],
                           sum(!is.na(data_final$TrustMedia2))))
 
 names(table_28_data)[names(table_28_data) == "current_year"] <- current_year
@@ -198,10 +198,10 @@ saveRDS(table_29_data, paste0(data_folder, "Trend/", current_year, "/table_29_da
 ## Table 30: Trust in NISRA and ONS statistics ####
  
 table_30_data <- table_29_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = c(chart_9_data$trust[grepl("ONS", chart_9_data$org)],
-                 chart_9_data$distrust[grepl("ONS", chart_9_data$org)],
-                 chart_9_data$dont_know[grepl("ONS", chart_9_data$org)],
-                 ons_chart_9$`Unweighted base`))
+  mutate(ONS = c(trust_stats_nisra_ons_data$trust[grepl("ONS", trust_stats_nisra_ons_data$org)],
+                 trust_stats_nisra_ons_data$distrust[grepl("ONS", trust_stats_nisra_ons_data$org)],
+                 trust_stats_nisra_ons_data$dont_know[grepl("ONS", trust_stats_nisra_ons_data$org)],
+                 trust_ons_stats_data$`Unweighted base`))
 
 names(table_30_data)[names(table_30_data) == current_year] <- "NISRA"
 
@@ -234,10 +234,10 @@ saveRDS(table_32_data, paste0(data_folder, "Trend/", current_year, "/table_32_da
 ## Table 33: Statistics produced are important to understand our country (NISRA and ONS) ####
 
 table_33_data <- table_32_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = c(chart_11_data$agree[grepl("ONS", chart_11_data$org)],
-                 chart_11_data$disagree[grepl("ONS", chart_11_data$org)],
-                 chart_11_data$dont_know[grepl("ONS", chart_11_data$org)],
-                 ons_chart_11$`Unweighted base`))
+  mutate(ONS = c(stats_important_nisra_ons_data$agree[grepl("ONS", stats_important_nisra_ons_data$org)],
+                 stats_important_nisra_ons_data$disagree[grepl("ONS", stats_important_nisra_ons_data$org)],
+                 stats_important_nisra_ons_data$dont_know[grepl("ONS", stats_important_nisra_ons_data$org)],
+                 stats_important_ons_data$`Unweighted base`))
 
 names(table_33_data)[names(table_33_data) == current_year] <- "NISRA"
 
@@ -270,10 +270,10 @@ saveRDS(table_35_data, paste0(data_folder, "Trend/", current_year, "/table_35_da
 ## Table 36: Statistics produced are free from political interference (NISRA and ONS) ####
 
 table_36_data <- table_35_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = c(chart_13_data$agree[grepl("ONS", chart_13_data$org)],
-                 chart_13_data$disagree[grepl("ONS", chart_13_data$org)],
-                 chart_13_data$dont_know[grepl("ONS", chart_13_data$org)],
-                 ons_chart_13$`Unweighted base`))
+  mutate(ONS = c(political_nisra_ons_data$agree[grepl("ONS", political_nisra_ons_data$org)],
+                 political_nisra_ons_data$disagree[grepl("ONS", political_nisra_ons_data$org)],
+                 political_nisra_ons_data$dont_know[grepl("ONS", political_nisra_ons_data$org)],
+                 political_ons_data$`Unweighted base`))
 
 names(table_36_data)[names(table_36_data) == current_year] <- "NISRA"
 
@@ -294,8 +294,8 @@ saveRDS(table_37_data, paste0(data_folder, "Trend/", current_year, "/table_37_da
 ## Table 38: Personal information provided will be kept confidential (NISRA and ONS) ####
 
 table_38_data <- table_37_data[c("Response (%)", current_year)] %>%
-  mutate(ONS = c(chart_15_data$agree[grepl("ONS", chart_15_data$org)],
-                 chart_15_data$disagree[grepl("ONS", chart_15_data$org)],
-                 chart_15_data$dont_know[grepl("ONS", chart_15_data$org)],
-                 ons_chart_15$`Unweighted base`))
+  mutate(ONS = c(condifential_nisra_ons_data$agree[grepl("ONS", condifential_nisra_ons_data$org)],
+                 condifential_nisra_ons_data$disagree[grepl("ONS", condifential_nisra_ons_data$org)],
+                 condifential_nisra_ons_data$dont_know[grepl("ONS", condifential_nisra_ons_data$org)],
+                 condifential_ons_data$`Unweighted base`))
 

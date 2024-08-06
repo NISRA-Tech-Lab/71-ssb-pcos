@@ -33,7 +33,10 @@ confidentiality <- confidential_data %>%
   tail(5)  %>%
   mutate(year = as.numeric(year))
 confidentiality <- confidentiality %>% 
-  set_names(new_names)
+  set_names(c("Year",
+              "Strongly Agree/Tend to agree",
+              "Tend to disagree/Strongly disagree",
+              "Don't know"))
 confidentiality <- gather(confidentiality, Category, Percentage, -Year)
 confidentiality$Percentage <- round_half_up(confidentiality$Percentage) 
 confidentiality$Year <- as.character(confidentiality$Year)
@@ -49,20 +52,20 @@ important_df$Percentage <- round_half_up(important_df$Percentage)
 important_df$Year <- as.character(important_df$Year)
 
 ## NISRA compared to other institutions ####
-new_importance_names <- c("Institution",
-                          "Tend to trust/trust a great deal",
-                          "Tend to distrust/distrust a great deal",
-                          "Don't know")
-institutions <- chart_7_data
+
+institutions <- trust_institutions_data
 institutions <- institutions %>% 
-  set_names(new_importance_names)
+  set_names(c("Institution",
+              "Tend to trust/trust a great deal",
+              "Tend to distrust/distrust a great deal",
+              "Don't know"))
 institutions_df <- gather(institutions, Category, Percentage, -Institution)
 institutions_df$Percentage <- round_half_up(institutions_df$Percentage) 
 trust_compared_df <- institutions_df
 
 # Trust Infographic
 # Chart 1
-trust_info_data1 <- chart_9_data[chart_9_data$org %like% "NISRA", ]
+trust_info_data1 <- trust_stats_nisra_ons_data[trust_stats_nisra_ons_data$org %like% "NISRA", ]
 new_trust_names <- c("Org", "Yes", "No", "Don't know")
 trust_info_data1 <- trust_info_data1 %>% 
   set_names(new_trust_names)
@@ -120,7 +123,7 @@ awareness_info_data2$Percentage <- round_half_up(awareness_info_data2$Percentage
 awareness_info_data2$Group <- toupper(awareness_info_data2$Group)
 
 # Chart 4
-awareness_info_data3 <- gather(chart_4_data, Answer, Percentage, -`output`)
+awareness_info_data3 <- gather(aware_stats_by_nisra_data, Answer, Percentage, -`output`)
 awareness_info_data3$Percentage <- round_half_up(awareness_info_data3$Percentage, 1) 
 colnames(awareness_info_data3[1]) <- 'Group'
 colnames(awareness_info_data3)[1] <- c("Group")
