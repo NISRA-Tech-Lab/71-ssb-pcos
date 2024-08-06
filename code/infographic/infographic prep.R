@@ -5,32 +5,31 @@ source(paste0(here(), "/code/data_prep.R"))
 
 # Overview Infographic
 ## Respondents' awareness of NISRA ####
-awareness_of_nisra <- data.frame(year = current_year,
-                                 aware_of_nisra = chart_1_data$pct[chart_1_data$year == current_year],
-                                 not_aware_of_nisra = 100 - chart_1_data$pct[chart_1_data$year == current_year])
-awareness_of_nisra <- awareness_of_nisra[,2:3]
-awareness_of_nisra <- transpose(awareness_of_nisra)
-awareness_of_nisra$Answer <- c("No", "Yes")
-names(awareness_of_nisra)[names(awareness_of_nisra) == 'V1'] <- 'Percentage'
-awareness_of_nisra$Percentage <- round_half_up(awareness_of_nisra$Percentage)
+awareness_of_nisra <- data.frame(aware_of_nisra = aware_nisra_data$pct[aware_nisra_data$year == current_year],
+                                 not_aware_of_nisra = 100 - aware_nisra_data$pct[aware_nisra_data$year == current_year]) %>%
+  t() %>%
+  as.data.frame() %>%
+  mutate(Answer = c("Yes", "No"),
+         Percentage = round_half_up(V1)) %>%
+  select(-V1)
+
 donut_chart_df <- awareness_of_nisra
 
 ## Trust in NISRA statistics ####
-trust_nisra_stats <- chart_8_data %>%
+trust_nisra_stats <- trust_stats_data %>%
   tail(5) %>%
-  mutate(year = as.numeric(year))
-new_names <- c("Year",
-               "Tend to trust/trust a great deal",
-               "Tend to distrust/distrust a great deal",
-               "Don't know")
-trust_nisra_stats <- trust_nisra_stats %>% 
-  set_names(new_names)
-trust_df <- gather(trust_nisra_stats, Category, Percentage, -Year)
-trust_df$Percentage <- round_half_up(trust_df$Percentage) 
-trust_df$Year <- as.character(trust_df$Year)
+  mutate(year = as.numeric(year)) %>%
+  set_names(c("Year",
+              "Tend to trust/trust a great deal",
+              "Tend to distrust/distrust a great deal",
+              "Don't know"))
+
+trust_df <- gather(trust_nisra_stats, Category, Percentage, -Year) %>%
+  mutate(Percentage = round_half_up(Percentage),
+         Year = as.character(Year))
 
 # Confidentiality
-confidentiality <- chart_14_data %>%
+confidentiality <- confidential_data %>%
   tail(5)  %>%
   mutate(year = as.numeric(year))
 confidentiality <- confidentiality %>% 
@@ -40,7 +39,7 @@ confidentiality$Percentage <- round_half_up(confidentiality$Percentage)
 confidentiality$Year <- as.character(confidentiality$Year)
 
 ## Personal Information provided to NISRA will be kept confidential ####
-importance <- chart_10_data %>%
+importance <- stats_important_data %>%
   tail(5)  %>%
   mutate(year = as.numeric(year))
 importance <- importance %>% 
@@ -110,7 +109,7 @@ awareness_info_data1 <- subset(awareness_info_data1, Year >= 2017 & Year <= curr
 line_chart_df <- awareness_info_data1
 
 # Chart 3
-awareness_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year,"/chart_2_data.RDS"))
+awareness_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year,"/aware_nisra_ons_data.RDS"))
 awareness_info_data2$year <- as.character(awareness_info_data2$year)
 awareness_info_data2 <- subset(awareness_info_data2 , awareness_info_data2$year == '2016'|
                                                       awareness_info_data2$year == '2018'|

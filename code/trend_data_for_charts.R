@@ -9,19 +9,19 @@ if (!exists(paste0(data_folder, "Trend/2021"))) {
 }
 
 # Chart 1: Awareness of NISRA (2009 - 2021) ####
-chart_1_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 1", startRow = 6) %>%
+aware_nisra_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 1", startRow = 6) %>%
   t() %>% as.data.frame() %>%
   mutate(year = as.numeric(rownames(.))) %>%
   mutate(pct = as.numeric(`1`)) %>%
   select(year, pct) %>%
   filter(year != 2022 & !is.na(pct))
 
-rownames(chart_1_data) <- 1:nrow(chart_1_data)
+rownames(aware_nisra_data) <- 1:nrow(aware_nisra_data)
 
-saveRDS(chart_1_data, paste0(data_folder, "Trend/2021/chart_1_data.RDS"))
+saveRDS(aware_nisra_data, paste0(data_folder, "Trend/2021/aware_nisra_data.RDS"))
 
 # Chart 2: Awareness of NISRA (2014-2021) and ONS (2014-2021) ####
-chart_2_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 2", startRow = 12) %>%
+aware_nisra_ons_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 2", startRow = 12) %>%
   t() %>% as.data.frame() %>%
   mutate(year = as.numeric(rownames(.)),
          nisra = as.numeric(`1`),
@@ -29,12 +29,12 @@ chart_2_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sh
   filter(year != 2022) %>%
   select(year, nisra, ons)
 
-rownames(chart_2_data) <- 1:nrow(chart_2_data)
+rownames(aware_nisra_ons_data) <- 1:nrow(aware_nisra_ons_data)
 
-saveRDS(chart_2_data, paste0(data_folder, "/Trend/2021/chart_2_data.RDS"))
+saveRDS(aware_nisra_ons_data, paste0(data_folder, "/Trend/2021/aware_nisra_ons_data.RDS"))
 
 # Chart 5: Trust in NISRA (2014-2021) ####
-chart_5_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart6", startRow = 3) %>%
+trust_nisra_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart6", startRow = 3) %>%
   t() %>% as.data.frame() %>%
   mutate(year = as.numeric(rownames(.)),
          trust = as.numeric(`3`),
@@ -43,13 +43,13 @@ chart_5_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sh
   filter(year != 2022) %>%
   select(year:dont_know)
 
-rownames(chart_5_data) <- 1:nrow(chart_5_data)
+rownames(trust_nisra_data) <- 1:nrow(trust_nisra_data)
 
-saveRDS(chart_5_data, paste0(data_folder, "/Trend/2021/chart_5_data.RDS"))
+saveRDS(trust_nisra_data, paste0(data_folder, "/Trend/2021/trust_nisra_data.RDS"))
 
 # Chart 8: Trust in NISRA statistics (2014-2021) #### 
 
-chart_8_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 10", startRow = 3) %>%
+trust_stats_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 10", startRow = 3) %>%
   t() %>% as.data.frame() %>%
   mutate(year = as.numeric(rownames(.)),
          trust = as.numeric(`3`),
@@ -58,13 +58,13 @@ chart_8_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sh
   filter(year != 2022) %>%
   select(year:dont_know)
 
-rownames(chart_8_data) <- 1:nrow(chart_8_data)
+rownames(trust_stats_data) <- 1:nrow(trust_stats_data)
 
-saveRDS(chart_8_data, paste0(data_folder, "/Trend/2021/chart_8_data.RDS"))
+saveRDS(trust_stats_data, paste0(data_folder, "/Trend/2021/trust_stats_data.RDS"))
 
 # Chart 10: NISRA statistics are important to understand Northern Ireland (2016-2021) ####
 
-chart_10_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 13", startRow = 3) %>%
+stats_important_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 13", startRow = 3) %>%
   t() %>% as.data.frame()  %>%
   mutate(year = as.numeric(rownames(.)),
          agree = as.numeric(`3`),
@@ -73,13 +73,13 @@ chart_10_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   filter(year != 2022) %>%
   select(year:dont_know)
 
-rownames(chart_10_data) <- 1:nrow(chart_10_data)
+rownames(stats_important_data) <- 1:nrow(stats_important_data)
 
-saveRDS(chart_10_data, paste0(data_folder, "/Trend/2021/chart_10_data.RDS"))
+saveRDS(stats_important_data, paste0(data_folder, "/Trend/2021/stats_important_data.RDS"))
 
 # Chart 12: NISRA statistics are free from political interference (2014-2021) ####
 
-chart_12_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 16", startRow = 3) %>%
+political_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 16", startRow = 3) %>%
   t() %>% 
   as.data.frame() %>%
   mutate(year = as.numeric(rownames(.)),
@@ -89,13 +89,13 @@ chart_12_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   filter(year != 2022) %>%
   select(year:dont_know)
 
-rownames(chart_12_data) <- 1:nrow(chart_12_data)
+rownames(political_data) <- 1:nrow(political_data)
 
-saveRDS(chart_12_data, paste0(data_folder, "/Trend/2021/chart_12_data.RDS"))
+saveRDS(political_data, paste0(data_folder, "/Trend/2021/political_data.RDS"))
 
 # Chart 14: Personal information provided to NISRA will be kept confidential (2014-2021) ####
 
-chart_14_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 18", startRow = 3) %>%
+confidential_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), sheet = "Chart 18", startRow = 3) %>%
   t() %>%
   as.data.frame() %>%
   mutate(year = as.numeric(rownames(.)),
@@ -105,7 +105,7 @@ chart_14_data <- read.xlsx(paste0(data_folder, "Trend/PCOS 2022 Charts.xlsx"), s
   filter(year != 2022) %>%
   select(year:dont_know)
 
-rownames(chart_14_data) <- 1:nrow(chart_14_data)
+rownames(confidential_data) <- 1:nrow(confidential_data)
 
-saveRDS(chart_14_data, paste0(data_folder, "/Trend/2021/chart_14_data.RDS"))
+saveRDS(confidential_data, paste0(data_folder, "/Trend/2021/confidential_data.RDS"))
 

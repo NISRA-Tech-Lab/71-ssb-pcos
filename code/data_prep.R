@@ -151,22 +151,22 @@ if (!dir.exists(paste0(data_folder, "Trend/", current_year))) {
 
 ## Chart 1: Awareness of NISRA by year ####
 
-chart_1_data <- chart_1_data %>%
+aware_nisra_data <- aware_nisra_data %>%
   rbind(data.frame(year = current_year,
                    pct = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100))
 
-saveRDS(chart_1_data, paste0(data_folder, "Trend/", current_year, "/chart_1_data.RDS"))
+saveRDS(aware_nisra_data, paste0(data_folder, "Trend/", current_year, "/aware_nisra_data.RDS"))
 
 ## Chart 2: Awareness of NISRA and ONS by year ####
 
-chart_2_data <- chart_2_data %>%
+aware_nisra_ons_data <- aware_nisra_ons_data %>%
   rbind(data.frame(year = current_year,
                    nisra = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100,
                    ons = if (current_year == ons_year) data_ons$Yes[data_ons$`Related Variable` == "PCOS1"] else NA))
 
-saveRDS(chart_2_data, paste0(data_folder, "Trend/", current_year, "/chart_2_data.RDS"))
+saveRDS(aware_nisra_ons_data, paste0(data_folder, "Trend/", current_year, "/aware_nisra_ons_data.RDS"))
 
-chart_2_data <- chart_2_data %>%
+aware_nisra_ons_data <- aware_nisra_ons_data %>%
   mutate(year = as.character(year))
 
 ## Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA ####
@@ -223,15 +223,15 @@ chart_4_data <- chart_4_data %>%
 
 ## Chart 5: Trust in NISRA by year ####
 
-chart_5_data <- chart_5_data %>%
+trust_nisra_data <- trust_nisra_data %>%
   rbind(data.frame(year = current_year,
                    trust = sum(data_final$W3[data_final$TrustNISRA2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100,
                    distrust = sum(data_final$W3[data_final$TrustNISRA2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100,
                    dont_know = sum(data_final$W3[data_final$TrustNISRA2 == "Don't know"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100))
 
-saveRDS(chart_5_data, paste0(data_folder, "Trend/", current_year, "/chart_5_data.RDS"))
+saveRDS(trust_nisra_data, paste0(data_folder, "Trend/", current_year, "/trust_nisra_data.RDS"))
 
-chart_5_data <- chart_5_data %>%
+trust_nisra_data <- trust_nisra_data %>%
   mutate(year = as.character(year))
 
 ## Chart 6: Trust in NISRA and ONS as institutions ####
@@ -239,7 +239,7 @@ chart_5_data <- chart_5_data %>%
 ons_chart_6 <- data_ons %>%
   filter(`Related Variable` == "TrustNISRA2")
 
-chart_6_data <- chart_5_data %>%
+chart_6_data <- trust_nisra_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
@@ -262,7 +262,7 @@ chart_7_data <-
                    dont_know = c(sum(data_final$W3[data_final$TrustNIAssembly2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNIAssembly2)]) * 100,
                              sum(data_final$W3[data_final$TrustCivilService2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
                              sum(data_final$W3[data_final$TrustMedia2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100)),
-        chart_5_data %>%
+        trust_nisra_data %>%
           filter(year == current_year) %>%
           mutate(org = "NISRA") %>%
           select(org, trust:dont_know)) %>%
@@ -270,15 +270,15 @@ chart_7_data <-
 
 ## Chart 8: Trust in NISRA statistics by year ####
 
-chart_8_data <- chart_8_data %>%
+trust_stats_data <- trust_stats_data %>%
   rbind(data.frame(year = current_year,
                    trust = sum(data_final$W3[data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100,
                    distrust = sum(data_final$W3[data_final$TrustNISRAstats2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100,
                    dont_know = sum(data_final$W3[data_final$TrustNISRAstats2 == "Don't know"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100))
 
-saveRDS(chart_8_data, paste0(data_folder, "Trend/", current_year, "/chart_8_data.RDS"))
+saveRDS(trust_stats_data, paste0(data_folder, "Trend/", current_year, "/trust_stats_data.RDS"))
 
-chart_8_data <- chart_8_data %>%
+trust_stats_data <- trust_stats_data %>%
   mutate(year = as.character(year))
 
 ## Chart 9: Trust in statistics produced by NISRA  and ONS ####
@@ -286,7 +286,7 @@ chart_8_data <- chart_8_data %>%
 ons_chart_9 <- data_ons %>%
   filter(`Related Variable` == "TrustNISRAstats2")
 
-chart_9_data <- chart_8_data %>%
+chart_9_data <- trust_stats_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, trust:dont_know) %>%
@@ -298,15 +298,15 @@ chart_9_data <- chart_8_data %>%
 
 ## Chart 10: NISRA statistics are important to understand Northern Ireland by year ####
  
-chart_10_data <- chart_10_data %>%
+stats_important_data <- stats_important_data %>%
   rbind(data.frame(year = current_year,
                    agree = sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100,
                    disagree = sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100,
                    dont_know = sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100))
 
-saveRDS(chart_10_data, paste0(data_folder, "Trend/", current_year, "/chart_10_data.RDS"))
+saveRDS(stats_important_data, paste0(data_folder, "Trend/", current_year, "/stats_important_data.RDS"))
 
-chart_10_data <- chart_10_data %>%
+stats_important_data <- stats_important_data %>%
   mutate(year = as.character(year))
 
 ## Chart 11: Statistics produced are important to understand our country, NISRA and ONS ####
@@ -314,7 +314,7 @@ chart_10_data <- chart_10_data %>%
 ons_chart_11 <- data_ons %>%
   filter(`Related Variable` == "NISRAstatsImp2")
 
-chart_11_data <- chart_10_data %>%
+chart_11_data <- stats_important_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
@@ -325,15 +325,15 @@ chart_11_data <- chart_10_data %>%
 
 ## Chart 12: NISRA statistics are free from political interference by year ####
 
-chart_12_data <- chart_12_data %>%
+political_data <- political_data %>%
   rbind(data.frame(year = current_year,
                    agree = sum(data_final$W3[data_final$Political2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Political2)]) * 100,
                    disagree = sum(data_final$W3[data_final$Political2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$Political2)]) * 100,
                    dont_know = sum(data_final$W3[data_final$Political2 == "Don't know"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$Political2)]) * 100))
 
-saveRDS(chart_12_data, paste0(data_folder, "Trend/", current_year, "/chart_12_data.RDS"))
+saveRDS(political_data, paste0(data_folder, "Trend/", current_year, "/political_data.RDS"))
 
-chart_12_data <- chart_12_data %>%
+political_data <- political_data %>%
   mutate(year = as.character(year))
 
 ## Chart 13: Statistics produced are free from political interference, NISRA and ONS ####
@@ -341,7 +341,7 @@ chart_12_data <- chart_12_data %>%
 ons_chart_13 <- data_ons %>%
   filter(`Related Variable` == "Political2")
 
-chart_13_data <- chart_12_data %>%
+chart_13_data <- political_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
@@ -352,15 +352,15 @@ chart_13_data <- chart_12_data %>%
 
 ## Chart 14: Personal information provided to NISRA will be kept confidential by year ####
 
-chart_14_data <- chart_14_data %>%
+confidential_data <- confidential_data %>%
   rbind(data.frame(year = current_year,
                    agree = sum(data_final$W3[data_final$Confidential2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100,
                    disagree = sum(data_final$W3[data_final$Confidential2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100,
                    dont_know = sum(data_final$W3[data_final$Confidential2 == "Don't know"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100))
 
-saveRDS(chart_14_data, paste0(data_folder, "Trend/", current_year, "/chart_14_data.RDS"))
+saveRDS(confidential_data, paste0(data_folder, "Trend/", current_year, "/confidential_data.RDS"))
 
-chart_14_data <- chart_14_data %>%
+confidential_data <- confidential_data %>%
   mutate(year = as.character(year))
 
 ## Chart 15: Belief that personal information provided will be kept confidential, NISRA and ONS ####
@@ -368,7 +368,7 @@ chart_14_data <- chart_14_data %>%
 ons_chart_15 <- data_ons %>%
   filter(`Related Variable` == "Confidential2")
 
-chart_15_data <- chart_14_data %>%
+chart_15_data <- confidential_data %>%
   filter(year == current_year) %>%
   mutate(org = paste0("NISRA (", current_year, ")")) %>%
   select(org, agree:dont_know) %>%
@@ -382,15 +382,15 @@ chart_15_data <- chart_14_data %>%
 ## Introduction ####
 
 sample_size <- prettyNum(nrow(data_final), big.mark = ",")
-heard_of_nisra <- round_half_up(chart_1_data$pct[chart_1_data$year == current_year])
-trust_in_nisra <- round_half_up(chart_5_data$trust[chart_5_data$year == current_year])
-trust_in_nisra_stats <- round_half_up(chart_8_data$trust[chart_8_data$year == current_year])
-importance_of_stats <- round_half_up(chart_10_data$agree[chart_10_data$year == current_year])
-free_from_interference <- round_half_up(chart_12_data$agree[chart_12_data$year == current_year])
+heard_of_nisra <- round_half_up(aware_nisra_data$pct[aware_nisra_data$year == current_year])
+trust_in_nisra <- round_half_up(trust_nisra_data$trust[trust_nisra_data$year == current_year])
+trust_in_nisra_stats <- round_half_up(trust_stats_data$trust[trust_stats_data$year == current_year])
+importance_of_stats <- round_half_up(stats_important_data$agree[stats_important_data$year == current_year])
+free_from_interference <- round_half_up(political_data$agree[political_data$year == current_year])
 
 ## Awareness of NISRA ####
 
-aware_of_ons <- round_half_up(chart_2_data$ons[chart_2_data$year == ons_year])
+aware_of_ons <- round_half_up(aware_nisra_ons_data$ons[aware_nisra_ons_data$year == ons_year])
 
 ## Awareness of NISRA Statistics ####
 
@@ -458,8 +458,8 @@ heard_of_aware_cycling  <- round_half_up(chart_4_data$yes[grepl("cycling", chart
 
 ## Trust in NISRA ####
 
-dont_know_trust_nisra <- round_half_up(chart_5_data$dont_know[chart_5_data$year == current_year])
-distrust_nisra <- round_half_up(chart_5_data$distrust[chart_5_data$year == current_year])
+dont_know_trust_nisra <- round_half_up(trust_nisra_data$dont_know[trust_nisra_data$year == current_year])
+distrust_nisra <- round_half_up(trust_nisra_data$distrust[trust_nisra_data$year == current_year])
 
 heard_of_and_trust_nisra <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRA2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 
@@ -471,8 +471,8 @@ trust_in_nics <- round_half_up(chart_7_data$trust[grepl("Civil Service", chart_7
 
 ## Trust in NISRA Statistics ####
 
-distrust_nisra_stats <- round_half_up(chart_8_data$distrust[chart_8_data == current_year])
-dont_know_trust_nisra_stats <- round_half_up(chart_8_data$dont_know[chart_8_data == current_year])
+distrust_nisra_stats <- round_half_up(trust_stats_data$distrust[trust_stats_data == current_year])
+dont_know_trust_nisra_stats <- round_half_up(trust_stats_data$dont_know[trust_stats_data == current_year])
 
 heard_of_and_trust_nisra_stats <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
 
@@ -482,8 +482,8 @@ dont_know_trust_ons_stats  <- round_half_up(chart_9_data$dont_know[grepl("ONS", 
 
 ## Value ####
 
-disagree_importance <- round_half_up(chart_10_data$disagree[chart_10_data$year == current_year])
-dont_know_importance <- round_half_up(chart_10_data$dont_know[chart_10_data$year == current_year])
+disagree_importance <- round_half_up(stats_important_data$disagree[stats_important_data$year == current_year])
+dont_know_importance <- round_half_up(stats_important_data$dont_know[stats_important_data$year == current_year])
 
 importance_of_ons <- round_half_up(chart_11_data$agree[grepl("ONS", chart_11_data$org)])
 disagre_importance_ons  <- round_half_up(chart_11_data$disagree[grepl("ONS", chart_11_data$org)])
@@ -491,15 +491,15 @@ dont_know_importance_ons  <- round_half_up(chart_11_data$dont_know[grepl("ONS", 
 
 ## Political Interference ####
 
-disagree_interference <- round_half_up(chart_12_data$disagree[chart_12_data == current_year])
-dont_know_interference <- round_half_up(chart_12_data$dont_know[chart_12_data == current_year])
+disagree_interference <- round_half_up(political_data$disagree[political_data == current_year])
+dont_know_interference <- round_half_up(political_data$dont_know[political_data == current_year])
 
 free_from_interference_ons <- round_half_up(chart_13_data$agree[grepl("ONS", chart_13_data$org)])
 
 ## Confidentiality ####
 
-agree_confidential <- round_half_up(chart_14_data$agree[chart_14_data$year == current_year]) 
-dont_know_confidential <- round_half_up(chart_14_data$dont_know[chart_14_data$year == current_year]) 
-disagree_confidential <- round_half_up(chart_14_data$disagree[chart_14_data$year == current_year])
+agree_confidential <- round_half_up(confidential_data$agree[confidential_data$year == current_year]) 
+dont_know_confidential <- round_half_up(confidential_data$dont_know[confidential_data$year == current_year]) 
+disagree_confidential <- round_half_up(confidential_data$disagree[confidential_data$year == current_year])
 
 agree_confidential_ons <- round_half_up(chart_15_data$agree[grepl("ONS", chart_15_data$org)])

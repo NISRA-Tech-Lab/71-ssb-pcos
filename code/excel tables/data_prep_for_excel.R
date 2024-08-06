@@ -6,7 +6,7 @@ source(paste0(here(), "/code/data_prep.R"))
 ## Table 1: Awareness of NISRA by year ####
 
 table_1_data <- table_1_data %>%
-  mutate(current_year = c(chart_2_data$nisra[chart_2_data$year == current_year],
+  mutate(current_year = c(aware_nisra_ons_data$nisra[aware_nisra_ons_data$year == current_year],
                           sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$PCOS1)], na.rm = TRUE) * 100,
                           sum(data_final$W3[data_final$PCOS1 == "DontKnow"], na.rm = TRUE)  / sum(data_final$W3[!is.na(data_final$PCOS1)], na.rm = TRUE) * 100,
                           nrow(data_final[!is.na(data_final$PCOS1), ])))
@@ -112,9 +112,9 @@ names(table_22_data) <- c("Number of NISRA statistics", paste(current_year, "(%)
 ## Table 23: Trust in NISRA by year ####
 
 table_23_data <- table_23_data %>%
-  mutate(current_year = c(chart_5_data$trust[chart_5_data$year == current_year],
-                          chart_5_data$distrust[chart_5_data$year == current_year],
-                          chart_5_data$dont_know[chart_5_data$year == current_year],
+  mutate(current_year = c(trust_nisra_data$trust[trust_nisra_data$year == current_year],
+                          trust_nisra_data$distrust[trust_nisra_data$year == current_year],
+                          trust_nisra_data$dont_know[trust_nisra_data$year == current_year],
                           sum(!is.na(data_final$TrustNISRA2))))
 
 names(table_23_data)[names(table_23_data) == "current_year"] <- current_year
@@ -186,9 +186,9 @@ saveRDS(table_28_data, paste0(data_folder, "Trend/", current_year, "/table_28_da
 ## Table 29: Trust in NISRA statistics by year ####
 
 table_29_data <- table_29_data %>%
-  mutate(current_year = c(chart_8_data$trust[chart_8_data$year == current_year],
-                          chart_8_data$distrust[chart_8_data$year == current_year],
-                          chart_8_data$dont_know[chart_8_data$year == current_year],
+  mutate(current_year = c(trust_stats_data$trust[trust_stats_data$year == current_year],
+                          trust_stats_data$distrust[trust_stats_data$year == current_year],
+                          trust_stats_data$dont_know[trust_stats_data$year == current_year],
                           sum(!is.na(data_final$TrustNISRAstats2))))
 
 names(table_29_data)[names(table_29_data) == "current_year"] <- current_year
@@ -222,9 +222,9 @@ table_31_data <- table_30_data["Response (%)"] %>%
 ## Table 32: Statistics produced by NISRA are important to understand Northern Ireland by year ####
 
 table_32_data <- table_32_data %>%
-  mutate(current_year = c(chart_10_data$agree[chart_10_data$year == current_year],
-                          chart_10_data$disagree[chart_10_data$year == current_year],
-                          chart_10_data$dont_know[chart_10_data$year == current_year],
+  mutate(current_year = c(stats_important_data$agree[stats_important_data$year == current_year],
+                          stats_important_data$disagree[stats_important_data$year == current_year],
+                          stats_important_data$dont_know[stats_important_data$year == current_year],
                           sum(!is.na(data_final$NISRAstatsImp2))))
 
 names(table_32_data)[names(table_32_data) == "current_year"] <- current_year
@@ -258,9 +258,9 @@ table_34_data <- table_33_data["Response (%)"] %>%
 ## Table 35: Statistics produced by NISRA are free from political interference by year ####
 
 table_35_data <- table_35_data %>%
-  mutate(current_year = c(chart_12_data$agree[chart_12_data$year == current_year],
-                          chart_12_data$disagree[chart_12_data$year == current_year],
-                          chart_12_data$dont_know[chart_12_data$year == current_year],
+  mutate(current_year = c(political_data$agree[political_data$year == current_year],
+                          political_data$disagree[political_data$year == current_year],
+                          political_data$dont_know[political_data$year == current_year],
                           sum(!is.na(data_final$Political2))))
 
 names(table_35_data)[names(table_35_data) == "current_year"] <- current_year
@@ -282,9 +282,9 @@ names(table_36_data)[names(table_36_data) == current_year] <- "NISRA"
 ## Table 37: Personal information provided to NISRA will be kept confidential ####
 
 table_37_data <- table_37_data %>%
-  mutate(current_year = c(chart_14_data$agree[chart_14_data$year == current_year],
-                          chart_14_data$disagree[chart_14_data$year == current_year],
-                          chart_14_data$dont_know[chart_14_data$year == current_year],
+  mutate(current_year = c(confidential_data$agree[confidential_data$year == current_year],
+                          confidential_data$disagree[confidential_data$year == current_year],
+                          confidential_data$dont_know[confidential_data$year == current_year],
                           sum(!is.na(data_final$Confidential2))))
 
 names(table_37_data)[names(table_37_data) == "current_year"] <- current_year
