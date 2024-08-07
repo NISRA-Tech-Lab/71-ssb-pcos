@@ -18,6 +18,7 @@ data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
                                 pass = password,
                                 use.missings = FALSE)
 
+## Raw variable check ran and output to Excel workbook in Outputs folder ####
 source(paste0(here(), "/code/check_raw_variables.R"))
 
 # Read in ONS data from Excel ####
@@ -60,6 +61,14 @@ data_final <- data_raw %>%
                                      TRUE ~ "60+")),
          DERHIanalysis = case_when(DERHI == "Other qualifications" ~ NA,
                                    TRUE ~ DERHI),
+         DERHIanalysis = factor(DERHIanalysis,
+                                levels = c("Degree, or Degree equivalent and above",                    
+                                           "Other higher education below degree level",
+                                           "A levels, vocational level 3 and equivalents",               
+                                           "GCSE/O level grade A*-C. vocational level 2 and equivalents",
+                                           "Qualifications at level 1 and below",
+                                           "No qualification")),
+         EMPST2 = factor(EMPST2, levels = c("In paid employment",	"Not in paid employment")),
          remove = FALSE,
          AwareNISRA2 = PCOS1) %>%  ## Added for later
   relocate("AGE2a", .after = "Age1") %>%
@@ -73,7 +82,7 @@ for (i in 1:length(trust_q_old)) {
                                             data_final[[trust_q_old[i]]] %in% c("Tend to distrust", "Distrust greatly", "Tend not to trust them", "Distrust them greatly") ~ "Tend to distrust/Distrust greatly",
                                             data_final[[trust_q_old[i]]] == "DontKnow" ~ "Don't know",
                                             TRUE ~ data_final[[trust_q_old[i]]]) %>%
-    as.factor()
+    factor(levels = c("Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly", "Don't know"))
   
 }
 
@@ -85,7 +94,7 @@ for (i in 1:length(agree_q_old)) {
                                             data_final[[agree_q_old[i]]] %in% c("Tend to disagree", "Strongly disagree") ~ "Tend to disagree/Strongly disagree",
                                             data_final[[agree_q_old[i]]] == "DontKnow" ~ "Don't know",
                                             TRUE ~ data_final[[agree_q_old[i]]]) %>%
-    as.factor()
+    factor(levels = c("Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree", "Don't know"))
 
 }
 
@@ -126,8 +135,11 @@ data_final <- data_final %>%
 
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year," Final Dataset.RDS"))
 
-## Check created variables against originals ####
+## Check created variables against originals (see outputs folder) ####
 source(paste0(here(), "/code/check_created_variables.R"))
+
+## Supplementary tables output to outputs folder ####
+source(paste0(here(), "/code/supplementary_tables.R"))
 
 # Create data frames for charts ####
 
