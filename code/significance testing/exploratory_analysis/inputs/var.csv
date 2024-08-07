@@ -1,5 +1,13 @@
 data_last,data_current
-PCOS1,PCOS1
+PCOS1,AwareNISRA2
+TrustCivilService2,TrustCivilService2
+TrustNIAssembly2,TrustNIAssembly2
+TrustMedia2,TrustMedia2
+TrustNISRA2,TrustNISRA2
+TrustNISRAstats2,TrustNISRAstats2
+NISRAstatsImp2,NISRAstatsImp2
+Political2,Political2
+Confidential2,Confidential2
 PCOS1c1,PCOS1c1
 PCOS1c2,PCOS1c2
 PCOS1c3,PCOS1c3
@@ -18,11 +26,3 @@ PCOS1d6,PCOS1d6
 PCOS1d7,PCOS1d7
 PCOS1d8,PCOS1d8
 PCOS1d9,PCOS1d9
-PCOS2a,PCOS2a
-PCOS2b,PCOS2b
-PCOS2c,PCOS2c
-PCOS2d,PCOS2d
-PCOS3,PCOS3
-PCOS4,PCOS4
-PCOS5,PCOS5
-PCOS6,PCOS6
