@@ -1266,11 +1266,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "odsconvertr",
       "RemoteUsername": "department-for-transport",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "odsconvertr",
+      "RemoteRef": "main",
       "RemoteSha": "d81cecbb7267f63c94193ad615f1cc5fb22fed4a",
-      "Hash": "80ee4897305c6b4623f84b36d1c0e507"
+      "Hash": "5368519248093044aa3fb6d2fd4a01b9"
     },
     "officedown": {
       "Package": "officedown",
@@ -1663,15 +1663,15 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "readspss",
       "RemoteUsername": "JanMarvin",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "readspss",
+      "RemoteRef": "main",
       "RemoteSha": "3ba9cc27aba964df7eadbcb51419d0cf307b2396",
       "Requirements": [
         "BH",
         "Rcpp"
       ],
-      "Hash": "d4fce1985641e0c9fd2621ed03d74aaa"
+      "Hash": "d0b818966e147739df9218e3d78adf71"
     },
     "readxl": {
       "Package": "readxl",

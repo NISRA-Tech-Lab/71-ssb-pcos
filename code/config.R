@@ -97,12 +97,12 @@ library(svgtools)
 library(rsvg)
 library(sjPlot)
 library(officedown)
-library(fontawesome)
+library(officer)
 library(pkgbuild)
 library(purrr)
-library(odsconvertr)
 library(devtools)
 library(remotes)
+library(odsconvertr)
 
 # turn off warning messages
 options(warn = -1)
@@ -203,8 +203,8 @@ ons_red <- "#801650"
 ons_orange <- "#f46a25"
 
 #### CALL & LOAD FUNCTIONS SCRIPTS ####
-for (file in list.files(path = paste0(here(), "/code/", "functions"))) {
-  source(paste0(here(), "/code/", "functions/", file))
+for (file in list.files(path = paste0(here(), "/code/functions"), pattern = "*.R")) {
+  source(paste0(here(), "/code/functions/", file))
 }
 
 utils::globalVariables(c("new_workbook", ".", "report_final"))

@@ -77,7 +77,7 @@ table_2.1j_data <- data_final %>%
   rbind(data.frame(not_heard_yes_count = "Number of Respondents",
                    current_year = nrow(data_final[!is.na(data_final$PCOS1d1), ])))
 
-names(table_2.1j_data) <- c("Number of NISRA statistics", paste(current_year, "(%)"))
+names(table_2.1j_data) <- c("Response (%)", current_year)
          
 # Awareness of NISRA Statistics by those previously aware of NISRA ####
 
@@ -118,7 +118,7 @@ table_2.2j_data <- data_final %>%
   rbind(data.frame(heard_yes_count = "Number of Respondents",
                    current_year = nrow(data_final[!is.na(data_final$PCOS1c1), ])))
 
-names(table_2.2j_data) <- c("Number of NISRA statistics", paste(current_year, "(%)"))
+names(table_2.2j_data) <- c("Response (%)", current_year)
 
 # Trust in NISRA ####
 
@@ -146,15 +146,23 @@ names(table_3.1b_data)[names(table_3.1b_data) == current_year] <- "NISRA"
 
 ## Table 3.1c: Trust in NISRA by respondent's awareness of NISRA ####
 
-table_3.1c_data <- table_3.1b_data["Response (%)"] %>%
-  mutate(`Had heard of NISRA` = c(sum(data_final$W3[data_final$TrustNISRA2 == "Trust a great deal/Tend to trust" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(data_final$W3[data_final$TrustNISRA2 == "Tend to distrust/Distrust greatly" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(data_final$W3[data_final$TrustNISRA2 == "Don't know" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(!is.na(data_final$TrustNISRA2) & data_final$PCOS1 == "Yes")),
-         `Had not heard of NISRA` = c(sum(data_final$W3[data_final$TrustNISRA2 == "Trust a great deal/Tend to trust" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(data_final$W3[data_final$TrustNISRA2 == "Tend to distrust/Distrust greatly" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(data_final$W3[data_final$TrustNISRA2 == "Don't know" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(!is.na(data_final$TrustNISRA2) & data_final$PCOS1 == "No")))
+table_3.1c_data <- data_final %>%
+  filter(PCOS1 == "Yes") %>%
+  group_by(TrustNISRA2) %>%
+  summarise(heard_weighted = sum(W3)) %>%
+  left_join(data_final %>%
+              filter(PCOS1 == "No") %>%
+              group_by(TrustNISRA2) %>%
+              summarise(not_heard_weighted = sum(W3)),
+            by = "TrustNISRA2") %>%
+  filter(!is.na(TrustNISRA2)) %>%
+  mutate(`Had heard of NISRA` = heard_weighted / sum(heard_weighted) * 100,
+         `Had not heard of NISRA` = not_heard_weighted / sum(not_heard_weighted) * 100) %>%
+  select(`Response (%)` = TrustNISRA2, `Had heard of NISRA`, `Had not heard of NISRA`) %>%
+  rbind(data.frame(response = "Number of Respondents",
+                   heard = sum(!is.na(data_final$TrustNISRA2) & data_final$PCOS1 == "Yes"),
+                   not_heard = sum(!is.na(data_final$TrustNISRA2) & data_final$PCOS1 == "No")) %>%
+          select(`Response (%)` = response, `Had heard of NISRA` = heard, `Had not heard of NISRA` = not_heard))
 
 # Trust Civil Service ####
 
@@ -218,7 +226,7 @@ table_4b_data <- table_4a_data[c("Response (%)", current_year)] %>%
 
 names(table_4b_data)[names(table_4b_data) == current_year] <- "NISRA"
 
-## Table 31: Trust in NISRA statistics by respondent's awareness of NISRA ####
+## Table 4c: Trust in NISRA statistics by respondent's awareness of NISRA ####
 
 table_4c_data <- table_4b_data["Response (%)"] %>%
   mutate(`Had heard of NISRA` = c(sum(data_final$W3[data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
@@ -229,6 +237,24 @@ table_4c_data <- table_4b_data["Response (%)"] %>%
                                       sum(data_final$W3[data_final$TrustNISRAstats2 == "Tend to distrust/Distrust greatly" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
                                       sum(data_final$W3[data_final$TrustNISRAstats2 == "Don't know" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
                                       sum(!is.na(data_final$TrustNISRAstats2) & data_final$PCOS1 == "No")))
+
+table_4c_data <- data_final %>%
+  filter(PCOS1 == "Yes") %>%
+  group_by(TrustNISRAstats2) %>%
+  summarise(heard_weighted = sum(W3)) %>%
+  left_join(data_final %>%
+              filter(PCOS1 == "No") %>%
+              group_by(TrustNISRAstats2) %>%
+              summarise(not_heard_weighted = sum(W3)),
+            by = "TrustNISRAstats2") %>%
+  filter(!is.na(TrustNISRAstats2)) %>%
+  mutate(`Had heard of NISRA` = heard_weighted / sum(heard_weighted) * 100,
+         `Had not heard of NISRA` = not_heard_weighted / sum(not_heard_weighted) * 100) %>%
+  select(`Response (%)` = TrustNISRAstats2, `Had heard of NISRA`, `Had not heard of NISRA`) %>%
+  rbind(data.frame(response = "Number of Respondents",
+                   heard = sum(!is.na(data_final$TrustNISRAstats2) & data_final$PCOS1 == "Yes"),
+                   not_heard = sum(!is.na(data_final$TrustNISRAstats2) & data_final$PCOS1 == "No")) %>%
+          select(`Response (%)` = response, `Had heard of NISRA` = heard, `Had not heard of NISRA` = not_heard))
 
 ## Table 4d: Trust ONS Statistics by year ####
 
@@ -245,7 +271,7 @@ saveRDS(table_4d_data, paste0(data_folder, "Trend/", current_year, "/table_4d_da
 
 # Value ####
 
-## Table 32: Statistics produced by NISRA are important to understand Northern Ireland by year ####
+## Table 5a: Statistics produced by NISRA are important to understand Northern Ireland by year ####
 
 table_5a_data <- table_5a_data %>%
   mutate(current_year = c(stats_important_data$agree[stats_important_data$year == current_year],
@@ -257,31 +283,39 @@ names(table_5a_data)[names(table_5a_data) == "current_year"] <- current_year
 
 saveRDS(table_5a_data, paste0(data_folder, "Trend/", current_year, "/table_5a_data.RDS"))
 
-## Table 33: Statistics produced are important to understand our country (NISRA and ONS) ####
+## Table 5b: Statistics produced are important to understand our country (NISRA and ONS) ####
 
-table_33_data <- table_5a_data[c("Response (%)", current_year)] %>%
+table_5b_data <- table_5a_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(stats_important_nisra_ons_data$agree[grepl("ONS", stats_important_nisra_ons_data$org)],
                  stats_important_nisra_ons_data$disagree[grepl("ONS", stats_important_nisra_ons_data$org)],
                  stats_important_nisra_ons_data$dont_know[grepl("ONS", stats_important_nisra_ons_data$org)],
                  stats_important_ons_data$`Unweighted base`))
 
-names(table_33_data)[names(table_33_data) == current_year] <- "NISRA"
+names(table_5b_data)[names(table_5b_data) == current_year] <- "NISRA"
 
-## Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA ####
+## Table 5c: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA ####
 
-table_34_data <- table_33_data["Response (%)"] %>%
-  mutate(`Had heard of NISRA` = c(sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know" & data_final$PCOS1 == "Yes"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"], na.rm = TRUE) * 100,
-                                  sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "Yes")),
-         `Had not heard of NISRA` = c(sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know" & data_final$PCOS1 == "No"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "No"], na.rm = TRUE) * 100,
-                                      sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "No")))
+table_5c_data <- data_final %>%
+  filter(PCOS1 == "Yes") %>%
+  group_by(NISRAstatsImp2) %>%
+  summarise(heard_weighted = sum(W3)) %>%
+  left_join(data_final %>%
+              filter(PCOS1 == "No") %>%
+              group_by(NISRAstatsImp2) %>%
+              summarise(not_heard_weighted = sum(W3)),
+            by = "NISRAstatsImp2") %>%
+  filter(!is.na(NISRAstatsImp2)) %>%
+  mutate(`Had heard of NISRA` = heard_weighted / sum(heard_weighted) * 100,
+         `Had not heard of NISRA` = not_heard_weighted / sum(not_heard_weighted) * 100) %>%
+  select(`Response (%)` = NISRAstatsImp2, `Had heard of NISRA`, `Had not heard of NISRA`) %>%
+  rbind(data.frame(response = "Number of Respondents",
+                   heard = sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "Yes"),
+                   not_heard = sum(!is.na(data_final$NISRAstatsImp2) & data_final$PCOS1 == "No")) %>%
+          select(`Response (%)` = response, `Had heard of NISRA` = heard, `Had not heard of NISRA` = not_heard))
 
 # Political Interference ####
 
-## Table 35: Statistics produced by NISRA are free from political interference by year ####
+## Table 6a: Statistics produced by NISRA are free from political interference by year ####
 
 table_6a_data <- table_6a_data %>%
   mutate(current_year = c(political_data$agree[political_data$year == current_year],
@@ -293,19 +327,19 @@ names(table_6a_data)[names(table_6a_data) == "current_year"] <- current_year
 
 saveRDS(table_6a_data, paste0(data_folder, "Trend/", current_year, "/table_6a_data.RDS"))
 
-## Table 36: Statistics produced are free from political interference (NISRA and ONS) ####
+## Table 6b: Statistics produced are free from political interference (NISRA and ONS) ####
 
-table_36_data <- table_6a_data[c("Response (%)", current_year)] %>%
+table_6b_data <- table_6a_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(political_nisra_ons_data$agree[grepl("ONS", political_nisra_ons_data$org)],
                  political_nisra_ons_data$disagree[grepl("ONS", political_nisra_ons_data$org)],
                  political_nisra_ons_data$dont_know[grepl("ONS", political_nisra_ons_data$org)],
                  political_ons_data$`Unweighted base`))
 
-names(table_36_data)[names(table_36_data) == current_year] <- "NISRA"
+names(table_6b_data)[names(table_6b_data) == current_year] <- "NISRA"
 
 # Confidentiality ####
 
-## Table 37: Personal information provided to NISRA will be kept confidential ####
+## Table 7a: Personal information provided to NISRA will be kept confidential ####
 
 table_7a_data <- table_7a_data %>%
   mutate(current_year = c(confidential_data$agree[confidential_data$year == current_year],
@@ -317,11 +351,12 @@ names(table_7a_data)[names(table_7a_data) == "current_year"] <- current_year
 
 saveRDS(table_7a_data, paste0(data_folder, "Trend/", current_year, "/table_7a_data.RDS"))
 
-## Table 38: Personal information provided will be kept confidential (NISRA and ONS) ####
+## Table 7b: Personal information provided will be kept confidential (NISRA and ONS) ####
 
-table_38_data <- table_7a_data[c("Response (%)", current_year)] %>%
+table_7b_data <- table_7a_data[c("Response (%)", current_year)] %>%
   mutate(ONS = c(condifential_nisra_ons_data$agree[grepl("ONS", condifential_nisra_ons_data$org)],
                  condifential_nisra_ons_data$disagree[grepl("ONS", condifential_nisra_ons_data$org)],
                  condifential_nisra_ons_data$dont_know[grepl("ONS", condifential_nisra_ons_data$org)],
                  condifential_ons_data$`Unweighted base`))
 
+names(table_7b_data)[names(table_7b_data) == current_year] <- "NISRA"
