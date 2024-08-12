@@ -406,5 +406,9 @@ f_worksheet(wb,
 
 
 # Save workbook ####
-saveWorkbook(wb, paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"), overwrite = TRUE)
-openXL(paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"))
+
+xl_filename <- paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx")
+
+saveWorkbook(wb, xl_filename, overwrite = TRUE)
+f_convert_to_ods(xl_filename)
+unlink(xl_filename)
