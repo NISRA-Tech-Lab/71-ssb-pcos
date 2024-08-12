@@ -17,9 +17,12 @@ knit: (function(input, ...) {
   })
 ---
 
-<div id = "cookie-banner"></div>
-<script src = "cookies_script.js"></script>
+::: {#cookie-banner}
+:::
 
+```{=html}
+<script src = "cookies_script.js"></script>
+```
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(
@@ -30,48 +33,45 @@ library(here)
 source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 ```
 
-
-<div data-nics-theme="`r nics_theme`">
-
-`r f_banner()` 
+::: {data-nics-theme="`r nics_theme`"}
+`r f_banner()`
 
 `r f_header()`
 
-<div id="main" role="main">
-
+::: {#main role="main"}
 `r f_contact()`
 
 ## 0. Overview
 
-This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate.  The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
+This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
 
-__Awareness__
+**Awareness**
 
-  * Public awareness of NISRA was moderate in `r current_year` with almost half of respondents (`r heard_of_nisra`%) indicating that they had heard of the Agency before being contacted about the survey. 
- 
-  * Awareness of NISRA has decreased since 2020 and 2021, when 58% and 55% of respondents respectively, had heard of NISRA. However awareness of the Agency remains higher than in earlier years (2009 to 2019) when 35% or less of respondents had heard of NISRA.
- 
-__Trust__
+-   Public awareness of NISRA was moderate in `r current_year` with almost half of respondents (`r heard_of_nisra`%) indicating that they had heard of the Agency before being contacted about the survey.
 
-  * Public trust in NISRA, as an institution, is high (`r trust_in_nisra`%). Of those that had heard of NISRA, 93% stated that they trusted the Agency.
- 
-  * Public trust in the statistics produced by NISRA is also high (`r trust_in_nisra_stats`%).
- 
-__Value__
+-   Awareness of NISRA has decreased since 2020 and 2021, when 58% and 55% of respondents respectively, had heard of NISRA. However awareness of the Agency remains higher than in earlier years (2009 to 2019) when 35% or less of respondents had heard of NISRA.
 
-  * The statistics produced by NISRA are valued, with `r importance_of_stats`% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.
- 
-__Political Interference__
+**Trust**
 
-  * Over four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference.
+-   Public trust in NISRA, as an institution, is high (`r trust_in_nisra`%). Of those that had heard of NISRA, 93% stated that they trusted the Agency.
+
+-   Public trust in the statistics produced by NISRA is also high (`r trust_in_nisra_stats`%).
+
+**Value**
+
+-   The statistics produced by NISRA are valued, with `r importance_of_stats`% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.
+
+**Political Interference**
+
+-   Over four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference.
 
 `r f_borderline()`
- 
-## 1. Introduction
+
+## 0. Introduction
 
 Official Statistics in Northern Ireland are produced by Government Departments, and in some cases Arm’s Length Bodies. The data collection, production, presentation and dissemination of official statistics are governed by the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
 
-> _This Code plays an essential role in ensuring that statistics published by government command public confidence through demonstrating trustworthiness and providing high quality statistics that enhance public value._
+> *This Code plays an essential role in ensuring that statistics published by government command public confidence through demonstrating trustworthiness and providing high quality statistics that enhance public value.*
 >
 > `r tufte::quote_footer('Preamble, Code of Practice')`
 
@@ -79,21 +79,23 @@ NISRA is an Agency within the Department of Finance and provides statistical ser
 
 In the UK, the Office for National Statistics (ONS) is the largest producer of official statistics. Public trust in the ONS and the statistics it produces are also monitored and this report contains comparisons between NISRA and ONS. The ONS survey samples respondents in England, Scotland and Wales whilst the NISRA survey samples respondents in Northern Ireland. The most recent ONS survey was conducted in `r ons_year` ([Public Confidence in Official Statistics `r ons_year` (ONS)](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)).
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html) for a list of tables).
+[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-%60r%20current_year%60) are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html) for a list of tables).
 
 Differences are only noted in the commentary when they are likely to represent a real difference taking account of the margin of error in the sample-based estimates (see ‘Survey Estimates’ in Appendix A for further detail).
 
 `r f_borderline()`
 
-## 2. Awareness of NISRA
+## 1. Awareness of NISRA
 
 Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey.
+
+### Comparison over time
 
 This has decreased since 2020 and 2021, when 58% and 55% of respondents respectively had heard of NISRA (Chart 1).
 
 Although there has been a decrease since 2020 and 2021, awareness of NISRA in 2022 is notably higher than in 2019 (35%) and previous years, before the start of the COVID-19 pandemic (Chart 1).
 
-### Chart 1: Awareness of NISRA (2009-`r current_year`)
+#### Chart 1: Awareness of NISRA (2009-`r current_year`)
 
 ```{r Chart 1}
 
@@ -164,11 +166,11 @@ plot_ly(aware_nisra_data,
 
 `r f_embed_xl(df = table_1_data, sheet_title = paste0("Table 1: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
 
-`r f_separator()`
+### Comparison with ONS
 
 Public awareness of NISRA remains lower than awareness of ONS, with three quarters (`r aware_of_ons`%) of respondents having heard of ONS based on the latest available data (`r ons_year`). The difference between public awareness levels for NISRA and ONS has narrowed since 2018, which was prior to the start of the COVID-19 pandemic (Chart 2).
 
-### Chart 2: Awareness of NISRA (2014-`r current_year`) and ONS (2014-`r ons_year`)
+#### Chart 2: Awareness of NISRA (2014-`r current_year`) and ONS (2014-`r ons_year`)
 
 ```{r Chart 2}
 
@@ -212,19 +214,17 @@ plot_ly(aware_nisra_ons_data,
 
 ```
 
-
-
 `r f_embed_xl(df = table_2_data, sheet_title = paste0("Table 2: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
 
-`r f_borderline()`
-
-## 3. Awareness of NISRA Statistics
+## 2. Awareness of NISRA Statistics
 
 Respondents who had not previously heard of NISRA were asked whether they had heard of specific NISRA statistics. `r not_heard_aware_none`% of these respondents had not heard of any of the statistics listed, while `r not_heard_aware_all`% had heard of all the statistics.
 
 `r not_heard_aware_census`% of respondents who had not previously heard of NISRA were aware of the Northern Ireland Census, while more than a third had heard of the unemployment rate (`r not_heard_aware_unemployment`%), hospital waiting times (`r not_heard_aware_hospital`%) and the number of people who live in NI (`r not_heard_aware_people`%). Only `r not_heard_aware_cycling`% of these respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
 
-### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
+### o	Aware of NISRA statistics, not previously heard of NISRA
+
+#### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
 
 ```{r Chart 3}
 
@@ -269,13 +269,15 @@ plot_ly(aware_stats_data,
 
 ```
 
-[Tables 3 - 12: Awareness of NISRA statistics among those who had not previously heard of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html#awareness-of-nisra-statistics-among-those-who-had-not-previously-heard-of-nisra)
+[Tables 3 - 12: Awareness of NISRA statistics among those who had not previously heard of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#awareness-of-nisra-statistics-among-those-who-had-not-previously-heard-of-nisra)
 
-Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)). 
+Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
 
 Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%), followed by the number of people who live in Northern Ireland (`r heard_aware_people`%) and the number of deaths (`r heard_aware_deaths`%). Statistics on qualifications of school leavers (`r heard_of_aware_qualifications`%), people living in poverty (`r heard_of_aware_poverty`%) and the percentage of journeys made by walking, cycling or public transport (`r heard_of_aware_cycling`%) were the least recognised as being produced by NISRA.
 
-### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
+### Aware statistics produced by NISRA, heard of NISRA
+
+#### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
 
 ```{r Chart 4}
 
@@ -320,15 +322,13 @@ plot_ly(aware_stats_by_nisra_data,
 
 ```
 
-
-
-[Tables 13 - 22: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html#awareness-that-specified-statistics-are-produced-by-nisra-statisticians-among-those-who-were-aware-of-nisra)
+[Tables 13 - 22: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#awareness-that-specified-statistics-are-produced-by-nisra-statisticians-among-those-who-were-aware-of-nisra)
 
 `r f_borderline()`
 
-## 4. Trust in NISRA
+## 3. Trust in NISRA
 
-Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respondents trusting NISRA a great deal or tending to trust NISRA. Most of the remaining respondents (`r dont_know_trust_nisra`%) didn’t know whether they trusted NISRA or not, while `r distrust_nisra`% of respondents tended to distrust or distrusted NISRA greatly (Chart 5). Trust in NISRA was higher among those who had heard of NISRA (`r heard_of_and_trust_nisra`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
+Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respondents trusting NISRA a great deal or tending to trust NISRA. Most of the remaining respondents (`r dont_know_trust_nisra`%) didn’t know whether they trusted NISRA or not, while `r distrust_nisra`% of respondents tended to distrust or distrusted NISRA greatly (Chart 5). Trust in NISRA was higher among those who had heard of NISRA (`r heard_of_and_trust_nisra`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
 
 When only respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, there is no significant difference in trust in NISRA between 2022 and 2021.
 
@@ -342,9 +342,7 @@ f_stacked_bar_vertical(trust_nisra_data)
 
 ```
 
-
 `r f_embed_xl(df = table_23_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
-
 
 Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However, when only those who gave an opinion are considered, trust levels are higher for NISRA.
 
@@ -411,18 +409,15 @@ plot_ly(trust_institutions_data,
 
 ```
 
-
-
-[Tables 26 - 28: Trust in institutions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html#trust-in-the-civil-service)
+[Tables 26 - 28: Trust in institutions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#trust-in-the-civil-service)
 
 `r f_borderline()`
 
-## 5. Trust in NISRA Statistics
+## 4. Trust in NISRA Statistics
 
-The majority of respondents (`r trust_in_nisra_stats`%) trust NISRA statistics a great deal or tend to trust them while `r distrust_nisra_stats`% of respondents distrust greatly or tend to distrust them. The remaining respondents (`r dont_know_trust_nisra_stats`%) don’t know whether they trust NISRA statistics or not (Chart 8). Trust in NISRA statistics is higher among those that have heard of NISRA as an institution (`r heard_of_and_trust_nisra_stats`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
+The majority of respondents (`r trust_in_nisra_stats`%) trust NISRA statistics a great deal or tend to trust them while `r distrust_nisra_stats`% of respondents distrust greatly or tend to distrust them. The remaining respondents (`r dont_know_trust_nisra_stats`%) don’t know whether they trust NISRA statistics or not (Chart 8). Trust in NISRA statistics is higher among those that have heard of NISRA as an institution (`r heard_of_and_trust_nisra_stats`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
 
 Amongst those who expressed an opinion there was no significant difference in trust in NISRA statistics between 2022 and 2021. However, for respondents who expressed an opinion, trust in NISRA statistics was significantly higher in 2021 and 2022 compared to 2019 and earlier years.
-
 
 ### Chart 8: Trust in NISRA statistics (2014-`r current_year`)
 
@@ -432,11 +427,9 @@ f_stacked_bar_vertical(trust_stats_data)
 
 ```
 
-
-
 `r f_embed_xl(df = table_29_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
 
-The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) is similar to the level of trust in ONS statistics  (`r trust_in_ons_stats`%) (Chart 9). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%).
+The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) is similar to the level of trust in ONS statistics (`r trust_in_ons_stats`%) (Chart 9). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%).
 
 More respondents answered ‘don’t know’ with regard to NISRA statistics (`r dont_know_trust_nisra_stats`%) than for ONS statistics (`r dont_know_trust_ons_stats`%).
 
@@ -448,13 +441,11 @@ f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
 ```
 
-
-
 `r f_embed_xl(df = table_30_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
-## 6. Value
+## 5. Value
 
 The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r disagree_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
 
@@ -467,8 +458,6 @@ Amongst respondents who had a view, the proportion agreeing that NISRA statistic
 f_stacked_bar_vertical(stats_important_data)
 
 ```
-
-
 
 `r f_embed_xl(df = table_32_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
 
@@ -484,13 +473,11 @@ f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
 ```
 
-
-
 `r f_embed_xl(df = table_33_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
-## 7. Political Interference
+## 6. Political Interference
 
 Over four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. `r disagree_interference`% of respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 12).
 
@@ -504,8 +491,7 @@ f_stacked_bar_vertical(political_data)
 
 `r f_embed_xl(df = table_35_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
 
-
-In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure. 
+In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure.
 
 ### Chart 13: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
 
@@ -515,13 +501,11 @@ f_stacked_bar_vertical(political_nisra_ons_data)
 
 ```
 
-
-
 `r f_embed_xl(df = table_36_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
 
 `r f_borderline()`
 
-## 8. Confidentiality
+## 7. Confidentiality
 
 Over nine out of every ten respondents (`r agree_confidential`%) agree that personal information provided to NISRA will be kept confidential. The majority of the remaining respondents don’t know (`r dont_know_confidential`%) while 1 in every 100 (`r disagree_confidential`%) respondents disagree (Chart 14).
 
@@ -547,26 +531,24 @@ f_stacked_bar_vertical(condifential_nisra_ons_data)
 
 ```
 
-
-
 `r f_embed_xl(df = table_38_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
 
 `r f_borderline()`
 
 ## Useful links
 
-* [Previous bulletins in this series](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos)
-* [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/)
-* [Statistics produced by NISRA](https://www.nisra.gov.uk/statistics)
-* [Public Confidence in Official Statistics (ONS)](http://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)
+-   [Previous bulletins in this series](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos)
+-   [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/)
+-   [Statistics produced by NISRA](https://www.nisra.gov.uk/statistics)
+-   [Public Confidence in Official Statistics (ONS)](http://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)
 
 `r f_borderline()`
 
-## Status
+## Official Statistics
 
-These official statistics are produced in compliance with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/). Our [Statistics Charter/Statement of Compliance](https://www.nisra.gov.uk/publications/background-quality-report-public-awareness-and-trust-official-statistics) provides further details of how we apply the principles and practices of the Code in the production and publication of our official statistics. Our [Background Quality Report](https://www.nisra.gov.uk/publications/background-quality-report-public-awareness-and-trust-official-statistics) highlights areas that we are working to improve.
+These official statistics are produced in compliance with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
 
-Our statistical practice is regulated by the Office for Statistics Regulation (OSR). OSR sets the standards of trustworthiness, quality and value in the Code of Practice for Statistics that all producers of official statistics should adhere to. You are welcome to contact us directly with any comments about how we meet these standards by emailing <branch or lead statistician email address>. Alternatively, you can contact OSR by emailing regulation@statistics.gov.uk or via the [OSR website](https://osr.statisticsauthority.gov.uk/).
+Our statistical practice is regulated by the Office for Statistics Regulation (OSR). OSR sets the standards of trustworthiness, quality and value in the Code of Practice for Statistics that all producers of official statistics should adhere to. You are welcome to contact us directly with any comments about how we meet these standards by emailing <branch or lead statistician email address>. Alternatively, you can contact OSR by emailing [regulation\@statistics.gov.uk](mailto:regulation@statistics.gov.uk){.email} or via the [OSR website](https://osr.statisticsauthority.gov.uk/).
 
 `r f_borderline()`
 
@@ -584,17 +566,17 @@ The CHS is based on a systematic random sample of 9,000 addresses drawn each yea
 
 ### Survey Estimates
 
-Surveys gather information from a sample rather than from the whole population.  Results from surveys are always estimates, not precise figures.  This means that they have a margin of error which can have an impact on how changes in the numbers should be interpreted, especially in the short term.  An estimate of the margin of error due to the sampling process can be calculated and used to produce an interval of values known as a confidence interval.  This has been taken into account when carrying out significance tests.
+Surveys gather information from a sample rather than from the whole population. Results from surveys are always estimates, not precise figures. This means that they have a margin of error which can have an impact on how changes in the numbers should be interpreted, especially in the short term. An estimate of the margin of error due to the sampling process can be calculated and used to produce an interval of values known as a confidence interval. This has been taken into account when carrying out significance tests.
 
-Significance tests were carried out to determine if there were likely to be real differences between respondent groups.  The significance tests were carried out at 5% significance level and only differences which were statistically significant (p<0.05) are included in this report.  This means that there is at least a 95% probability that there is a genuine difference between the views of, for example, those in paid employment and those not in paid employment and the difference between the two groups in the sample is not simply explained by chance.
+Significance tests were carried out to determine if there were likely to be real differences between respondent groups. The significance tests were carried out at 5% significance level and only differences which were statistically significant (p\<0.05) are included in this report. This means that there is at least a 95% probability that there is a genuine difference between the views of, for example, those in paid employment and those not in paid employment and the difference between the two groups in the sample is not simply explained by chance.
 
 ### Weighting
 
-The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduces non-response bias to the results. To counter this, weights are applied to the analysis on the basis of age and gender. Weights are calculated based on how the age and gender profile of the survey respondents differs from that of the latest mid-year population estimates published by NISRA. The 2021 mid-year estimates (published in November 2022) were used for the 2022/23 CHS.  This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults across Northern Ireland, thus allowing inferences to be made about the population. The percentages given in the tables in this report are based on weighted data. The totals in the tables are not weighted.
+The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduces non-response bias to the results. To counter this, weights are applied to the analysis on the basis of age and gender. Weights are calculated based on how the age and gender profile of the survey respondents differs from that of the latest mid-year population estimates published by NISRA. The 2021 mid-year estimates (published in November 2022) were used for the 2022/23 CHS. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults across Northern Ireland, thus allowing inferences to be made about the population. The percentages given in the tables in this report are based on weighted data. The totals in the tables are not weighted.
 
 ### Quality Checks
 
-Both CATI and CAPI allow plausibility and consistency checks to be incorporated within the questionnaire to improve data quality. Data returned is coded and fully validated by CHS statistical staff, including treatment of outliers and detailed consistency checking including non-credible checks. A 100% check of all coded data is undertaken to ensure that coding procedures are of a high standard. 
+Both CATI and CAPI allow plausibility and consistency checks to be incorporated within the questionnaire to improve data quality. Data returned is coded and fully validated by CHS statistical staff, including treatment of outliers and detailed consistency checking including non-credible checks. A 100% check of all coded data is undertaken to ensure that coding procedures are of a high standard.
 
 On receipt of the CHS data, Statistical Support Branch validate and perform quality checks on the data. Range and plausibility checks are performed for returned and derived variables and the data are also checked for ‘missing values’. The data are compared with previous years to identify any unusual trends or distributions, or values that lie outside expected norms. All anomalies are queried with CHS staff who can re-check the coding and source data.
 
@@ -606,35 +588,36 @@ The achieved response rate for the CHS was also lower than normal in 2020/21 (16
 
 ### Further Information
 
-More information on the methodology used to produce these official statistics and the quality of the data is available in the [Background Quality Report](https://www.nisra.gov.uk/publications/background-quality-report-public-awareness-and-trust-official-statistics). 
-
+More information on the methodology used to produce these official statistics and the quality of the data is available in the [Background Quality Report](https://www.nisra.gov.uk/publications/background-quality-report-public-awareness-and-trust-official-statistics).
 
 `r f_borderline()`
 
 ## Appendix B: List of Detailed Tables
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
+[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-%60r%20current_year%60) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
 
-See [this link for full list of Detailed Tables](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)
-
+See [this link for full list of Detailed Tables](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)
 
 `r f_borderline()`
 
 ## Appendix C: Survey Questions
 
-See [this link for full list of Survey Questions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
-
+See [this link for full list of Survey Questions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-c.html)
 
 <!-- closing main div -->
-</div>
+:::
 
 `r f_footer()`
 
 <!-- message to rotate screen if it is below 400px width -->
-<div id="rotate-screen">
-  <p style="color: white;">Please rotate your screen for optimal experience</p>
-</div>
 
+::: {#rotate-screen}
+<p style="color: white;">
+
+Please rotate your screen for optimal experience
+
+</p>
+:::
 
 ```{js}
 
@@ -658,6 +641,5 @@ function tabOrder() {
 window.onload = tabOrder;
 ```
 
-
 <!-- close data-nics-theme div-->
-</div>
+:::
