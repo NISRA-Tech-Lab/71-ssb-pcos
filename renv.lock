@@ -1663,15 +1663,15 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "readspss",
       "RemoteUsername": "JanMarvin",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "readspss",
+      "RemoteRef": "main",
       "RemoteSha": "3ba9cc27aba964df7eadbcb51419d0cf307b2396",
       "Requirements": [
         "BH",
         "Rcpp"
       ],
-      "Hash": "d4fce1985641e0c9fd2621ed03d74aaa"
+      "Hash": "d0b818966e147739df9218e3d78adf71"
     },
     "readxl": {
       "Package": "readxl",
