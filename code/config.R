@@ -21,7 +21,7 @@ source(paste0(here(), "/code/path_to_data.R"))
 data_filename <- "2223_PCOS_FINAL_WEIGHTED_PASSWORDED.sav"
 password <- "CHS2223"
 
-ons_filename <- "ONS_PCOS_Data_2021.xlsx"
+ons_filename <- "ONS PCOS Data - 2021.xlsx"
 
 ##### YEAR OF DATA & REPORT TITLE  #####
 # Specify the current year your data is for.
@@ -72,7 +72,6 @@ library(forcats)
 library(xfun)
 library(htmltools)
 library(openxlsx)
-library(officer)
 library(readxl)
 library(lubridate)
 library(plotly)
@@ -99,8 +98,11 @@ library(rsvg)
 library(sjPlot)
 library(officedown)
 library(fontawesome)
-
-# https://cran.r-project.org/web/packages/svgtools/vignettes/svgtools.html
+library(pkgbuild)
+library(purrr)
+library(odsconvertr)
+library(devtools)
+library(remotes)
 
 # turn off warning messages
 options(warn = -1)

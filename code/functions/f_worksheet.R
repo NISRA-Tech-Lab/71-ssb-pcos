@@ -19,6 +19,8 @@ f_worksheet <- function(wb,
            style = pt,
            gridExpand = TRUE)
   
+  setRowHeights(wb, sheet_name, rows = r, heights = 30)
+  
   r <- r + length(title)
   
   if (length(tables) == 1) {
@@ -27,7 +29,7 @@ f_worksheet <- function(wb,
               startRow = r)
   } else {
     writeData(wb, sheet_name,
-              x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically, with one blank row in between, outlining", outlining),
+              x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, outlining", outlining),
               startRow = r)
   }
   
@@ -41,6 +43,8 @@ f_worksheet <- function(wb,
            style = pt2,
            rows = cr,
            cols = 1)
+  
+  setRowHeights(wb, "Contents", rows = cr, heights = 30)
   
   cr <<- cr + 1
   
@@ -59,6 +63,10 @@ f_worksheet <- function(wb,
              cols = 1,
              style = pt2)
     
+    if (i == 1) {
+      setRowHeights(wb, sheet_name, rows = r, heights = 30)
+    }
+    
     r <- r + 1
     
     if ("note" %in% names(tables[[i]])) {
@@ -74,15 +82,15 @@ f_worksheet <- function(wb,
     writeDataTable(wb, sheet_name,
                    x = tables[[i]]$data,
                    startRow = r,
-                   headerStyle = ch,
+                   headerStyle = ch_lined,
                    tableStyle = "none",
                    withFilter = FALSE,
                    tableName = table_name)
     
     addStyle(wb, sheet_name,
-             rows = c(r, (r + nrow(tables[[i]]$data))),
+             rows = r,
              cols = 1,
-             style = chl)
+             style = ch_lined_left)
     
     addStyle(wb, sheet_name,
              rows = (r + 1):(r + nrow(tables[[i]]$data) - 1),
@@ -93,8 +101,18 @@ f_worksheet <- function(wb,
     addStyle(wb, sheet_name,
              rows = (r + nrow(tables[[i]]$data)),
              cols = 2:(ncol(tables[[i]]$data)),
-             style = ns_bold,
+             style = ns_italic,
              gridExpand = TRUE)
+    
+    addStyle(wb, sheet_name,
+             rows = (r + nrow(tables[[i]]$data)),
+             cols = 1,
+             style = num_resp)
+    
+    addStyle(wb, sheet_name,
+             rows = (r + 1):(r + nrow(tables[[i]]$data) - 1),
+             cols = 1,
+             style = pt2)
     
     
     

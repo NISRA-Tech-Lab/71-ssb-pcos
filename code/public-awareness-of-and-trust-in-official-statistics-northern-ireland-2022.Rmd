@@ -41,7 +41,7 @@ source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
 ::: {#main role="main"}
 `r f_contact()`
 
-## Summary
+## 0. Overview
 
 This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
 
@@ -99,7 +99,7 @@ Although there has been a decrease since 2020 and 2021, awareness of NISRA in 20
 
 ```{r Chart 1}
 
-plot_ly(chart_1_data,
+plot_ly(aware_nisra_data,
         x = ~year,
         y = ~pct,
         type = "scatter",
@@ -174,7 +174,7 @@ Public awareness of NISRA remains lower than awareness of ONS, with three quarte
 
 ```{r Chart 2}
 
-plot_ly(chart_2_data,
+plot_ly(aware_nisra_ons_data,
         x = ~year,
         y = ~nisra,
         type = "bar",
@@ -228,7 +228,7 @@ Respondents who had not previously heard of NISRA were asked whether they had he
 
 ```{r Chart 3}
 
-plot_ly(chart_3_data,
+plot_ly(aware_stats_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -281,7 +281,7 @@ Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%),
 
 ```{r Chart 4}
 
-plot_ly(chart_4_data,
+plot_ly(aware_stats_by_nisra_data,
         x = ~yes,
         y = ~paste0(output, " "),
         type = "bar",
@@ -338,7 +338,7 @@ Trust in NISRA in the last three years (2022, 2021 and 2020) was significantly h
 
 ```{r Chart 5}
 
-f_stacked_bar_vertical(chart_5_data)
+f_stacked_bar_vertical(trust_nisra_data)
 
 ```
 
@@ -350,7 +350,7 @@ Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However
 
 ```{r Chart 6}
 
-f_stacked_bar_vertical(chart_6_data)
+f_stacked_bar_vertical(trust_nisra_ons_data)
 
 ```
 
@@ -368,7 +368,7 @@ A higher proportion of respondents don’t know if they trust NISRA or not (`r d
 
 ```{r Chart 7}
 
-plot_ly(chart_7_data,
+plot_ly(trust_institutions_data,
         x = ~trust,
         y = ~org,
         type = "bar",
@@ -423,7 +423,7 @@ Amongst those who expressed an opinion there was no significant difference in tr
 
 ```{r Chart 8}
 
-f_stacked_bar_vertical(chart_8_data)
+f_stacked_bar_vertical(trust_stats_data)
 
 ```
 
@@ -437,7 +437,7 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (`r
 
 ```{r Chart 9}
 
-f_stacked_bar_vertical(chart_9_data)
+f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
 ```
 
@@ -455,7 +455,7 @@ Amongst respondents who had a view, the proportion agreeing that NISRA statistic
 
 ```{r Chart 10}
 
-f_stacked_bar_vertical(chart_10_data)
+f_stacked_bar_vertical(stats_important_data)
 
 ```
 
@@ -469,7 +469,7 @@ The percentage of respondents who agree that the statistics produced are importa
 
 ```{r Chart 11}
 
-f_stacked_bar_vertical(chart_11_data)
+f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
 ```
 
@@ -485,7 +485,7 @@ Over four-fifths (`r free_from_interference`%) of respondents agree that statist
 
 ```{r Chart 12}
 
-f_stacked_bar_vertical(chart_12_data)
+f_stacked_bar_vertical(political_data)
 
 ```
 
@@ -497,7 +497,7 @@ In comparison, `r free_from_interference_ons`% of respondents agree that statist
 
 ```{r Chart 13}
 
-f_stacked_bar_vertical(chart_13_data)
+f_stacked_bar_vertical(political_nisra_ons_data)
 
 ```
 
@@ -515,7 +515,7 @@ When only those who expressed an opinion are considered, there is no significant
 
 ```{r Chart 14}
 
-f_stacked_bar_vertical(chart_14_data)
+f_stacked_bar_vertical(confidential_data)
 
 ```
 
@@ -527,7 +527,7 @@ In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` ag
 
 ```{r Chart 15}
 
-f_stacked_bar_vertical(chart_15_data)
+f_stacked_bar_vertical(condifential_nisra_ons_data)
 
 ```
 

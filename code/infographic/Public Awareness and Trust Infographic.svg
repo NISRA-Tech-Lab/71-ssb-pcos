@@ -3,11 +3,11 @@
 
 <svg
    version="1.1"
-   id="svg1"
+   id="svg8"
    width="1122.5601"
    height="793.76001"
    viewBox="0 0 1122.5601 793.76001"
-   sodipodi:docname="Trust Infographic.svg"
+   sodipodi:docname="Public Awareness and Trust Infographic.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -1598,14 +1598,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.97888529"
-     inkscape:cx="560.84201"
-     inkscape:cy="396.88"
+     inkscape:cx="561.3528"
+     inkscape:cy="396.88001"
      inkscape:window-width="1920"
      inkscape:window-height="991"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g1">
+     inkscape:current-layer="g8">
     <inkscape:page
        x="0"
        y="0"
@@ -1616,37 +1616,70 @@
        margin="0"
        bleed="0" />
   </sodipodi:namedview>
-  
-  <svg viewBox="15.5 3 23 23" xmlns="http://www.w3.org/2000/svg">
-   <g transform="translate(10, 1.5)">
-    <image height="20" width="10" href="Awareness1.svg" />
-   </g>
+  <svg
+     viewBox="15.5 2 24 24"
+     version="1.1"
+     id="svg1">
+    <g
+       transform="translate(10, 1.5)"
+       id="g1">
+      <image
+         height="20"
+         width="10"
+         href="Awareness1.svg"
+         id="image1" />
+    </g>
   </svg>
-
-  <svg viewBox="15.6 7.8 15.5 15.5" xmlns="http://www.w3.org/2000/svg">
-   <g transform="translate(18, 1.5)">
-    <image height="25" width="9" href="Awareness2.svg" />
-   </g>
+  <svg
+     viewBox="15 7.3 17 17"
+     version="1.1"
+     id="svg2">
+    <g
+       transform="translate(18, 1.5)"
+       id="g2">
+      <image
+         height="25"
+         width="9"
+         href="Awareness2.svg"
+         id="image2" />
+    </g>
   </svg>
-  
-  <svg viewBox="-15 4 20 20" xmlns="http://www.w3.org/2000/svg">
-    <image height="25" width="9" href="Awareness3.svg" />
+  <svg
+     viewBox="-12.7 5.2 18 18"
+     version="1.1"
+     id="svg3">
+    <image
+       height="25"
+       width="9"
+       href="Awareness3.svg"
+       id="image3" />
   </svg>
-
-  <svg viewBox="2 -1 16 16" xmlns="http://www.w3.org/2000/svg">
-    <image height="25" width="9" href="Awareness4.svg" />
+  <svg
+     viewBox="2 -.7 16 16"
+     version="1.1"
+     id="svg4">
+    <image
+       height="25"
+       width="9"
+       href="Awareness4.svg"
+       id="image4" />
   </svg>
-
-  <svg viewBox="-10 -6.5 20 20" xmlns="http://www.w3.org/2000/svg">
-    <image height="20" width="12" href="Awareness5.svg" />
+  <svg
+     viewBox="-9.5 -5.5 19 19"
+     version="1.1"
+     id="svg5">
+    <image
+       height="20"
+       width="12"
+       href="Awareness5.svg"
+       id="image5" />
   </svg>
-                  
   <g
-     id="g1"
+     id="g8"
      inkscape:groupmode="layer"
      inkscape:label="1">
     <g
-       id="g2" />
+       id="g5" />
     <g
        id="g3" />
     <g
@@ -1659,7 +1692,7 @@
          clip-path="url(#clipPath5)" />
     </g>
     <g
-       id="g5">
+       id="g6">
       <path
          id="path6"
          d="m 6.5,524.97 h 272 v 56.4 H 6.5 Z"
@@ -1667,7 +1700,7 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
     <g
-       id="g6">
+       id="g7">
       <text
          id="text6"
          xml:space="preserve"
@@ -2076,33 +2109,6 @@
          clip-path="url(#clipPath111)" />
     </g>
     <g
-       id="g115">
-      <path
-         id="path116"
-         d="m 324.1,255.82 h 75.25 v 20.85 H 324.1 Z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
-    </g>
-    <g
-       id="g118">
-      <path
-         id="path119"
-         d="m 543.8,345.17 h 23.95 v 71.35 H 543.8 Z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath120)" />
-      <image
-         width="1"
-         height="1"
-         style="image-rendering:optimizeSpeed"
-         preserveAspectRatio="none"
-         xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAAsCAYAAAA6sReEAAAABHNCSVQICAgIfAhkiAAAAIlJREFUeJzt0zEBgDAAxMAv/j3DGgd0uFOQJWfbO2Db9vwdADcxBIQhIAwBYQgIQ0AYAsIQEIaAMASEISAMAWEICENAGALCEBCGgDAEhCEgDAFhCAhDQBgCwhAQhoAwBIQhIAwBYQgIQ0AYAsIQEIaAMASEISAMAWEICENAGALCEBCGgDAEhCEgPiHWAVcOB+9tAAAAAElFTkSuQmCC"
-         mask="url(#mask120)"
-         id="image121"
-         transform="matrix(0,-94.24,21.44,0,730.16,333.13333)"
-         clip-path="url(#clipPath121)" />
-    </g>
-    <g
        id="g123">
       <path
          id="path124"
@@ -2146,5 +2152,4 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
   </g>
-  
 </svg>
