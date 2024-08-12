@@ -1,10 +1,13 @@
 # Styles for Page titles
 pt <- createStyle(
   textDecoration = "bold",
-  fontSize = 15
+  fontSize = 15,
+  valign = "top"
 )
 
-pt2 <- createStyle(textDecoration = "bold")
+pt2 <- createStyle(
+  textDecoration = "bold"
+)
 
 # Styles for column headers
 ch <- createStyle(
@@ -12,6 +15,24 @@ ch <- createStyle(
   valign = "bottom",
   wrapText = TRUE,
   textDecoration = "bold"
+)
+
+ch_lined <- createStyle(
+  halign = "right",
+  valign = "bottom",
+  wrapText = TRUE,
+  textDecoration = "bold",
+  border = "TopBottom",
+  borderStyle = c("thin", "double")
+)
+
+ch_lined_left <- createStyle(
+  halign = "left",
+  valign = "bottom",
+  wrapText = TRUE,
+  textDecoration = "bold",
+  border = "TopBottom",
+  borderStyle = c("thin", "double")
 )
 
 # Style for column header (left aligned)
@@ -42,6 +63,14 @@ ns_bold <- createStyle(
   textDecoration = "bold"
 )
 
+ns_italic <- createStyle(
+  numFmt = "#,##0",
+  halign = "right",
+  textDecoration = "italic",
+  border = "TopBottom",
+  borderStyle = c("thin", "thin")
+)
+
 
 
 # Style for decimal numbers
@@ -69,6 +98,12 @@ ns_comma <- createStyle(
 ns_percent <- createStyle(
   numFmt = "#0.0",
   halign = "right"
+)
+
+num_resp <- createStyle(
+  textDecoration = c("bold", "italic"),
+  border = "TopBottom",
+  borderStyle = c("thin", "thin")
 )
 
 
