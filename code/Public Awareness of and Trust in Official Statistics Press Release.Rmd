@@ -18,11 +18,13 @@ library(here)
 
 source(paste0(here(),"/code/data_prep.R"))
 
+
 red_text <- function(text) {
   ftext(text = text,
         prop = fp_text_lite(color = "red")
         )
 }
+
 ```
 
 <!---BLOCK_MULTICOL_START--->
