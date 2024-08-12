@@ -213,8 +213,6 @@ sort_order <- aware_stats_data %>%
 
 ## Chart 4: Awareness of specific NISRA statistics for respondents who were aware of NISRA ####
 
-PCOS1c_vars <- names(data_final)[grepl("PCOS1c", names(data_final)) & names(data_final) != "PCOS1c"]
-
 aware_stats_by_nisra_data <- data.frame(output = character(),
                            yes = numeric(),
                            no = numeric(),

@@ -55,6 +55,11 @@ ns3d <- createStyle(
   halign = "right"
 )
 
+ns1d <- createStyle(
+  numFmt = "#,##0.0",
+  halign = "right"
+)
+
 
 ns_comma <- createStyle(
   numFmt = "#,##0",

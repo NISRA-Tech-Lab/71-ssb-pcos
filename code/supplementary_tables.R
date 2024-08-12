@@ -19,9 +19,19 @@ for (i in 1:length(sup_q)) {
   
   for (j in 1:length(sup_covar)) {
     
+    weight <- if (grepl("AGE", sup_covar[j])) {
+      "W2"
+    } else if (sup_covar[j] == "SEX") {
+      "W1"
+    } else {
+      "W3"
+    }
+    
     crosstab <- data.frame(var = responses)
     
     names(crosstab) <- sup_q[i]
+    
+    unweighted <- crosstab
     
     headings <- levels(data_final[[sup_covar[j]]])
     
@@ -31,24 +41,37 @@ for (i in 1:length(sup_q)) {
         
         crosstab[[headings[k]]][l] <- data_final %>%
           filter(.[[sup_covar[j]]] == headings[k] & .[[sup_q[i]]] == responses[l]) %>%
-          pull("W3") %>%
+          pull(weight) %>%
           sum(na.rm = TRUE) / data_final %>%
           filter(.[[sup_covar[j]]] == headings[k]) %>%
-          pull("W3") %>%
+          pull(weight) %>%
           sum(na.rm = TRUE) * 100
+        
+        unweighted[[headings[k]]][l] <- data_final %>%
+          filter(.[[sup_covar[j]]] == headings[k] & .[[sup_q[i]]] == responses[l]) %>%
+          nrow()
         
       }
       
     }
     
+    unweighted <- unweighted %>%
+      adorn_totals()
+    
     writeData(wb, sheet_name,
-              x = paste0("Crosstab: ", sup_q[i], " by ", sup_covar[j]),
+              x = paste0("Crosstab: Weighted % of ", sup_q[i], " by ", sup_covar[j]),
               startRow = r)
+    
+    writeData(wb, sheet_name,
+              x = paste0("Crosstab: Unweighted N of ", sup_q[i], " by ", sup_covar[j]),
+              startRow = r,
+              startCol = 10)
     
     addStyle(wb, sheet_name,
              rows = r,
-             cols = 1,
-             style = ts)
+             cols = c(1, 10),
+             style = ts,
+             gridExpand = TRUE)
     
     r <- r + 1
     
@@ -61,10 +84,20 @@ for (i in 1:length(sup_q)) {
                rows = r,
                cols = 2:ncol(crosstab))
     
+    writeData(wb, sheet_name,
+              x = sup_covar[j],
+              startRow = r,
+              startCol = 11)
+    
+    mergeCells(wb, sheet_name,
+               rows = r,
+               cols = 11:(ncol(unweighted) + 9))
+    
     addStyle(wb, sheet_name,
              ch2,
              rows = r,
-             cols = 2)
+             cols = c(2, 11),
+             gridExpand = TRUE)
     
     r <- r + 1
     
@@ -75,16 +108,31 @@ for (i in 1:length(sup_q)) {
                    headerStyle = hs,
                    withFilter = FALSE)
     
+    writeDataTable(wb, sheet_name,
+                   x = unweighted,
+                   startRow = r,
+                   startCol = 10,
+                   tableStyle = "none",
+                   headerStyle = hs,
+                   withFilter = FALSE)
+    
     addStyle(wb, sheet_name,
              style = hs2,
              rows = r,
-             cols = 1)
+             cols = c(1, 10),
+             gridExpand = TRUE)
     
-    r <- r + nrow(crosstab) + 2
+    addStyle(wb, sheet_name,
+             style = ns1d,
+             rows = (r+1):(r + nrow(crosstab)),
+             cols = 2:ncol(crosstab),
+             gridExpand = TRUE)
+    
+    r <- r + nrow(unweighted) + 2
     
   }
   
-  setColWidths(wb, sheet_name, cols = 1, widths = 27)
+  setColWidths(wb, sheet_name, cols = c(1, 10), widths = 27)
   
 }
 

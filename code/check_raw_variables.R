@@ -1,6 +1,7 @@
 saveRDS(data_raw, paste0(data_folder, "Raw/PCOS ", current_year, " Dataset.RDS"))
 
 PCOS_vars <- c(names(data_raw)[grepl("PCOS", names(data_raw))], "DERHI", "EMPST2", "AGE")
+PCOS1c_vars <- names(data_raw)[grepl("PCOS1c", names(data_raw)) & names(data_raw) != "PCOS1c"]
 
 data_last <- readRDS(paste0(data_folder, "Raw/PCOS ", current_year - 1, " Dataset.RDS"))
 
@@ -116,6 +117,32 @@ setColWidths(wb, "Raw Variables",
 
 freezePane(wb, "Raw Variables",
            firstCol = TRUE)
+
+addWorksheet(wb, "PCOS1c Raw")
+
+r <- 1
+
+for (i in 1:length(PCOS1c_vars)) {
+  
+  responses <- levels(data_raw[[PCOS1c_vars[i]]])
+  
+  crosstab <- data.frame(PCOS1 = c("Yes", "No", "Don't know"))
+  
+  for (j in 1:length(responses)) {
+    
+    crosstab[[responses[j]]] <- c(data_raw %>%
+                                    filter(PCOS1 == "Yes" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+                                    nrow(),
+                                  data_raw %>%
+                                    filter(PCOS1 == "No" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+                                    nrow(),
+                                  data_raw %>%
+                                    filter(PCOS1 == "Don't know" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+                                    nrow())
+    
+  }
+  
+}
 
 saveWorkbook(wb,
              paste0(here(), "/outputs/Variable checks ", current_year, ".xlsx"),
