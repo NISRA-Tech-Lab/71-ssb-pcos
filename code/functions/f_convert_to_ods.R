@@ -32,7 +32,7 @@ f_convert_to_ods <- function(path) {
   
   
   #Run VBS script passing it the file paths
-  f_vbs_execute("code/functions/save.vbs",
+  f_vbs_execute(paste0(here(), "/code/functions/save.vbs"),
                 xlsx_all,
                 ods_all)
   

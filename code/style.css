@@ -727,3 +727,16 @@ a.cookies-infobar_btn, a.cookies-infobar_btn_reject, a.cookiesbarlink {
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
+
+.download-button {
+  background-color: #1f4e79;
+  border: 1px solid black;
+  margin-right: 5px;
+  padding: 2px;
+  width: 100px;
+}
+
+.download-button a {
+  color: #ffffff;
+  text-decoration: none;
+}

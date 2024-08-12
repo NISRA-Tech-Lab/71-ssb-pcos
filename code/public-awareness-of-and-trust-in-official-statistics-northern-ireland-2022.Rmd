@@ -164,7 +164,7 @@ plot_ly(aware_nisra_data,
 
 ```
 
-`r f_embed_xl(df = table_1a_data, sheet_title = paste0("Table 1: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
+`r f_embed_ods(df = table_1a_data, sheet_title = paste0("Table 1a: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
 
 ### Comparison with ONS
 
@@ -214,7 +214,7 @@ plot_ly(aware_nisra_ons_data,
 
 ```
 
-`r f_embed_xl(df = table_1b_data, sheet_title = paste0("Table 2: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
+`r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
 
 ## 2. Awareness of NISRA Statistics
 
@@ -342,7 +342,7 @@ f_stacked_bar_vertical(trust_nisra_data)
 
 ```
 
-`r f_embed_xl(df = table_3.1a_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
+`r f_embed_ods(df = table_3.1a_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
 
 Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However, when only those who gave an opinion are considered, trust levels are higher for NISRA.
 
@@ -354,7 +354,7 @@ f_stacked_bar_vertical(trust_nisra_ons_data)
 
 ```
 
-`r f_embed_xl(df = table_3.1b_data, sheet_title = paste0("Table 24: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")"), tab_name = "trust_nisra_ons")`
+`r f_embed_ods(df = table_3.1b_data, sheet_title = paste0("Table 24: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")"), tab_name = "trust_nisra_ons")`
 
 `r f_separator()`
 
@@ -427,7 +427,7 @@ f_stacked_bar_vertical(trust_stats_data)
 
 ```
 
-`r f_embed_xl(df = table_4a_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
+`r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
 
 The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) is similar to the level of trust in ONS statistics (`r trust_in_ons_stats`%) (Chart 9). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%).
 
@@ -441,7 +441,7 @@ f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
 ```
 
-`r f_embed_xl(df = table_4b_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
+`r f_embed_ods(df = table_4b_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
@@ -459,7 +459,7 @@ f_stacked_bar_vertical(stats_important_data)
 
 ```
 
-`r f_embed_xl(df = table_5a_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
+`r f_embed_ods(df = table_5a_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
 
 `r f_separator()`
 
@@ -473,7 +473,7 @@ f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
 ```
 
-`r f_embed_xl(df = table_5b_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
+`r f_embed_ods(df = table_5b_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
@@ -489,7 +489,7 @@ f_stacked_bar_vertical(political_data)
 
 ```
 
-`r f_embed_xl(df = table_6a_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
+`r f_embed_ods(df = table_6a_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
 
 In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure.
 
@@ -501,7 +501,7 @@ f_stacked_bar_vertical(political_nisra_ons_data)
 
 ```
 
-`r f_embed_xl(df = table_6b_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
+`r f_embed_ods(df = table_6b_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
 
 `r f_borderline()`
 
@@ -519,7 +519,7 @@ f_stacked_bar_vertical(confidential_data)
 
 ```
 
-`r f_embed_xl(df = table_7a_data, sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year), tab_name = "confidential_nisra")`
+`r f_embed_ods(df = table_7a_data, sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year), tab_name = "confidential_nisra")`
 
 In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` agree that personal information provided to ONS will be kept confidential. This is significantly lower than for NISRA (Chart 15).
 
@@ -531,7 +531,7 @@ f_stacked_bar_vertical(condifential_nisra_ons_data)
 
 ```
 
-`r f_embed_xl(df = table_7b_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
+`r f_embed_ods(df = table_7b_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
 
 `r f_borderline()`
 
