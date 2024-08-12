@@ -26,7 +26,7 @@ intro_text <- c(paste("Public Awareness of and Trust in Official Statistics, Nor
                 paste0("2018 to ", current_year, " data: Northern Ireland Continuous Household Survey (CHS)"),
                 "2006 to 2016 data: northern Ireland Omnibus Survey (April 2009, April 2010, June 2012, September 2014, October 2016)",
                 paste0("ONS data (2018 to ", ons_year, "): Public Confidence in Official Statistics (PCOS) survey"),
-                "ONS data(2014 ot 2016): British Social Attitudes survey (BSA)",
+                "ONS data (2014 to 2016): British Social Attitudes survey (BSA)",
                 "Limitations:",
                 "The figures presented in these tables were obtained from a sample of the population and are therefore estimates, not precise figures. This means that they have a margin of error. Significance tests can be carried out to determine if the observed differences in the percentages for different response groups are likely to be real differences or due to sampling error.",
                 "Weighting:",
@@ -120,7 +120,7 @@ f_worksheet(wb,
             sheet_name = "Awareness_of_NISRA",
             contents = "Awareness of the Northern Ireland Statistics and Research Agency (NISRA)",
             title = "Qu 1: Before being contacted about this survey had you heard of NISRA, the Northern Ireland Statistics and Research Agency?",
-            outlining = "awareness of NISRA.",
+            outlining = "outlining awareness of NISRA.",
             tables = list(
               list(
                 data = table_1a_data,
@@ -148,8 +148,8 @@ f_worksheet(wb,
             sheet_name = "Awareness_NISRA_Statistics",
             contents = "Awareness of NISRA statistics among those who had not previously heard of NISRA",
             title = c("Question asked of those who were not previously aware of NISRA before being contacted about the survey:",
-                      "Q: NISRA produces official statistics for Northern Ireland on a wide range of issues. Have you heard of these?"),
-            outlining = "awareness of specified statistics produced by NISRA, among those who had not previously heard of NISRA.",
+                      "Qu 2.1: NISRA produces official statistics for Northern Ireland on a wide range of issues. Have you heard of these?"),
+            outlining = "outlining awareness of specified statistics produced by NISRA, among those who had not previously heard of NISRA.",
             tables = list(
               list(data = table_2.1a_data,
                    title = paste("Table 2.1a: Aware of NISRA statistics on the number of deaths in Northern Ireland,", current_year)
@@ -190,8 +190,8 @@ f_worksheet(wb,
             sheet_name = "Aware_Statistics_by_NISRA",
             contents = "Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA",
             title = c("Question asked of those who were aware of NISRA before being contacted about the survey:",
-                      "Q: NISRA produces official statistics for Northern Ireland on a wide range of issues. Were you aware that this information was produced by NISRA statisticians?"),
-            outlining = "awareness that specified statistics are produced by NISRA statisticians, among those who had heard of NISRA.",
+                      "Qu 2.2: NISRA produces official statistics for Northern Ireland on a wide range of issues. Were you aware that this information was produced by NISRA statisticians?"),
+            outlining = "outlining awareness that specified statistics are produced by NISRA statisticians, among those who had heard of NISRA.",
             tables = list(
               list(data = table_2.2a_data,
                    title = paste("Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians,", current_year)
@@ -231,8 +231,8 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Trust_NISRA",
             contents = "Trust in NISRA",
-            title = "Q: For each institution, please indicate whether you tend to trust it or tend not to trust it - NISRA?",
-            outlining = "trust in NISRA as an institution.",
+            title = "Qu 3.1: For each institution, please indicate whether you tend to trust it or tend not to trust it - NISRA?",
+            outlining = "outlining trust in NISRA as an institution.",
             tables = list(
               list(
                 data = table_3.1a_data,
@@ -240,7 +240,11 @@ f_worksheet(wb,
               ),
               list(
                 data = table_3.1b_data,
-                title = paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")
+                title = if (current_year == ons_year) {
+                    paste0("Table 3.1b: Trust in NISRA and ONS, ", current_year)
+                  } else {
+                    paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")
+                  }
               ),
               list(
                 data = table_3.1c_data,
@@ -254,8 +258,8 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Trust_Civil_Service",
             contents = "Trust in the Civil Service",
-            title = "Q: For each institution, please indicate whether you tend to trust it or tend not to trust it - The Civil Service?",
-            outlining = "trust in the Civil Service.",
+            title = "Qu 3.2: For each institution, please indicate whether you tend to trust it or tend not to trust it - The Civil Service?",
+            outlining = "outlining trust in the Civil Service.",
             tables = list(
               list(
                 data = table_3.2_data,
@@ -269,8 +273,8 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Trust_NI_Assembly",
             contents = "Trust in the Northern Ireland Assembly", 
-            title = "Q: For each institution, please indicate whether you tend to trust it or tend not to trust it - The Civil Service?",
-            outlining = "trust in the Northern Ireland Assembly",
+            title = "Qu 3.3: For each institution, please indicate whether you tend to trust it or tend not to trust it - The NI Assembly?",
+            outlining = "outlining trust in the Northern Ireland Assembly",
             tables = list(
               list(
                 data = table_3.3_data,
@@ -285,8 +289,8 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Trust_Media",
             contents = "Trust in the Media",
-            title = "Q: For each institution, please indicate whether you tend to trust it or tend not to trust it - The Media?",
-            outlining = "trust in the media",
+            title = "Qu 3.4: For each institution, please indicate whether you tend to trust it or tend not to trust it - The Media?",
+            outlining = "outlining trust in the media",
             tables = list(
               list(
                 data = table_3.4_data,
@@ -300,8 +304,8 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Trust_NISRA_Statistics",
             contents = "Trust in the statistics produced by NISRA",
-            title = "Q: Personally, how much trust do you have in the statistics produced by NISRA?",
-            outlining = "trust in the statistics produced by NISRA",
+            title = "Qu 4: Personally, how much trust do you have in the statistics produced by NISRA?",
+            outlining = "outlining trust in the statistics produced by NISRA",
             tables = list(
               list(
                 data = table_4a_data,
@@ -309,7 +313,11 @@ f_worksheet(wb,
               ),
               list(
                 data = table_4b_data,
-                title = paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")
+                title = if (current_year == ons_year) {
+                    paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")
+                  } else {
+                    paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")
+                  }
               ),
               list(
                 data = table_4c_data,
@@ -327,19 +335,23 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Value",
             contents = "Value",
-            title = "Q: Statistics produced by NISRA are important to understand Northern Ireland",
-            outlining = "the value in NISRA statistics.",
+            title = "Qu 5: Statistics produced by NISRA are important to understand Northern Ireland",
+            outlining = "which concern the value in NISRA statistics.",
             tables = list(
               list(
                 data = table_5a_data,
                 title = paste0("Table 5a: Statistics produced by NISRA are important to understand Northern Ireland, 2016 to ", current_year)
               ),
               list(
-                data = table_33_data,
-                title = paste0("Table 5b: Statistics produced are important to understand our country (", current_year, ") and ONS (", ons_year, ")")
+                data = table_5b_data,
+                title = if (current_year == ons_year) {
+                    paste0("Table 5b: Statistics produced are important to understand our country (NISRA and ONS), ", current_year)
+                  } else {
+                    paste0("Table 5b: Statistics produced are important to understand our country (NISRA ", current_year, " and ONS ", ons_year, ")")
+                  }
               ),
               list(
-                data = table_34_data,
+                data = table_5c_data,
                 title = paste0("Table 5c: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, ", current_year)
               )  
             )
@@ -350,16 +362,20 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Political_Interference",
             contents = "Political Interference",
-            title = "Q: Statistics produced by NISRA are free from political interference",
-            outlining = "agreement with the belief that statistics produced by NISRA are free from political interference.",
+            title = "Qu 6: Statistics produced by NISRA are free from political interference",
+            outlining = "which outline agreement with the belief that statistics produced by NISRA are free from political interference.",
             tables = list(
               list(
                 data = table_6a_data,
                 title = paste0("Table 6a: Statistics produced by NISRA are free from political interference, 2014 to ", current_year)
               ),
               list(
-                data = table_36_data,
-                title = paste0("Table 6b: Statistics produced are free from political interference (", current_year, ") and ONS (", ons_year, ")")
+                data = table_6b_data,
+                title = if (current_year == ons_year) {
+                  paste0("Table 6b: Statistics produced are free from political interference (NISRA and ONS) , ", current_year)
+                } else {
+                  paste0("Table 6b: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")")
+                }
               ) 
             )
 )
@@ -369,16 +385,20 @@ f_worksheet(wb,
 f_worksheet(wb,
             sheet_name = "Confidentiality",
             contents = "Confidentiality",
-            title = "Q: I believe that personal information provided to NISRA will be kept confidential",
-            outlining = "agreement with the belief that statistics produced by NISRA will be kept confidential.",
+            title = "Qu 7: I believe that personal information provided to NISRA will be kept confidential",
+            outlining = "which concern belief that statistics produced by NISRA will be kept confidential.",
             tables = list(
               list(
                 data = table_7a_data,
                 title = paste0("Table 7a: Personal information provided to NISRA will be kept confidential, 2014 to ", current_year)
               ),
               list(
-                data = table_38_data,
-                title = paste0("Table 7b: Personal information provided will be kept confidential (", current_year, ") and ONS (", ons_year, ")")
+                data = table_7b_data,
+                title = if (current_year == ons_year) {
+                  paste0("Table 7b: Personal information provided will be kept confidential (NISRA and ONS), ", current_year)
+                } else {
+                  paste0("Table 7b: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")")
+                }
               ) 
             )
 )
@@ -387,3 +407,4 @@ f_worksheet(wb,
 
 # Save workbook ####
 saveWorkbook(wb, paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"), overwrite = TRUE)
+openXL(paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"))

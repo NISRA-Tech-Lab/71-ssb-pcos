@@ -13,13 +13,27 @@ f_worksheet <- function(wb,
             x = title,
             startRow = r)
   
-  addStyle(wb, sheet_name,
-           rows = r:length(title),
-           cols = 1,
-           style = pt,
-           gridExpand = TRUE)
+  if (length(title) == 1) {
+    addStyle(wb, sheet_name,
+             rows = r,
+             cols = 1,
+             style = pt,
+             gridExpand = TRUE)
+  } else {
+    addStyle(wb, sheet_name,
+             rows = r,
+             cols = 1,
+             style = pt_blue,
+             gridExpand = TRUE)
+    
+    addStyle(wb, sheet_name,
+             rows = (r + 1):length(title),
+             cols = 1,
+             style = pt,
+             gridExpand = TRUE)
+  }
   
-  setRowHeights(wb, sheet_name, rows = r, heights = 30)
+  setRowHeights(wb, sheet_name, rows = r:length(title), heights = 30)
   
   r <- r + length(title)
   
@@ -29,7 +43,7 @@ f_worksheet <- function(wb,
               startRow = r)
   } else {
     writeData(wb, sheet_name,
-              x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, outlining", outlining),
+              x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, ", outlining),
               startRow = r)
   }
   
@@ -52,7 +66,7 @@ f_worksheet <- function(wb,
     
     table_name <- sub(":.*", "", tables[[i]]$title) %>%
       sub(" ", "_", .) %>%
-      tolower(.) 
+      tolower(.)
     
     writeData(wb, sheet_name,
               tables[[i]]$title,
@@ -85,7 +99,9 @@ f_worksheet <- function(wb,
                    headerStyle = ch_lined,
                    tableStyle = "none",
                    withFilter = FALSE,
-                   tableName = table_name)
+                   tableName = table_name,
+                   keepNA = TRUE,
+                   na.string = "No data")
     
     addStyle(wb, sheet_name,
              rows = r,
@@ -114,10 +130,14 @@ f_worksheet <- function(wb,
              cols = 1,
              style = pt2)
     
-    
+    table_title <- if (grepl("\\[Note", tables[[i]]$title)) {
+      sub(" \\[.*", "", tables[[i]]$title)
+    } else {
+      tables[[i]]$title
+    }
     
     writeFormula(wb, "Contents",
-                 x = makeHyperlinkString(sheet = sheet_name, row = r - 1, col = 1, text = tables[[i]]$title),
+                 x = makeHyperlinkString(sheet = sheet_name, row = r - 1, col = 1, text = table_title),
                  startRow = cr)
     
     cr <<- cr + 1

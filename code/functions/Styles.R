@@ -5,6 +5,13 @@ pt <- createStyle(
   valign = "top"
 )
 
+pt_blue <- createStyle(
+  textDecoration = "bold",
+  fontSize = 15,
+  valign = "top",
+  fontColour = "#0066FF"
+)
+
 pt2 <- createStyle(
   textDecoration = "bold"
 )
