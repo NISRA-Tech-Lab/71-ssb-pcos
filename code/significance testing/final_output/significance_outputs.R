@@ -10,6 +10,315 @@ if (!exists (paste0(here(), "/outputs/significance outputs"))) {
 wb <- createWorkbook()
 modifyBaseFont(wb, fontSize = 12, fontName = "Arial")
 
+# This year vs last year with DKs ####
+
+addWorksheet(wb, paste0(current_year, "vs", current_year - 1, "withDKs"))
+
+setColWidths(wb,  paste0(current_year, "vs", current_year - 1, "withDKs"),
+             cols = c(5, 10),
+             widths = 5)
+
+r <- 1
+
+writeData(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
+          x = paste0(current_year, " vs ", current_year - 1, " with Don't Know responses (UNWEIGHTED)"),
+          startRow = r)
+
+addStyle(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## Awareness of NISRA ####
+
+f_insert_sig_table(df = awareness_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Awareness of NISRA - ", current_year - 1, " vs ", current_year))
+
+## Trust NISRA ####
+
+f_insert_sig_table(df = trust_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(trust_year) - 3
+
+f_insert_sig_table(df = distrust_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Distrust in NISRA - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_year) + 2)
+
+r <- r - nrow(distrust_year) - 3
+
+f_insert_sig_table(df = dont_know_trust,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know trust in NISRA - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_year) + ncol(distrust_year) + 3)
+
+## Trust NISRA statistics ####
+
+f_insert_sig_table(df = trust_stats_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Trust in NISRA Statistics - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(trust_stats_year) - 3
+
+f_insert_sig_table(df = distrust_stats_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Distrust in NISRA Statistics - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_stats_year) + 2)
+
+r <- r - nrow(distrust_stats_year) - 3
+
+f_insert_sig_table(df = dont_know_trust_stats_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know trust in NISRA Statistics - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_stats_year) + ncol(distrust_stats_year) + 3)
+
+## NISRA Stats Importance ####
+
+f_insert_sig_table(df = value_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA Stats are important - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(value_year) - 3
+
+f_insert_sig_table(df = no_value_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA stats are not important - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + 2)
+
+r <- r - nrow(no_value_year) - 3
+
+f_insert_sig_table(df = dont_know_value_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if NISRA stats are important - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + ncol(no_value_year) + 3)
+
+## Interference ####
+
+f_insert_sig_table(df = interference_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA Stats are free from political interference - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(interference_year) - 3
+
+f_insert_sig_table(df = no_interference_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA stats are not free from political interference - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + 2)
+
+r <- r - nrow(no_interference_year) - 3
+
+f_insert_sig_table(df = dont_know_interference_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if NISRA stats are free from political interference - ", current_year, " vs ", current_year - 1),
+                   c = ncol(value_year) + ncol(no_value_year) + 3)
+
+## Confidential ####
+
+f_insert_sig_table(df = confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(confidential_year) - 3
+
+f_insert_sig_table(df = no_confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("NISRA does not keep my information confidential - ", current_year, " vs ", current_year - 1),
+                   c = ncol(confidential_year) + 2)
+
+r <- r - nrow(no_confidential_year) - 3
+
+f_insert_sig_table(df = dont_know_confidential_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1),
+                   c = ncol(confidential_year) + ncol(no_confidential_year) + 3)
+
+## Trust in Civil Service ####
+
+f_insert_sig_table(df = trust_nics_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Trust in the Civil Service - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(trust_nics_year) - 3
+
+f_insert_sig_table(df = distrust_nics_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Distrust in the Civil Service - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_nics_year) + 2)
+
+r <- r - nrow(distrust_nics_year) - 3
+
+f_insert_sig_table(df = dont_know_trust_nics,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if trust in the Civil Service - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_nics_year) + ncol(distrust_nics_year) + 3)
+
+## Trust in NI Assembly ####
+
+f_insert_sig_table(df = trust_assembly_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Trust in the Assembly - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(trust_assembly_year) - 3
+
+f_insert_sig_table(df = distrust_assembly_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Distrust in the Assembly - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_assembly_year) + 2)
+
+r <- r - nrow(distrust_assembly_year) - 3
+
+f_insert_sig_table(df = dont_know_trust_assembly,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if trust in the Assembly - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_assembly_year) + ncol(distrust_assembly_year) + 3)
+
+## Trust in the Media ####
+
+f_insert_sig_table(df = trust_media_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Trust in the Media - ", current_year, " vs ", current_year - 1))
+
+r <- r - nrow(trust_media_year) - 3
+
+f_insert_sig_table(df = distrust_media_year,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Distrust in the Media - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_media_year) + 2)
+
+r <- r - nrow(distrust_media_year) - 3
+
+f_insert_sig_table(df = dont_know_trust_media,
+                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
+                   title = paste0("Don't know if trust in the Media - ", current_year, " vs ", current_year - 1),
+                   c = ncol(trust_media_year) + ncol(distrust_media_year) + 3)
+
+# This year vs last year excl DKs ####
+
+addWorksheet(wb, paste0(current_year, "vs", current_year - 1, "exclDKs"))
+
+setColWidths(wb,  paste0(current_year, "vs", current_year - 1, "exclDKs"),
+             cols = c(5, 10),
+             widths = 5)
+
+r <- 1
+
+writeData(wb, paste0(current_year, "vs", current_year - 1, "exclDKs"),
+          x = paste0(current_year, " vs ", current_year - 1, " excl Don't Know responses (UNWEIGHTED)"),
+          startRow = r)
+
+addStyle(wb, paste0(current_year, "vs", current_year - 1, "exclDKs"),
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## Trust in NISRA ####
+
+f_insert_sig_table(trust_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1))
+
+## Trust in NISRA Statistics ####
+
+f_insert_sig_table(trust_stats_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("Trust in NISRA Statistics - ", current_year, " vs ", current_year - 1))
+
+## NISRA Stats Importance ####
+
+f_insert_sig_table(value_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("NISRA Stats are important - ", current_year, " vs ", current_year - 1))
+
+## Interference ####
+
+f_insert_sig_table(interference_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("NISRA Stats are free from political interference - ", current_year, " vs ", current_year - 1))
+
+## Confidential ####
+
+f_insert_sig_table(confidential_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1))
+
+## Trust in the Civil Service ####
+
+f_insert_sig_table(trust_nics_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("Trust in the Civil Service - ", current_year, " vs ", current_year - 1))
+
+## Trust in the Assembly ####
+
+f_insert_sig_table(trust_assembly_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("Trust in the Assembly - ", current_year, " vs ", current_year - 1))
+
+## Trust in the Media ####
+
+f_insert_sig_table(trust_media_year_ex_dk,
+                   sheet = paste0(current_year, "vs", current_year - 1, "exclDKs"),
+                   title = paste0("Trust in the Media - ", current_year, " vs ", current_year - 1))
+
+# ONS vs NISRA ####
+
+addWorksheet(wb, "ONSvsNISRA")
+
+r <- 1
+
+writeData(wb, "ONSvsNISRA",
+          x = "NISRA vs ONS Comparisons (UNWEIGHTED)",
+          startRow = r)
+
+addStyle(wb, "ONSvsNISRA",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## Heard of NISRA vs heard of ONS ####
+
+f_insert_sig_table(df = heard_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Awareness of NISRA vs Awareness of ONS")
+
+## Trust NISRA vs Trust ONS ####
+
+f_insert_sig_table(df = trust_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Trust in NISRA vs Trust in ONS")
+
+## Trust NISRA stats vs Trust ONS stats ####
+
+f_insert_sig_table(df = trust_stats_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Trust NISRA stats vs Trust ONS stats")
+
+## Stats are important: NISRA vs ONS ####
+
+f_insert_sig_table(df = value_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Stats are important: NISRA vs ONS")
+
+## Stats are free from political interference: NISRA vs ONS ####
+
+f_insert_sig_table(df = interference_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Stats are free from political interference: NISRA vs ONS")
+
+## Information will be kept confidential: NISRA vs ONS ####
+
+f_insert_sig_table(df = confidential_nisra_ons,
+                   sheet = "ONSvsNISRA",
+                   title = "Information will be kept confidential: NISRA vs ONS")
+
 # Awareness of NISRA ####
  
 addWorksheet(wb, "Awareness")
@@ -469,36 +778,36 @@ f_insert_z_table(df = confidential_dont_know_qual_z_scores,
 
 # ONS vs NISRA ####
 
-addWorksheet(wb, "ONSvsNISRA")
-
-r <- 1
-
-writeData(wb, "ONSvsNISRA",
-          x = "ONS vs NSIRA",
-          startRow = r)
-
-addStyle(wb, "ONSvsNISRA",
-         style = pt,
-         rows = r,
-         cols = 1)
-
-r <- r + 2
-
-f_insert_sig_table(df = nisra_ons_trust,
-                   sheet = "ONSvsNISRA",
-                   title = paste0("Trust in ONS (", ons_year, ") vs Trust in NISRA (", current_year, ")"))
-
-f_insert_sig_table(df = trust_stats_year,
-                   sheet = "ONSvsNISRA",
-                   title = paste0("Trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
-
-f_insert_sig_table(df = distrust_stats_year,
-                   sheet = "ONSvsNISRA",
-                   title = paste0("Disrust in NISRA statistics - ", current_year - 1, " vs ", current_year))
-
-f_insert_sig_table(df = dont_know_trust_stats_year,
-                   sheet = "ONSvsNISRA",
-                   title = paste0("Don't know if trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
+# addWorksheet(wb, "ONSvsNISRA")
+# 
+# r <- 1
+# 
+# writeData(wb, "ONSvsNISRA",
+#           x = "ONS vs NSIRA",
+#           startRow = r)
+# 
+# addStyle(wb, "ONSvsNISRA",
+#          style = pt,
+#          rows = r,
+#          cols = 1)
+# 
+# r <- r + 2
+# 
+# f_insert_sig_table(df = nisra_ons_trust,
+#                    sheet = "ONSvsNISRA",
+#                    title = paste0("Trust in ONS (", ons_year, ") vs Trust in NISRA (", current_year, ")"))
+# 
+# f_insert_sig_table(df = trust_stats_year,
+#                    sheet = "ONSvsNISRA",
+#                    title = paste0("Trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
+# 
+# f_insert_sig_table(df = distrust_stats_year,
+#                    sheet = "ONSvsNISRA",
+#                    title = paste0("Distrust in NISRA statistics - ", current_year - 1, " vs ", current_year))
+# 
+# f_insert_sig_table(df = dont_know_trust_stats_year,
+#                    sheet = "ONSvsNISRA",
+#                    title = paste0("Don't know if trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
 
 # Trust NISRA Statistics ####
 
@@ -580,7 +889,7 @@ f_insert_sig_table(df = trust_nics_year,
 
 f_insert_sig_table(df = distrust_nics_year,
                    sheet = "Institutions",
-                   title = paste0("Disrust in the Civil Service - ", current_year, " vs ", current_year - 1))
+                   title = paste0("Distrust in the Civil Service - ", current_year, " vs ", current_year - 1))
 
 f_insert_sig_table(df = dont_know_trust_nics,
                    sheet = "Institutions",
@@ -592,7 +901,7 @@ f_insert_sig_table(df = trust_assembly_year,
 
 f_insert_sig_table(df = distrust_assembly_year,
                    sheet = "Institutions",
-                   title = paste0("Disrust in the Assembly - ", current_year, " vs ", current_year - 1))
+                   title = paste0("Distrust in the Assembly - ", current_year, " vs ", current_year - 1))
 
 f_insert_sig_table(df = dont_know_trust_assembly,
                    sheet = "Institutions",
@@ -604,132 +913,13 @@ f_insert_sig_table(df = trust_media_year,
 
 f_insert_sig_table(df = distrust_media_year,
                    sheet = "Institutions",
-                   title = paste0("Disrust in the Media - ", current_year, " vs ", current_year - 1))
+                   title = paste0("Distrust in the Media - ", current_year, " vs ", current_year - 1))
 
 f_insert_sig_table(df = dont_know_trust_media,
                    sheet = "Institutions",
                    title = paste0("Don't know if trust in the Media - ", current_year, " vs ", current_year - 1))
 
-# This year vs last year with DKs ####
 
-addWorksheet(wb, paste0(current_year, "vs", current_year - 1, "withDKs"))
-
-setColWidths(wb,  paste0(current_year, "vs", current_year - 1, "withDKs"),
-             cols = c(5, 10),
-             widths = 5)
-
-r <- 1
-
-writeData(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
-          x = paste0(current_year, " vs ", current_year - 1, " with Don't Know responses"),
-          startRow = r)
-
-addStyle(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
-         style = pt,
-         rows = r,
-         cols = 1)
-
-r <- r + 2
-
-## Trust NISRA ####
-
-f_insert_sig_table(df = trust_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1))
-
-r <- r - nrow(trust_year) - 3
-
-f_insert_sig_table(df = distrust_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Distrust in NISRA - ", current_year, " vs ", current_year - 1),
-                   c = ncol(trust_year) + 2)
-
-r <- r - nrow(distrust_year) - 3
-
-f_insert_sig_table(df = dont_know_trust,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Don't know trust in NISRA - ", current_year, " vs ", current_year - 1),
-                   c = ncol(trust_year) + ncol(distrust_year) + 3)
-
-## Trust NISRA statistics ####
-
-f_insert_sig_table(df = trust_stats_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Trust in NISRA Statistics - ", current_year, " vs ", current_year - 1))
-
-r <- r - nrow(trust_stats_year) - 3
-
-f_insert_sig_table(df = distrust_stats_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Distrust in NISRA Statistics - ", current_year, " vs ", current_year - 1),
-                   c = ncol(trust_stats_year) + 2)
-
-r <- r - nrow(distrust_stats_year) - 3
-
-f_insert_sig_table(df = dont_know_trust_stats_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Don't know trust in NISRA Statistics - ", current_year, " vs ", current_year - 1),
-                   c = ncol(trust_stats_year) + ncol(distrust_stats_year) + 3)
-
-## NISRA Stats Importance ####
-
-f_insert_sig_table(df = value_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA Stats are important - ", current_year, " vs ", current_year - 1))
-
-r <- r - nrow(value_year) - 3
-
-f_insert_sig_table(df = no_value_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA stats are not important - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + 2)
-
-r <- r - nrow(no_value_year) - 3
-
-f_insert_sig_table(df = dont_know_value_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Don't know if NISRA stats are important - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + ncol(no_value_year) + 3)
-
-## Interference ####
-
-f_insert_sig_table(df = interference_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA Stats are free from political interference - ", current_year, " vs ", current_year - 1))
-
-r <- r - nrow(value_year) - 3
-
-f_insert_sig_table(df = no_interference_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA stats are not free from political interference - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + 2)
-
-r <- r - nrow(no_value_year) - 3
-
-f_insert_sig_table(df = dont_know_interference_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Don't know if NISRA stats are free from political interference - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + ncol(no_value_year) + 3)
-
-## Confidential ####
-
-f_insert_sig_table(df = confidential_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1))
-
-r <- r - nrow(value_year) - 3
-
-f_insert_sig_table(df = no_confidential_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("NISRA does not keep my information confidential - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + 2)
-
-r <- r - nrow(no_value_year) - 3
-
-f_insert_sig_table(df = dont_know_confidential_year,
-                   sheet = paste0(current_year, "vs", current_year - 1, "withDKs"),
-                   title = paste0("Don't know if NISRA keeps my information confidential - ", current_year, " vs ", current_year - 1),
-                   c = ncol(value_year) + ncol(no_value_year) + 3)
 
 # ONSvNISRAexcDKs ####
 
@@ -1039,61 +1229,10 @@ f_insert_z_table(df = confidential_qual_z_scores_ex_dk,
                  sheet = "ConfExDK",
                  title = "NISRA will keep my information confidential: by Age Group (exc DKs)")
 
-# NatCen comparisons ####
- 
-addWorksheet(wb, "NatCen Comparisons")
-
-r <- 1
-
-writeData(wb, "NatCen Comparisons",
-          x = "NISRA vs ONS Comparisons",
-          startRow = r)
-
-addStyle(wb, "NatCen Comparisons",
-         style = pt,
-         rows = r,
-         cols = 1)
-
-r <- r + 2
-
-## Heard of NISRA vs heard of ONS ####
-
-f_insert_sig_table(df = heard_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Heard of NISRA vs Heard of ONS")
-
-## Trust NISRA vs Trust ONS ####
-
-f_insert_sig_table(df = trust_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Trust in NISRA vs Trust in ONS")
-
-## Trust NISRA stats vs Trust ONS stats ####
-
-f_insert_sig_table(df = trust_stats_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Trust NISRA stats vs Trust ONS stats")
-
-## Stats are important: NISRA vs ONS ####
-
-f_insert_sig_table(df = value_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Stats are important: NISRA vs ONS")
-
-## Stats are free from political interference: NISRA vs ONS ####
-
-f_insert_sig_table(df = interference_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Stats are free from political interference: NISRA vs ONS")
-
-## Information will be kept confidential: NISRA vs ONS ####
-
-f_insert_sig_table(df = confidential_nisra_ons,
-                   sheet = "NatCen Comparisons",
-                   title = "Information will be kept confidential: NISRA vs ONS")
-
 # Save Workbook ####
 
 saveWorkbook(wb,
              paste0(here(), "/outputs/significance outputs/significance output ", current_year, ".xlsx"),
              overwrite = TRUE)
+
+openXL(paste0(here(), "/outputs/significance outputs/significance output ", current_year, ".xlsx"))

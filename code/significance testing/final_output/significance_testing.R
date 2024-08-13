@@ -27,11 +27,150 @@ unweighted_ons <- unweighted_ons %>%
          `Tend to disagree/Strongly disagree` = `Tend to disagree` + `Strongly disagree`) %>%
   select(-`Prefer not to answer`)
 
-# Awareness of NISRA ####
+# This year vs last year with DKs ####
 
-## Current Year vs Previous Year ####
+## Awareness of NISRA ####
 
 awareness_year <- f_significance_year("PCOS1", "Yes")
+
+## Trust NISRA #### 
+
+trust_year <- f_significance_year("TrustNISRA2", "Trust a great deal/Tend to trust")
+
+distrust_year <- f_significance_year("TrustNISRA2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust <- f_significance_year("TrustNISRA2", "Don't know")
+
+## Trust in NISRA Statistics ####
+
+trust_stats_year <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+distrust_stats_year <- f_significance_year("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_stats_year <- f_significance_year("TrustNISRAstats2", "Don't know")
+
+## NISRA Stats Importance ####
+
+value_year <- f_significance_year("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+no_value_year <- f_significance_year("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
+
+dont_know_value_year <- f_significance_year("NISRAstatsImp2", "Don't know")
+
+## Interference ####
+
+interference_year <- f_significance_year("Political2", "Strongly Agree/Tend to Agree")
+
+no_interference_year <- f_significance_year("Political2", "Tend to disagree/Strongly disagree")
+
+dont_know_interference_year <- f_significance_year("Political2", "Don't know")
+
+## Confidential ####
+
+confidential_year <- f_significance_year("Confidential2", "Strongly Agree/Tend to Agree")
+
+no_confidential_year <- f_significance_year("Confidential2", "Tend to disagree/Strongly disagree")
+
+dont_know_confidential_year <- f_significance_year("Confidential2", "Don't know")
+
+## Trust in the Civil Service ####
+ 
+trust_nics_year <- f_significance_year("TrustCivilService2", "Trust a great deal/Tend to trust")
+
+distrust_nics_year <- f_significance_year("TrustCivilService2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_nics <- f_significance_year("TrustCivilService2", "Don't know")
+
+## Trust in the Assembly ####
+
+trust_assembly_year <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust")
+
+distrust_assembly_year <- f_significance_year("TrustNIAssembly2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_assembly <- f_significance_year("TrustNIAssembly2", "Don't know")
+
+## Trust in the Media ####
+
+trust_media_year <- f_significance_year("TrustMedia2", "Trust a great deal/Tend to trust")
+
+distrust_media_year <- f_significance_year("TrustMedia2", "Tend to distrust/Distrust greatly")
+
+dont_know_trust_media <- f_significance_year("TrustMedia2", "Don't know")
+
+# This year vs last year excl DKs ####
+
+## Trust in NISRA ####
+
+trust_year_ex_dk <- f_significance_year("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE) 
+
+## Trust in NISRA Statistics ####
+
+trust_stats_year_ex_dk <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## NISRA Stats Importance ####
+
+value_year_ex_dk <- f_significance_year("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Interference ####
+
+interference_year_ex_dk <- f_significance_year("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Confidential ####
+
+confidential_year_ex_dk <- f_significance_year("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Trust in the Civil Service ####
+
+trust_nics_year_ex_dk <- f_significance_year("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Trust in the Assembly ####
+ 
+trust_assembly_year_ex_dk <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Trust in the Media ####
+
+trust_media_year_ex_dk <- f_significance_year("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# ONS vs NISRA ####
+
+## Heard of NISRA vs heard of ONS ####
+
+heard_nisra_ons <- f_nisra_ons(var = "PCOS1",
+                               val_1 = "Yes",
+                               val_2 = "No")
+
+## Trust NISRA vs Trust ONS ####
+
+trust_nisra_ons <- f_nisra_ons(var = "TrustNISRA2",
+                               val_1 = "Trust a great deal/Tend to trust",
+                               val_2 = "Tend to distrust/Distrust greatly")
+
+## Trust NISRA stats vs Trust ONS stats ####
+
+trust_stats_nisra_ons <- f_nisra_ons(var = "TrustNISRAstats2",
+                                     val_1 = "Trust a great deal/Tend to trust",
+                                     val_2 = "Tend to distrust/Distrust greatly")
+
+## Stats are important: NISRA vs ONS ####
+
+value_nisra_ons <- f_nisra_ons(var = "NISRAstatsImp2",
+                               val_1 = "Strongly Agree/Tend to Agree",
+                               val_2 = "Tend to disagree/Strongly disagree")
+
+## Stats are free from political interference: NISRA vs ONS ####
+
+interference_nisra_ons <- f_nisra_ons(var = "Political2",
+                                      val_1 = "Strongly Agree/Tend to Agree",
+                                      val_2 = "Tend to disagree/Strongly disagree")
+
+## Information will be kept confidential: NISRA vs ONS ####
+
+confidential_nisra_ons <- f_nisra_ons(var = "Confidential2",
+                                      val_1 = "Strongly Agree/Tend to Agree",
+                                      val_2 = "Tend to disagree/Strongly disagree")
+
+# Awareness of NISRA ####
+
 
 ## In Work vs Not in work ####
 
@@ -162,18 +301,6 @@ names(not_heard_stats) <- c("Had not heard of NISRA", current_year - 1, current_
 
 # Trust in NISRA ####
 
-## Trust in NISRA: This year vs previous year ####
-
-trust_year <- f_significance_year("TrustNISRA2", "Trust a great deal/Tend to trust")
-
-## Distrust in NISRA: This year vs previous year ####
-
-distrust_year <- f_significance_year("TrustNISRA2", "Tend to distrust/Distrust greatly")
-
-## Don't Know trust in NISRA: This year vs previous year ####
-
-dont_know_trust <- f_significance_year("TrustNISRA2", "Don't know")
-
 ## Trust in NISRA - unweighted and base figures by age group ####
 
 trust_age_stats <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
@@ -210,13 +337,10 @@ dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
 trust_work_status <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
-# ValueIntConfYears ####
 
-value_year <- f_significance_year("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
 
-interference_year <- f_significance_year("Political2", "Strongly Agree/Tend to Agree")
 
-confidential_year <- f_significance_year("Confidential2", "Strongly Agree/Tend to Agree")
+
 
 # Value ####
 
@@ -294,11 +418,7 @@ nisra_ons_trust <- data.frame(trust = c("Trust", "Distrust", "Don't know", "Base
 
 names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z Score")
 
-trust_stats_year <- f_significance_year("TrustNISRAstats2", "Trust a great deal/Tend to trust")
 
-distrust_stats_year <- f_significance_year("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
-
-dont_know_trust_stats_year <- f_significance_year("TrustNISRAstats2", "Don't know")
 
 # Trust NISRA Statistics ####
 
@@ -320,45 +440,6 @@ trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend 
 
 trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
 
-# Institutions ####
-
-trust_nics_year <- f_significance_year("TrustCivilService2", "Trust a great deal/Tend to trust")
-
-distrust_nics_year <- f_significance_year("TrustCivilService2", "Tend to distrust/Distrust greatly")
-
-dont_know_trust_nics <- f_significance_year("TrustCivilService2", "Don't know")
-
-trust_assembly_year <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust")
-
-distrust_assembly_year <- f_significance_year("TrustNIAssembly2", "Tend to distrust/Distrust greatly")
-
-dont_know_trust_assembly <- f_significance_year("TrustNIAssembly2", "Don't know")
-
-trust_media_year <- f_significance_year("TrustMedia2", "Trust a great deal/Tend to trust")
-
-distrust_media_year <- f_significance_year("TrustMedia2", "Tend to distrust/Distrust greatly")
-
-dont_know_trust_media <- f_significance_year("TrustMedia2", "Don't know")
-
-# This year vs last year with DKs ####
-
-## NISRA Stats Importance ####
-
-no_value_year <- f_significance_year("NISRAstatsImp2", "Tend to disagree/Strongly disagree")
-
-dont_know_value_year <- f_significance_year("NISRAstatsImp2", "Don't know")
-
-## Interference ####
- 
-no_interference_year <- f_significance_year("Political2", "Tend to disagree/Strongly disagree")
-
-dont_know_interference_year <- f_significance_year("Political2", "Don't know")
-
-## Confidential ####
-
-no_confidential_year <- f_significance_year("Confidential2", "Tend to disagree/Strongly disagree")
-
-dont_know_confidential_year <- f_significance_year("Confidential2", "Don't know")
 
 # ONSvNISRAexcDKs ####
 
@@ -496,40 +577,3 @@ confidential_qual_ex_dk <- f_qual_stats("Confidential2", "Strongly Agree/Tend to
 
 confidential_qual_z_scores_ex_dk <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
-# NatCen comparisons ####
-
-## Heard of NISRA vs heard of ONS ####
-
-heard_nisra_ons <- f_nisra_ons(var = "PCOS1",
-                               val_1 = "Yes",
-                               val_2 = "No")
-
-## Trust NISRA vs Trust ONS ####
-
-trust_nisra_ons <- f_nisra_ons(var = "TrustNISRA2",
-                               val_1 = "Trust a great deal/Tend to trust",
-                               val_2 = "Tend to distrust/Distrust greatly")
-
-## Trust NISRA stats vs Trust ONS stats ####
-
-trust_stats_nisra_ons <- f_nisra_ons(var = "TrustNISRAstats2",
-                                     val_1 = "Trust a great deal/Tend to trust",
-                                     val_2 = "Tend to distrust/Distrust greatly")
-
-## Stats are important: NISRA vs ONS ####
-
-value_nisra_ons <- f_nisra_ons(var = "NISRAstatsImp2",
-                               val_1 = "Strongly Agree/Tend to Agree",
-                               val_2 = "Tend to disagree/Strongly disagree")
-
-## Stats are free from political interference: NISRA vs ONS ####
-
-interference_nisra_ons <- f_nisra_ons(var = "Political2",
-                                      val_1 = "Strongly Agree/Tend to Agree",
-                                      val_2 = "Tend to disagree/Strongly disagree")
-
-## Information will be kept confidential: NISRA vs ONS ####
-
-confidential_nisra_ons <- f_nisra_ons(var = "Confidential2",
-                                      val_1 = "Strongly Agree/Tend to Agree",
-                                      val_2 = "Tend to disagree/Strongly disagree")

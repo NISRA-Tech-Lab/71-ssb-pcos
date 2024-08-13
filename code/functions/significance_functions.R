@@ -33,20 +33,33 @@ f_return_z <- function(p1, n1, p2, n2) {
   
 }
 
-f_significance_year <- function(var, value) {
+f_significance_year <- function(var, value, dk = TRUE) {
+  
+  data_current_f <- data_current
+  data_last_f <- data_last
+  
+  if (dk == FALSE) {
+    
+    data_current_f <- data_current_f %>%
+      filter(.[[var]] != "Don't know")
+    
+    data_last_f <- data_last_f %>%
+      filter(.[[var]] != "Don't know")
+    
+  }
   
   sig_table <- data.frame(stat = c("%", "Base"),
                            
-                           current = c(f_return_p(data_current[[var]], value) * 100,
-                                       f_return_n(data_current[[var]])),
+                           current = c(f_return_p(data_current_f[[var]], value) * 100,
+                                       f_return_n(data_current_f[[var]])),
                            
-                           last = c(f_return_p(data_last[[var]], value) * 100,
-                                    f_return_n((data_last[[var]]))),
+                           last = c(f_return_p(data_last_f[[var]], value) * 100,
+                                    f_return_n((data_last_f[[var]]))),
                            
-                           z = c(f_return_z(p1 = f_return_p(data_current[[var]], value),
-                                            n1 = f_return_n(data_current[[var]]),
-                                            p2 = f_return_p(data_last[[var]], value),
-                                            n2 = f_return_n(data_last[[var]])),
+                           z = c(f_return_z(p1 = f_return_p(data_current_f[[var]], value),
+                                            n1 = f_return_n(data_current_f[[var]]),
+                                            p2 = f_return_p(data_last_f[[var]], value),
+                                            n2 = f_return_n(data_last_f[[var]])),
                                  NA))
   
   names(sig_table) <- c(" ", current_year, current_year - 1, "Z Score")
