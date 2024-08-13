@@ -169,6 +169,34 @@ confidential_nisra_ons <- f_nisra_ons(var = "Confidential2",
                                       val_1 = "Strongly Agree/Tend to Agree",
                                       val_2 = "Tend to disagree/Strongly disagree")
 
+# ONSvNISRAexcDKs ####
+ 
+## Heard of NISRA vs heard of ONS (exc DKs) ####
+
+nisra_ons_heard_ex_dk <- f_nisra_ons_ex_dk("PCOS1", "Yes")
+
+## Trust in NISRA vs Trust in ONS (exc DKs) ####
+
+nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust")
+
+## Trust in NISRA stats vs Trust in ONS stats (exc DKs) ####
+
+nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+## NISRA stats are important vs ONS stats are important (exc DKs) ####
+
+nisra_ons_important_ex_dk <- f_nisra_ons_ex_dk("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
+
+## NISRA stats are free from political interference vs ONS stats are free from political interference (exc DKs) ####
+
+nisra_ons_political_ex_dk <- f_nisra_ons_ex_dk("Political2", "Strongly Agree/Tend to Agree") 
+
+## NISRA will keep my information confidential vs ONS will keep my information confidential (exc DKs) ####
+
+nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agree/Tend to Agree") 
+
+
+
 # Awareness of NISRA ####
 
 
@@ -441,31 +469,7 @@ trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend 
 trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
 
 
-# ONSvNISRAexcDKs ####
 
-## Trust in NISRA vs Trust in ONS (exc DKs) ####
-
-nisra_ons_trust_ex_dk <- f_nisra_ons_ex_dk("TrustNISRA2", "Trust a great deal/Tend to trust")
-
-## Trust in NISRA stats vs Trust in ONS stats (exc DKs) ####
-
-nisra_ons_trust_stats_ex_dk <- f_nisra_ons_ex_dk("TrustNISRAstats2", "Trust a great deal/Tend to trust")
-
-## NISRA stats are important vs ONS stats are important (exc DKs) ####
- 
-nisra_ons_important_ex_dk <- f_nisra_ons_ex_dk("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
-
-## NISRA stats are free from political interference vs ONS stats are free from political interference (exc DKs) ####
- 
-nisra_ons_political_ex_dk <- f_nisra_ons_ex_dk("Political2", "Strongly Agree/Tend to Agree") 
-
-## NISRA will keep my information confidential vs ONS will keep my information confidential (exc DKs) ####
-
-nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agree/Tend to Agree") 
-
-## Heard of NISRA vs heard of ONS (exc DKs) ####
-
-nisra_ons_heard_ex_dk <- f_nisra_ons_ex_dk("PCOS1", "Yes")
 
 # Trust in NISRA (exc DK) ####
 
