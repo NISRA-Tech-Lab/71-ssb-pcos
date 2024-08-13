@@ -1,6 +1,12 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
+
+# Create trend data up to 2021 in R format (once off)
+if (!file.exists(paste0(data_folder, "Trend/2021/unweighted trend data.RDS"))) {
+  source(paste0(here(), "/code/significance testing/final_output/unweighted_trend.R"))
+}
+
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
 
@@ -26,6 +32,53 @@ unweighted_ons <- unweighted_ons %>%
          `Strongly Agree/Tend to Agree` = `Strongly agree` + `Tend to agree`,
          `Tend to disagree/Strongly disagree` = `Tend to disagree` + `Strongly disagree`) %>%
   select(-`Prefer not to answer`)
+
+# Add unweighted trend data to trend file ####
+
+unweighted_old <- readRDS(paste0(data_folder, "Trend/", current_year - 1, "/unweighted trend data.RDS"))
+
+unweighted_new <- data.frame(stat = unweighted_old$stat) %>%
+  mutate(new = c(f_return_p(data_current$PCOS1, "Yes") * 100,
+                 f_return_n(data_current$PCOS1),
+                 f_return_p(data_current$TrustNISRA2, "Trust a great deal/Tend to trust") * 100,
+                 f_return_p(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly") * 100,
+                 f_return_p(data_current$TrustNISRA2, "Don't know") * 100,
+                 f_return_n(data_current$TrustNISRA2),
+                 f_return_p(data_current$TrustNISRA2[data_current$TrustNISRA2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+                 f_return_n(data_current$TrustNISRA2[data_current$TrustNISRA2 != "Don't know"]),
+                 f_return_p(data_current$TrustNISRAstats2, "Trust a great deal/Tend to trust") * 100,
+                 f_return_p(data_current$TrustNISRAstats2, "Tend to distrust/Distrust greatly") * 100,
+                 f_return_p(data_current$TrustNISRAstats2, "Don't know") * 100,
+                 f_return_n(data_current$TrustNISRAstats2),
+                 f_return_p(data_current$TrustNISRAstats2[data_current$TrustNISRAstats2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+                 f_return_n(data_current$TrustNISRAstats2[data_current$TrustNISRAstats2 != "Don't know"]),
+                 f_return_p(data_current$NISRAstatsImp2, "Strongly Agree/Tend to Agree") * 100,
+                 f_return_p(data_current$NISRAstatsImp2, "Tend to disagree/Strongly disagree") * 100,
+                 f_return_p(data_current$NISRAstatsImp2, "Don't know") * 100,
+                 f_return_n(data_current$NISRAstatsImp2),
+                 f_return_p(data_current$NISRAstatsImp2[data_current$NISRAstatsImp2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+                 f_return_n(data_current$NISRAstatsImp2[data_current$NISRAstatsImp2 != "Don't know"]),
+                 f_return_p(data_current$Political2, "Strongly Agree/Tend to Agree") * 100,
+                 f_return_p(data_current$Political2, "Tend to disagree/Strongly disagree") * 100,
+                 f_return_p(data_current$Political2, "Don't know") * 100,
+                 f_return_n(data_current$Political2),
+                 f_return_p(data_current$Political2[data_current$Political2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+                 f_return_n(data_current$Political2[data_current$Political2 != "Don't know"]),
+                 f_return_p(data_current$Confidential2, "Strongly Agree/Tend to Agree") * 100,
+                 f_return_p(data_current$Confidential2, "Tend to disagree/Strongly disagree") * 100,
+                 f_return_p(data_current$Confidential2, "Don't know") * 100,
+                 f_return_n(data_current$Confidential2),
+                 f_return_p(data_current$Confidential2[data_current$Confidential2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+                 f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"])
+                 ))
+
+names(unweighted_new) <- c("stat", current_year)
+
+unweighted_trend <- left_join(unweighted_new,
+                              unweighted_old,
+                              by = "stat")
+
+saveRDS(unweighted_trend, paste0(data_folder, "Trend/", current_year, "/unweighted trend data.RDS"))
 
 # This year vs last year with DKs ####
 

@@ -381,7 +381,7 @@ addWorksheet(wb, "Awareness")
 r <- 1
 
 writeData(wb, "Awareness",
-          x = "Awareness of NISRA",
+          x = "Awareness of NISRA (UNWEIGHTED)",
           startRow = r)
 
 addStyle(wb, "Awareness",
