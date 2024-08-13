@@ -59,11 +59,11 @@ for (i in 1:length(sup_q)) {
       adorn_totals()
     
     writeData(wb, sheet_name,
-              x = paste0("Crosstab: Weighted % of ", sup_q[i], " by ", sup_covar[j]),
+              x = paste0("Weighted % of ", sup_q[i], " by ", sup_covar[j]),
               startRow = r)
     
     writeData(wb, sheet_name,
-              x = paste0("Crosstab: Unweighted N of ", sup_q[i], " by ", sup_covar[j]),
+              x = paste0("Unweighted N of ", sup_q[i], " by ", sup_covar[j]),
               startRow = r,
               startCol = 10)
     

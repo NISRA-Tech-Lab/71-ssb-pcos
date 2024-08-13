@@ -5,7 +5,7 @@ output:
   html_document:
     toc: true
     toc_float: true
-    toc_depth: 4
+    toc_depth: 3
     code_download: no
     css: "style.css"
 knit: (function(input, ...) {
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 )
 
 library(here)
-source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
+source(paste0(here(), "/code/excel tables/run_excel_tables.R"))
 ```
 
 
@@ -40,86 +40,91 @@ h3 {
 
 <div data-nics-theme="`r nics_theme`">
 
-`r f_banner(subtitle = "Appendix B")` 
+`r f_banner(subtitle = "Appendix B: Detailed Tables")` 
 
 <div id="main" role="main">
 
 [Back to full report](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`.html)
 
-## Appendix B: List of Detailed Tables
+## Appendix B: Detailed Tables
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
+Detailed tables including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below.
+
+`r embed_file(ods_filename, text = "Download all tables")` (.ODS format; `r ods_filesize`)
 
 ### Awareness of the Northern Ireland Statistics and Research Agency (NISRA)
 
- * `r f_embed_xl(df = table_1_data, sheet_title = paste0("Table 1: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
- * `r f_embed_xl(df = table_2_data, sheet_title = paste0("Table 2: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
+ * `r f_embed_ods(df = table_1a_data, sheet_title = paste0("Table 1a: Awareness of NISRA, 2009 to ", current_year), tab_name = "awareness_of_nisra", app_b = TRUE)`
+ * `r f_embed_ods(df = table_1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 1b: Awareness of NISRA and ONS, ", current_year)} else {paste0("Table 1b: Awareness of NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "awareness_of_nisra_and_ons", app_b = TRUE)`
+ * `r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"), tab_name = "awareness_of_ons", app_b = TRUE)`
 
 ### Awareness of NISRA statistics among those who had not previously heard of NISRA
 
-* `r f_embed_xl(df = table_3_data, sheet_title = paste0("Table 3: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics")`
-* `r f_embed_xl(df = table_4_data, sheet_title = paste0("Table 4: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics")`
-* `r f_embed_xl(df = table_5_data, sheet_title = paste0("Table 5: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, ", current_year), tab_name = "aware_school_leavers")`
-* `r f_embed_xl(df = table_6_data, sheet_title = paste0("Table 6: Aware of NISRA statistics on the number of people who live in Northern Ireland, ", current_year), tab_name = "aware_num_people")`
-* `r f_embed_xl(df = table_7_data, sheet_title = paste0("Table 7: Aware of NISRA statistics on hospital waiting times in Northern Ireland, ", current_year), tab_name = "aware_hospital")`
-* `r f_embed_xl(df = table_8_data, sheet_title = paste0("Table 8: Aware of NISRA statistics on the Northern Ireland Census every ten years, ", current_year), tab_name = "aware_census")`
-* `r f_embed_xl(df = table_9_data, sheet_title = paste0("Table 9: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy")`
-* `r f_embed_xl(df = table_10_data, sheet_title = paste0("Table 10: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty")`
-* `r f_embed_xl(df = table_11_data, sheet_title = paste0("Table 11: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport")`
-* `r f_embed_xl(df = table_12_data, sheet_title = paste0("Table 12: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), ", current_year), tab_name = "aware_num_stats")`
+* `r f_embed_ods(df = table_2.1a_data, sheet_title = paste0("Table 2.1a: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1b_data, sheet_title = paste0("Table 2.1b: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1c_data, sheet_title = paste0("Table 2.1c: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, ", current_year), tab_name = "aware_school_leavers", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1d_data, sheet_title = paste0("Table 2.1d: Aware of NISRA statistics on the number of people who live in Northern Ireland, ", current_year), tab_name = "aware_num_people", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1e_data, sheet_title = paste0("Table 2.1e: Aware of NISRA statistics on hospital waiting times in Northern Ireland, ", current_year), tab_name = "aware_hospital", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1f_data, sheet_title = paste0("Table 2.1f: Aware of NISRA statistics on the Northern Ireland Census every ten years, ", current_year), tab_name = "aware_census", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1g_data, sheet_title = paste0("Table 2.1g: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1h_data, sheet_title = paste0("Table 2.1h: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1i_data, sheet_title = paste0("Table 2.1i: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1j_data, sheet_title = paste0("Table 2.1j: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), ", current_year), tab_name = "aware_num_stats", app_b = TRUE)`
 
 ### Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA
 
-* `r f_embed_xl(df = table_13_data, sheet_title = paste0("Table 13: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics")`
-* `r f_embed_xl(df = table_14_data, sheet_title = paste0("Table 14: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics")`
-* `r f_embed_xl(df = table_15_data, sheet_title = paste0("Table 15: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland, ", current_year), tab_name = "aware_school_leavers")`
-* `r f_embed_xl(df = table_16_data, sheet_title = paste0("Table 16: Aware of NISRA statistics on the number of people who live in Northern Ireland, ", current_year), tab_name = "aware_num_people")`
-* `r f_embed_xl(df = table_17_data, sheet_title = paste0("Table 17: Aware of NISRA statistics on hospital waiting times in Northern Ireland, ", current_year), tab_name = "aware_hospital")`
-* `r f_embed_xl(df = table_18_data, sheet_title = paste0("Table 18: Aware of NISRA statistics on the Northern Ireland Census every ten years, ", current_year), tab_name = "aware_census")`
-* `r f_embed_xl(df = table_19_data, sheet_title = paste0("Table 19: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy")`
-* `r f_embed_xl(df = table_20_data, sheet_title = paste0("Table 20: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty")`
-* `r f_embed_xl(df = table_21_data, sheet_title = paste0("Table 21: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport")`
-* `r f_embed_xl(df = table_22_data, sheet_title = paste0("Table 22: Number of selected NISRA statistics respondents had heard of (among those who had previously heard of NISRA), ", current_year), tab_name = "aware_num_stats")`
+* `r f_embed_ods(df = table_2.2a_data, sheet_title = paste0("Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_death_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2b_data, sheet_title = paste0("Table 2.2b: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_crime_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2c_data, sheet_title = paste0("Table 2.2c: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_qualifications_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2d_data, sheet_title = paste0("Table 2.2d: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_people_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2e_data, sheet_title = paste0("Table 2.2e: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_hospital_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2f_data, sheet_title = paste0("Table 2.2f: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, ", current_year), tab_name = "aware_census_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2g_data, sheet_title = paste0("Table 2.2g: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_unemployment_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2h_data, sheet_title = paste0("Table 2.2h: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_poverty_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2i_data, sheet_title = paste0("Table 2.2i: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_walking_by_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.2j_data, sheet_title = paste0("Table 2.2j: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), ", current_year), tab_name = "aware_num_stats_by_nisra", app_b = TRUE)`
+
 
 ### Trust in NISRA
 
-* `r f_embed_xl(df = table_23_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
-* `r f_embed_xl(df = table_24_data, sheet_title = paste0("Table 24: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")"), tab_name = "trust_nisra_ons")`
-* `r f_embed_xl(df = table_25_data, sheet_title = paste0("Table 25: Trust in NISRA by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_nisra_awareness")`
+* `r f_embed_ods(df = table_3.1a_data, sheet_title = paste0("Table 3.1a: Trust in NISRA, 2014 to ", current_year), tab_name = "trust_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 3.1b: Trust in NISRA and ONS, ", current_year)} else {paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "trust_nisra_ons", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.1c_data, sheet_title = paste0("Table 3.1c: Trust in NISRA by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_nisra_awareness", app_b = TRUE)`
 
 ### Trust in the Civil Service
 
-* `r f_embed_xl(df = table_26_data, sheet_title = paste0("Table 26: Trust in the Civil Service, 2014-", current_year), tab_name = "trust_nics")`
+* `r f_embed_ods(df = table_3.2_data, sheet_title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year), tab_name = "trust_nics", app_b = TRUE)`
 
 ### Trust in the Northern Ireland Assembly
 
-* `r f_embed_xl(df = table_27_data, sheet_title = paste0("Table 27: Trust in the Northern Ireland Assembly, 2014-", current_year), tab_name = "trust_assembly")`
+* `r f_embed_ods(df = table_3.3_data, sheet_title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year), tab_name = "trust_assembly", app_b = TRUE)`
 
 ### Trust in the Media
 
-* `r f_embed_xl(df = table_28_data, sheet_title = paste0("Table 28: Trust in the Media, 2014-", current_year), tab_name = "trust_media")`
+* `r f_embed_ods(df = table_3.4_data, sheet_title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year), tab_name = "trust_media", app_b = TRUE)`
 
 ### Trust in the statistics produced by NISRA
 
-* `r f_embed_xl(df = table_29_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
-* `r f_embed_xl(df = table_30_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
-* `r f_embed_xl(df = table_31_data, sheet_title = paste0("Table 31: Trust in NISRA Statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness")`
+* `r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), tab_name = "trust_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_4c_data, sheet_title = paste0("Table 4c: Trust in NISRA Statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
+* `r f_embed_ods(df = table_4d_data, sheet_title = paste0("Table 4d: Trust ONS Statistics, 2014 to ", current_year), tab_name = "trust_ons_stats", app_b = TRUE)`
 
 ### Value
 
-* `r f_embed_xl(df = table_32_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
-* `r f_embed_xl(df = table_33_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
-* `r f_embed_xl(df = table_34_data, sheet_title = paste0("Table 34: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, ", current_year), tab_name = "trust_stats_awareness")`
+* `r f_embed_ods(df = table_5a_data, sheet_title = paste0("Table 5a: Statistics produced by NISRA are important to understand Northern Ireland, 2016 to ", current_year), tab_name = "value_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_5b_data, sheet_title = if (current_year == ons_year) {paste0("Table 5b: Statistics produced are important to understand our country (NISRA and ONS), ", current_year)} else { paste0("Table 5b: Statistics produced are important to understand our country (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "trust_nisra_ons_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_5c_data, sheet_title = paste0("Table 5c: Statistics produced by NISRA are important to understand Northern Ireland, by whether or not the respondent had heard of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
 
 ### Political Interference
 
-* `r f_embed_xl(df = table_35_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
-* `r f_embed_xl(df = table_36_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
+* `r f_embed_ods(df = table_6a_data, sheet_title = paste0("Table 6a: Statistics produced by NISRA are free from political interference, 2014 to ", current_year), tab_name = "political_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_6b_data, sheet_title = if (current_year == ons_year) {paste0("Table 6b: Statistics produced are free from political interference (NISRA and ONS) , ", current_year)} else {paste0("Table 6b: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "political_nisra_ons", app_b = TRUE)`
 
 ### Confidentiality
 
-* `r f_embed_xl(df = table_37_data, sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year), tab_name = "confidential_nisra")`
-* `r f_embed_xl(df = table_38_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
+* `r f_embed_ods(df = table_7a_data, sheet_title = paste0("Table 7a: Personal information provided to NISRA will be kept confidential, 2014 to ", current_year), tab_name = "confidential_nisra", app_b = TRUE)`
+* `r f_embed_ods(df = table_7b_data, sheet_title = if (current_year == ons_year) {paste0("Table 7b: Personal information provided will be kept confidential (NISRA and ONS), ", current_year)} else {paste0("Table 7b: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "confidential_nisra_ons", app_b = TRUE)`
 
 <!-- closing main div -->
 </div>
@@ -140,10 +145,10 @@ function tabOrder() {
   
   // Make side menu tabbable
 
-  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  let headings = document.getElementsByClassName('tocify-item list-group-item');
   
   for (let i = 0; i < headings.length; i ++) {
-    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+    headings[i].innerHTML = "<a href='#" + headings[i].getAttribute("data-unique") + "'>" + headings[i].innerHTML +  "</a>";
   }
   
 };

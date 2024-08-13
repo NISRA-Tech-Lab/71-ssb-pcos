@@ -1,4 +1,4 @@
-f_embed_ods <- function(df, sheet_title, tab_name) {
+f_embed_ods <- function(df, sheet_title, tab_name, app_b = FALSE) {
   
   if(!dir.exists(paste0(here(), "/outputs/table_data"))) {
     dir.create(paste0(here(), "/outputs/table_data"))
@@ -47,28 +47,30 @@ f_embed_ods <- function(df, sheet_title, tab_name) {
                cols = 1,
                widths = 23)
   
-  saveWorkbook(wb, paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"), overwrite = TRUE)
+  xl_name <- paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx")
+  ods_name <- gsub(".xlsx", ".ods", xl_name)
   
-  convert_to_ods(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"))
+  saveWorkbook(wb, xl_name, overwrite = TRUE)
   
-  # xl_size <- paste0(
-  #   round_half_up(file.size(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx")) / 1000),
-  #   "kB"
-  # )
-  # 
-  # write.csv(df, paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv"), row.names = FALSE)
-  # 
-  # csv_size <- round_half_up(file.size(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv")) / 1000)
-  # 
-  # csv_size <- if (csv_size == 0) {
-  #   "1kB"
-  # } else {
-  #   paste0(csv_size, "kB")
-  # }
-  # 
-  # paste(sheet_title, embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx"),
-  #            text = paste0(" (.XLSX format; ", xl_size,")")),
-  #   embed_file(paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".csv"),
-  #              text = paste0("(.CSV format; ", csv_size,")")))
+  f_convert_to_ods(xl_name)
+  
+  ods_size <- paste0(
+    round_half_up(file.size(ods_name) / 1000),
+    "kB"
+  )
+  
+  unlink(xl_name)
+  
+  if (app_b) {
+    
+    paste0(sheet_title, " (", embed_file(ods_name, text = ".ODS format"), "; ", ods_size, ")")
+    
+  } else {
+  
+    div(style = "margin-top: -20px; margin-bottom: 20px;",
+        div(class = "download-button", embed_file(ods_name, text = "Download data")),
+        span(class = "download-text", paste0(" - ", sheet_title, " (.ODS format; ", ods_size, ")")))
+    
+  }
   
 }

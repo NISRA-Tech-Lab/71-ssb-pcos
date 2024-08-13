@@ -148,10 +148,6 @@ ifelse(!dir.exists(paste0(here(), "/outputs/")), dir.create(paste0(
   here(),
   "/outputs/"
 )), "output folder already exists")
-ifelse(!dir.exists(paste0(here(), "/outputs/", "figdata/")),
-  dir.create(paste0(here(), "/outputs/", "figdata/")),
-  "figdata folder already exists"
-)
 
 
 #### NISRA COLOURS AND LOGOS ####

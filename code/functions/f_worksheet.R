@@ -39,7 +39,7 @@ f_worksheet <- function(wb,
   
   if (length(tables) == 1) {
     writeData(wb, sheet_name,
-              x = paste("This worksheet contains one table, outlining", outlining),
+              x = paste("This worksheet contains one table, ", outlining),
               startRow = r)
   } else {
     writeData(wb, sheet_name,
