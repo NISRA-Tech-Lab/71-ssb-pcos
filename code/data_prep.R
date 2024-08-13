@@ -183,9 +183,6 @@ aware_nisra_ons_data <- aware_nisra_ons_data %>%
 
 ## Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA ####
 
-# List of all PCOS1d variables
-PCOS1d_vars <- names(data_final)[grepl("PCOS1d", names(data_final)) & names(data_final) != "PCOS1d"]
-
 # Use variable label to extract output name
 outputs <- sub("\\..*", "", attributes(data_final)$var.label[grepl("Heard", attributes(data_final)$var.label)]) %>%
   sub("transport in NI", "transport", .) %>%
