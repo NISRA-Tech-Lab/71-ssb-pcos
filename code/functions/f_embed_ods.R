@@ -1,4 +1,4 @@
-f_embed_ods <- function(df, sheet_title, tab_name) {
+f_embed_ods <- function(df, sheet_title, tab_name, app_b = FALSE) {
   
   if(!dir.exists(paste0(here(), "/outputs/table_data"))) {
     dir.create(paste0(here(), "/outputs/table_data"))
@@ -61,8 +61,16 @@ f_embed_ods <- function(df, sheet_title, tab_name) {
   
   unlink(xl_name)
   
-  div(style = "display:flex;", class = "row",
-      div(class = "download-button", embed_file(ods_name, text = "Download data")),
-      div(style = "padding-top: 2px; padding-bottom: 2px;", paste0(sheet_title, " (.ODS format, ", ods_size, ")")))
+  if (app_b) {
+    
+    paste0(sheet_title, " (", embed_file(ods_name, text = ".ODS format"), "; ", ods_size, ")")
+    
+  } else {
+  
+    div(style = "margin-top: -20px; margin-bottom: 20px;",
+        div(class = "download-button", embed_file(ods_name, text = "Download data")),
+        span(class = "download-text", paste0(" - ", sheet_title, " (.ODS format; ", ods_size, ")")))
+    
+  }
   
 }

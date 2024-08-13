@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 )
 
 library(here)
-source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
+source(paste0(here(), "/code/excel tables/run_excel_tables.R"))
 ```
 
 ::: {data-nics-theme="`r nics_theme`"}
@@ -79,7 +79,7 @@ NISRA is an Agency within the Department of Finance and provides statistical ser
 
 In the UK, the Office for National Statistics (ONS) is the largest producer of official statistics. Public trust in the ONS and the statistics it produces are also monitored and this report contains comparisons between NISRA and ONS. The ONS survey samples respondents in England, Scotland and Wales whilst the NISRA survey samples respondents in Northern Ireland. The most recent ONS survey was conducted in `r ons_year` ([Public Confidence in Official Statistics `r ons_year` (ONS)](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)).
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-%60r%20current_year%60) are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html) for a list of tables).
+Detailed tables are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 Differences are only noted in the commentary when they are likely to represent a real difference taking account of the margin of error in the sample-based estimates (see ‘Survey Estimates’ in Appendix A for further detail).
 
@@ -214,7 +214,7 @@ plot_ly(aware_nisra_ons_data,
 
 ```
 
-`r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of NISRA (", current_year, ") and ONS (",  ons_year, ")"), tab_name = "awareness_of_nisra_and_ons")`
+`r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"), tab_name = "awareness_of_ons")`
 
 ## 2. Awareness of NISRA Statistics
 
@@ -222,7 +222,7 @@ Respondents who had not previously heard of NISRA were asked whether they had he
 
 `r not_heard_aware_census`% of respondents who had not previously heard of NISRA were aware of the Northern Ireland Census, while more than a third had heard of the unemployment rate (`r not_heard_aware_unemployment`%), hospital waiting times (`r not_heard_aware_hospital`%) and the number of people who live in NI (`r not_heard_aware_people`%). Only `r not_heard_aware_cycling`% of these respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
 
-### o	Aware of NISRA statistics, not previously heard of NISRA
+### Aware of NISRA statistics, not previously heard of NISRA
 
 #### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
 
@@ -269,7 +269,7 @@ plot_ly(aware_stats_data,
 
 ```
 
-[Tables 2.1a - 2.1j: Awareness of NISRA statistics among those who had not previously heard of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#awareness-of-nisra-statistics-among-those-who-had-not-previously-heard-of-nisra)
+`r f_extract_sheet(xl_filename, "Awareness_NISRA_Statistics", paste0("Table 2.1: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))`
 
 Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
 
@@ -322,7 +322,7 @@ plot_ly(aware_stats_by_nisra_data,
 
 ```
 
-[Tables 2.2a - 2.2j: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#awareness-that-specified-statistics-are-produced-by-nisra-statisticians-among-those-who-were-aware-of-nisra)
+`r f_extract_sheet(xl_filename, "Aware_Statistics_by_NISRA", paste0("Table 2.2: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))`
 
 `r f_borderline()`
 
@@ -342,7 +342,7 @@ f_stacked_bar_vertical(trust_nisra_data)
 
 ```
 
-`r f_embed_ods(df = table_3.1a_data, sheet_title = paste0("Table 23: Trust in NISRA, 2014-", current_year), tab_name = "trust_nisra")`
+`r f_embed_ods(df = table_3.1a_data, sheet_title = paste0("Table 3.1a: Trust in NISRA, 2014 to ", current_year), tab_name = "trust_nisra")`
 
 Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However, when only those who gave an opinion are considered, trust levels are higher for NISRA.
 
@@ -354,7 +354,7 @@ f_stacked_bar_vertical(trust_nisra_ons_data)
 
 ```
 
-`r f_embed_ods(df = table_3.1b_data, sheet_title = paste0("Table 24: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")"), tab_name = "trust_nisra_ons")`
+`r f_embed_ods(df = table_3.1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 3.1b: Trust in NISRA and ONS, ", current_year)} else {paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "trust_nisra_ons")`
 
 `r f_separator()`
 
@@ -407,9 +407,20 @@ plot_ly(trust_institutions_data,
          margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
-```
+# Bespoke download sheet for 3 tables:
 
-[Tables 3.2 - 3.4: Trust in institutions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html#trust-in-the-civil-service)
+f_trust_instiutions(title = paste0("Tables 3.2-3.4: Trust in Institutions, 2014 to ", current_year),
+                    tables = list(
+                      list(data = table_3.2_data,
+                           title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year)),
+                      list(data = table_3.3_data,
+                           title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year, " [Note 2]"),
+                           note = "Note 2: In 2019, respondents were asked whether they trusted elected bodies, such as the NI Assembly or the UK Government as the NI Assembly was suspended at this time."),
+                      list(data = table_3.4_data,
+                           title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year))
+                      ))
+
+```
 
 `r f_borderline()`
 
@@ -427,7 +438,7 @@ f_stacked_bar_vertical(trust_stats_data)
 
 ```
 
-`r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 29: Trust in NISRA Statistics, 2014-", current_year), tab_name = "trust_stats")`
+`r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), tab_name = "trust_stats")`
 
 The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) is similar to the level of trust in ONS statistics (`r trust_in_ons_stats`%) (Chart 9). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%).
 
@@ -441,7 +452,7 @@ f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
 ```
 
-`r f_embed_ods(df = table_4b_data, sheet_title = paste0("Table 30: Trust in NISRA (", current_year, ") and ONS (", ons_year, ") statistics"), tab_name = "trust_nisra_ons_stats")`
+`r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
@@ -459,7 +470,7 @@ f_stacked_bar_vertical(stats_important_data)
 
 ```
 
-`r f_embed_ods(df = table_5a_data, sheet_title = paste0("Table 32: Statistics produced by NISRA are important to understand Northern Ireland, 2016-", current_year), tab_name = "value_nisra")`
+`r f_embed_ods(df = table_5a_data, sheet_title = paste0("Table 5a: Statistics produced by NISRA are important to understand Northern Ireland, 2016 to ", current_year), tab_name = "value_nisra")`
 
 `r f_separator()`
 
@@ -473,7 +484,7 @@ f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
 ```
 
-`r f_embed_ods(df = table_5b_data, sheet_title = paste0("Table 33: Statistics produced are important to understand our country (NISRA ", current_year, ") and ONS ", ons_year, ")"), tab_name = "trust_nisra_ons_stats")`
+`r f_embed_ods(df = table_5b_data, sheet_title = if (current_year == ons_year) {paste0("Table 5b: Statistics produced are important to understand our country (NISRA and ONS), ", current_year)} else { paste0("Table 5b: Statistics produced are important to understand our country (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "trust_nisra_ons_stats")`
 
 `r f_borderline()`
 
@@ -489,7 +500,7 @@ f_stacked_bar_vertical(political_data)
 
 ```
 
-`r f_embed_ods(df = table_6a_data, sheet_title = paste0("Table 35: Statistics produced by NISRA are free from political interference, 2014-", current_year), tab_name = "political_nisra")`
+`r f_embed_ods(df = table_6a_data, sheet_title = paste0("Table 6a: Statistics produced by NISRA are free from political interference, 2014 to ", current_year), tab_name = "political_nisra")`
 
 In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure.
 
@@ -501,7 +512,7 @@ f_stacked_bar_vertical(political_nisra_ons_data)
 
 ```
 
-`r f_embed_ods(df = table_6b_data, sheet_title = paste0("Table 36: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "political_nisra_ons")`
+`r f_embed_ods(df = table_6b_data, sheet_title = if (current_year == ons_year) {paste0("Table 6b: Statistics produced are free from political interference (NISRA and ONS) , ", current_year)} else {paste0("Table 6b: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "political_nisra_ons")`
 
 `r f_borderline()`
 
@@ -531,7 +542,7 @@ f_stacked_bar_vertical(condifential_nisra_ons_data)
 
 ```
 
-`r f_embed_ods(df = table_7b_data, sheet_title = paste0("Table 38: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")"), tab_name = "confidential_nisra_ons")`
+`r f_embed_ods(df = table_7b_data, sheet_title = if (current_year == ons_year) {paste0("Table 7b: Personal information provided will be kept confidential (NISRA and ONS), ", current_year)} else {paste0("Table 7b: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "confidential_nisra_ons")`
 
 `r f_borderline()`
 
@@ -592,22 +603,23 @@ More information on the methodology used to produce these official statistics an
 
 `r f_borderline()`
 
-## Appendix B: List of Detailed Tables
+## Appendix B: Detailed tables
 
-[Detailed tables](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-%60r%20current_year%60) including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
+Detailed tables including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below:
 
-See [this link for full list of Detailed Tables](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)
+[View or download tables](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)
 
 `r f_borderline()`
 
 ## Appendix C: Survey Questions
 
-See [this link for full list of Survey Questions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-c.html)
+See [this link for full list of Survey Questions](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
 
 <!-- closing main div -->
 :::
 
 `r f_footer()`
+`r unlink(xl_filename)`
 
 <!-- message to rotate screen if it is below 400px width -->
 
@@ -628,8 +640,6 @@ function tabOrder() {
   // Make side menu tabbable
 
   let headings = document.getElementsByClassName('tocify-item list-group-item');
-  
-  let tags = []; 
   
   for (let i = 0; i < headings.length; i ++) {
     headings[i].innerHTML = "<a href='#" + headings[i].getAttribute("data-unique") + "'>" + headings[i].innerHTML +  "</a>";

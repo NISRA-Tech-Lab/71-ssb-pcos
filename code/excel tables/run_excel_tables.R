@@ -408,7 +408,12 @@ f_worksheet(wb,
 # Save workbook ####
 
 xl_filename <- paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx")
+ods_filename <- sub(".xlsx", ".ods", xl_filename)
 
 saveWorkbook(wb, xl_filename, overwrite = TRUE)
 f_convert_to_ods(xl_filename)
-unlink(xl_filename)
+
+ods_filesize <- paste0(
+  round_half_up(file.size(ods_filename) / 1000),
+  "kB"
+)

@@ -1,3 +1,6 @@
+# Code to adapt DfT R Code to run in conjuction with ITAssist policy
+# Project directory must be under "C:\User\*\Documents\R\" (where * is your username) for this work
+
 f_vbs_execute <- function(vbs_file, ...){
   
   ##Convert arguments into a single string

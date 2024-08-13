@@ -1,8 +1,11 @@
 
+
+# Returns number of non blank values in a column "var"
 f_return_n <- function(var) {
   length(var[!is.na(var)])
 }
 
+# Returns percentage of times a given "value" occurs in column "var"
 f_return_p <- function(var, value) {
   length(var[!is.na(var) & var == value]) / f_return_n(var)
 }
