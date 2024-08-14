@@ -262,13 +262,16 @@ f_worksheet(wb,
             outlining = "outlining trust in the Civil Service.",
             tables = list(
               list(
-                data = table_3.2_data,
-                title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year)
+                data = table_3.2a_data,
+                title = paste0("Table 3.2a: Trust in the Civil Service, 2014 to ", current_year)
               )
             )
 )
 
 ## Trust in the Northern Ireland Assembly ####
+
+# Note: If this is using the TrustElectedRep2 variable the "Note 2" text will automatically be applied to variable label.
+#       However, the "note" text below will need updated manually.
 
 f_worksheet(wb,
             sheet_name = "Trust_NI_Assembly",
@@ -277,8 +280,8 @@ f_worksheet(wb,
             outlining = "outlining trust in the Northern Ireland Assembly",
             tables = list(
               list(
-                data = table_3.3_data,
-                title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year, " [Note 2]"),
+                data = table_3.3a_data,
+                title = paste0("Table 3.3a: Trust in the Northern Ireland Assembly, 2014 to ", current_year, " [Note 2]"),
                 note = "Note 2: In 2019, respondents were asked whether they trusted elected bodies, such as the NI Assembly or the UK Government as the NI Assembly was suspended at this time."
               )              
             )
@@ -293,8 +296,8 @@ f_worksheet(wb,
             outlining = "outlining trust in the media",
             tables = list(
               list(
-                data = table_3.4_data,
-                title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year)
+                data = table_3.4a_data,
+                title = paste0("Table 3.4a: Trust in the Media, 2014 to ", current_year)
               )              
             )
 )
@@ -406,5 +409,14 @@ f_worksheet(wb,
 
 
 # Save workbook ####
-saveWorkbook(wb, paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"), overwrite = TRUE)
-openXL(paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx"))
+
+xl_filename <- paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx")
+ods_filename <- sub(".xlsx", ".ods", xl_filename)
+
+saveWorkbook(wb, xl_filename, overwrite = TRUE)
+f_convert_to_ods(xl_filename)
+
+ods_filesize <- paste0(
+  round_half_up(file.size(ods_filename) / 1000),
+  "kB"
+)

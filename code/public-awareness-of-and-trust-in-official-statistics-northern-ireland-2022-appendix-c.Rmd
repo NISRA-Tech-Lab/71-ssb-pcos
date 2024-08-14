@@ -177,11 +177,6 @@ To what extent do you agree or disagree with the following statement: 'I believe
 
 `r f_footer()`
 
-<!-- message to rotate screen if it is below 400px width -->
-<div id="rotate-screen">
-  <p style="color: white;">Please rotate your screen for optimal experience</p>
-</div>
-
 
 ```{js}
 
@@ -191,10 +186,10 @@ function tabOrder() {
   
   // Make side menu tabbable
 
-  var headings = document.getElementsByClassName('tocify-item list-group-item');
+  let headings = document.getElementsByClassName('tocify-item list-group-item');
   
   for (let i = 0; i < headings.length; i ++) {
-    headings[i].innerHTML = "<a href='#'>" + headings[i].innerHTML +  "</a>";
+    headings[i].innerHTML = "<a href='#" + headings[i].getAttribute("data-unique") + "'>" + headings[i].innerHTML +  "</a>";
   }
   
 };

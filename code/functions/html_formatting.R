@@ -174,11 +174,6 @@ f_contact <- function() {
   )
 }
 
-f_print_code <- function(c) {
-  pre(class = "r", code(class = "hljs", c))
-}
-
-
 f_footer <- function() {
 HTML('
 <footer style="color: #ffffff; background-color: #00205b;">

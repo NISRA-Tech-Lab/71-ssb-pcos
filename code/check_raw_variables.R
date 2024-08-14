@@ -2,6 +2,7 @@ saveRDS(data_raw, paste0(data_folder, "Raw/PCOS ", current_year, " Dataset.RDS")
 
 PCOS_vars <- c(names(data_raw)[grepl("PCOS", names(data_raw))], "DERHI", "EMPST2", "AGE")
 PCOS1c_vars <- names(data_raw)[grepl("PCOS1c", names(data_raw)) & names(data_raw) != "PCOS1c"]
+PCOS1d_vars <- names(data_raw)[grepl("PCOS1d", names(data_raw)) & names(data_raw) != "PCOS1d"]
 
 data_last <- readRDS(paste0(data_folder, "Raw/PCOS ", current_year - 1, " Dataset.RDS"))
 
@@ -18,12 +19,36 @@ addWorksheet(wb, "Raw Variables")
 r <- 1
 
 for (i in 1:length(PCOS_vars)) {
+  
+  if (PCOS_vars[i] %in% PCOS1c_vars) {
+    
+    data_raw_f <- data_raw %>%
+      filter(PCOS1 == "Yes")
+    
+    data_last_f <- data_last %>%
+      filter(PCOS1 == "Yes")
+    
+  } else if (PCOS_vars[i] %in% PCOS1d_vars) {
+    
+    data_raw_f <- data_raw %>%
+      filter(PCOS1 == "No")
+    
+    data_last_f <- data_last %>%
+      filter(PCOS1 == "No")
+    
+  } else {
+    
+    data_raw_f <- data_raw
+    
+    data_last_f <- data_last
+    
+  }
 
-  frequency_table <- data_last %>%
+  frequency_table <- data_last_f %>%
     group_by(var = .[[PCOS_vars[i]]]) %>%
     summarise(unweighted_last = n(),
               weighted_last = sum(W3)) %>%
-    full_join(data_raw %>%
+    full_join(data_raw_f %>%
                 group_by(var = .[[PCOS_vars[i]]]) %>%
                 summarise(unweighted_current = n(),
                           weighted_current = sum(W3)),
@@ -118,6 +143,8 @@ setColWidths(wb, "Raw Variables",
 freezePane(wb, "Raw Variables",
            firstCol = TRUE)
 
+# PCOS 1c Crosstabs ####
+
 addWorksheet(wb, "PCOS1c Raw")
 
 r <- 1
@@ -141,6 +168,109 @@ for (i in 1:length(PCOS1c_vars)) {
                                     nrow())
     
   }
+  
+  writeData(wb, "PCOS1c Raw",
+            x = paste0(PCOS1c_vars[i], " by PCOS1"),
+            startRow = r)
+  
+  addStyle(wb, "PCOS1c Raw",
+           pt2,
+           rows = r,
+           cols = 1)
+  
+  r <- r + 1
+  
+  writeData(wb, "PCOS1c Raw",
+            x = PCOS1c_vars[i],
+            startRow = r,
+            startCol = 2)
+  
+  mergeCells(wb, "PCOS1c Raw",
+             cols = 2:ncol(crosstab),
+             rows = r)
+  
+  addStyle(wb, "PCOS1c Raw",
+           ch2,
+           rows = r,
+           cols = 2)
+  
+  r <- r + 1
+  
+  writeDataTable(wb, "PCOS1c Raw",
+                 crosstab,
+                 tableStyle = "none",
+                 headerStyle = ch,
+                 withFilter = FALSE,
+                 startRow = r)
+  
+  r <- r + nrow(crosstab) + 2
+  
+  
+  
+}
+
+# PCOS 1d Crosstabs ####
+
+addWorksheet(wb, "PCOS1d Raw")
+
+r <- 1
+
+for (i in 1:length(PCOS1d_vars)) {
+  
+  responses <- levels(data_raw[[PCOS1d_vars[i]]])
+  
+  crosstab <- data.frame(PCOS1 = c("Yes", "No", "Don't know"))
+  
+  for (j in 1:length(responses)) {
+    
+    crosstab[[responses[j]]] <- c(data_raw %>%
+                                    filter(PCOS1 == "Yes" & .[[PCOS1d_vars[i]]] == responses[j]) %>%
+                                    nrow(),
+                                  data_raw %>%
+                                    filter(PCOS1 == "No" & .[[PCOS1d_vars[i]]] == responses[j]) %>%
+                                    nrow(),
+                                  data_raw %>%
+                                    filter(PCOS1 == "Don't know" & .[[PCOS1d_vars[i]]] == responses[j]) %>%
+                                    nrow())
+    
+  }
+  
+  writeData(wb, "PCOS1d Raw",
+            x = paste0(PCOS1d_vars[i], " by PCOS1"),
+            startRow = r)
+  
+  addStyle(wb, "PCOS1d Raw",
+           pt2,
+           rows = r,
+           cols = 1)
+  
+  r <- r + 1
+  
+  writeData(wb, "PCOS1d Raw",
+            x = PCOS1d_vars[i],
+            startRow = r,
+            startCol = 2)
+  
+  mergeCells(wb, "PCOS1d Raw",
+             cols = 2:ncol(crosstab),
+             rows = r)
+  
+  addStyle(wb, "PCOS1d Raw",
+           ch2,
+           rows = r,
+           cols = 2)
+  
+  r <- r + 1
+  
+  writeDataTable(wb, "PCOS1d Raw",
+                 crosstab,
+                 tableStyle = "none",
+                 headerStyle = ch,
+                 withFilter = FALSE,
+                 startRow = r)
+  
+  r <- r + nrow(crosstab) + 2
+  
   
 }
 
