@@ -477,7 +477,7 @@ addStyle(wb, "Products",
 for (i in 1:nrow(heard_stats)) {
   
   if (!is.na(heard_stats[i, "Z"])) {
-    if (abs(heard_stats[i, "Z"]) > 1.96) {
+    if (abs(heard_stats[i, "Z"]) > qnorm(0.975)) {
       addStyle(wb, "Products",
                style = sig,
                rows = r + i,
@@ -523,7 +523,7 @@ addStyle(wb, "Products",
 for (i in 1:nrow(not_heard_stats)) {
   
   if (!is.na(not_heard_stats[i, "Z"])) {
-    if (abs(not_heard_stats[i, "Z"]) > 1.96) {
+    if (abs(not_heard_stats[i, "Z"]) > qnorm(0.975)) {
       addStyle(wb, "Products",
                style = sig,
                rows = r + i,

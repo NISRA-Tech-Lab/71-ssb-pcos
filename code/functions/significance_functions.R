@@ -339,7 +339,7 @@ f_insert_sig_table <- function (df, sheet, title, c = 1) {
     
     for (i in 1:(nrow(df) - 1)) {
   
-      if (abs(df$`Z Score`[i]) > 1.96) {
+      if (abs(df$`Z Score`[i]) > qnorm(0.975)) {
         addStyle(wb, sheet,
                  style = sig,
                  rows = r + i,
@@ -388,7 +388,7 @@ f_insert_z_table <- function (df, sheet, title) {
   for (i in 1:nrow(df)) {
     for (j in 2:ncol(df)) {
       if (!is.na(df[i, j])) {
-        if (abs(df[i, j]) > 1.96) {
+        if (abs(df[i, j]) > qnorm(0.975)) {
           addStyle(wb, sheet,
                    style = sig,
                    rows = r + i,

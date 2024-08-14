@@ -136,11 +136,11 @@ dont_know_trust_nics <- f_significance_year("TrustCivilService2", "Don't know")
 
 ## Trust in the Assembly ####
 
-trust_assembly_year <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust")
+trust_assembly_year <- f_significance_year("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust")
 
-distrust_assembly_year <- f_significance_year("TrustNIAssembly2", "Tend to distrust/Distrust greatly")
+distrust_assembly_year <- f_significance_year("TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly")
 
-dont_know_trust_assembly <- f_significance_year("TrustNIAssembly2", "Don't know")
+dont_know_trust_assembly <- f_significance_year("TrustAssemblyElectedBody2", "Don't know")
 
 ## Trust in the Media ####
 
@@ -178,7 +178,7 @@ trust_nics_year_ex_dk <- f_significance_year("TrustCivilService2", "Trust a grea
 
 ## Trust in the Assembly ####
  
-trust_assembly_year_ex_dk <- f_significance_year("TrustNIAssembly2", "Trust a great deal/Tend to trust", dk = FALSE)
+trust_assembly_year_ex_dk <- f_significance_year("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 ## Trust in the Media ####
 
