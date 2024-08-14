@@ -45,25 +45,25 @@ saveRDS(table_3.1a_data, paste0(data_folder, "Trend/2021/table_3.1a_data.RDS"))
 
 # Trust Civil Service ####
 
-## Table 3.2: Trust in the Civil Service by year ####
+## Table 3.2a: Trust in the Civil Service by year ####
 
-table_3.2_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A4:F8")
+table_3.2a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A4:F8")
 
-saveRDS(table_3.2_data, paste0(data_folder, "Trend/2021/table_3.2_data.RDS"))
+saveRDS(table_3.2a_data, paste0(data_folder, "Trend/2021/table_3.2a_data.RDS"))
 
-## Table 3.3: Trust in the Northern Ireland Assembly by year ####
+## Table 3.3a: Trust in the Northern Ireland Assembly by year ####
 
-table_3.3_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A10:F14")
+table_3.3a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A10:F14")
 
-names(table_3.3_data) <- gsub("Note 5", "Note 2", names(table_3.3_data))
+names(table_3.3a_data) <- gsub("Note 5", "Note 2", names(table_3.3a_data))
 
-saveRDS(table_3.3_data, paste0(data_folder, "Trend/2021/table_3.3_data.RDS"))
+saveRDS(table_3.3a_data, paste0(data_folder, "Trend/2021/table_3.3a_data.RDS"))
 
-## Table 3.4: Trust in the Media by year ####
+## Table 3.4a: Trust in the Media by year ####
 
-table_3.4_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A17:F21")
+table_3.4a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A17:F21")
 
-saveRDS(table_3.4_data, paste0(data_folder, "Trend/2021/table_3.4_data.RDS"))
+saveRDS(table_3.4a_data, paste0(data_folder, "Trend/2021/table_3.4a_data.RDS"))
 
 # Trust NISRA Statistics ####
 

@@ -414,6 +414,12 @@ dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
 # Trust NISRA stats (exc DK) ####
 
+## Trend ####
+
+trust_trend_ex_dk <- f_trend("TruNISRAexcDK")
+
+trust_trend_z_scores_ex_dk <- f_trend_z_scores(trust_trend_ex_dk, "% Yes")
+
 ## In work vs not in work ####
 
 trust_stats_work_ex_dk <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
