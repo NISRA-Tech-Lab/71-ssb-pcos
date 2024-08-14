@@ -96,12 +96,6 @@ format_link <- function(link) {
 \
 1. Official statistics are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies. Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. National Statistics are a subset of official statistics.
 \
-```{r tab}
-tab <- function(n_tabs = 1) {
-  paste(rep("&#9;", n_tabs), collapse = "")
-}
-```
-
 1. The [`r format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR),outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
 :::
 
@@ -112,9 +106,9 @@ __Trustworthiness__ is about having confidence in the people and organisations t
 __Quality__ is about using data and methods that produce assured statistics.
 :::
 :::{custom-style="bullet_style"}
-__Value__ is about producing statistics that support society’s needs for information.
+__Value__ is about producing statistics that support society’s needs for information.\
 :::
-\
+
 
 :::{custom-style="paragraph_style"}
 7. Further information on the statistics provided in this publication can be obtained from NISRA Statistical Support Branch.\
