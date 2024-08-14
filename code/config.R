@@ -33,6 +33,10 @@ ons_year <- 2021
 title <- "Public Awareness of and Trust in Official Statistics, Northern Ireland 2022"
 subtitle <- ""
 
+# Set to "TrustNIAssembly2" (name when Assembly is sitting)
+# or "TrustElectedRep2" (name when Assembly isn't sitting, eg 2019)
+trust_body_var <- "TrustNIAssembly2"
+
 ##### HEADER ######
 # Select the Statistic type for the report - select from the list of five below
 

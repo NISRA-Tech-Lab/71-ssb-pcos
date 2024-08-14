@@ -116,14 +116,32 @@ for (i in 1:length(new_q)) {
   
   new_q_options <- levels(data_final[[new_q[i]]])
   
+  if (new_q[i] == "DERHIanalysis") {
+    new_q_options <- c(new_q_options, "Missing")
+  }
+  
   crosstab <- data.frame(new = new_q_options)
   
   for (j in 1:length(new_q_options)) {
     for (k in 1:length(old_q_options)) {
-      crosstab[[old_q_options[k]]][j] <- data_final %>%
-        filter(.[[new_q[i]]] == new_q_options[j] &
-               .[[old_q[i]]] == old_q_options[k]) %>%
-        nrow()
+      
+      if (new_q_options[j] == "Missing") {
+        
+        crosstab[[old_q_options[k]]][j] <- data_final %>%
+          filter(is.na(.[[new_q[i]]]) &
+                   .[[old_q[i]]] == old_q_options[k]) %>%
+          nrow()
+        
+      } else {
+        
+        crosstab[[old_q_options[k]]][j] <- data_final %>%
+          filter(.[[new_q[i]]] == new_q_options[j] &
+                   .[[old_q[i]]] == old_q_options[k]) %>%
+          nrow()
+        
+      }
+      
+      
     }
   }
   

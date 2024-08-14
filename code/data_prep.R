@@ -5,8 +5,10 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 
 # Old and new names for all "trust" based answers
-trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
-trust_q_new <- c("TrustCivilService2", "TrustNIAssembly2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
+trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
+trust_q_new <- c("TrustCivilService2", trust_body_var, "TrustAssemblyElectedBody2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
+
+#TrustElectedBodies2
 
 # Old and new names for all "agree" based answers
 agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
@@ -260,13 +262,13 @@ trust_nisra_ons_data <- trust_nisra_data %>%
  
 trust_institutions_data <- 
   rbind(data.frame(org = c("The NI Assembly", "The Civil Service", "The media"),
-                   trust = c(sum(data_final$W3[data_final$TrustNIAssembly2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNIAssembly2)]) * 100,
+                   trust = c(sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
                              sum(data_final$W3[data_final$TrustCivilService2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
                              sum(data_final$W3[data_final$TrustMedia2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100),
-                   distrust = c(sum(data_final$W3[data_final$TrustNIAssembly2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNIAssembly2)]) * 100,
+                   distrust = c(sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
                                 sum(data_final$W3[data_final$TrustCivilService2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
                                 sum(data_final$W3[data_final$TrustMedia2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100),
-                   dont_know = c(sum(data_final$W3[data_final$TrustNIAssembly2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNIAssembly2)]) * 100,
+                   dont_know = c(sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
                              sum(data_final$W3[data_final$TrustCivilService2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
                              sum(data_final$W3[data_final$TrustMedia2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100)),
         trust_nisra_data %>%
