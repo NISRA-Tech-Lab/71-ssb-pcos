@@ -431,7 +431,10 @@ f_nisra_ons_ex_dk <- function (var, val) {
                                               unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
                                                 unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var])) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,
-                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+                         TRUE ~ f_return_z(p1 = nisra / 100,
+                                           n1 = nisra[trust == "Base"],
+                                           p2 = ons / 100,
+                                           n2 = ons[trust == "Base"])))
   
   names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
   
@@ -454,7 +457,10 @@ f_nisra_ons <- function (var, val_1, val_2) {
                            ons_values$`Don't know` / ons_values$`Unweighted base` * 100,
                            ons_values$`Unweighted base`)) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,
-                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+                         TRUE ~ f_return_z(p1 = nisra / 100,
+                                           n1 = nisra[trust == "Base"],
+                                           p2 = ons / 100,
+                                           n2 = ons[trust == "Base"])))
   
   names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
   
@@ -465,7 +471,7 @@ f_nisra_ons <- function (var, val_1, val_2) {
 f_trend <- function (sheet) {
   
   trend <- unweighted_trend %>%
-    filter(grepl(sheet, stat)) %>%
+    filter(grepl(paste0(sheet, " - "), stat)) %>%
     mutate(stat = sub(paste0(sheet, " - "), "", stat))
   
   names(trend)[names(trend) == "stat"] <- " "

@@ -412,13 +412,78 @@ distrust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Tend to distrust/Distr
 
 dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
-# Trust NISRA stats (exc DK) ####
-
+# Trust in NISRA (exc DK) ####
+ 
 ## Trend ####
 
 trust_trend_ex_dk <- f_trend("TruNISRAexcDK")
 
 trust_trend_z_scores_ex_dk <- f_trend_z_scores(trust_trend_ex_dk, "% Yes")
+
+## In work vs not in work ####
+
+trust_nisra_work_ex_dk <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+##  By Age ####
+
+trust_nisra_age_ex_dk <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+trust_nisra_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+trust_nisra_qual_ex_dk <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust NISRA Statistics ####
+ 
+## Trend ####
+
+trust_stats_trend <- f_trend("TrustNISRAStats")
+
+trust_stats_trend_z_scores_yes <- f_trend_z_scores(trust_stats_trend, "% Yes")
+
+trust_stats_trend_z_scores_no <- f_trend_z_scores(trust_stats_trend, "% No")
+
+trust_stats_trend_z_scores_dk <- f_trend_z_scores(trust_stats_trend, "% DK")
+ 
+## Trust NISRA statistics by Work Status ####
+
+trust_stats_work_stats <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## Trust NISRA statistics by Age ####
+
+trust_stats_age_stats <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Don't know")
+
+## Trust NISRA statistics by Qualification ####
+
+trust_stats_qual_stats <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+trust_stats_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
+
+trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
+
+trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
+
+
+# Trust NISRA stats (exc DK) ####
+
+## Trend ####
+
+trust_stats_trend_ex_dk <- f_trend("TruNISRAStatsexcDK")
+
+trust_stats_trend_z_scores_ex_dk <- f_trend_z_scores(trust_stats_trend_ex_dk, "% Yes")
 
 ## In work vs not in work ####
 
@@ -442,7 +507,21 @@ trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a 
 
 # Value ####
 
+## Trend ####
+ 
+value_trend <- f_trend("Value")
+
+value_trend_z_scores_yes <- f_trend_z_scores(value_trend, "% Yes")
+
+value_trend_z_scores_no <- f_trend_z_scores(value_trend, "% No")
+
+value_trend_z_scores_dk <- f_trend_z_scores(value_trend, "% DK")
+
+## Value by In work vs not in work ####
+
 value_work_stats <- f_work_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+## Value by Age ####
 
 value_age_stats <- f_age_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
@@ -452,6 +531,8 @@ value_disagree_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Tend to disagre
 
 value_dont_know_age_z_scores <- f_age_z_scores("NISRAstatsImp2", "Don't know")
 
+## Value by Qualification ####
+
 value_qual_stats <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
 value_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree")
@@ -460,110 +541,13 @@ value_disagree_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Tend to disag
 
 value_dont_know_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Don't know")
 
-# Interference ####
-
-interference_work_stats <- f_work_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-interference_age_stats <- f_age_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-interference_age_z_scores <- f_age_z_scores("Political2", "Strongly Agree/Tend to Agree")
-
-interference_disagree_age_z_scores <- f_age_z_scores("Political2", "Tend to disagree/Strongly disagree")
-
-interference_dont_know_age_z_scores <- f_age_z_scores("Political2", "Don't know")
-
-interference_qual_stats <- f_qual_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-interference_qual_z_scores <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree")
-
-interference_disagree_qual_z_scores <- f_qual_z_scores("Political2", "Tend to disagree/Strongly disagree")
-
-interference_dont_know_qual_z_scores <- f_qual_z_scores("Political2", "Don't know") 
-
-# Confidentiality ####
-
-confidential_work_stats <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-confidential_age_stats <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-confidential_age_z_scores <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
-
-confidential_disagree_age_z_scores <- f_age_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
-
-confidential_dont_know_age_z_scores <- f_age_z_scores("Confidential2", "Don't know")
-
-confidential_qual_stats <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
-
-confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
-
-confidential_disagree_qual_z_scores <- f_qual_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
-
-confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't know") 
-
-# ONS vs NISRA ####
-
-nisra_ons_trust <- data.frame(trust = c("Trust", "Distrust", "Don't know", "Base"),
-                              ons = c(data_ons$`Trust a great deal`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Tend to trust`[data_ons$`Related Variable` == "TrustNISRA2"],
-                                      data_ons$`Tend to distrust`[data_ons$`Related Variable` == "TrustNISRA2"] + data_ons$`Distrust greatly`[data_ons$`Related Variable` == "TrustNISRA2"],
-                                      data_ons$`Don't know`[data_ons$`Related Variable` == "TrustNISRA2"],
-                                      unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == "TrustNISRA2"]),
-                              nisra = c(trust_year[[as.character(current_year)]][1],
-                                        distrust_year[[as.character(current_year)]][1],
-                                        dont_know_trust[[as.character(current_year)]][1],
-                                        trust_year[[as.character(current_year)]][2])) %>%
-  mutate(Z = case_when(trust == "Base" ~ NA,
-                       TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
-
-names(nisra_ons_trust) <- c("ONS figure is weighted", paste("ONS", ons_year), paste("NISRA", current_year), "Z Score")
-
-
-
-# Trust NISRA Statistics ####
-
-trust_stats_work_stats <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
-
-trust_stats_age_stats <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
-
-trust_stats_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
-
-trust_stats_disagree_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
-
-trust_stats_dont_know_age_z_scores <- f_age_z_scores("TrustNISRAstats2", "Don't know")
-
-trust_stats_qual_stats <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
-
-trust_stats_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust")
-
-trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend to distrust/Distrust greatly")
-
-trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know") 
-
-
-
-
-# Trust in NISRA (exc DK) ####
-
-## In work vs not in work ####
-
-trust_nisra_work_ex_dk <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-##  By Age ####
-
-trust_nisra_age_ex_dk <- f_age_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## Age comparison ####
-
-trust_nisra_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## By qualification ####
-
-trust_nisra_qual_ex_dk <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## Qualification comparison ####
-
-trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
 # Value NISRA stats (exc DK) ####
+
+## Trend ####
+
+value_trend_ex_dk <- f_trend("ValuesExDK")
+
+value_trend_z_scores_ex_dk <- f_trend_z_scores(value_trend_ex_dk, "% Yes")
 
 ## In work vs not in work ####
 
@@ -585,7 +569,46 @@ value_qual_ex_dk <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree
 
 value_qual_z_scores_ex_dk <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
+
+# Interference ####
+
+## Trend ####
+
+interference_trend <- f_trend("Interference")
+
+interference_trend_z_scores_yes <- f_trend_z_scores(interference_trend, "% Yes")
+
+interference_trend_z_scores_no <- f_trend_z_scores(interference_trend, "% No")
+
+interference_trend_z_scores_dk <- f_trend_z_scores(interference_trend, "% DK")
+
+## In work vs not in work ####
+
+interference_work_stats <- f_work_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_stats <- f_age_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_age_z_scores <- f_age_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_age_z_scores <- f_age_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_age_z_scores <- f_age_z_scores("Political2", "Don't know")
+
+interference_qual_stats <- f_qual_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+interference_qual_z_scores <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree")
+
+interference_disagree_qual_z_scores <- f_qual_z_scores("Political2", "Tend to disagree/Strongly disagree")
+
+interference_dont_know_qual_z_scores <- f_qual_z_scores("Political2", "Don't know") 
+
 # NISRA stats free from interference (exc DK) ####
+
+## Trend ####
+
+interference_trend_ex_dk <- f_trend("InterfExDK")
+
+interference_trend_z_scores_ex_dk <- f_trend_z_scores(interference_trend_ex_dk, "% Yes")
 
 ## In work vs not in work ####
 
@@ -607,7 +630,45 @@ interference_qual_ex_dk <- f_qual_stats("Political2", "Strongly Agree/Tend to Ag
 
 interference_qual_z_scores_ex_dk <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
+# Confidentiality ####
+
+## Trend ####
+
+confidential_trend <- f_trend("Interference")
+
+confidential_trend_z_scores_yes <- f_trend_z_scores(confidential_trend, "% Yes")
+
+confidential_trend_z_scores_no <- f_trend_z_scores(confidential_trend, "% No")
+
+confidential_trend_z_scores_dk <- f_trend_z_scores(confidential_trend, "% DK")
+
+## In work vs not in work ####
+
+confidential_work_stats <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_stats <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_age_z_scores <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_age_z_scores <- f_age_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_age_z_scores <- f_age_z_scores("Confidential2", "Don't know")
+
+confidential_qual_stats <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
+confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
+
+confidential_disagree_qual_z_scores <- f_qual_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
+
+confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't know") 
+
 # NISRA will keep my information confidential (exc DK) ####
+
+## Trend ####
+
+confidential_trend_ex_dk <- f_trend("ConfExDK")
+
+confidential_trend_z_scores_ex_dk <- f_trend_z_scores(confidential_trend_ex_dk, "% Yes")
 
 ## In work vs not in work ####
 
