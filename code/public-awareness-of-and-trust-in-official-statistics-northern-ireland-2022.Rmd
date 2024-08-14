@@ -646,7 +646,7 @@ Detailed tables including the source data for all the charts and commentary and 
 
 ## Appendix C: Survey Questions
 
-The following questions were included in the Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` 2022:
+The following questions were included in the Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` `r current_year`:
 
 [Public Awareness and Trust in Official Statistics Questions (2022)](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
 
