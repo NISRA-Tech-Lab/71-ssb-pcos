@@ -43,7 +43,7 @@ source(paste0(here(), "/code/excel tables/run_excel_tables.R"))
 
 ## Overview
 
-This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between September and December `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
+This report presents findings on public awareness of NISRA (Northern Ireland Statistics and Research Agency) and trust in official statistics in Northern Ireland. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` `r current_year`. The report also monitors changes over time and includes comparisons with the Office for National Statistics (ONS), where appropriate. The figures presented in this report were obtained from a representative sample of the Northern Ireland population (`r sample_size` persons) and are therefore estimates. The key findings are:
 
 **Awareness**
 
@@ -67,7 +67,7 @@ This report presents findings on public awareness of NISRA (Northern Ireland Sta
 
 `r f_borderline()`
 
-## 0. Introduction
+## Introduction
 
 Official Statistics in Northern Ireland are produced by Government Departments, and in some cases Arm’s Length Bodies. The data collection, production, presentation and dissemination of official statistics are governed by the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/).
 
@@ -89,7 +89,7 @@ Differences are only noted in the commentary when they are likely to represent a
 
 ### Current year, `r current_year`
 
-Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey. A more detailed breakdown is available in the accompanying tables (see [Appendix B](https://datavis.nisra.gov.uk/techlab/drpvze/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-b.html)).
+Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 ### Comparison over time
 
@@ -269,11 +269,11 @@ plot_ly(aware_stats_data,
 
 ```
 
-`r f_extract_sheet(xl_filename, "Awareness_NISRA_Statistics", paste0("Table 2.1: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))`
+`r f_extract_sheet(xl_filename, "Awareness_NISRA_Statistics", paste0("Table 2.1a-j: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))`
 
 ### Aware statistics produced by NISRA, heard of NISRA
 
-Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
+Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%), followed by the number of people who live in Northern Ireland (`r heard_aware_people`%) and the number of deaths (`r heard_aware_deaths`%). Statistics on qualifications of school leavers (`r heard_of_aware_qualifications`%), people living in poverty (`r heard_of_aware_poverty`%) and the percentage of journeys made by walking, cycling or public transport (`r heard_of_aware_cycling`%) were the least recognised as being produced by NISRA.
 
@@ -322,7 +322,7 @@ plot_ly(aware_stats_by_nisra_data,
 
 ```
 
-`r f_extract_sheet(xl_filename, "Aware_Statistics_by_NISRA", paste0("Table 2.2: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))`
+`r f_extract_sheet(xl_filename, "Aware_Statistics_by_NISRA", paste0("Table 2.2a-j: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))`
 
 `r f_borderline()`
 
@@ -330,7 +330,7 @@ plot_ly(aware_stats_by_nisra_data,
 
 ### Current year, `r current_year`
 
-Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respondents trusting NISRA a great deal or tending to trust NISRA. Most of the remaining respondents (`r dont_know_trust_nisra`%) didn’t know whether they trusted NISRA or not, while `r distrust_nisra`% of respondents tended to distrust or distrusted NISRA greatly (Chart 5). Trust in NISRA was higher among those who had heard of NISRA (`r heard_of_and_trust_nisra`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
+Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respondents trusting NISRA a great deal or tending to trust NISRA. Most of the remaining respondents (`r dont_know_trust_nisra`%) didn’t know whether they trusted NISRA or not, while `r distrust_nisra`% of respondents tended to distrust or distrusted NISRA greatly (Chart 5). Trust in NISRA was higher among those who had heard of NISRA (`r heard_of_and_trust_nisra`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 ### Comparison over time
 
@@ -395,7 +395,7 @@ plot_ly(trust_institutions_data,
             name = "Don't Know",
             hovertext = ~paste0(org, ": ", round_half_up(dont_know, 1), "%"),
             textposition = "inside",
-            insidetextanchor = "middle") %>%
+            insidetextanchor = "end") %>%
   layout(font = list(family = "Arial", size = 12),
          barmode = "stack",
          yaxis = list(categoryorder = "array",  # How to order the categories
@@ -415,15 +415,17 @@ plot_ly(trust_institutions_data,
 
 # Bespoke download sheet for 3 tables:
 
-f_trust_instiutions(title = paste0("Tables 3.2-3.4: Trust in Institutions, 2014 to ", current_year),
+f_trust_instiutions(title = paste0("Tables 3.1a-3.4a: Trust in Institutions, 2014 to ", current_year),
                     tables = list(
-                      list(data = table_3.2_data,
-                           title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year)),
-                      list(data = table_3.3_data,
-                           title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year, " [Note 2]"),
+                      list(data = table_3.1a_data,
+                           title = paste0("Table 3.1a: Trust in NISRA, 2014 to ", current_year)),
+                      list(data = table_3.2a_data,
+                           title = paste0("Table 3.2a: Trust in the Civil Service, 2014 to ", current_year)),
+                      list(data = table_3.3a_data,
+                           title = paste0("Table 3.3a: Trust in the Northern Ireland Assembly, 2014 to ", current_year, " [Note 2]"),
                            note = "Note 2: In 2019, respondents were asked whether they trusted elected bodies, such as the NI Assembly or the UK Government as the NI Assembly was suspended at this time."),
-                      list(data = table_3.4_data,
-                           title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year))
+                      list(data = table_3.4a_data,
+                           title = paste0("Table 3.4a: Trust in the Media, 2014 to ", current_year))
                       ))
 
 ```
@@ -434,7 +436,7 @@ f_trust_instiutions(title = paste0("Tables 3.2-3.4: Trust in Institutions, 2014 
 
 ### Current year, `r current_year`
 
-The majority of respondents (`r trust_in_nisra_stats`%) trust NISRA statistics a great deal or tend to trust them while `r distrust_nisra_stats`% of respondents distrust greatly or tend to distrust them. The remaining respondents (`r dont_know_trust_nisra_stats`%) don’t know whether they trust NISRA statistics or not (Chart 8). Trust in NISRA statistics is higher among those that have heard of NISRA as an institution (`r heard_of_and_trust_nisra_stats`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-%60r%20current_year%60-appendix-b.html)).
+The majority of respondents (`r trust_in_nisra_stats`%) trust NISRA statistics a great deal or tend to trust them while `r distrust_nisra_stats`% of respondents distrust greatly or tend to distrust them. The remaining respondents (`r dont_know_trust_nisra_stats`%) don’t know whether they trust NISRA statistics or not (Chart 8). Trust in NISRA statistics is higher among those that have heard of NISRA as an institution (`r heard_of_and_trust_nisra_stats`%). Further detail is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 ### Comparison over time
 
@@ -579,10 +581,10 @@ f_stacked_bar_vertical(condifential_nisra_ons_data)
 ## Useful links
 
 -   [Previous bulletins in this series](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos)
--   [Summary infographics](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022)
+-   [Summary infographics](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`)
 -   [Statistics produced by NISRA](https://www.nisra.gov.uk/statistics)
 -   [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/)
--   [Public Confidence in Official Statistics (ONS)](http://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)
+-   [ONS - Public Confidence in Official Statistics](http://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)
 
 `r f_borderline()`
 
@@ -600,11 +602,11 @@ Our statistical practice is regulated by the Office for Statistics Regulation (O
 
 This report presents the results of questions relating to Public Awareness and Trust in Official Statistics in Northern Ireland that were included in the Continuous Household Survey (CHS). The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. Prior to 2018, the questions were included as a module within the NI Omnibus Survey but following the temporary suspension of the NI Omnibus Survey in 2018, the questions were moved to the CHS. Both surveys use probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households. This means that comparisons can continue to be made over time and significance tests carried out to determine if observed differences are likely to be real or due to sampling error.
 
-Each year CSU sets the content of the CHS questionnaire in consultation with clients. The questionnaire consists of both an overall household interview, and an individual interview with each person aged 16 and over. Both the household and individual questionnaires consist of core items that are included each year, and modules that recur on a regular cycle. Core items include household and individual demographics, accommodation, tenure, internet access, environmental issues, domestic tourism, participation in sports, arts and leisure, employment status, health and section 75 classifications. Interviews are spread over 12 months from April to March, with the module on ‘Public Awareness and Trust in Official Statistics’ normally included during the Autumn months (September to December in `r current_year`). The questions included in the `r current_year` module are available in [Appendix C](https://datavis.nisra.gov.uk/techlab/drpvze/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.html) of this report.
+Each year CSU sets the content of the CHS questionnaire in consultation with clients. The questionnaire consists of both an overall household interview, and an individual interview with each person aged 16 and over. Both the household and individual questionnaires consist of core items that are included each year, and modules that recur on a regular cycle. Core items include household and individual demographics, accommodation, tenure, internet access, environmental issues, domestic tourism, participation in sports, arts and leisure, employment status, health and section 75 classifications. Interviews are spread over 12 months from April to March, with the module on ‘Public Awareness and Trust in Official Statistics’ normally included during the Autumn months (`r survey_start_mth` to `r survey_end_mth` in `r current_year`). The questions included in the `r current_year` module are available in [Appendix C](https://datavis.nisra.gov.uk/techlab/drpvze/public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html) of this report.
 
 ### Data Collection
 
-The CHS is based on a systematic random sample of 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through telephone interviews using CATI (Computer-assisted telephone interviewing) or face-to-face interviews using CAPI (Computer Assisted Personal Interviewing). Of the 2,990 addresses selected for interview from September to December `r current_year`, `r sample_size` persons participated in this module of the survey.
+The CHS is based on a systematic random sample of 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through telephone interviews using CATI (Computer-assisted telephone interviewing) or face-to-face interviews using CAPI (Computer Assisted Personal Interviewing). Of the 2,990 addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
 
 ### Survey Estimates
 
@@ -644,7 +646,7 @@ Detailed tables including the source data for all the charts and commentary and 
 
 ## Appendix C: Survey Questions
 
-The following questions were included in the Continuous Household Survey (CHS) between September and December 2022:
+The following questions were included in the Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` 2022:
 
 [Public Awareness and Trust in Official Statistics Questions (2022)](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
 

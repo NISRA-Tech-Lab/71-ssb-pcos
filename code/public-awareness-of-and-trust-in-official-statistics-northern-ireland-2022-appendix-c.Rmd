@@ -69,7 +69,7 @@ I am going to list a number of these and want you to tell me if you knew before 
 
 pcos1 <- data.frame(
   Question = outputs) %>%
-  mutate(`Heard of NISRA?` = rep("Yes/No", nrow(.)))
+  mutate(`Aware produced by NISRA?` = rep("Yes/No", nrow(.)))
 
 kbl(pcos1) %>%
   kable_styling()
@@ -84,10 +84,13 @@ _If answered 'no' to Qu1 then_
 
 #### Qu 2b: Aware of NISRA statistics 
 
+NISRA produces official statistics for Northern Ireland on a wide range of issues.
+
 I am going to list a number of these and want you to tell me if you have heard of them or not.
 
 ```{r PCOS1d}
-kbl(pcos1) %>%
+kbl(pcos1 %>%
+      rename(`Heard of?` = `Aware produced by NISRA?`)) %>%
   kable_styling()
 ```
 

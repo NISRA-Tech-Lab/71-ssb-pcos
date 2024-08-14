@@ -27,7 +27,7 @@ f_stacked_bar_vertical <- function (df) {
                                      TRUE ~ ""))
   
   offset <- if ("org" %in% names(df)) {
-    0.72
+    0.81
   } else if ("year" %in% names(df)) {
     0.6
   }
