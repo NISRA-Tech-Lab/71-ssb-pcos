@@ -252,15 +252,20 @@ nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agr
 
 # Awareness of NISRA ####
 
+## Trend ####
+
+aware_trend <- f_trend("Awareness")
+
+aware_trend_z_scores <- f_trend_z_scores(aware_trend, "% Yes")
 
 ## In Work vs Not in work ####
 
-work_status <- data.frame(stat = c("%", "Base"),
+work_status <- data.frame(stat = c("% Yes", "Base"),
                           
-                          work = c(f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "In paid employment"),
+                          work = c(f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "In paid employment") * 100,
                                    f_return_n_group(data_current$PCOS1, data_current$EMPST2, "In paid employment")),
                           
-                          not = c(f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "Not in paid employment"),
+                          not = c(f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "Not in paid employment") * 100,
                                   f_return_n_group(data_current$PCOS1, data_current$EMPST2, "Not in paid employment")),
                           
                           z = c(f_return_z(p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "In paid employment"),
@@ -275,14 +280,14 @@ names(work_status) <- c(" ", "In work", "Not in work", "Z Score")
 
 age_groups <- levels(data_current$AGE2)
 
-age_stats <- data.frame(stat = c("%", "Base"))
+age_stats <- data.frame(stat = c("% Yes", "Base"))
 
 for (age in age_groups) {
-  age_stats[[age]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$AGE2, age),
+  age_stats[[age]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$AGE2, age) * 100,
                         f_return_n_group(data_current$PCOS1, data_current$AGE2, age))
 }
 
-names(age_stats)[names(age_stats) == "stat"] <- ""
+names(age_stats)[names(age_stats) == "stat"] <- " "
 
 age_z_scores <- f_age_z_scores("PCOS1", "Yes")
 
@@ -290,12 +295,14 @@ age_z_scores <- f_age_z_scores("PCOS1", "Yes")
 
 quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
 
-qual_stats <- data.frame(stat = c("%", "Base"))
+qual_stats <- data.frame(stat = c("% Yes", "Base"))
 
 for (qual in quals) {
-  qual_stats[[qual]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, qual),
+  qual_stats[[qual]] <- c(f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, qual) * 100,
                           f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, qual))
 }
+
+names(qual_stats)[names(qual_stats) == "stat"] <- " "
 
 qual_z_scores <- f_qual_z_scores("PCOS1", "Yes")
 
@@ -310,29 +317,6 @@ products <- c("Number of deaths in NI",
               "The unemployment rate in NI",
               "People living in poverty in NI",
               "Percentage of journey made by walking, cycling or public transport in NI")
-
-## Heard of NISRA vs Had not heard of NISRA ####
- 
-products_stats <- data.frame(product = products)
-
-for (i in 1:length(products)) {
-  products_stats$heard[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
-  products_stats$not[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
-  products_stats$z[i] <- f_return_z(p1 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
-                                    n1 = f_return_n(data_current[[paste0("PCOS1c", i)]]),
-                                    p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
-                                    n2 = f_return_n(data_current[[paste0("PCOS1d", i)]]))
-}
-
-products_stats <- products_stats %>%
-  mutate(diff = heard - not) %>%
-  rbind(data.frame(product = "Base",
-                   heard = f_return_n(data_current$PCOS1c1),
-                   not = f_return_n(data_current$PCOS1d1),
-                   z = NA,
-                   diff = NA))
-
-names(products_stats) <- c(" ", "% Had heard of NISRA", "% Had not heard of NISRA", "Z", "Difference in %")
 
 ## Had heard of NISRA: This year vs previous year ####
 
@@ -355,7 +339,7 @@ heard_stats <- heard_stats %>%
                    z = NA,
                    diff = NA))
 
-names(heard_stats) <- c("Had heard of NISRA", current_year - 1, current_year, "Z", "Difference in %")
+names(heard_stats) <- c("% Aware produced by NISRA", current_year - 1, current_year, "Z", "Difference in %")
 
 ## Had not heard of NISRA: This year vs previous year ####
  
@@ -378,9 +362,23 @@ not_heard_stats <- not_heard_stats %>%
                    z = NA,
                    diff = NA))
 
-names(not_heard_stats) <- c("Had not heard of NISRA", current_year - 1, current_year, "Z", "Difference in %")
+names(not_heard_stats) <- c("% Aware of statistics", current_year - 1, current_year, "Z", "Difference in %")
 
 # Trust in NISRA ####
+
+## Trend ####
+
+trust_trend <- f_trend("Trust in NISRA")
+
+trust_trend_z_scores_yes <- f_trend_z_scores(trust_trend, "% Yes")
+
+trust_trend_z_scores_no <- f_trend_z_scores(trust_trend, "% No")
+
+trust_trend_z_scores_dk <- f_trend_z_scores(trust_trend, "% DK")
+
+## Trust in NISRA by Work Status ####
+
+trust_work_status <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
 ## Trust in NISRA - unweighted and base figures by age group ####
 
@@ -402,26 +400,39 @@ dont_know_trust_age_z_scores <- f_age_z_scores("TrustNISRA2", "Don't know")
 
 trust_qual_stats <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
-## Trust in NISRA by qualification compare ####
+## Trust in NISRA by Qualification compare ####
 
 trust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust")
 
-## Distrust in NISRA by Age group compare ####
+## Distrust in NISRA by Qualification compare ####
 
 distrust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Tend to distrust/Distrust greatly")
 
-## Don't know trust in NISRA by Age group compare ####
+## Don't know trust in NISRA by Qualification compare ####
 
 dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
-## Trust in NISRA by Work Status ####
+# Trust NISRA stats (exc DK) ####
 
-trust_work_status <- f_work_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+## In work vs not in work ####
 
+trust_stats_work_ex_dk <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
 
+##  By Age ####
 
+trust_stats_age_ex_dk <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
 
+## Age comparison ####
 
+trust_stats_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+trust_stats_qual_ex_dk <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 # Value ####
 
@@ -545,28 +556,6 @@ trust_nisra_qual_ex_dk <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend t
 ## Qualification comparison ####
 
 trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-# Trust NISRA stats (exc DK) ####
-
-## In work vs not in work ####
-
-trust_stats_work_ex_dk <- f_work_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-##  By Age ####
-
-trust_stats_age_ex_dk <- f_age_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## Age comparison ####
-
-trust_stats_age_z_scores_ex_dk <- f_age_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## By qualification ####
-
-trust_stats_qual_ex_dk <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
-
-## Qualification comparison ####
-
-trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 # Value NISRA stats (exc DK) ####
 

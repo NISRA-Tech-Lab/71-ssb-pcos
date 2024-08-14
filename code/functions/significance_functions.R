@@ -320,13 +320,19 @@ f_insert_sig_table <- function (df, sheet, title, c = 1) {
   addStyle(wb, sheet,
            style = ns3d,
            rows = (r + 1):(r + nrow(df) - 1),
-           cols = (c + 1):(c + ncol(df) - 1),
+           cols = (c+1):(c + ncol(df) - 1),
            gridExpand = TRUE)
   
   addStyle(wb, sheet,
            style = ns_comma,
            rows = r + nrow(df),
            cols = (c + 1):(c + ncol(df) - 1),
+           gridExpand = TRUE)
+  
+  addStyle(wb, sheet,
+           style = ns,
+           rows = (r + 1):(r + nrow(df)),
+           cols = c,
            gridExpand = TRUE)
   
   if ("Z Score" %in% names(df)) {
@@ -376,7 +382,7 @@ f_insert_z_table <- function (df, sheet, title) {
   addStyle(wb, sheet,
            style = ns3d,
            rows = (r + 1):(r + nrow(df)),
-           cols = 2:ncol(df),
+           cols = 1:ncol(df),
            gridExpand = TRUE)
   
   for (i in 1:nrow(df)) {
@@ -455,3 +461,48 @@ f_nisra_ons <- function (var, val_1, val_2) {
   df
   
 }
+
+f_trend <- function (sheet) {
+  
+  trend <- unweighted_trend %>%
+    filter(grepl(sheet, stat)) %>%
+    mutate(stat = sub(paste0(sheet, " - "), "", stat))
+  
+  names(trend)[names(trend) == "stat"] <- " "
+  
+  trend
+  
+}
+
+f_trend_z_scores <- function (trend, response) {
+  
+  years <- names(trend)[names(trend) != " "]
+  
+  df <- data.frame(year = years)
+  
+  for (i in 1:length(years)) {
+    
+    df[[years[i]]] <- NA
+    
+    for (j in 1:length(years)) {
+
+      if (i > j) {
+
+        df[[years[i]]][j] <- f_return_z(p1 = trend[[years[j]]][trend[[1]] == response] / 100,
+                                        n1 = trend[[years[j]]][trend[[1]] == "Base"],
+                                        p2 = trend[[years[i]]][trend[[1]] == response] / 100,
+                                        n2 = trend[[years[i]]][trend[[1]] == "Base"])
+
+      }
+
+    }
+    
+  }
+  
+  names(df)[names(df) == "year"] <- " "
+  
+  df
+  
+}
+
+

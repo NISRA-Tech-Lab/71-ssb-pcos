@@ -391,11 +391,15 @@ addStyle(wb, "Awareness",
 
 r <- r + 2
 
-## Current Year vs Previous Year ####
- 
-f_insert_sig_table(df = awareness_year,
+## Trend ####
+
+f_insert_sig_table(df = aware_trend,
                    sheet = "Awareness",
-                   title = paste0("Awareness of NISRA - ", current_year - 1, " vs ", current_year))
+                   title = paste0("Awareness of NISRA - 2014 to ", current_year))
+
+f_insert_z_table(df = aware_trend_z_scores,
+                 sheet = "Awareness",
+                 title = paste0("Awareness of NISRA - 2014 to ", current_year))
 
 ## In Work vs Not in work ####
 
@@ -405,11 +409,19 @@ f_insert_sig_table(df = work_status,
 
 ## Age groups ####
  
+f_insert_sig_table(df = age_stats,
+                   sheet = "Awareness",
+                   title = paste0("Awareness of NISRA - by Age Group - ", current_year))
+ 
 f_insert_z_table(df = age_z_scores,
                  sheet = "Awareness",
                  title = paste0("Awareness of NISRA by Age Group - ", current_year))
 
 ## Qualifications ####
+
+f_insert_sig_table(df = qual_stats,
+                   sheet = "Awareness",
+                   title = paste0("Awareness of NISRA - by Highest Qualification Achieved - ", current_year))
 
 f_insert_z_table(df = qual_z_scores,
                  sheet = "Awareness",
@@ -426,7 +438,7 @@ addWorksheet(wb, "Products")
 r <- 1
 
 writeData(wb, "Products",
-          x = "Products",
+          x = "Products (UNWEIGHTED)",
           startRow = r)
 
 addStyle(wb, "Products",
@@ -436,56 +448,10 @@ addStyle(wb, "Products",
 
 r <- r + 2
 
-## Heard of NISRA vs Had not heard of NISRA ####
- 
-writeData(wb, "Products",
-          x = paste0("Heard of NISRA vs Not heard of NISRA - ", current_year),
-          startRow = r)
-
-addStyle(wb, "Products",
-         style = pt2,
-         rows = r,
-         cols = 1)
-
-r <- r + 1
-
-writeDataTable(wb, "Products",
-               x = products_stats,
-               startRow = r,
-               tableStyle = "none",
-               headerStyle = ch,
-               withFilter = FALSE)
-
-addStyle(wb, "Products",
-         style = ns3d,
-         rows = (r + 1):(r + nrow(products_stats) - 1),
-         cols = 2:ncol(products_stats),
-         gridExpand = TRUE)
-
-for (i in 1:nrow(products_stats)) {
-  
-  if (!is.na(products_stats[i, "Z"])) {
-    if (abs(products_stats[i, "Z"]) > 1.96) {
-      addStyle(wb, "Products",
-               style = sig,
-               rows = r + i,
-               cols = which(names(products_stats) == "Z"))
-    } else {
-      addStyle(wb, "Products",
-               style = not_sig,
-               rows = r + i,
-               cols = which(names(products_stats) == "Z"))
-    }
-  }
-  
-}
-
-r <- r + nrow(products_stats) + 2
-
 ## Had heard of NISRA: This year vs previous year ####
  
 writeData(wb, "Products",
-          x = paste0("Heard of NISRA: ", current_year - 1, " vs ", current_year),
+          x = paste0("Aware produced by NISRA (Heard of NISRA) - ", current_year - 1, " vs ", current_year),
           startRow = r)
 
 addStyle(wb, "Products",
@@ -531,7 +497,7 @@ r <- r + nrow(heard_stats) + 2
 ## Had not heard of NISRA: This year vs previous year ####
  
 writeData(wb, "Products",
-          x = paste0("Had not heard of NISRA: ", current_year - 1, " vs ", current_year),
+          x = paste0("Aware of statistics (Had not heard of NISRA) - ", current_year - 1, " vs ", current_year),
           startRow = r)
 
 addStyle(wb, "Products",
@@ -575,8 +541,8 @@ for (i in 1:nrow(not_heard_stats)) {
 r <- r + nrow(not_heard_stats) + 2
 
 setColWidths(wb, "Products",
-             cols = 1:ncol(products_stats),
-             widths = c(55, rep(12, ncol(products_stats) - 1)))
+             cols = 1:ncol(heard_stats),
+             widths = c(55, rep(12, ncol(heard_stats) - 1)))
 
 # Trust in NISRA ####
  
@@ -585,7 +551,7 @@ addWorksheet(wb, "Trust in NISRA")
 r <- 1
 
 writeData(wb, "Trust in NISRA",
-          x = "Trust in NISRA",
+          x = "Trust in NISRA (UNWEIGHTED)",
           startRow = r)
 
 addStyle(wb, "Trust in NISRA",
@@ -595,70 +561,74 @@ addStyle(wb, "Trust in NISRA",
 
 r <- r + 2
 
-## Trust in NISRA: This year vs previous year ####
+## Trend ####
 
-f_insert_sig_table(df = trust_year,
+f_insert_sig_table(df = trust_trend,
                    sheet = "Trust in NISRA",
-                   title = paste0("Trust in NISRA - ", current_year, " vs ", current_year - 1))
+                   title = paste0("Trust in NISRA - 2014 to ", current_year))
 
-## Distrust in NISRA: This year vs previous year ####
+f_insert_z_table(df = trust_trend_z_scores_yes,
+                 sheet = "Trust in NISRA",
+                 title = paste0("Yes - Trust in NISRA - 2014 to ", current_year))
 
-f_insert_sig_table(df = distrust_year,
+f_insert_z_table(df = trust_trend_z_scores_no,
+                 sheet = "Trust in NISRA",
+                 title = paste0("No - Trust in NISRA - 2014 to ", current_year))
+
+f_insert_z_table(df = trust_trend_z_scores_dk,
+                 sheet = "Trust in NISRA",
+                 title = paste0("Don't know - Trust in NISRA - 2014 to ", current_year))
+
+## Trust in NISRA by Work Status ####
+
+f_insert_sig_table(df = trust_work_status,
                    sheet = "Trust in NISRA",
-                   title = paste0("Distrust in NISRA - ", current_year, " vs ", current_year - 1))
+                   title = paste0("Trust in NISRA - In work vs Not in work - ", current_year))
 
-## Don't Know trust in NISRA: This year vs previous year ####
-
-f_insert_sig_table(df = dont_know_trust,
-                   sheet = "Trust in NISRA",
-                   title = paste0("Don't Know responses - ", current_year, " vs ", current_year - 1))
 
 ## Trust in NISRA by Age group compare ####
 
+f_insert_sig_table(df = trust_age_stats,
+                   sheet = "Trust in NISRA",
+                   title = paste0("Trust in NISRA - by Age Group - ", current_year))
+
 f_insert_z_table(df = trust_age_z_scores, 
                  sheet = "Trust in NISRA",
-                 title = paste0("Trust in NISRA by Age Group - ", current_year))
+                 title = paste0("Yes - Trust in NISRA by Age Group - ", current_year))
 
 ## Distrust in NISRA by Age group compare ####
  
 f_insert_z_table(df = distrust_age_z_scores, 
                  sheet = "Trust in NISRA",
-                 title = paste0("Distrust in NISRA by Age Group - ", current_year))
+                 title = paste0("No - Trust in NISRA by Age Group - ", current_year))
 
 ## Don't know trust in NISRA by Age group compare ####
  
 f_insert_z_table(df = dont_know_trust_age_z_scores, 
                  sheet = "Trust in NISRA",
-                 title = paste0("Don't know trust in NISRA by Age Group - ", current_year))
+                 title = paste0("Don't know - Trust in NISRA by Age Group - ", current_year))
 
-# ValueIntConfYears ####
- 
-addWorksheet(wb, "ValueIntConfYears")
+## Trust in NISRA by Qualification compare ####
 
-r <- 1
+f_insert_sig_table(df = trust_qual_stats,
+                   sheet = "Trust in NISRA",
+                   title = paste0("Trust in NISRA - by highest qualification achieved - ", current_year))
 
-writeData(wb, "ValueIntConfYears",
-          x = paste(current_year, "vs", current_year - 1),
-          startRow = r)
+f_insert_z_table(df = trust_qual_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("Yes - Trust in NISRA by highest qualification achieved - ", current_year))
 
-addStyle(wb, "ValueIntConfYears",
-         style = pt,
-         rows = r,
-         cols = 1)
+## Distrust in NISRA by Qualification compare ####
 
-r <- r + 2
+f_insert_z_table(df = distrust_qual_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("No - Trust in NISRA by highest qualification achieved - ", current_year))
 
-f_insert_sig_table(df = value_year,
-                   sheet = "ValueIntConfYears",
-                   title = paste0("NISRA stats are important - ", current_year , " vs ", current_year - 1))
+## Don't know trust in NISRA by Qualification compare ####
 
-f_insert_sig_table(df = interference_year,
-                   sheet = "ValueIntConfYears",
-                   title = paste0("NISRA stats are free from interference - ", current_year , " vs ", current_year - 1))
-
-f_insert_sig_table(df = confidential_year,
-                   sheet = "ValueIntConfYears",
-                   title = paste0("NISRA will keep my information confidential - ", current_year , " vs ", current_year - 1))
+f_insert_z_table(df = dont_know_qual_age_z_scores, 
+                 sheet = "Trust in NISRA",
+                 title = paste0("Don't know - Trust in NISRA by highest qualification achieved - ", current_year))
 
 # Value ##
 
@@ -716,6 +686,57 @@ f_insert_z_table(df = value_disagree_qual_z_scores,
 f_insert_z_table(df = value_dont_know_qual_z_scores,
                  sheet = "Value",
                  title = paste0("Don't know if NISRA stats are important by highest qualification achieved - ", current_year))
+
+# Trust in NISRA (exc DK) ####
+
+addWorksheet(wb, "TruNISRAexcDK")
+
+setColWidths(wb, "TruNISRAexcDK",
+             cols = 1:ncol(trust_nisra_age_z_scores_ex_dk),
+             widths = c(47, rep(12, ncol(trust_nisra_age_z_scores_ex_dk) - 1)))
+
+r <- 1
+
+writeData(wb, "TruNISRAexcDK",
+          x = "Trust in NISRA (excluding Don't knows)",
+          startRow = r)
+
+addStyle(wb, "TruNISRAexcDK",
+         style = pt,
+         rows = r,
+         cols = 1)
+
+r <- r + 2
+
+## In work vs not in work ####
+
+f_insert_sig_table(df = trust_nisra_work_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: in work vs not in work (exc DKs)")
+
+## By age ####
+
+f_insert_sig_table(df = trust_nisra_age_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: by Age Group (exc DKs)")
+
+## Age comparison ####
+
+f_insert_z_table(df = trust_nisra_age_z_scores_ex_dk,
+                 sheet = "TruNISRAexcDK",
+                 title = "Trust in NISRA: by Age Group (exc DKs)")
+
+## By qualification ####
+
+f_insert_sig_table(df = trust_nisra_qual_ex_dk,
+                   sheet = "TruNISRAexcDK",
+                   title = "Trust in NISRA: by Highest Qualification Achieved (exc DKs)")
+
+## Qualification comparison ####
+
+f_insert_z_table(df = trust_nisra_qual_z_scores_ex_dk,
+                 sheet = "TruNISRAexcDK",
+                 title = "Trust in NISRA: by Age Group (exc DKs)")
 
 # Interference ####
 
@@ -831,39 +852,6 @@ f_insert_z_table(df = confidential_dont_know_qual_z_scores,
                  sheet = "Confidentiality",
                  title = paste0("Don't know if NISRA will keep my information confidential by highest qualification achieved - ", current_year))
 
-# ONS vs NISRA ####
-
-# addWorksheet(wb, "ONSvsNISRA")
-# 
-# r <- 1
-# 
-# writeData(wb, "ONSvsNISRA",
-#           x = "ONS vs NSIRA",
-#           startRow = r)
-# 
-# addStyle(wb, "ONSvsNISRA",
-#          style = pt,
-#          rows = r,
-#          cols = 1)
-# 
-# r <- r + 2
-# 
-# f_insert_sig_table(df = nisra_ons_trust,
-#                    sheet = "ONSvsNISRA",
-#                    title = paste0("Trust in ONS (", ons_year, ") vs Trust in NISRA (", current_year, ")"))
-# 
-# f_insert_sig_table(df = trust_stats_year,
-#                    sheet = "ONSvsNISRA",
-#                    title = paste0("Trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
-# 
-# f_insert_sig_table(df = distrust_stats_year,
-#                    sheet = "ONSvsNISRA",
-#                    title = paste0("Distrust in NISRA statistics - ", current_year - 1, " vs ", current_year))
-# 
-# f_insert_sig_table(df = dont_know_trust_stats_year,
-#                    sheet = "ONSvsNISRA",
-#                    title = paste0("Don't know if trust in NISRA statistics - ", current_year - 1, " vs ", current_year))
-
 # Trust NISRA Statistics ####
 
 addWorksheet(wb, "TrustNISRAStats")
@@ -921,113 +909,6 @@ f_insert_z_table(df = trust_stats_dont_know_qual_z_scores,
                  sheet = "TrustNISRAStats",
                  title = paste0("Don't know if Trust in NISRA Statistics by highest qualification achieved - ", current_year))
 
-# Institutions ####
-
-addWorksheet(wb, "Institutions")
-
-r <- 1
-
-writeData(wb, "Institutions",
-          x = "Trust in Institutions",
-          startRow = r)
-
-addStyle(wb, "Institutions",
-         style = pt,
-         rows = r,
-         cols = 1)
-
-r <- r + 2
-
-f_insert_sig_table(df = trust_nics_year,
-                   sheet = "Institutions",
-                   title = paste0("Trust in the Civil Service - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = distrust_nics_year,
-                   sheet = "Institutions",
-                   title = paste0("Distrust in the Civil Service - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = dont_know_trust_nics,
-                   sheet = "Institutions",
-                   title = paste0("Don't know if trust in the Civil Service - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = trust_assembly_year,
-                   sheet = "Institutions",
-                   title = paste0("Trust in the Assembly - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = distrust_assembly_year,
-                   sheet = "Institutions",
-                   title = paste0("Distrust in the Assembly - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = dont_know_trust_assembly,
-                   sheet = "Institutions",
-                   title = paste0("Don't know if trust in the Assembly - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = trust_media_year,
-                   sheet = "Institutions",
-                   title = paste0("Trust in the Media - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = distrust_media_year,
-                   sheet = "Institutions",
-                   title = paste0("Distrust in the Media - ", current_year, " vs ", current_year - 1))
-
-f_insert_sig_table(df = dont_know_trust_media,
-                   sheet = "Institutions",
-                   title = paste0("Don't know if trust in the Media - ", current_year, " vs ", current_year - 1))
-
-
-
-
-
-# Trust in NISRA (exc DK) ####
- 
-addWorksheet(wb, "TruNISRAexcDK")
-
-setColWidths(wb, "TruNISRAexcDK",
-             cols = 1:ncol(trust_nisra_age_z_scores_ex_dk),
-             widths = c(47, rep(12, ncol(trust_nisra_age_z_scores_ex_dk) - 1)))
-
-r <- 1
-
-writeData(wb, "TruNISRAexcDK",
-          x = "Trust in NISRA (excluding Don't knows)",
-          startRow = r)
-
-addStyle(wb, "TruNISRAexcDK",
-         style = pt,
-         rows = r,
-         cols = 1)
-
-r <- r + 2
-
-## In work vs not in work ####
- 
-f_insert_sig_table(df = trust_nisra_work_ex_dk,
-                   sheet = "TruNISRAexcDK",
-                   title = "Trust in NISRA: in work vs not in work (exc DKs)")
-
-## By age ####
-
-f_insert_sig_table(df = trust_nisra_age_ex_dk,
-                   sheet = "TruNISRAexcDK",
-                   title = "Trust in NISRA: by Age Group (exc DKs)")
-
-## Age comparison ####
-
-f_insert_z_table(df = trust_nisra_age_z_scores_ex_dk,
-                 sheet = "TruNISRAexcDK",
-                 title = "Trust in NISRA: by Age Group (exc DKs)")
-
-## By qualification ####
- 
-f_insert_sig_table(df = trust_nisra_qual_ex_dk,
-                   sheet = "TruNISRAexcDK",
-                   title = "Trust in NISRA: by Highest Qualification Achieved (exc DKs)")
-
-## Qualification comparison ####
-
-f_insert_z_table(df = trust_nisra_qual_z_scores_ex_dk,
-                 sheet = "TruNISRAexcDK",
-                 title = "Trust in NISRA: by Age Group (exc DKs)")
 
 # Trust NISRA stats (exc DK) ####
 
