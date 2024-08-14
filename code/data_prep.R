@@ -188,7 +188,6 @@ PCOS1d_vars <- names(data_final)[grepl("PCOS1d", names(data_final)) & names(data
 
 # Use variable label to extract output name
 outputs <- sub("\\..*", "", attributes(data_final)$var.label[grepl("Heard", attributes(data_final)$var.label)]) %>%
-  sub("transport in NI", "transport", .) %>%
   trimws()
 
 aware_stats_data <- data.frame(output = character(),
@@ -198,7 +197,7 @@ aware_stats_data <- data.frame(output = character(),
 
 for (i in 1:length(outputs)) {
   aware_stats_data <- aware_stats_data %>%
-    rbind(data.frame(output = f_wrap_labels(outputs[i], 38),
+    rbind(data.frame(output = f_wrap_labels(outputs[i], 47),
                      yes = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100))
@@ -220,7 +219,7 @@ aware_stats_by_nisra_data <- data.frame(output = character(),
 
 for (i in 1:length(outputs)) {
   aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
-    rbind(data.frame(output = f_wrap_labels(outputs[i], 38),
+    rbind(data.frame(output = f_wrap_labels(outputs[i], 47),
                      yes = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      no = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
                      dont_know = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100))

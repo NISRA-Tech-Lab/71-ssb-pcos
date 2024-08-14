@@ -9,7 +9,7 @@ f_stacked_bar_vertical <- function (df) {
   bar_gap <- if (names(df)[1] == "year") {
     0.4
   } else if (names(df)[1] == "org") {
-    0.5
+    0.7
   }
   
   df <- df %>%
@@ -38,7 +38,7 @@ f_stacked_bar_vertical <- function (df) {
           type = "bar",
           marker = list(color = nisra_navy),
           name = legend_labels[1],
-          hovertext = ~paste0(legend_labels[1], ": ", round_half_up(df[[2]]), "%"),
+          hovertext = ~paste0(legend_labels[1], "\n", ": ", round_half_up(df[[2]]), "%"),
           hoverinfo = "x+text") %>%
     add_trace(y = df[[3]],
               marker = list(color = nisra_blue),
