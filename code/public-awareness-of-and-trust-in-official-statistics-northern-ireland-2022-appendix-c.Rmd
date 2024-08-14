@@ -30,6 +30,12 @@ library(here)
 source(paste0(here(), "/code/data_prep.R"))
 ```
 
+```{css}
+h3, h4 {
+  color: #1460aa;
+  font-weight: bold;
+}
+```
 
 <div data-nics-theme="`r nics_theme`">
 
@@ -42,9 +48,9 @@ source(paste0(here(), "/code/data_prep.R"))
 
 ## Appendix C: Survey Questions
 
-### Qu1
+### Qu 1: Awareness of NISRA
 
-"Before being contacted about this survey had you heard of NISRA, the Northern Ireland Statistics and Research Agency?"
+Before being contacted about this survey had you heard of NISRA, the Northern Ireland Statistics and Research Agency?
 
 1. Yes
 1. No
@@ -53,7 +59,7 @@ _If answered 'yes' to Qu1 then_
 
 <div style = "margin-left: 30px">
 
-#### Qu1c 
+#### Qu 2a: Aware statistics produced by NISRA 
 
 NISRA produces official statistics for Northern Ireland on a wide range of issues. 
 
@@ -76,24 +82,27 @@ _If answered 'no' to Qu1 then_
 
 <div style = "margin-left: 30px">
 
-#### Qu1d 
+#### Qu 2b: Aware of NISRA statistics 
+
+NISRA produces official statistics for Northern Ireland on a wide range of issues.
 
 I am going to list a number of these and want you to tell me if you have heard of them or not.
 
 ```{r PCOS1d}
-kbl(pcos1) %>%
+kbl(pcos1 %>%
+      rename(`Heard of?` = `Aware produced by NISRA?`)) %>%
   kable_styling()
 ```
 
 </div>
 
-### Qu2
+### Qu 3: Trust – Institutions
 
 I will name a list of institutions. For each, please indicate whether you tend to trust it or tend not to trust it.
 
 <div style = "margin-left: 30px">
 
-#### Qu2a
+#### Qu 3a: Trust Civil Service
 
 How much do you trust the Civil Service?
 
@@ -102,7 +111,7 @@ How much do you trust the Civil Service?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu2b
+#### Qu 3a: Trust NI Assembly
 
 How much do you trust the NI Assembly?
 
@@ -111,7 +120,7 @@ How much do you trust the NI Assembly?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu2c
+#### Qu 3a: Trust media
 
 How much do you trust the media?
 
@@ -120,7 +129,7 @@ How much do you trust the media?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu2d
+#### Qu 3a: Trust NISRA
 
 How much do you trust NISRA?
 
@@ -131,7 +140,7 @@ How much do you trust NISRA?
 
 </div>
 
-### Qu3
+### Qu 4: Trust NISRA Statistics
 
 Personally, how much trust do you have in statistics produced by NISRA? 
 
@@ -140,7 +149,7 @@ Personally, how much trust do you have in statistics produced by NISRA?
 1. Tend not to trust them
 1. Distrust them greatly
 
-### Qu4
+### Qu 5: Value
 
 To what extent do you agree or disagree with the following statement ‘Statistics produced by NISRA are important to understand Northern Ireland?’
 
@@ -149,7 +158,7 @@ To what extent do you agree or disagree with the following statement ‘Statisti
 1. Tend to disagree
 1. Strongly disagree
 
-### Qu5
+### Qu 6: Political Interference
 
 To what extent do you agree or disagree with the following statement ‘I believe that the statistics produced by NISRA are free from political interference’
 
@@ -158,8 +167,7 @@ To what extent do you agree or disagree with the following statement ‘I believ
 1. Tend to disagree
 1. Strongly disagree
 
-### Qu6
-
+### Qu 7: Confidentiality
 To what extent do you agree or disagree with the following statement: 'I believe that personal information that is provided to NISRA will be kept confidential.'
 
 1. Strongly agree
