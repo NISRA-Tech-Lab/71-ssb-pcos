@@ -512,3 +512,9 @@ f_trend_z_scores <- function (trend, response) {
 }
 
 
+# This function returns the upper and lower confidence limits 
+f_confidence_interval <- function(p, n) {
+  
+  ci_calc <- qnorm(0.975) * sqrt((p * (1 - p)) / n)
+  return(c(value = p, lower_cl = p - ci_calc, upper_cl = p + ci_calc))
+}
