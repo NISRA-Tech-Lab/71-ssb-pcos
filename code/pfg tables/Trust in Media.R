@@ -335,3 +335,28 @@ trust_media <- trust_media %>%
   mutate(`Variable name` = factor(`Variable name`,
                               levels = sort_order)) %>%
   arrange(`Variable name`, `TLIST(A1)`)
+
+wb <- createWorkbook()
+
+addWorksheet(wb, "TrustMedia")
+
+writeDataTable(wb, "TrustMedia",
+               x = trust_media,
+               tableStyle = "none",
+               withFilter = FALSE)
+
+addStyle(wb, "TrustMedia",
+         style = ns_pfg,
+         rows = 2:(nrow(trust_media) + 1),
+         cols = 5:7,
+         gridExpand = TRUE)
+
+setColWidths(wb, "TrustMedia",
+             cols = 1:7,
+             widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71))
+
+xl_filename <- paste0(here(), "/outputs/PfG - Equality Groups Data ", current_year, ".xlsx")
+
+saveWorkbook(wb, xl_filename, overwrite = TRUE)
+
+openXL(xl_filename)

@@ -176,3 +176,7 @@ wt <- createStyle(
   fontColour = "#ffffff"
 )
 
+ns_pfg <- createStyle(
+  numFmt = "#,##0.0",
+  halign = "center"
+)

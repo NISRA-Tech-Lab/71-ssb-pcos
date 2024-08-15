@@ -1,6 +1,15 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
+# 2021 Data ####
+
+data_2021 <- readspss::read.sav(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022).sav"), use.missings = TRUE) %>%
+  mutate(TrustAssemblyElectedBody2 = TrustNIAssembly2)
+
+levels(data_2021$AGE2)[levels(data_2021$AGE2) == "74 and over"] <- "75 and over"
+
+saveRDS(data_2021, paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
+
 # 2020 Data ####
 
 data_2020 <- readspss::read.sav(paste0(data_folder, "Final/DATA  PCOS 2020 - Sept 21 (PCOS1 DK set to valid).sav"), use.missings = TRUE) %>%
