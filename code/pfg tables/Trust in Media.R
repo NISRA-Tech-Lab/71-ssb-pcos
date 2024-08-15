@@ -102,10 +102,13 @@ for (year in data_years) {
         gsub("andover", "+", .)
       
       ### Which weighting variable to use for age analysis based on year ####
+      
       age_weight <- if (year %in% 2012:2016) {
         "weight"
+      } else if (year == 2020) {
+        "W1a"
       } else {
-        "W2"
+        "W1"
       }
       
       ### Age groups to loop through ####
@@ -168,10 +171,8 @@ for (year in data_years) {
       
       sex_weight <- if (year %in% 2012:2016) {
         "weight"
-      } else if (year == 2020) {
-        "W1a"
       } else {
-        "W1"
+        "W2"
       }
       
       for (sex in sexes) {
