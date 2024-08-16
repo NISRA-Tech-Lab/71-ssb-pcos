@@ -474,6 +474,11 @@ f_trend <- function (sheet) {
     filter(grepl(paste0(sheet, " - "), stat)) %>%
     mutate(stat = sub(paste0(sheet, " - "), "", stat))
   
+  if (sheet != "Awareness") {
+    trend <- trend %>%
+      select(-`2018`)
+  }
+  
   names(trend)[names(trend) == "stat"] <- " "
   
   trend

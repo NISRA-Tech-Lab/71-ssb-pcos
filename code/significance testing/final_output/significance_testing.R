@@ -1,3 +1,8 @@
+# This script does not need run. It will be sourced when you run significance_outputs.R
+
+# Only make updates to this script to prepare new data frames for outputting to the
+# Final Significance Output
+
 library(here)
 source(paste0(here(), "/code/config.R"))
 
@@ -509,7 +514,8 @@ trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a 
 
 ## Trend ####
  
-value_trend <- f_trend("Value")
+value_trend <- f_trend("Value") %>%
+  select(-`2014`)
 
 value_trend_z_scores_yes <- f_trend_z_scores(value_trend, "% Yes")
 
@@ -545,7 +551,8 @@ value_dont_know_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Don't know")
 
 ## Trend ####
 
-value_trend_ex_dk <- f_trend("ValuesExDK")
+value_trend_ex_dk <- f_trend("ValuesExDK") %>%
+  select(-`2014`)
 
 value_trend_z_scores_ex_dk <- f_trend_z_scores(value_trend_ex_dk, "% Yes")
 

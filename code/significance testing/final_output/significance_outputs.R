@@ -859,19 +859,19 @@ r <- r + 2
 
 f_insert_sig_table(df = value_trend,
                    sheet = "Value",
-                   title = paste0("NISRA Stats are important - 2014 to ", current_year))
+                   title = paste0("NISRA Stats are important - 2016 to ", current_year))
 
 f_insert_z_table(df = value_trend_z_scores_yes,
                  sheet = "Value",
-                 title = paste0("Yes - NISRA Stats are important - 2014 to ", current_year))
+                 title = paste0("Yes - NISRA Stats are important - 2016 to ", current_year))
 
 f_insert_z_table(df = value_trend_z_scores_no,
                  sheet = "Value",
-                 title = paste0("No - NISRA Stats are important - 2014 to ", current_year))
+                 title = paste0("No - NISRA Stats are important - 2016 to ", current_year))
 
 f_insert_z_table(df = value_trend_z_scores_dk,
                  sheet = "Value",
-                 title = paste0("Don't know - NISRA Stats are important - 2014 to ", current_year)) 
+                 title = paste0("Don't know - NISRA Stats are important - 2016 to ", current_year)) 
 
 
 ## In work vs not in work ####
@@ -941,11 +941,11 @@ r <- r + 2
 
 f_insert_sig_table(df = value_trend_ex_dk,
                    sheet = "ValuesExDK",
-                   title = paste0("NISRA stats are important - 2014 to ", current_year))
+                   title = paste0("NISRA stats are important - 2016 to ", current_year))
 
 f_insert_z_table(df = value_trend_z_scores_ex_dk,
                  sheet = "ValuesExDK",
-                 title = paste0("NISRA stats are important 2014 to ", current_year))
+                 title = paste0("NISRA stats are important 2016 to ", current_year))
 
 ## In work vs not in work ####
 

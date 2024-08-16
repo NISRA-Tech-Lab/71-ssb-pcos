@@ -43,7 +43,7 @@ for (i in 1:length(sup_q)) {
           filter(.[[sup_covar[j]]] == headings[k] & .[[sup_q[i]]] == responses[l]) %>%
           pull(weight) %>%
           sum(na.rm = TRUE) / data_final %>%
-          filter(.[[sup_covar[j]]] == headings[k]) %>%
+          filter(.[[sup_covar[j]]] == headings[k] & !is.na(.[[sup_q[i]]])) %>%
           pull(weight) %>%
           sum(na.rm = TRUE) * 100
         
