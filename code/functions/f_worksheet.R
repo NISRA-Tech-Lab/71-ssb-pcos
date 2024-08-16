@@ -130,6 +130,15 @@ f_worksheet <- function(wb,
              cols = 1,
              style = pt2)
     
+    na_rows <- which(is.na(tables[[i]]$data)) %% nrow(tables[[i]]$data)
+    na_cols <- (which(is.na(tables[[i]]$data)) - na_rows) / nrow(tables[[i]]$data)
+    
+    addStyle(wb, sheet_name,
+             rows = r + na_rows,
+             cols = 1 + na_cols,
+             style = wt,
+             gridExpand = TRUE)
+    
     table_title <- if (grepl("\\[Note", tables[[i]]$title)) {
       sub(" \\[.*", "", tables[[i]]$title)
     } else {

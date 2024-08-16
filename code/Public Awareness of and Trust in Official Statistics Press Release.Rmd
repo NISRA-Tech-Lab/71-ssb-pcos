@@ -46,7 +46,7 @@ The level of public trust in official statistics produced by the Northern Irelan
 
 This is according to the latest findings from the ‘Public Awareness of and Trust in Northern Ireland Official Statistics’ questions in the Northern Ireland Continuous Household Survey.\
 
-The report shows the `r red_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in `r red_text("September to December")` `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r red_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.\
+The report shows the `r red_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in `r survey_start_mth` to `r survey_end_mth` `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r red_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.\
 
 Trust in NISRA as the body which produces official statistics is `r red_text("also high")`, with (`r trust_in_nisra`%) of respondents trusting NISRA a great deal or tending to trust NISRA; this `r red_text("remains higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. Trust in NISRA is `r red_text("also higher")` than trust in the Civil Service (`r trust_in_nics`%) and compares `r red_text("favourably")` with trust in the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assembly`%).\
 
@@ -88,7 +88,7 @@ format_link <- function(link) {
 
 1. The ‘Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`’ publication, data tables and accompanying infographics can be found at: [`r format_link("https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022")`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-2022)
 \
-1. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between `r red_text("September to December")` `r current_year`. The percentages reported are based on a representative sample of the population (`r sample_size` persons) and are therefore estimates.
+1. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between `r survey_start_mth` to `r survey_end_mth` `r current_year`. The percentages reported are based on a representative sample of the population (`r sample_size` persons) and are therefore estimates.
 \
 1. NISRA is an Agency within the Department of Finance and provides statistical services across government in Northern Ireland. The majority of Northern Ireland official statistics are produced by NISRA staff. NISRA branches can be found within all Northern Ireland Departments and many Arm’s Length Bodies.
 \
@@ -96,12 +96,6 @@ format_link <- function(link) {
 \
 1. Official statistics are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies. Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. National Statistics are a subset of official statistics.
 \
-```{r tab}
-tab <- function(n_tabs = 1) {
-  paste(rep("&#9;", n_tabs), collapse = "")
-}
-```
-
 1. The [`r format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR),outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
 :::
 
@@ -112,9 +106,9 @@ __Trustworthiness__ is about having confidence in the people and organisations t
 __Quality__ is about using data and methods that produce assured statistics.
 :::
 :::{custom-style="bullet_style"}
-__Value__ is about producing statistics that support society’s needs for information.
+__Value__ is about producing statistics that support society’s needs for information.\
 :::
-\
+
 
 :::{custom-style="paragraph_style"}
 7. Further information on the statistics provided in this publication can be obtained from NISRA Statistical Support Branch.\

@@ -171,3 +171,8 @@ grey <- createStyle(
   fgFill = "#D9D9D9"
 )
 
+# White text
+wt <- createStyle(
+  fontColour = "#ffffff"
+)
+

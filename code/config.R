@@ -33,6 +33,13 @@ ons_year <- 2021
 title <- "Public Awareness of and Trust in Official Statistics, Northern Ireland 2022"
 subtitle <- ""
 
+survey_start_mth <- "September"
+survey_end_mth <- "December"
+
+# Set to "TrustNIAssembly2" (name when Assembly is sitting)
+# or "TrustElectedRep2" (name when Assembly isn't sitting, eg 2019)
+trust_body_var <- "TrustNIAssembly2"
+
 ##### HEADER ######
 # Select the Statistic type for the report - select from the list of five below
 
@@ -80,18 +87,14 @@ library(kableExtra)
 library(scales)
 library(DT)
 library(AMR)
-library(htmltools)
-library(formattable)
 library(httpuv)
 library(janitor)
 library(foreign)
 library(fontawesome)
-library(remotes)
 library(readspss)
 library(tufte)
 library(readODS)
 library(data.table)
-library(forcats)
 library(english)
 library(svgtools)
 library(rsvg)
@@ -100,8 +103,6 @@ library(officedown)
 library(officer)
 library(pkgbuild)
 library(purrr)
-library(devtools)
-library(remotes)
 library(odsconvertr)
 
 # turn off warning messages

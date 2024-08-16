@@ -20,9 +20,9 @@ for (i in 1:length(sup_q)) {
   for (j in 1:length(sup_covar)) {
     
     weight <- if (grepl("AGE", sup_covar[j])) {
-      "W2"
-    } else if (sup_covar[j] == "SEX") {
       "W1"
+    } else if (sup_covar[j] == "SEX") {
+      "W2"
     } else {
       "W3"
     }
