@@ -1,3 +1,4 @@
+# Do not need to run
 # This script is only called when needed via a condition in significance_testing.R
 
 library(here)
@@ -120,12 +121,6 @@ trend_data <- trend_data %>%
   mutate(`2020` = case_when(!is.na(pct) ~ pct,
                             TRUE ~ `2020`)) %>%
   select(-pct)
-
-# Missing values from 2018 ####
-
-data_2018 <- readRDS(paste0(data_folder, "Final/PCOS 2018 Final Dataset.RDS"))
-
-summary(data_2018$TrustNISRA)
 
 # Missing values from 2016 ####
 
