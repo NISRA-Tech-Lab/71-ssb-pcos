@@ -104,6 +104,7 @@ library(officer)
 library(pkgbuild)
 library(purrr)
 library(odsconvertr)
+library(pagedown)
 
 # turn off warning messages
 options(warn = -1)
