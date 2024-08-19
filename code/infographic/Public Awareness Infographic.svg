@@ -7,7 +7,7 @@
    width="1122.5601"
    height="793.76001"
    viewBox="0 0 1122.5601 793.76001"
-   sodipodi:docname="Awareness Infographic- svg - Copy.svg"
+   sodipodi:docname="Awareness Infographic.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -1638,7 +1638,7 @@
   
   <svg viewBox="14.5 4 23 23" xmlns="http://www.w3.org/2000/svg">
    <g transform="translate(10, 1.5)">
-    <image height="20" width="10" href="Awareness1.svg" />
+    <image height="20" width="10" href="info1.svg" />
    </g>
   </svg>
 
@@ -1649,7 +1649,7 @@
     <image
        height="30"
        width="15"
-       href="test1.svg"
+       href="info2.svg"
        id="image2" />
   </svg>
   
