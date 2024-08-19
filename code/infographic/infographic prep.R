@@ -10,7 +10,8 @@ awareness_of_nisra <- data.frame(aware_of_nisra = aware_nisra_data$pct[aware_nis
   t() %>%
   as.data.frame() %>%
   mutate(Answer = c("Yes", "No"),
-         Percentage = round_half_up(V1)) %>%
+         Percentage = round_half_up(V1),
+         year = current_year) %>%
   select(-V1)
 
 donut_chart_df <- awareness_of_nisra
@@ -74,7 +75,7 @@ trust_info_data1 <- gather(trust_info_data1, class, prop, -Org)
 trust_info_data1$prop <- round_half_up(trust_info_data1$prop) 
 
 # Chart 2
-trust_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_29_data.RDS"))
+trust_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_4a_data.RDS"))
 trust_info_data2 <- trust_info_data2[trust_info_data2$`Response (%)` %like% "Tend to trust/trust a great deal", ]
 trust_info_data2 <- gather(trust_info_data2, Year, Percentage, -`Response (%)`)
 trust_info_data2$Percentage <- round_half_up(trust_info_data2$Percentage) 
@@ -85,7 +86,7 @@ trust_info_data2$Year <- as.numeric(trust_info_data2$Year)
 line_chart_df <- trust_info_data2
 
 # Chart 3
-trust_info_data3 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_35_data.RDS"))
+trust_info_data3 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_6a_data.RDS"))
 trust_info_data3 <- trust_info_data3[trust_info_data3$`Response (%)` %like% "Strongly agree/Tend to agree", ]
 trust_info_data3 <- gather(trust_info_data3, Year, Percentage, -`Response (%)`)
 trust_info_data3$Percentage <- round_half_up(trust_info_data3$Percentage) 
@@ -94,6 +95,35 @@ trust_info_data3 <- trust_info_data3 %>%
   set_names(new_info_names)
 trust_info_data3$Year <- as.character(trust_info_data3$Year)
 line_chart_df <- trust_info_data3
+
+# Chart 4
+
+trust_info_data4 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_4d_data.RDS")) %>%
+  filter(Response == "Yes") %>%
+  t() %>% as.data.frame() %>%
+  filter(V1 != "Yes" & rownames(.) != "2018") %>%
+  mutate(Organisation = "ONS",
+         Year = rownames(.),
+         Percentage = round_half_up(as.numeric(V1))) %>%
+  select(-V1) %>%
+  bind_rows(trust_info_data2 %>%
+              as.data.frame() %>%
+              filter(!Year %in% 2019:2020) %>%
+              mutate(Organisation = "NISRA",
+                     Year = as.character((Year))) %>%
+              select(Organisation, Year, Percentage)) %>%
+  arrange(Organisation)
+
+rownames(trust_info_data4) <- 1:nrow(trust_info_data4)
+
+if (current_year != ons_year) {
+  trust_info_data4 <- trust_info_data4 %>%
+    bind_rows(data.frame(Organisation = "ONS",
+                         Year = as.character(current_year),
+                         Percentage = NA))
+}
+
+
 
 # Awareness Infographic
 # Chart 2
@@ -134,18 +164,18 @@ awareness_info_data3$Answer <- gsub("\\b([a-z])", "\\U\\1",
                                     perl=TRUE)
 
 # Join all data ####
-infographic_data <- full_join(awareness_of_nisra,
-                              trust_nisra_stats,
-                              by = "year") %>%
-  full_join(confidentiality,
-            by = "year") %>%
-  full_join(importance,
-            by = "year") %>%
-  bind_rows(institutions) %>%
-  arrange(year)
-
-write.csv(infographic_data,
-          paste0(here(), "/outputs/infographic_data_", current_year, ".csv"),
-          row.names = FALSE,
-          na = "")
+# infographic_data <- full_join(awareness_of_nisra,
+#                               trust_nisra_stats,
+#                               by = "year") %>%
+#   full_join(confidentiality,
+#             by = "year") %>%
+#   full_join(importance,
+#             by = "year") %>%
+#   bind_rows(institutions) %>%
+#   arrange(year)
+# 
+# write.csv(infographic_data,
+#           paste0(here(), "/outputs/infographic_data_", current_year, ".csv"),
+#           row.names = FALSE,
+#           na = "")
 

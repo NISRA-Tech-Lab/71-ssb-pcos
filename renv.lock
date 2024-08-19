@@ -704,7 +704,7 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "2.1.0",
+      "Version": "2.1.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -715,7 +715,7 @@
         "sys",
         "zip"
       ],
-      "Hash": "bdc909d9f16e2478d615b0e6a7330435"
+      "Hash": "ab2ca7d6bd706ed218d096b7b16d7233"
     },
     "gfonts": {
       "Package": "gfonts",

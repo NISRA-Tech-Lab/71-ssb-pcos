@@ -1,5 +1,8 @@
-# Trust Inforgraphic
-# Chart 1
+library(here)
+source(paste0(here(), "/code/infographic/infographic prep.R"))
+
+# Trust Infographic ####
+## Chart 1 ####
 trust_info_data1$label <- paste0(trust_info_data1$prop, "% ", trust_info_data1$class)
 mycols <- c("#a8a4a4", "#CBE346", "#00205b")
 trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
@@ -19,15 +22,12 @@ trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
                               "11% Don't Know" = "#888A87"))
 trust_chart_1
 
-# Chart 2
-line_chart_df <- data.frame(Year = c(2014:2022),
-                            Percentage = c(83, NA, 84, NA, NA, 84, 90, 86, 85),
-                            Category = c(rep("Trust in NISRA Statistics", 9)))
+## Chart 2 ####
 line_chart_perc <- "85%"
 line_chart_title <- paste0("Trust in NISRA statistics remains high at ",  line_chart_perc)
-trust_chart_2 <- ggplot(line_chart_df, aes(Year, Percentage)) + 
+trust_chart_2 <- ggplot(trust_info_data2, aes(Year, Percentage)) + 
   geom_point(color= "black", size = 5) +
-  geom_line(data=line_chart_df[!is.na(line_chart_df$Percentage),],
+  geom_line(data=trust_info_data2[!is.na(trust_info_data2$Percentage),],
             aes(color=Category), 
             linewidth = 4) +
   scale_colour_manual(values= "#00205b")+
@@ -50,7 +50,7 @@ trust_chart_2 <- ggplot(line_chart_df, aes(Year, Percentage)) +
         panel.grid.minor.y = element_line())
 trust_chart_2
 
-# Chart 3
+## Chart 3 ####
 trust_chart_3 <- ggplot(trust_info_data3, aes(y=Percentage, x=Year)) + 
   geom_bar(position="dodge", width = 0.6, fill = "#00205b", stat="identity",
            colour=NA,size=0) +
@@ -74,14 +74,11 @@ trust_chart_3 <- ggplot(trust_info_data3, aes(y=Percentage, x=Year)) +
   coord_flip()
 trust_chart_3
 
-# Chart 4
+## Chart 4 ####
 # Trust in NISRA statistics remains high at 85%
-trust_df <- data.frame(Organisation = c("NISRA", "NISRA", "NISRA", "NISRA", 
-                                        "ONS", "ONS", "ONS", "ONS"),
-                       Year = c("2014", "2016", "2021", "2022", "2014", "2016", "2021", "2022"),
-                       Percentage = c(83, 84, 86, 85, 67, 69, 84, NA))
 
-trust_chart_4 <- ggplot(trust_df, aes(x = Year, y = Percentage, group = factor(Organisation))) +
+
+trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = factor(Organisation))) +
   geom_bar(
     stat = "identity",
     colour=NA,size=0,
@@ -109,13 +106,16 @@ trust_chart_4 <- ggplot(trust_df, aes(x = Year, y = Percentage, group = factor(O
             vjust=-0.25) 
 trust_chart_4
 
-# Trust Infographic Output
+## Trust Infographic Output ####
 save_plot("code/infographic/trust1.svg", fig = trust_chart_1, width=12, height=10)
 save_plot("code/infographic/trust2.svg", fig = trust_chart_2, width=40, height=20)
 save_plot("code/infographic/trust3.svg", fig = trust_chart_3, width=18, height=14)
 save_plot("code/infographic/trust4.svg", fig = trust_chart_4, width=30, height=20)
 
-# Chart 1
+trust_template <- readLines(paste0(here(), "/code/infographic/Public Trust Infographic.svg"))
+
+# Public Awareness/Trust Infographic ####
+## Chart 1####
 # transpose
 hsize <- 2.5
 donut_chart_df$label <- paste0(donut_chart_df$Percentage, "% ", donut_chart_df$Answer)
@@ -147,8 +147,8 @@ aware_trust_chart_1
 save_plot("code/infographic/Awareness1.svg", fig = aware_trust_chart_1, width=13, height=11)
 
 
-# Public Awareness/Trust Infographic
-# Chart 2
+
+## Chart 2 ####
 # Stacked
 draw_square <- function(data, params, size) {
   if (is.null(data$size)) {
@@ -205,7 +205,7 @@ aware_trust_chart_2 <- ggplot(trust_df, aes(fill=Category, y=Percentage, x=Year)
 aware_trust_chart_2
 save_plot("code/infographic/Awareness2.svg", fig = aware_trust_chart_2, width=13, height=8)
 
-# Chart 3
+## Chart 3 ####
 confidentiality$Category <- factor(confidentiality$Category, 
                                    levels = c("Don't know", "Tend to disagree/Strongly disagree",
                                               "Strongly Agree/Tend to agree"))
@@ -244,7 +244,7 @@ aware_trust_chart_3 <- ggplot(confidentiality, aes(fill=Category, y=Percentage, 
 aware_trust_chart_3
 save_plot("code/infographic/Awareness3.svg", fig = aware_trust_chart_3, width=12.2, height=9)
 
-# Chart 4
+## Chart 4 ####
 important_df$Category <- factor(important_df$Category, 
                                    levels = c("Don't know", 
                                               "Tend to disagree/strongly disagree",
@@ -286,7 +286,7 @@ save_plot("code/infographic/Awareness4.svg", fig = aware_trust_chart_4, width=16
 
 bar_order <- c('The NI Assembly ', 'The Civil Service ', 'The media ', 'NISRA ')
 
-# Chart 5
+## Chart 5 ####
 aware_trust_chart_5 <- ggplot(trust_compared_df, 
                               aes(fill=Category, 
                                   y=Percentage, 
@@ -321,14 +321,14 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
 aware_trust_chart_5
 save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=18, height=10)
 
-# Awareness/Trust Output
+## Awareness/Trust Output ####
 save_plot("code/infographic/Awareness1.svg", fig = aware_trust_chart_1, width=11, height=9)
 save_plot("code/infographic/Awareness2.svg", fig = aware_trust_chart_2, width=13, height=8)
 save_plot("code/infographic/Awareness3.svg", fig = aware_trust_chart_3, width=10, height=8)
 save_plot("code/infographic/Awareness4.svg", fig = aware_trust_chart_4, width=13, height=8)
 save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=16, height=8)
 
-# Public Awareness Infographic
+## Public Awareness Infographic ####
 # 2. Circle Chart
 # https://stackoverflow.com/questions/24738172/bubble-chart-with-bubbles-aligned-along-their-bottom-edges
 circle <- function(center,radius) {
@@ -381,7 +381,7 @@ pub_awareness_chart_1 <- ggplot()+
 pub_awareness_chart_1
 save_plot("code/infographic/info2.svg", fig = pub_awareness_chart_1, width=10, height=8)
 
-# Chart 3
+## Chart 3 ####
 title1 <- "NISRA awareness "  
 title2 <- "significantly lower "
 title3 <- "than ONS."
@@ -413,7 +413,7 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
 pub_awareness_chart_2
 save_plot("code/infographic/info3.svg", fig = pub_awareness_chart_2, width=11, height=10)
 
-# Chart 4
+## Chart 4 ####
 aes(reorder(variable, value), value)
 awareness_info_data3$Percentage <- round_half_up(awareness_info_data3$Percentage)
 awareness_info_data3
@@ -463,9 +463,20 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3, aes(fill=Answer,
   guides(fill = guide_legend(reverse = TRUE))
 pub_awareness_chart_3
 
-# Awareness Infographic Output
+## Awareness Infographic Output ####
 save_plot("code/infographic/info1.svg", fig = aware_trust_chart_1, width=20, height=14)
 save_plot("code/infographic/info2.svg", fig = pub_awareness_chart_1, width=10, height=8)
 save_plot("code/infographic/info3.svg", fig = pub_awareness_chart_2, width=11, height=10)
 save_plot("code/infographic/info4.svg", fig = pub_awareness_chart_3, width=28, height=17)
 
+
+
+# Convert to PDF ####
+rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness and Trust Infographic.svg"),
+         file = paste0(here(), "/code/infographic/Public Awareness and Trust Infographic - ", current_year, ".pdf"))
+
+rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness Infographic.svg"),
+         file = paste0(here(), "/code/infographic/Public Awareness Infographic - ", current_year, ".pdf"))
+
+rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Trust Infographic.svg"),
+         file = paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".pdf"))
