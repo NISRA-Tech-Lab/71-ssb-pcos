@@ -44,15 +44,16 @@ confidentiality$Year <- as.character(confidentiality$Year)
 ## Personal Information provided to NISRA will be kept confidential ####
 importance <- stats_important_data %>%
   tail(5)  %>%
-  mutate(year = as.numeric(year))
-importance <- importance %>% 
-  set_names(new_names)
+  mutate(year = as.numeric(year)) %>%
+  set_names(c("Year",
+            "Strongly agree/tend to agree",
+            "Tend to disagree/strongly disagree",
+            "Don't know"))
 important_df <- gather(importance, Category, Percentage, -Year)
 important_df$Percentage <- round_half_up(important_df$Percentage) 
 important_df$Year <- as.character(important_df$Year)
 
 ## NISRA compared to other institutions ####
-
 institutions <- trust_institutions_data
 institutions <- institutions %>% 
   set_names(c("Institution",
@@ -96,8 +97,7 @@ line_chart_df <- trust_info_data3
 
 # Awareness Infographic
 # Chart 2
-awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_1_data.RDS"))
-
+awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_1a_data.RDS"))
 awareness_info_data1 <- awareness_info_data1[awareness_info_data1$`Response (%)` %like% "Yes", ]
 awareness_info_data1 <- gather(awareness_info_data1, Year, Percentage, -`Response (%)`)
 awareness_info_data1$Percentage <- round_half_up(awareness_info_data1$Percentage) 
@@ -127,6 +127,11 @@ awareness_info_data3 <- gather(aware_stats_by_nisra_data, Answer, Percentage, -`
 awareness_info_data3$Percentage <- round_half_up(awareness_info_data3$Percentage, 1) 
 colnames(awareness_info_data3[1]) <- 'Group'
 colnames(awareness_info_data3)[1] <- c("Group")
+awareness_info_data3$Answer <- sub("_", " ", awareness_info_data3$Answer)
+awareness_info_data3$Answer <- sub("Dont", "Don't", awareness_info_data3$Answer)
+awareness_info_data3$Answer <- gsub("\\b([a-z])", "\\U\\1", 
+                                    awareness_info_data3$Answer, 
+                                    perl=TRUE)
 
 # Join all data ####
 infographic_data <- full_join(awareness_of_nisra,

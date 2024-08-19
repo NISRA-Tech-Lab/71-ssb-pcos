@@ -103,6 +103,7 @@ library(purrr)
 library(devtools)
 library(remotes)
 library(odsconvertr)
+library(grid)
 
 # turn off warning messages
 options(warn = -1)
