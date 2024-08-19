@@ -20,7 +20,6 @@ trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
   scale_color_manual(values = c("4% No" = "#889956",
                               "85% Yes" = "#00205b",
                               "11% Don't Know" = "#888A87"))
-trust_chart_1
 
 ## Chart 2 ####
 line_chart_perc <- "85%"
@@ -107,25 +106,26 @@ trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = 
 trust_chart_4
 
 ## Trust Infographic Output ####
-save_plot("code/infographic/trust1.svg", fig = trust_chart_1, width=12, height=10)
-save_plot("code/infographic/trust2.svg", fig = trust_chart_2, width=40, height=20)
-save_plot("code/infographic/trust3.svg", fig = trust_chart_3, width=18, height=14)
-save_plot("code/infographic/trust4.svg", fig = trust_chart_4, width=30, height=20)
+save_plot("code/infographic/trust1.png", fig = trust_chart_1, width=12, height=10)
+save_plot("code/infographic/trust2.png", fig = trust_chart_2, width=40, height=20)
+save_plot("code/infographic/trust3.png", fig = trust_chart_3, width=18, height=14)
+save_plot("code/infographic/trust4.png", fig = trust_chart_4, width=30, height=20)
 
 trust_template <- readLines(paste0(here(), "/code/infographic/Public Trust Infographic.svg"))
 
-trust_template <- gsub(pattern  = "trust1.svg",
-                       paste0("data:image/svg+xml,",
-                              readLines("code/infographic/trust1.svg") %>%
-                                paste(collapse = " ") %>%
-                                encodeURIComponent()),
-                       trust_template,
-                       fixed = TRUE)
+for (plot in c("trust1", "trust2", "trust3", "trust4")) {
+  
+  trust_template <- gsub(paste0(plot, ".svg"),
+                         paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
+                         trust_template,
+                         fixed = TRUE)
+  
+}
 
-writeLines(trust_template, paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".svg"))
+writeLines(trust_template, paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg"))
 
 # Public Awareness/Trust Infographic ####
-## Chart 1####
+## Chart 1 ####
 # transpose
 hsize <- 2.5
 donut_chart_df$label <- paste0(donut_chart_df$Percentage, "% ", donut_chart_df$Answer)
@@ -154,7 +154,7 @@ aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fil
                                 "49% YES" = "#00205b")) +
   theme(plot.title = element_text(hjust = 0.5, vjust = 0, size =20))
 aware_trust_chart_1
-save_plot("code/infographic/Awareness1.svg", fig = aware_trust_chart_1, width=13, height=11)
+save_plot("code/infographic/Awareness1.png", fig = aware_trust_chart_1, width=13, height=11)
 
 
 
@@ -213,7 +213,7 @@ aware_trust_chart_2 <- ggplot(trust_df, aes(fill=Category, y=Percentage, x=Year)
   guides(fill = guide_legend(reverse = TRUE))
 
 aware_trust_chart_2
-save_plot("code/infographic/Awareness2.svg", fig = aware_trust_chart_2, width=13, height=8)
+save_plot("code/infographic/Awareness2.png", fig = aware_trust_chart_2, width=13, height=8)
 
 ## Chart 3 ####
 confidentiality$Category <- factor(confidentiality$Category, 
@@ -252,7 +252,7 @@ aware_trust_chart_3 <- ggplot(confidentiality, aes(fill=Category, y=Percentage, 
   guides(fill = guide_legend(reverse = TRUE))
 
 aware_trust_chart_3
-save_plot("code/infographic/Awareness3.svg", fig = aware_trust_chart_3, width=12.2, height=9)
+save_plot("code/infographic/Awareness3.png", fig = aware_trust_chart_3, width=12.2, height=9)
 
 ## Chart 4 ####
 important_df$Category <- factor(important_df$Category, 
@@ -292,7 +292,7 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
   guides(fill = guide_legend(reverse = TRUE))
 
 aware_trust_chart_4
-save_plot("code/infographic/Awareness4.svg", fig = aware_trust_chart_4, width=16, height=11)
+save_plot("code/infographic/Awareness4.png", fig = aware_trust_chart_4, width=16, height=11)
 
 bar_order <- c('The NI Assembly ', 'The Civil Service ', 'The media ', 'NISRA ')
 
@@ -329,14 +329,14 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
                          "white", "black")) +
   guides(fill = guide_legend(reverse = TRUE)) 
 aware_trust_chart_5
-save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=18, height=10)
+save_plot("code/infographic/Awareness5.png", fig = aware_trust_chart_5, width=18, height=10)
 
 ## Awareness/Trust Output ####
-save_plot("code/infographic/Awareness1.svg", fig = aware_trust_chart_1, width=11, height=9)
-save_plot("code/infographic/Awareness2.svg", fig = aware_trust_chart_2, width=13, height=8)
-save_plot("code/infographic/Awareness3.svg", fig = aware_trust_chart_3, width=10, height=8)
-save_plot("code/infographic/Awareness4.svg", fig = aware_trust_chart_4, width=13, height=8)
-save_plot("code/infographic/Awareness5.svg", fig = aware_trust_chart_5, width=16, height=8)
+save_plot("code/infographic/Awareness1.png", fig = aware_trust_chart_1, width=11, height=9)
+save_plot("code/infographic/Awareness2.png", fig = aware_trust_chart_2, width=13, height=8)
+save_plot("code/infographic/Awareness3.png", fig = aware_trust_chart_3, width=10, height=8)
+save_plot("code/infographic/Awareness4.png", fig = aware_trust_chart_4, width=13, height=8)
+save_plot("code/infographic/Awareness5.png", fig = aware_trust_chart_5, width=16, height=8)
 
 ## Public Awareness Infographic ####
 # 2. Circle Chart
@@ -388,8 +388,8 @@ pub_awareness_chart_1 <- ggplot()+
   ggtitle(paste0("Awareness of NISRA is significantly lower than in 2020 and 2021, but\n significantly higher than in previous years.")) +
   theme(plot.title = element_text(hjust = 0.5, size = 8, face = "bold")) +
   theme_void() 
-pub_awareness_chart_1
-save_plot("code/infographic/info2.svg", fig = pub_awareness_chart_1, width=10, height=8)
+
+save_plot("code/infographic/info2.png", fig = pub_awareness_chart_1, width=10, height=8)
 
 ## Chart 3 ####
 title1 <- "NISRA awareness "  
@@ -420,13 +420,10 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
             aes(label=paste0(Percentage, "%")), 
             position=position_dodge(width=0.9), 
             vjust=-0.25) 
-pub_awareness_chart_2
-save_plot("code/infographic/info3.svg", fig = pub_awareness_chart_2, width=11, height=10)
 
 ## Chart 4 ####
 aes(reorder(variable, value), value)
 awareness_info_data3$Percentage <- round_half_up(awareness_info_data3$Percentage)
-awareness_info_data3
 
 chart_order <- c("The NI Census every ten years", "The unemployment rate in NI", 
                  "Statistics on hospital waiting times \nin NI", 
@@ -471,13 +468,12 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3, aes(fill=Answer,
         panel.background = element_blank()) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
   guides(fill = guide_legend(reverse = TRUE))
-pub_awareness_chart_3
 
 ## Awareness Infographic Output ####
-save_plot("code/infographic/info1.svg", fig = aware_trust_chart_1, width=20, height=14)
-save_plot("code/infographic/info2.svg", fig = pub_awareness_chart_1, width=10, height=8)
-save_plot("code/infographic/info3.svg", fig = pub_awareness_chart_2, width=11, height=10)
-save_plot("code/infographic/info4.svg", fig = pub_awareness_chart_3, width=28, height=17)
+save_plot("code/infographic/info1.png", fig = aware_trust_chart_1, width = 20, height = 14)
+save_plot("code/infographic/info2.png", fig = pub_awareness_chart_1, width = 10, height = 8)
+save_plot("code/infographic/info3.png", fig = pub_awareness_chart_2, width = 11, height = 10)
+save_plot("code/infographic/info4.png", fig = pub_awareness_chart_3, width = 28, height = 17)
 
 
 
@@ -488,5 +484,7 @@ rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness and Trust Info
 rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness Infographic.svg"),
          file = paste0(here(), "/code/infographic/Public Awareness Infographic - ", current_year, ".pdf"))
 
-rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".svg"),
-         file = paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".pdf"))
+rsvg_pdf(svg = paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg"),
+         file = paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".pdf"))
+
+unlink(paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg"))
