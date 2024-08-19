@@ -114,6 +114,16 @@ save_plot("code/infographic/trust4.svg", fig = trust_chart_4, width=30, height=2
 
 trust_template <- readLines(paste0(here(), "/code/infographic/Public Trust Infographic.svg"))
 
+trust_template <- gsub(pattern  = "trust1.svg",
+                       paste0("data:image/svg+xml,",
+                              readLines("code/infographic/trust1.svg") %>%
+                                paste(collapse = " ") %>%
+                                encodeURIComponent()),
+                       trust_template,
+                       fixed = TRUE)
+
+writeLines(trust_template, paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".svg"))
+
 # Public Awareness/Trust Infographic ####
 ## Chart 1####
 # transpose
@@ -478,5 +488,5 @@ rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness and Trust Info
 rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Awareness Infographic.svg"),
          file = paste0(here(), "/code/infographic/Public Awareness Infographic - ", current_year, ".pdf"))
 
-rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Trust Infographic.svg"),
+rsvg_pdf(svg = paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".svg"),
          file = paste0(here(), "/code/infographic/Public Trust Infographic - ", current_year, ".pdf"))
