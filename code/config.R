@@ -106,6 +106,7 @@ library(purrr)
 library(odsconvertr)
 library(pagedown)
 library(formattable)
+library(grid)
 
 # turn off warning messages
 options(warn = -1)

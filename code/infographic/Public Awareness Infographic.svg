@@ -1643,23 +1643,23 @@
   </svg>
 
   <svg
-     viewBox="-.5 9.4 5 16.7"
+     viewBox="-.5 9.4 9 16.7"
      version="1.1"
      id="svg2">
     <image
        height="30"
-       width="12"
-       href="info2.svg"
+       width="15"
+       href="test1.svg"
        id="image2" />
   </svg>
   
   <svg
-     viewBox="3.4 -3.1 20 20"
+     viewBox="3.4 -4 21 21"
      version="1.1"
      id="svg3">
     <image
        height="25"
-       width="9"
+       width="10"
        href="info3.svg"
        id="image3" />
   </svg>
