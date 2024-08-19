@@ -104,6 +104,9 @@ library(officer)
 library(pkgbuild)
 library(purrr)
 library(odsconvertr)
+library(pagedown)
+library(formattable)
+library(grid)
 
 # turn off warning messages
 options(warn = -1)
@@ -130,16 +133,6 @@ folder_month <- format(pub_date, "%m")
 # create pub_date in different formats
 pub_date_words_dmy <- format(pub_date, "%d %B %Y")
 pub_date_words_my <- format(pub_date, "%B-%Y")
-
-# update pub_date to 1st of month
-day(pub_date) <- 1
-
-# set reusable dates - this_month refers to the month of the date
-# e.g. publication date Dec 21, data is Nov 21 (this_month = Nov 21)
-# lubridate version
-this_month <- pub_date - months(1)
-last_month <- pub_date - months(2)
-last_year <- pub_date - months(13)
 
 
 #### CONFIGURE FOLDER PATHS FOR DOWNLOAD BUTTONS #####

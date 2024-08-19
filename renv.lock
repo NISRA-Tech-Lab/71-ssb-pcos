@@ -19,6 +19,13 @@
       ],
       "Hash": "c13079c4ca6f16e0e92707e3f76bbc75"
     },
+    "AsioHeaders": {
+      "Package": "AsioHeaders",
+      "Version": "1.22.1-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "85bf3bd8fa58da21a22d84fd4f4ef0a8"
+    },
     "BH": {
       "Package": "BH",
       "Version": "1.84.0-0",
@@ -151,6 +158,23 @@
         "utils"
       ],
       "Hash": "71e7da5d38487173de67a1f0d763ceef"
+    },
+    "bookdown": {
+      "Package": "bookdown",
+      "Version": "0.40",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "htmltools",
+        "jquerylib",
+        "knitr",
+        "rmarkdown",
+        "tinytex",
+        "xfun",
+        "yaml"
+      ],
+      "Hash": "896a79478a50c78fb035a37148638f4e"
     },
     "broom": {
       "Package": "broom",
@@ -527,6 +551,21 @@
       ],
       "Hash": "81fc09bdeab0077a73927ed1243404b6"
     },
+    "formattable": {
+      "Package": "formattable",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "htmltools",
+        "htmlwidgets",
+        "knitr",
+        "methods",
+        "rmarkdown"
+      ],
+      "Hash": "870d6d5d39b23923d0c816f904075b4c"
+    },
     "fs": {
       "Package": "fs",
       "Version": "1.6.4",
@@ -565,6 +604,21 @@
         "methods"
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
+    },
+    "gert": {
+      "Package": "gert",
+      "Version": "2.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "askpass",
+        "credentials",
+        "openssl",
+        "rstudioapi",
+        "sys",
+        "zip"
+      ],
+      "Hash": "ab2ca7d6bd706ed218d096b7b16d7233"
     },
     "gfonts": {
       "Package": "gfonts",
@@ -1119,6 +1173,26 @@
       ],
       "Hash": "bd8fbd2904be3ce8fdf529a4f74a0c29"
     },
+    "pagedown": {
+      "Package": "pagedown",
+      "Version": "0.20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "bookdown",
+        "htmltools",
+        "httpuv",
+        "jsonlite",
+        "later",
+        "processx",
+        "rmarkdown",
+        "servr",
+        "websocket",
+        "xfun"
+      ],
+      "Hash": "d1cb0a04921876e321420588e9a5aa91"
+    },
     "parameters": {
       "Package": "parameters",
       "Version": "0.22.1",
@@ -1497,6 +1571,20 @@
         "viridisLite"
       ],
       "Hash": "c19df082ba346b0ffa6f833e92de34d1"
+    },
+    "servr": {
+      "Package": "servr",
+      "Version": "0.30",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "httpuv",
+        "jsonlite",
+        "mime",
+        "xfun"
+      ],
+      "Hash": "562294886e51319dfad3f3e6e61fb0b8"
     },
     "shiny": {
       "Package": "shiny",
@@ -1894,6 +1982,19 @@
         "R"
       ],
       "Hash": "c826c7c4241b6fc89ff55aaea3fa7491"
+    },
+    "websocket": {
+      "Package": "websocket",
+      "Version": "1.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "AsioHeaders",
+        "R6",
+        "cpp11",
+        "later"
+      ],
+      "Hash": "e77c5569354172d0d04d54a9dec89e33"
     },
     "withr": {
       "Package": "withr",
