@@ -26,10 +26,6 @@ f_borderline <- function() {
   )
 }
 
-f_separator <- function() {
-  div(style = "width: 100%; height: 3px; background-color: var(--nics-three-bar-colour-2)")
-}
-
 
 if (!exists("nicstheme")) {
   departmental_link <- NULL
@@ -148,7 +144,7 @@ f_header <- function() {
       class = "row", style = "display:flex",
       div(
         style = "width: 60%; padding-left:15px; font-size: 12pt;",
-        a(href = "#status", strong("Status: "), statistic_type_text)
+        strong("Status: "),a(href = "#status", statistic_type_text)
       ),
       div(
         style = "width: 40%; font-size: 12pt;",

@@ -33,6 +33,13 @@ ons_year <- 2021
 title <- "Public Awareness of and Trust in Official Statistics, Northern Ireland 2022"
 subtitle <- ""
 
+survey_start_mth <- "September"
+survey_end_mth <- "December"
+
+# Set to "TrustNIAssembly2" (name when Assembly is sitting)
+# or "TrustElectedRep2" (name when Assembly isn't sitting, eg 2019)
+trust_body_var <- "TrustNIAssembly2"
+
 ##### HEADER ######
 # Select the Statistic type for the report - select from the list of five below
 
@@ -80,18 +87,14 @@ library(kableExtra)
 library(scales)
 library(DT)
 library(AMR)
-library(htmltools)
-library(formattable)
 library(httpuv)
 library(janitor)
 library(foreign)
 library(fontawesome)
-library(remotes)
 library(readspss)
 library(tufte)
 library(readODS)
 library(data.table)
-library(forcats)
 library(english)
 library(svgtools)
 library(rsvg)
@@ -100,9 +103,9 @@ library(officedown)
 library(officer)
 library(pkgbuild)
 library(purrr)
-library(devtools)
-library(remotes)
 library(odsconvertr)
+library(pagedown)
+library(formattable)
 library(grid)
 
 # turn off warning messages
@@ -130,16 +133,6 @@ folder_month <- format(pub_date, "%m")
 # create pub_date in different formats
 pub_date_words_dmy <- format(pub_date, "%d %B %Y")
 pub_date_words_my <- format(pub_date, "%B-%Y")
-
-# update pub_date to 1st of month
-day(pub_date) <- 1
-
-# set reusable dates - this_month refers to the month of the date
-# e.g. publication date Dec 21, data is Nov 21 (this_month = Nov 21)
-# lubridate version
-this_month <- pub_date - months(1)
-last_month <- pub_date - months(2)
-last_year <- pub_date - months(13)
 
 
 #### CONFIGURE FOLDER PATHS FOR DOWNLOAD BUTTONS #####

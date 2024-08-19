@@ -33,20 +33,33 @@ f_return_z <- function(p1, n1, p2, n2) {
   
 }
 
-f_significance_year <- function(var, value) {
+f_significance_year <- function(var, value, dk = TRUE) {
+  
+  data_current_f <- data_current
+  data_last_f <- data_last
+  
+  if (dk == FALSE) {
+    
+    data_current_f <- data_current_f %>%
+      filter(.[[var]] != "Don't know")
+    
+    data_last_f <- data_last_f %>%
+      filter(.[[var]] != "Don't know")
+    
+  }
   
   sig_table <- data.frame(stat = c("%", "Base"),
                            
-                           current = c(f_return_p(data_current[[var]], value) * 100,
-                                       f_return_n(data_current[[var]])),
+                           current = c(f_return_p(data_current_f[[var]], value) * 100,
+                                       f_return_n(data_current_f[[var]])),
                            
-                           last = c(f_return_p(data_last[[var]], value) * 100,
-                                    f_return_n((data_last[[var]]))),
+                           last = c(f_return_p(data_last_f[[var]], value) * 100,
+                                    f_return_n((data_last_f[[var]]))),
                            
-                           z = c(f_return_z(p1 = f_return_p(data_current[[var]], value),
-                                            n1 = f_return_n(data_current[[var]]),
-                                            p2 = f_return_p(data_last[[var]], value),
-                                            n2 = f_return_n(data_last[[var]])),
+                           z = c(f_return_z(p1 = f_return_p(data_current_f[[var]], value),
+                                            n1 = f_return_n(data_current_f[[var]]),
+                                            p2 = f_return_p(data_last_f[[var]], value),
+                                            n2 = f_return_n(data_last_f[[var]])),
                                  NA))
   
   names(sig_table) <- c(" ", current_year, current_year - 1, "Z Score")
@@ -307,7 +320,7 @@ f_insert_sig_table <- function (df, sheet, title, c = 1) {
   addStyle(wb, sheet,
            style = ns3d,
            rows = (r + 1):(r + nrow(df) - 1),
-           cols = (c + 1):(c + ncol(df) - 1),
+           cols = (c+1):(c + ncol(df) - 1),
            gridExpand = TRUE)
   
   addStyle(wb, sheet,
@@ -316,11 +329,17 @@ f_insert_sig_table <- function (df, sheet, title, c = 1) {
            cols = (c + 1):(c + ncol(df) - 1),
            gridExpand = TRUE)
   
+  addStyle(wb, sheet,
+           style = ns,
+           rows = (r + 1):(r + nrow(df)),
+           cols = c,
+           gridExpand = TRUE)
+  
   if ("Z Score" %in% names(df)) {
     
     for (i in 1:(nrow(df) - 1)) {
   
-      if (abs(df$`Z Score`[i]) > 1.96) {
+      if (abs(df$`Z Score`[i]) > qnorm(0.975)) {
         addStyle(wb, sheet,
                  style = sig,
                  rows = r + i,
@@ -363,13 +382,13 @@ f_insert_z_table <- function (df, sheet, title) {
   addStyle(wb, sheet,
            style = ns3d,
            rows = (r + 1):(r + nrow(df)),
-           cols = 2:ncol(df),
+           cols = 1:ncol(df),
            gridExpand = TRUE)
   
   for (i in 1:nrow(df)) {
     for (j in 2:ncol(df)) {
       if (!is.na(df[i, j])) {
-        if (abs(df[i, j]) > 1.96) {
+        if (abs(df[i, j]) > qnorm(0.975)) {
           addStyle(wb, sheet,
                    style = sig,
                    rows = r + i,
@@ -412,7 +431,10 @@ f_nisra_ons_ex_dk <- function (var, val) {
                                               unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
                                                 unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var])) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,
-                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+                         TRUE ~ f_return_z(p1 = nisra / 100,
+                                           n1 = nisra[trust == "Base"],
+                                           p2 = ons / 100,
+                                           n2 = ons[trust == "Base"])))
   
   names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
   
@@ -435,10 +457,58 @@ f_nisra_ons <- function (var, val_1, val_2) {
                            ons_values$`Don't know` / ons_values$`Unweighted base` * 100,
                            ons_values$`Unweighted base`)) %>%
     mutate(Z = case_when(trust == "Base" ~ NA,
-                         TRUE ~ f_return_z(ons / 100, ons[trust == "Base"], nisra / 100, nisra[trust == "Base"])))
+                         TRUE ~ f_return_z(p1 = nisra / 100,
+                                           n1 = nisra[trust == "Base"],
+                                           p2 = ons / 100,
+                                           n2 = ons[trust == "Base"])))
   
   names(df) <- c(" ", paste("NISRA", current_year), paste("ONS", ons_year), "Z Score")
   
   df
   
 }
+
+f_trend <- function (sheet) {
+  
+  trend <- unweighted_trend %>%
+    filter(grepl(paste0(sheet, " - "), stat)) %>%
+    mutate(stat = sub(paste0(sheet, " - "), "", stat))
+  
+  names(trend)[names(trend) == "stat"] <- " "
+  
+  trend
+  
+}
+
+f_trend_z_scores <- function (trend, response) {
+  
+  years <- names(trend)[names(trend) != " "]
+  
+  df <- data.frame(year = years)
+  
+  for (i in 1:length(years)) {
+    
+    df[[years[i]]] <- NA
+    
+    for (j in 1:length(years)) {
+
+      if (i > j) {
+
+        df[[years[i]]][j] <- f_return_z(p1 = trend[[years[j]]][trend[[1]] == response] / 100,
+                                        n1 = trend[[years[j]]][trend[[1]] == "Base"],
+                                        p2 = trend[[years[i]]][trend[[1]] == response] / 100,
+                                        n2 = trend[[years[i]]][trend[[1]] == "Base"])
+
+      }
+
+    }
+    
+  }
+  
+  names(df)[names(df) == "year"] <- " "
+  
+  df
+  
+}
+
+
