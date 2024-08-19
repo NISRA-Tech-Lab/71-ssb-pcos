@@ -72,6 +72,10 @@ data_current$PCOS6 <- fct_collapse(data_current$PCOS6,
                                "yes" = c("Strongly agree","Tend to agree"), 
                                "no" = c("Tend to disagree", "Strongly disagree"))
 
+data_current$TrustNISRA2 <- fct_collapse(data_current$PCOS6, 
+                                         "yes" = c("Trust a great deal/Tend to trust"), 
+                                         "no" = c("Tend to distrust/Distrust greatly"))
+
 ### **** CURRENT YEAR **** ####
 currentYear = "data_current"
 
