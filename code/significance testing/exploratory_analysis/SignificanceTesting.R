@@ -492,6 +492,7 @@ for (i in 1:nrow(sig_df)) {
 
 for (i in 1:nrow(TrustCivilService2_df)) {
   if (!is.na(TrustCivilService2_df[i, 5])) {
+    if (abs(TrustCivilService2_df[i, 5]) > qnorm(0.975)) {
       addStyle(wb2, "TrustCivilService2",
                style = sig,
                rows = r + i,
@@ -504,6 +505,7 @@ for (i in 1:nrow(TrustCivilService2_df)) {
     }
   }
 }
+
 
 for (i in 1:nrow(TrustNIAssembly2_df)) {
   if (!is.na(TrustNIAssembly2_df[i, 5])) {
