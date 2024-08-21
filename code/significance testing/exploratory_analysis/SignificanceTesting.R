@@ -10,71 +10,183 @@ data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS")
 
 data_last$PCOS2a <- fct_collapse(data_last$PCOS2a, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+                                "no" = c("Tend to distrust", "Distrust greatly"), 
+                                "dont_know" = "DontKnow")
 
 data_last$PCOS2b <- fct_collapse(data_last$PCOS2b, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+                                "no" = c("Tend to distrust", "Distrust greatly"),
+                                         "dont_know" = "DontKnow")
 
 data_last$PCOS2c <- fct_collapse(data_last$PCOS2c, 
                                "yes" = c("Trust a great deal","Tend to trust"), 
-                               "no" = c("Tend to distrust", "Distrust greatly"))
+                               "no" = c("Tend to distrust", "Distrust greatly"),
+                                        "dont_know" = "DontKnow")
 
 data_last$PCOS2d <- fct_collapse(data_last$PCOS2d, 
                                "yes" = c("Trust a great deal","Tend to trust"), 
-                               "no" = c("Tend to distrust", "Distrust greatly"))
+                               "no" = c("Tend to distrust", "Distrust greatly"),
+                                        "dont_know" = "DontKnow")
 
 data_last$PCOS3 <- fct_collapse(data_last$PCOS3, 
                                "yes" = c("Tend to trust them", "Trust them greatly"), 
-                               "no" = c("Tend not to trust them", "Distrust them greatly"))
+                               "no" = c("Tend not to trust them", "Distrust them greatly"), 
+                               "dont_know" = "DontKnow")
 
 data_last$PCOS4 <- fct_collapse(data_last$PCOS4, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_last$PCOS5 <- fct_collapse(data_last$PCOS5, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_last$PCOS6 <- fct_collapse(data_last$PCOS6, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_current$PCOS2a <- fct_collapse(data_current$PCOS2a, 
                                             "yes" = c("Trust a great deal","Tend to trust"), 
-                                            "no" = c("Tend to distrust", "Distrust greatly"))
+                                            "no" = c("Tend to distrust", "Distrust greatly"), 
+                                    "dont_know" = "DontKnow")
 
 data_current$PCOS2b <- fct_collapse(data_current$PCOS2b, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+                                "no" = c("Tend to distrust", "Distrust greatly"), 
+                                "dont_know" = "DontKnow")
 
 data_current$PCOS2c <- fct_collapse(data_current$PCOS2c, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+                                "no" = c("Tend to distrust", "Distrust greatly"), 
+                                "dont_know" = "DontKnow")
 
 data_current$PCOS2d <- fct_collapse(data_current$PCOS2d, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+                                "no" = c("Tend to distrust", "Distrust greatly"), 
+                                "dont_know" = "DontKnow")
 
 data_current$PCOS3 <- fct_collapse(data_current$PCOS3, 
                                "yes" = c("Tend to trust them", "Trust them greatly"), 
-                               "no" = c("Tend not to trust them", "Distrust them greatly"))
+                               "no" = c("Tend not to trust them", "Distrust them greatly"), 
+                               "dont_know" = "DontKnow")
 
 data_current$PCOS4 <- fct_collapse(data_current$PCOS4, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_current$PCOS5 <- fct_collapse(data_current$PCOS5, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_current$PCOS6 <- fct_collapse(data_current$PCOS6, 
                                "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
+                               "no" = c("Tend to disagree", "Strongly disagree"), 
+                               "dont_know" = "DontKnow")
 
 data_current$TrustNISRA2 <- fct_collapse(data_current$PCOS6, 
                                          "yes" = c("Trust a great deal/Tend to trust"), 
-                                         "no" = c("Tend to distrust/Distrust greatly"))
+                                         "no" = c("Tend to distrust/Distrust greatly"), 
+                                         "dont_know" = "DontKnow")
+
+data_current$AwareNISRA2 <- fct_collapse(data_current$PCOS6, 
+                                      "yes" = c("Yes"), 
+                                      "no" = c("No"), 
+                                      "dont_know" = "DontKnow")
+
+data_current$TrustCivilService2 <- fct_collapse(data_current$TrustCivilService2, 
+                                         "yes" = c("Trust a great deal/Tend to trust"), 
+                                         "no" = c("Tend to distrust/Distrust greatly"), 
+                                         "dont_know" = "DontKnow")
+
+data_current$TrustNIAssembly2 <- fct_collapse(data_current$TrustNIAssembly2, 
+                                                "yes" = c("Trust a great deal/Tend to trust"), 
+                                                "no" = c("Tend to distrust/Distrust greatly"), 
+                                              "dont_know" = "DontKnow")
+
+data_current$TrustMedia2 <- fct_collapse(data_current$TrustMedia2, 
+                                              "yes" = c("Trust a great deal/Tend to trust"), 
+                                              "no" = c("Tend to distrust/Distrust greatly"), 
+                                         "dont_know" = "DontKnow")
+
+data_current$TrustNISRA2 <- fct_collapse(data_current$TrustNISRA2, 
+                                              "yes" = c("Trust a great deal/Tend to trust"), 
+                                              "no" = c("Tend to distrust/Distrust greatly"), 
+                                         "dont_know" = "DontKnow")
+
+data_current$TrustNISRAstats2 <- fct_collapse(data_current$TrustNISRAstats2, 
+                                              "yes" = c("Trust a great deal/Tend to trust"), 
+                                              "no" = c("Tend to distrust/Distrust greatly"), 
+                                              "dont_know" = "DontKnow")
+
+data_current$Political2 <- fct_collapse(data_current$Political2, 
+                                              "yes" = c("Strongly Agree/Tend to Agree"), 
+                                              "no" = c("Tend to disagree/Strongly disagree"), 
+                                        "dont_know" = "DontKnow")
+
+data_current$Confidential2 <- fct_collapse(data_current$Confidential2, 
+                                           "yes" = c("Strongly Agree/Tend to Agree"), 
+                                           "no" = c("Tend to disagree/Strongly disagree"), 
+                                           "dont_know" = "DontKnow")
+
+data_current$NISRAstatsImp2 <- fct_collapse(data_current$Confidential2, 
+                                            "yes" = c("Strongly Agree/Tend to Agree"), 
+                                            "no" = c("Tend to disagree/Strongly disagree"), 
+                                            "dont_know" = "DontKnow")
+
+data_last$TrustNISRA2 <- fct_collapse(data_last$PCOS6, 
+                                         "yes" = c("Trust a great deal/Tend to trust"), 
+                                         "no" = c("Tend to distrust/Distrust greatly"), 
+                                      "dont_know" = "DontKnow")
+
+data_last$AwareNISRA2 <- fct_collapse(data_last$PCOS6, 
+                                         "yes" = c("Yes"), 
+                                         "no" = c("No"), 
+                                      "dont_know" = "DontKnow")
+
+data_last$TrustCivilService2 <- fct_collapse(data_last$TrustCivilService2, 
+                                                "yes" = c("Trust a great deal/Tend to trust"), 
+                                                "no" = c("Tend to distrust/Distrust greatly"), 
+                                             "dont_know" = "DontKnow")
+
+data_last$TrustNIAssembly2 <- fct_collapse(data_last$TrustNIAssembly2, 
+                                              "yes" = c("Trust a great deal/Tend to trust"), 
+                                              "no" = c("Tend to distrust/Distrust greatly"), 
+                                           "dont_know" = "DontKnow")
+
+data_last$TrustMedia2 <- fct_collapse(data_last$TrustMedia2, 
+                                         "yes" = c("Trust a great deal/Tend to trust"), 
+                                         "no" = c("Tend to distrust/Distrust greatly"), 
+                                      "dont_know" = "DontKnow")
+
+data_last$TrustNISRA2 <- fct_collapse(data_last$TrustNISRA2, 
+                                         "yes" = c("Trust a great deal/Tend to trust"), 
+                                         "no" = c("Tend to distrust/Distrust greatly"), 
+                                      "dont_know" = "DontKnow")
+
+data_last$TrustNISRAstats2 <- fct_collapse(data_last$TrustNISRAstats2, 
+                                              "yes" = c("Trust a great deal/Tend to trust"), 
+                                              "no" = c("Tend to distrust/Distrust greatly"), 
+                                           "dont_know" = "DontKnow")
+
+data_last$Political2 <- fct_collapse(data_last$Political2, 
+                                        "yes" = c("Strongly Agree/Tend to Agree"), 
+                                        "no" = c("Tend to disagree/Strongly disagree"), 
+                                     "dont_know" = "DontKnow")
+
+data_last$Confidential2 <- fct_collapse(data_last$Confidential2, 
+                                           "yes" = c("Strongly Agree/Tend to Agree"), 
+                                           "no" = c("Tend to disagree/Strongly disagree"), 
+                                        "dont_know" = "DontKnow")
+
+data_last$NISRAstatsImp2 <- fct_collapse(data_last$Confidential2, 
+                                            "yes" = c("Strongly Agree/Tend to Agree"), 
+                                            "no" = c("Tend to disagree/Strongly disagree"), 
+                                         "dont_know" = "DontKnow")
 
 ### **** CURRENT YEAR **** ####
 currentYear = "data_current"
@@ -130,17 +242,32 @@ write.csv(vardf, outputfile) #a csv file with the results will be written to the
 
 wb2 <- createWorkbook()
 modifyBaseFont(wb2, fontSize = 12, fontName = "Arial")
-addWorksheet(wb2, "PCOS1")
-addWorksheet(wb2, "PCOS1c")
-addWorksheet(wb2, "PCOS1d")
-addWorksheet(wb2, "PCOS2a")
-addWorksheet(wb2, "PCOS2b")
-addWorksheet(wb2, "PCOS2c")
-addWorksheet(wb2, "PCOS2d")
-addWorksheet(wb2, "PCOS3")
-addWorksheet(wb2, "PCOS4")
-addWorksheet(wb2, "PCOS5")
-addWorksheet(wb2, "PCOS6")
+addWorksheet(wb2, "TrustCivilService2")
+addWorksheet(wb2, "TrustNIAssembly2")
+addWorksheet(wb2, "TrustMedia2")
+addWorksheet(wb2, "TrustNISRA2")
+addWorksheet(wb2, "TrustNISRAstats2")
+addWorksheet(wb2, "NISRAstatsImp2")
+addWorksheet(wb2, "Political2")
+addWorksheet(wb2, "Confidential2")
+addWorksheet(wb2, "PCOS1c1")
+addWorksheet(wb2, "PCOS1c2")
+addWorksheet(wb2, "PCOS1c3")
+addWorksheet(wb2, "PCOS1c4")
+addWorksheet(wb2, "PCOS1c5")
+addWorksheet(wb2, "PCOS1c6")
+addWorksheet(wb2, "PCOS1c7")
+addWorksheet(wb2, "PCOS1c8")
+addWorksheet(wb2, "PCOS1c9")
+addWorksheet(wb2, "PCOS1d1")
+addWorksheet(wb2, "PCOS1d2")
+addWorksheet(wb2, "PCOS1d3")
+addWorksheet(wb2, "PCOS1d4")
+addWorksheet(wb2, "PCOS1d5")
+addWorksheet(wb2, "PCOS1d6")
+addWorksheet(wb2, "PCOS1d7")
+addWorksheet(wb2, "PCOS1d8")
+addWorksheet(wb2, "PCOS1d9")
 
 excel_df <- vardf %>%
   mutate(year1 = case_when(year1 == "data_current" ~ current_year,
@@ -152,61 +279,197 @@ excel_df <- vardf %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
   
+# Sorting columns
+grouping_1_order <- c("Male", "16-24", "25-34", "35-44", "45-54", "55-64",
+                      "65-74", 
+                      "All", "A levels, vocational level 3 and equivalents",
+                      "Degree, or Degree equivalent and above",
+                      "GCSE/O level grade A*-C. vocational level 2 and equivalents",
+                      "Other higher education below degree level",
+                      "Qualifications at level 1 and below", "In paid employment")
 
-PCOS1_df <- subset(excel_df, var1 == "PCOS1") %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+grouping_2_order <- c("Female", 
+                      "25-34", "35-44", "45-54", "55-64", "65-74", "75 and over",
+                      "All", "A levels, vocational level 3 and equivalents", 
+                      "GCSE/O level grade A*-C. vocational level 2 and equivalents",
+                      "No qualification",
+                      "Other higher education below degree level",
+                      "Qualifications at level 1 and below", 
+                      "Not in paid employment")
 
-PCOS1c_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS1c")) %>%
-  arrange(`Grouping 1`)
+TrustMedia2_df <- subset(excel_df, var1 == "TrustMedia2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS1d_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS1d")) %>%
+TrustNISRA2_df <- subset(excel_df, var1 == "TrustNISRA2") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS2a_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2a")) %>%
+TrustNISRAstats2_df <- subset(excel_df, var1 == "TrustNISRAstats2") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS2b_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2b")) %>%
+NISRAstatsImp2_df <- subset(excel_df, var1 == "NISRAstatsImp2") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS2c_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2c")) %>%
+Political2_df <- subset(excel_df, var1 == "Political2") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS2d_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2d")) %>%
+Confidential2_df <- subset(excel_df, var1 == "Confidential2") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-PCOS3_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS3")) %>%
+PCOS1c1_df <- subset(excel_df, var1 == "PCOS1c1") %>%
   select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS4_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS4")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS5_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS5")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS6_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS6")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
-sig_df <- data.frame(Table_Name = c("PCOS1_df", "PCOS1c_df",  "PCOS1d_df", "PCOS2a_df", "PCOS2b_df", 
-                                    "PCOS2c_df", "PCOS2d_df", "PCOS3_df", "PCOS4_df", "PCOS5_df", "PCOS6_df"), 
-                     Sheet = c("PCOS1", "PCOS1c", "PCOS1d", "PCOS2a", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3",
-                               "PCOS4", "PCOS5", "PCOS6"))
+PCOS1c2_df <- subset(excel_df, var1 == "PCOS1c2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c3_df <- subset(excel_df, var1 == "PCOS1c3") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c4_df <- subset(excel_df, var1 == "PCOS1c4") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c5_df <- subset(excel_df, var1 == "PCOS1c5") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c6_df <- subset(excel_df, var1 == "PCOS1c6") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c7_df <- subset(excel_df, var1 == "PCOS1c7") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c8_df <- subset(excel_df, var1 == "PCOS1c8") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c9_df <- subset(excel_df, var1 == "PCOS1c9") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d1_df <- subset(excel_df, var1 == "PCOS1d1") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d2_df <- subset(excel_df, var1 == "PCOS1d2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d3_df <- subset(excel_df, var1 == "PCOS1d3") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d4_df <- subset(excel_df, var1 == "PCOS1d4") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d5_df <- subset(excel_df, var1 == "PCOS1d5") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d6_df <- subset(excel_df, var1 == "PCOS1d6") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d7_df <- subset(excel_df, var1 == "PCOS1d7") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d8_df <- subset(excel_df, var1 == "PCOS1d8") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d9_df <- subset(excel_df, var1 == "PCOS1d9") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustCivilService2_df <- subset(excel_df, var1 == "TrustCivilService2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustNIAssembly2_df <- subset(excel_df, var1 == "TrustNIAssembly2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+sig_df <- data.frame(Table_Name = c("TrustCivilService2", "TrustNIAssembly2",
+                                    "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2",
+                                    "NISRAstatsImp2", "Political2", "Confidential2", 
+                                    "PCOS1c1", "PCOS1c2", "PCOS1c3", "PCOS1c4",
+                                    "PCOS1c5", "PCOS1c6", "PCOS1c7", "PCOS1c8",
+                                    "PCOS1c9", "PCOS1d1", "PCOS1d2", "PCOS1d3", 
+                                    "PCOS1d4", "PCOS1d5", "PCOS1d6", "PCOS1d7",
+                                    "PCOS1d8", "PCOS1d9"), 
+                     Sheet = c("TrustCivilService2", "TrustNIAssembly2",
+                               "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2",
+                               "NISRAstatsImp2", "Political2", "Confidential2", 
+                               "PCOS1c1", "PCOS1c2", "PCOS1c3", "PCOS1c4",
+                               "PCOS1c5", "PCOS1c6", "PCOS1c7", "PCOS1c8",
+                               "PCOS1c9", "PCOS1d1", "PCOS1d2", "PCOS1d3", 
+                               "PCOS1d4", "PCOS1d5", "PCOS1d6", "PCOS1d7",
+                               "PCOS1d8", "PCOS1d9"))
+
 r <- 1
 r <- r + 1
 
@@ -216,7 +479,7 @@ for (i in 1:nrow(sig_df)) {
   
   writeDataTable(wb2, 
                  sheet = paste0(df$Sheet),
-                 x = get(df$Table_Name),
+                 x = get(paste0(df$Table_Name, "_df")),
                  startRow = r,
                  startCol = 1,
                  colNames = TRUE,
@@ -227,15 +490,14 @@ for (i in 1:nrow(sig_df)) {
   
 }
 
-for (i in 1:nrow(PCOS1_df)) {
-  if (!is.na(PCOS1_df[i, 5])) {
-    if (abs(PCOS1_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS1",
+for (i in 1:nrow(TrustCivilService2_df)) {
+  if (!is.na(TrustCivilService2_df[i, 5])) {
+      addStyle(wb2, "TrustCivilService2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS1",
+      addStyle(wb2, "TrustCivilService2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -243,31 +505,15 @@ for (i in 1:nrow(PCOS1_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS1c_df)) {
-  if (!is.na(PCOS1c_df[i, 7])) {
-    if (abs(PCOS1c_df[i, 7]) > 1.96) {
-      addStyle(wb2, "PCOS1c",
-               style = sig,
-               rows = r + i,
-               cols = 7)
-    } else {
-      addStyle(wb2, "PCOS1c",
-               style = not_sig,
-               rows = r + i,
-               cols = 7)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS1d_df)) {
-  if (!is.na(PCOS1d_df[i, 5])) {
-    if (abs(PCOS1d_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS1d",
+for (i in 1:nrow(TrustNIAssembly2_df)) {
+  if (!is.na(TrustNIAssembly2_df[i, 5])) {
+    if (abs(TrustNIAssembly2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNIAssembly2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS1d",
+      addStyle(wb2, "TrustNIAssembly2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -275,15 +521,15 @@ for (i in 1:nrow(PCOS1d_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS2a_df)) {
-  if (!is.na(PCOS2a_df[i, 5])) {
-    if (abs(PCOS2a_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2a",
+for (i in 1:nrow(TrustMedia2_df)) {
+  if (!is.na(TrustMedia2_df[i, 5])) {
+    if (abs(TrustMedia2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustMedia2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS2a",
+      addStyle(wb2, "TrustMedia2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -291,15 +537,16 @@ for (i in 1:nrow(PCOS2a_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS2b_df)) {
-  if (!is.na(PCOS2b_df[i, 5])) {
-    if (abs(PCOS2b_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2b",
+
+for (i in 1:nrow(TrustNISRA2_df)) {
+  if (!is.na(TrustNISRA2_df[i, 5])) {
+    if (abs(TrustNISRA2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNISRA2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS2b",
+      addStyle(wb2, "TrustNISRA2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -307,15 +554,15 @@ for (i in 1:nrow(PCOS2b_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS2c_df)) {
-  if (!is.na(PCOS2c_df[i, 5])) {
-    if (abs(PCOS2c_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2c",
+for (i in 1:nrow(TrustNISRAstats2_df)) {
+  if (!is.na(TrustNISRAstats2_df[i, 5])) {
+    if (abs(TrustNISRAstats2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNISRAstats2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS2c",
+      addStyle(wb2, "TrustNISRAstats2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -323,15 +570,15 @@ for (i in 1:nrow(PCOS2c_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS2d_df)) {
-  if (!is.na(PCOS2d_df[i, 5])) {
-    if (abs(PCOS2d_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2d",
+for (i in 1:nrow(NISRAstatsImp2_df)) {
+  if (!is.na(NISRAstatsImp2_df[i, 5])) {
+    if (abs(NISRAstatsImp2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "NISRAstatsImp2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS2d",
+      addStyle(wb2, "NISRAstatsImp2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -339,15 +586,15 @@ for (i in 1:nrow(PCOS2d_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS3_df)) {
-  if (!is.na(PCOS3_df[i, 5])) {
-    if (abs(PCOS3_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS3",
+for (i in 1:nrow(Political2_df)) {
+  if (!is.na(Political2_df[i, 5])) {
+    if (abs(Political2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "Political2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS3",
+      addStyle(wb2, "Political2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -355,15 +602,15 @@ for (i in 1:nrow(PCOS3_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS4_df)) {
-  if (!is.na(PCOS4_df[i, 5])) {
-    if (abs(PCOS4_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS4",
+for (i in 1:nrow(Confidential2_df)) {
+  if (!is.na(Confidential2_df[i, 5])) {
+    if (abs(Confidential2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "Confidential2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS4",
+      addStyle(wb2, "Confidential2",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -371,15 +618,15 @@ for (i in 1:nrow(PCOS4_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS5_df)) {
-  if (!is.na(PCOS5_df[i, 5])) {
-    if (abs(PCOS5_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS5",
+for (i in 1:nrow(PCOS1c1_df)) {
+  if (!is.na(PCOS1c1_df[i, 5])) {
+    if (abs(PCOS1c1_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c1",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS5",
+      addStyle(wb2, "PCOS1c1",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -387,15 +634,271 @@ for (i in 1:nrow(PCOS5_df)) {
   }
 }
 
-for (i in 1:nrow(PCOS6_df)) {
-  if (!is.na(PCOS6_df[i, 5])) {
-    if (abs(PCOS6_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS6",
+for (i in 1:nrow(PCOS1c2_df)) {
+  if (!is.na(PCOS1c2_df[i, 5])) {
+    if (abs(PCOS1c2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c2",
                style = sig,
                rows = r + i,
                cols = 5)
     } else {
-      addStyle(wb2, "PCOS6",
+      addStyle(wb2, "PCOS1c2",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c3_df)) {
+  if (!is.na(PCOS1c3_df[i, 5])) {
+    if (abs(PCOS1c3_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c3",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c3",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c4_df)) {
+  if (!is.na(PCOS1c4_df[i, 5])) {
+    if (abs(PCOS1c4_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c4",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c4",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c5_df)) {
+  if (!is.na(PCOS1c5_df[i, 5])) {
+    if (abs(PCOS1c5_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c5",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c5",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c6_df)) {
+  if (!is.na(PCOS1c6_df[i, 5])) {
+    if (abs(PCOS1c6_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c6",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c6",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c7_df)) {
+  if (!is.na(PCOS1c7_df[i, 5])) {
+    if (abs(PCOS1c7_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c7",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c7",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c8_df)) {
+  if (!is.na(PCOS1c8_df[i, 5])) {
+    if (abs(PCOS1c8_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c8",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c8",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c9_df)) {
+  if (!is.na(PCOS1c9_df[i, 5])) {
+    if (abs(PCOS1c9_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c9",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1c9",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d1_df)) {
+  if (!is.na(PCOS1d1_df[i, 5])) {
+    if (abs(PCOS1d1_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d1",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d1",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d2_df)) {
+  if (!is.na(PCOS1d2_df[i, 5])) {
+    if (abs(PCOS1d2_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d2",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d2",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d3_df)) {
+  if (!is.na(PCOS1d3_df[i, 5])) {
+    if (abs(PCOS1d3_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d3",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d3",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d4_df)) {
+  if (!is.na(PCOS1d4_df[i, 5])) {
+    if (abs(PCOS1d4_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d4",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d4",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d5_df)) {
+  if (!is.na(PCOS1d5_df[i, 5])) {
+    if (abs(PCOS1d5_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d5",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d5",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d6_df)) {
+  if (!is.na(PCOS1d6_df[i, 5])) {
+    if (abs(PCOS1d6_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d6",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d6",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d7_df)) {
+  if (!is.na(PCOS1d7_df[i, 5])) {
+    if (abs(PCOS1d7_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d7",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d7",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d8_df)) {
+  if (!is.na(PCOS1d8_df[i, 5])) {
+    if (abs(PCOS1d8_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d8",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d8",
+               style = not_sig,
+               rows = r + i,
+               cols = 5)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d9_df)) {
+  if (!is.na(PCOS1d9_df[i, 5])) {
+    if (abs(PCOS1d9_df[i, 5]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d9",
+               style = sig,
+               rows = r + i,
+               cols = 5)
+    } else {
+      addStyle(wb2, "PCOS1d9",
                style = not_sig,
                rows = r + i,
                cols = 5)
@@ -406,4 +909,3 @@ for (i in 1:nrow(PCOS6_df)) {
 saveWorkbook(wb2,
              paste0(here(), "/outputs/significance outputs/exploratory significance output ", current_year, ".xlsx"),
              overwrite = TRUE)
-

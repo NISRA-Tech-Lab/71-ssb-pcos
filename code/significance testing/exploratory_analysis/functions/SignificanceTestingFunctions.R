@@ -13,7 +13,7 @@ significanceTest <- function(p1,n1,p2,n2) {
   s9 <- sqrt(s7*s8*s1)
   z <- s6/s9
   
-  if (abs(z)>1.96){ 
+  if (abs(z)>qnorm(0.975)){ 
     significance <- "Significant" 
     if (z<0){
       direction = "p1 < p2"
@@ -28,7 +28,7 @@ significanceTest <- function(p1,n1,p2,n2) {
 confidenceInterval <- function(p,n){
   # This fucntion returns the upper and lower confidence limits 
   # **not used in this code currently**
-  ciCalc <- 1.96 * sqrt((p*(1-p))/n)
+  ciCalc <- qnorm(0.975) * sqrt((p*(1-p))/n)
   return(c(confIn = ciCalc, lowerCL = p-ciCalc, upperCL = p+ciCalc))
 }
 
@@ -54,6 +54,7 @@ varAnalysis <- function(df1, group1, grouping1, var1){
                             var1 == "yes" ~ "yes",
                             var1 == "no" ~ "no",
                             var1 == "Never" ~ "no",
+                            var1 == "DontKnow" ~ "dont_know"
                             TRUE ~ "yes")) 
     
     n <- nrow(df)

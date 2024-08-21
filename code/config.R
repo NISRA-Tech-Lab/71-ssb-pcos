@@ -198,3 +198,4 @@ for (file in list.files(path = paste0(here(), "/code/functions"), pattern = "*.R
 }
 
 utils::globalVariables(c("new_workbook", ".", "report_final"))
+
