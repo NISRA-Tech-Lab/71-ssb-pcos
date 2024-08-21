@@ -333,7 +333,7 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
                     labels = chart_labels) +
   labs(title = bquote(~bold("NISRA")~"statistics are important to understand"),
        subtitle = "Northern Ireland") +
-  theme(text = element_text(size = 16),
+  theme(text = element_text(size = 14),
         axis.line = element_line(colour = "black"),
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
@@ -344,24 +344,28 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
         panel.background = element_blank(),
         axis.title.x =element_blank(),
         legend.key=element_blank(),
-        legend.title=element_blank(),
-        legend.text=element_text(size = 10),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
         plot.title = element_text(size = 14,
                                   color = "#747474",
-                                  hjust = 0.5),
+                                  hjust = 0.5,
+                                  vjust = 0.6),
         plot.subtitle = element_text(size = 14,
                                      color = "#747474",
-                                     hjust = 0.5)) +
+                                     hjust = 0.5,
+                                     vjust = 1.5)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
   geom_text(aes(label = Percentage),
             fontface = "bold",
-            size = 4.5,
+            size = 4,
             position = position_stack(vjust = 0.5),
             color = ifelse(important_df$Category == "Strongly agree/tend to agree"|
                            important_df$Category == "Don't know",
                            "white", "black"),
             hjust = ifelse(important_df$Percentage < 4, -2, 0.5)) +
   guides(fill = guide_legend(reverse = TRUE))
+
+aware_trust_chart_4
 
 bar_order <- c('The NI Assembly ', 'The Civil Service ', 'The media ', 'NISRA ')
 
@@ -384,7 +388,7 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
         axis.ticks = element_blank(),
-        legend.text=element_text(size=10),
+        legend.text = element_text(size = 10),
         axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
