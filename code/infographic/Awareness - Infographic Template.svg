@@ -1638,7 +1638,7 @@
   
   <svg viewBox="14.5 4 23 23" xmlns="http://www.w3.org/2000/svg">
    <g transform="translate(10, 1.5)">
-    <image height="20" width="10" href="info1.svg" />
+    <image height="20" width="10" href="info1.png" />
    </g>
   </svg>
 
@@ -1649,7 +1649,7 @@
     <image
        height="30"
        width="15"
-       href="info2.svg"
+       href="info2.png"
        id="image2" />
   </svg>
   
@@ -1660,7 +1660,7 @@
     <image
        height="25"
        width="10"
-       href="info3.svg"
+       href="info3.png"
        id="image3" />
   </svg>
   
@@ -1671,7 +1671,7 @@
     <image
        height="25"
        width="15"
-       href="info4.svg"
+       href="info4.png"
        id="image4" />
   </svg>
   

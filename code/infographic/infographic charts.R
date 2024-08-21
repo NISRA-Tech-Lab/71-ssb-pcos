@@ -588,7 +588,7 @@ awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - In
 
 for (plot in c("info1", "info2", "info3", "info4")) {
   
-  awareness_template <- gsub(paste0(plot, ".svg"),
+  awareness_template <- gsub(paste0(plot, ".png"),
                              paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
                              awareness_template,
                              fixed = TRUE)
@@ -609,7 +609,7 @@ trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographi
 
 for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   
-  trust_template <- gsub(paste0(plot, ".svg"),
+  trust_template <- gsub(paste0(plot, ".png"),
                          paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
                          trust_template,
                          fixed = TRUE)
