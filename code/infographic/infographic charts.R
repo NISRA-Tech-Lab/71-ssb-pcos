@@ -584,7 +584,7 @@ unlink(paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
 
 ## Awareness ####
 
-awareness_template <- readLines(paste0(here(), "/code/infographic/Public Awareness Infographic.svg"))
+awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - Infographic template.svg"))
 
 for (plot in c("info1", "info2", "info3", "info4")) {
   
@@ -595,17 +595,17 @@ for (plot in c("info1", "info2", "info3", "info4")) {
   
 }
 
-writeLines(awareness_template, paste0(here(), "/outputs/Public Awareness Infographic - ", current_year, ".svg"))
+writeLines(awareness_template, paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
 
-rsvg_pdf(svg = paste0(here(), "/outputs/Public Awareness Infographic - ", current_year, ".svg"),
-         file = paste0(here(), "/outputs/Public Awareness Infographic - ", current_year, ".pdf"))
+rsvg_pdf(svg = paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"),
+         file = paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".pdf"))
 
-unlink(paste0(here(), "/outputs/Public Awareness Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
 
 
 ## Trust ####
 
-trust_template <- readLines(paste0(here(), "/code/infographic/Public Trust Infographic.svg"))
+trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographic template.svg"))
 
 for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   
@@ -616,9 +616,9 @@ for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   
 }
 
-writeLines(trust_template, paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg")) 
+writeLines(trust_template, paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg")) 
 
-rsvg_pdf(svg = paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg"),
-         file = paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".pdf"))
+rsvg_pdf(svg = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"),
+         file = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".pdf"))
 
-unlink(paste0(here(), "/outputs/Public Trust Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
