@@ -1763,14 +1763,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.97888529"
-     inkscape:cx="700.79712"
-     inkscape:cy="382.06724"
-     inkscape:window-width="1718"
-     inkscape:window-height="1360"
-     inkscape:window-x="3633"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:zoom="0.69217643"
+     inkscape:cx="236.21145"
+     inkscape:cy="409.57766"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      inkscape:current-layer="svg5"
      showguides="false">
     <inkscape:page
@@ -1783,51 +1783,33 @@
        margin="0"
        bleed="0" />
   </sodipodi:namedview>
-  <svg
-     viewBox="14.5 4 23 23"
-     version="1.1"
-     id="svg1">
-    <g
-       transform="matrix(1.1297728,0,0,1.1172141,9.3720673,0.3697212)"
-       id="g1">
-      <image
-         height="20"
-         width="10"
-         href="info1.png"
-         id="image1" />
-    </g>
-  </svg>
   <image
-     height="1425.9163"
-     width="666.16388"
-     href="info2.png"
+     height="458.67963"
+     width="316.00842"
+     href="../../outputs/infographics/info3.png"
+     id="image3"
+     x="48.355427"
+     y="391.2897" />
+  <image
+     height="20"
+     width="10"
+     href="../../outputs/infographics/info1.png"
+     id="image1"
+     transform="matrix(38.989933,0,0,38.556516,-12.571624,-125.28566)" />
+  <image
+     height="1384.0194"
+     width="713.11725"
+     href="../../outputs/infographics/info2.png"
      id="image2"
-     x="396.37149"
-     y="-417.48199" />
-  <svg
-     viewBox="3.4 -4 21 21"
-     version="1.1"
-     id="svg3">
-    <image
-       height="23.203566"
-       width="9.9617786"
-       href="info3.png"
-       id="image3"
-       x="-0.2675539"
-       y="0.45866394" />
-  </svg>
-  <svg
-     viewBox="-6 -0.9 18 18"
-     version="1.1"
-     id="svg4">
-    <image
-       height="21.592781"
-       width="13.886102"
-       href="info4.png"
-       id="image4"
-       x="0.62247241"
-       y="1.4742767" />
-  </svg>
+     x="382.6467"
+     y="-393.64413" />
+  <image
+     height="654.65759"
+     width="612.15302"
+     href="../../outputs/infographics/info4.png"
+     id="image4"
+     x="456.02066"
+     y="264.04077" />
   <g
      id="g3"
      inkscape:groupmode="layer"

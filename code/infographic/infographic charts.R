@@ -159,10 +159,10 @@ trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = 
 trust_chart_4
 
 ## Trust Infographic Output ####
-save_plot("code/infographic/trust1.png", fig = trust_chart_1, width=12, height=10)
-save_plot("code/infographic/trust2.png", fig = trust_chart_2, width=40, height=20)
-save_plot("code/infographic/trust3.png", fig = trust_chart_3, width=18, height=14)
-save_plot("code/infographic/trust4.png", fig = trust_chart_4, width=30, height=20)
+save_plot(paste0(here(), "/outputs/infographics/trust1.png"), fig = trust_chart_1, width=12, height=10)
+save_plot(paste0(here(), "/outputs/infographics/trust2.png"), fig = trust_chart_2, width=40, height=20)
+save_plot(paste0(here(), "/outputs/infographics/trust3.png"), fig = trust_chart_3, width=18, height=14)
+save_plot(paste0(here(), "/outputs/infographics/trust4.png"), fig = trust_chart_4, width=30, height=20)
 
 # Overview Infographic ####
 ## Chart 1 ####
@@ -410,16 +410,16 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
 aware_trust_chart_5
 
 ## Overview Output ####
-save_plot("code/infographic/Awareness1.png", fig = aware_trust_chart_1, width = 11, height = 9)
-save_plot("code/infographic/Awareness2.png", fig = aware_trust_chart_2, width = 13, height = 10)
-save_plot("code/infographic/Awareness3.png", fig = aware_trust_chart_3, width = 10, height = 10)
-save_plot("code/infographic/Awareness4.png", fig = aware_trust_chart_4, width = 13, height = 8)
-save_plot("code/infographic/Awareness5.png", fig = aware_trust_chart_5, width = 18, height = 8)
+save_plot(paste0(here(), "/outputs/infographics/Awareness1.png"), fig = aware_trust_chart_1, width = 11, height = 9)
+save_plot(paste0(here(), "/outputs/infographics/Awareness2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/Awareness3.png"), fig = aware_trust_chart_3, width = 10, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/Awareness4.png"), fig = aware_trust_chart_4, width = 13, height = 8)
+save_plot(paste0(here(), "/outputs/infographics/Awareness5.png"), fig = aware_trust_chart_5, width = 18, height = 8)
 
 
 
 # Awareness Infographic ####
-## 2. Circle Chart ####
+## 2. Bubble Chart ####
 
 current_trend <- aware_nisra_z$significance[aware_nisra_z$Year == current_year - 1]
 
@@ -632,10 +632,10 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3,
   guides(fill = guide_legend(reverse = TRUE))
 
 ## Awareness Infographic Output ####
-save_plot("code/infographic/info1.png", fig = aware_trust_chart_1, width = 20, height = 14)
-save_plot("code/infographic/info2.png", fig = bubble_chart, width = 11, height = 10)
-save_plot("code/infographic/info3.png", fig = pub_awareness_chart_2, width = 11, height = 10)
-save_plot("code/infographic/info4.png", fig = pub_awareness_chart_3, width = 28, height = 17)
+save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 20, height = 14)
+save_plot(paste0(here(), "/outputs/infographics/info2.png"), fig = bubble_chart, width = 11, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 11, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 28, height = 17)
 
 
 # Convert to PDF ####
@@ -645,8 +645,8 @@ infographic_template <- readLines(paste0(here(), "/code/infographic/Overview - I
 
 for (plot in c("Awareness1", "Awareness2", "Awareness3", "Awareness4", "Awareness5")) {
   
-  infographic_template <- gsub(paste0(plot, ".png"),
-                             paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
+  infographic_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
+                             paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
                              infographic_template,
                              fixed = TRUE)
   
@@ -667,8 +667,8 @@ awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - In
 
 for (plot in c("info1", "info2", "info3", "info4")) {
   
-  awareness_template <- gsub(paste0(plot, ".png"),
-                             paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
+  awareness_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
+                             paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
                              awareness_template,
                              fixed = TRUE)
   
@@ -688,8 +688,8 @@ trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographi
 
 for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   
-  trust_template <- gsub(paste0(plot, ".png"),
-                         paste0("data:image/png;base64,", base64_encode(paste0("code/infographic/", plot, ".png"))),
+  trust_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
+                         paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
                          trust_template,
                          fixed = TRUE)
   

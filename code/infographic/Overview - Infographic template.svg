@@ -1645,9 +1645,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.3843529"
-     inkscape:cx="308.44736"
-     inkscape:cy="750.16999"
+     inkscape:zoom="0.97888532"
+     inkscape:cx="127.18548"
+     inkscape:cy="428.54867"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1664,66 +1664,41 @@
        margin="0"
        bleed="0" />
   </sodipodi:namedview>
-  <svg
-     viewBox="15.5 3 23 23"
-     version="1.1"
-     id="svg1">
-    <g
-       transform="translate(10, 1.5)"
-       id="g1">
-      <image
-         height="20"
-         width="10"
-         href="Awareness1.png"
-         id="image1" />
-    </g>
-  </svg>
-  <svg
-     viewBox="15.5 7.8 16 16"
-     version="1.1"
-     id="svg2">
-    <g
-       transform="matrix(0.93528552,0,0,0.94175697,18.37858,2.0241873)"
-       id="g2">
-      <image
-         height="25"
-         width="9"
-         href="Awareness2.png"
-         id="image2" />
-    </g>
-  </svg>
-  <svg
-     viewBox="-12.7 5.3 18 18"
-     version="1.1"
-     id="svg3">
-    <image
-       height="10.934973"
-       width="7.2168975"
-       href="Awareness3.png"
-       id="image3"
-       x="1.1463771"
-       y="6.4745631" />
-  </svg>
-  <svg
-     viewBox="2 -2 17.7 17.7"
-     version="1.1"
-     id="svg4">
-    <image
-       height="25.00008"
-       width="10.322593"
-       href="Awareness4.png"
-       id="image4"
-       x="-0.62642866"
-       y="-0.70874703"
-       transform="matrix(1,0,0.00250725,0.99999686,0,0)" />
-  </svg>
+  <image
+     height="690.22607"
+     width="345.11304"
+     href="../../outputs/infographics/Awareness1.png"
+     id="image1"
+     x="-23.369011"
+     y="-52.788525" />
+  <image
+     height="25"
+     width="9"
+     href="../../outputs/infographics/Awareness2.png"
+     id="image2"
+     transform="matrix(46.399515,0,0,46.720564,307.20638,-286.53807)" />
+  <image
+     height="490.38055"
+     width="318.24915"
+     href="../../outputs/infographics/Awareness3.png"
+     id="image3"
+     x="774.99451"
+     y="51.795616" />
+  <image
+     height="25.00008"
+     width="10.322593"
+     href="../../outputs/infographics/Awareness4.png"
+     id="image4"
+     x="-0.62642866"
+     y="-0.70874703"
+     transform="matrix(44.845198,0,0.11243812,44.845057,74.709628,89.690397)" />
   <image
      height="597.15833"
-     width="585.11578"
-     href="Awareness5.png"
+     width="605.54718"
+     href="../../outputs/infographics/Awareness5.png"
      id="image5"
-     x="533.10803"
-     y="327.29111" />
+     x="495.30997"
+     y="333.4205" />
   <g
      id="g8"
      inkscape:groupmode="layer"
