@@ -1,8 +1,3 @@
-p1 <- 0
-p2 <- 0
-n1 <- 100
-n2 <- 120
-
 significanceTest <- function(p1,n1,p2,n2) {
   # This function follows the method used in the spreadsheet exactly. It outputs 
   # whether the difference is significant or not and where significant, it indicates 
