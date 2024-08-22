@@ -1,3 +1,8 @@
+p1 <- 0
+p2 <- 0
+n1 <- 100
+n2 <- 120
+
 significanceTest <- function(p1,n1,p2,n2) {
   # This function follows the method used in the spreadsheet exactly. It outputs 
   # whether the difference is significant or not and where significant, it indicates 
@@ -12,6 +17,7 @@ significanceTest <- function(p1,n1,p2,n2) {
   s8 <- 1-s7
   s9 <- sqrt(s7*s8*s1)
   z <- s6/s9
+  z = ifelse(is.na(z), 0, z)
   
   if (abs(z)>qnorm(0.975)){ 
     significance <- "Significant" 
@@ -32,7 +38,7 @@ confidenceInterval <- function(p,n){
   return(c(confIn = ciCalc, lowerCL = p-ciCalc, upperCL = p+ciCalc))
 }
 
-varAnalysis <- function(df1, group1, grouping1, var1){
+varAnalysis <- function(df1, group1, grouping1, var1, Answer){
   # This function establishes the p and n values for a given variable and grouping.
   df <- get(df1)
   #  group1 <- get(group1, df)
@@ -54,11 +60,11 @@ varAnalysis <- function(df1, group1, grouping1, var1){
                             var1 == "yes" ~ "yes",
                             var1 == "no" ~ "no",
                             var1 == "Never" ~ "no",
-                            var1 == "DontKnow" ~ "dont_know"
+                            var1 == "dont_know" ~ "dont_know",
                             TRUE ~ "yes")) 
     
     n <- nrow(df)
-    p <- prop.table(table(df$var1))["yes"]
+    p <- prop.table(table(df$var1))[Answer]
     return(c(n = n, p = p))
 }
 
