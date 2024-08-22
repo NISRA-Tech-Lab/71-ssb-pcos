@@ -61,6 +61,7 @@ varAnalysis <- function(df1, group1, grouping1, var1, Answer){
                             var1 == "no" ~ "no",
                             var1 == "Never" ~ "no",
                             var1 == "dont_know" ~ "dont_know",
+                            var1 == "DontKnow" ~ "dont_know",
                             TRUE ~ "yes")) 
     
     n <- nrow(df)
