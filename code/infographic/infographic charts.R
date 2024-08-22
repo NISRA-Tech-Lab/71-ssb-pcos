@@ -418,57 +418,133 @@ save_plot("code/infographic/Awareness5.png", fig = aware_trust_chart_5, width = 
 
 
 
-## Public Awareness Infographic ####
-# 2. Circle Chart
-# https://stackoverflow.com/questions/24738172/bubble-chart-with-bubbles-aligned-along-their-bottom-edges
-circle <- function(center,radius) {
-  th <- seq(0,2*pi,len=200)
-  data.frame(x=center[1]+radius*cos(th),y=center[2]+radius*sin(th))
+# Awareness Infographic ####
+## 2. Circle Chart ####
+
+current_trend <- aware_nisra_z$significance[aware_nisra_z$Year == current_year - 1]
+
+current_trend_length <- 1
+
+for (i in 2:nrow(aware_nisra_z)) {
+  
+  if (aware_nisra_z$significance[aware_nisra_z$Year == current_year - i] == current_trend) {
+    current_trend_length <- current_trend_length + 1
+  } else {
+    break
+  }
+  
 }
 
-awareness_info_data1 <- awareness_info_data1 %>%
-  filter(between(Year, 2017, current_year))
+current_trend_years <- ""
 
-awareness_info_data1$end <- awareness_info_data1$Percentage/2
-max <- max(awareness_info_data1$Percentage)
-n.bubbles <- nrow(awareness_info_data1)
-scale <- 0.4/sum(sqrt(awareness_info_data1$Percentage))
+for (i in 1:current_trend_length) {
+  
+  if (i == current_trend_length) {
+    current_trend_years <- paste0(current_trend_years, rev(aware_nisra_z$Year)[nrow(aware_nisra_z) - current_trend_length + i], ",")
+  } else if (i == current_trend_length - 1) {
+    current_trend_years <- paste0(current_trend_years, rev(aware_nisra_z$Year)[nrow(aware_nisra_z) - current_trend_length + i], " and ")
+  } else {
+    current_trend_years <- paste0(current_trend_years, rev(aware_nisra_z$Year)[nrow(aware_nisra_z) - current_trend_length + i], ", ")
+  }
+  
+}
 
-# calculate scaled centers and radii of bubbles
-radii <- scale*sqrt(awareness_info_data1$Percentage)
-ctr.x <- cumsum(c(radii[1],head(radii,-1)+tail(radii,-1)+.01))
-# starting (larger) bubbles
-gg.1  <- do.call(rbind,lapply(1:n.bubbles,function(i)cbind(group=i,circle(c(ctr.x[i],radii[i]),radii[i]))))
-text.1 <- data.frame(x=ctr.x,y=-0.05,label=paste(awareness_info_data1$Year))
-text.1 <- data.frame(x=ctr.x,y=-0.05,label=paste(awareness_info_data1$Year))
+previous_trend <- aware_nisra_z$significance[aware_nisra_z$Year == current_year - current_trend_length - 1]
 
-radii <- scale*sqrt(awareness_info_data1$Percentage)
-gg.2  <- do.call(rbind,lapply(1:n.bubbles,function(i)cbind(group=i,circle(c(ctr.x[i],radii[i]),radii[i]))))
-text.2 <- data.frame(x=ctr.x,y=2*radii+0.02,label=awareness_info_data1$Percentage)
-text.2$y <- text.2$y/2
 
-# make the plot
-color_list <- c("#3878c5", "#00205b",  "#757575", "#68a41e", "#732777", "#ce70d2")
+caption_1 <- ggplot() +
+  annotate("text",
+           x = 0,
+           y = 0,
+           label = bquote(bold("Awareness of NISRA")~is~bold(.(current_trend))~"than in"~.(current_trend_years)~"but"),
+           color = "#747474",
+           size = 3) +
+  coord_cartesian(clip = "off") +
+  theme_void()
 
-pub_awareness_chart_1 <- ggplot()+
-  geom_polygon(data=gg.1,aes(x,y,group=group),fill="dodgerblue")+
-  geom_path(data=gg.1,aes(x,y,group=group),color="grey50")+
-  geom_text(data=text.1,aes(x,y,label=label), size =3)+
-  geom_text(data=text.2,aes(x,y,label=label), size =2.5, color = "white", fontface = "bold")+
-  labs(x="",y="")+scale_y_continuous(limits=c(-0.1,2.5*scale*sqrt(max(awareness_info_data1$Percentage))))+
-  coord_fixed() +
-  theme(axis.text=element_blank(),axis.ticks=element_blank(),panel.grid=element_blank()) +
-  theme(panel.background = element_blank()) +
-  theme(
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_blank()) +
-  theme(axis.text.x=element_blank(),
-        axis.text.y=element_blank()) +
-  ggtitle(paste0("Awareness of NISRA is significantly lower than in 2020 and 2021, but\n significantly higher than in previous years.")) +
-  theme(plot.title = element_text(hjust = 0.5, size = 8, face = "bold")) +
-  theme_void() 
+caption_2 <- ggplot() +
+  annotate("text",
+           x = 0,
+           y = 0,
+           label = bquote(bold(.(previous_trend))~"than in previous years."),
+           color = "#747474",
+           size = 3) +
+  coord_cartesian(clip = "off") +
+  theme_void()
 
-save_plot("code/infographic/info2.png", fig = pub_awareness_chart_1, width=10, height=8)
+
+
+bubble_chart <- ggplot() +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "transparent",
+                                        linewidth = 0),
+        plot.background = element_rect(fill = "transparent", 
+                                       color = NA)) +
+  geom_hline(yintercept = 0) +
+  inset_element(p = caption_1,
+                left = 0.5,
+                bottom = 0.78,
+                right = 0.5,
+                top = 0.78) +
+  inset_element(p = caption_2,
+                left = 0.5,
+                bottom = 0.74,
+                right = 0.5,
+                top = 0.74)
+
+
+for (i in 1:nrow(awareness_info_data1)) {
+  
+  diameter <- awareness_info_data1$diameter[i]
+  
+  if (i == 1) {
+    left <- 0
+  } else {
+    left <- right
+  }
+  
+  right <- left + diameter
+  
+  year_label <- ggplot() +
+    annotate("text",
+             x = 0,
+             y = 0,
+             label = awareness_info_data1$Year[i]) +
+    coord_cartesian(clip = "off") +
+    theme_void()
+  
+  pct_label <- ggplot() +
+    annotate("text",
+             x = 0,
+             y = 0,
+             label = paste0(awareness_info_data1$Percentage[i], "%"),
+             size = awareness_info_data1$text_size[i],
+             fontface = "bold",
+             color = awareness_info_data1$text_colour[i]) +
+    coord_cartesian(clip = "off") +
+    theme_void()
+  
+  bubble_chart <- bubble_chart +
+    inset_element(p = readPNG(paste0(here(), "/data/images/", awareness_info_data1$shape[i], ".png"), native = TRUE),
+                  left = left,
+                  bottom = 0.5 - diameter / 2,
+                  right = right,
+                  top = 0.5 + diameter / 2,
+                  on_top = TRUE) +
+    inset_element(p = year_label,
+                  left = left,
+                  bottom = 0.63,
+                  right = right,
+                  top = 0.63) +
+    inset_element(p = pct_label,
+                  left = left,
+                  bottom = 0.5,
+                  right = right,
+                  top = 0.5)
+  
+  
+}
+
 
 ## Chart 3 ####
 title1 <- "NISRA awareness "  
@@ -557,11 +633,9 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3,
 
 ## Awareness Infographic Output ####
 save_plot("code/infographic/info1.png", fig = aware_trust_chart_1, width = 20, height = 14)
-save_plot("code/infographic/info2.png", fig = pub_awareness_chart_1, width = 10, height = 8)
+save_plot("code/infographic/info2.png", fig = bubble_chart, width = 11, height = 10)
 save_plot("code/infographic/info3.png", fig = pub_awareness_chart_2, width = 11, height = 10)
 save_plot("code/infographic/info4.png", fig = pub_awareness_chart_3, width = 28, height = 17)
-
-
 
 
 # Convert to PDF ####
@@ -588,7 +662,8 @@ unlink(paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
 
 ## Awareness ####
 
-awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - Infographic template.svg"))
+awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - Infographic template.svg")) %>%
+  gsub('Statistics and Research Agency YEAR', paste0('Statistics and Research Agency ', current_year), ., fixed = TRUE)
 
 for (plot in c("info1", "info2", "info3", "info4")) {
   

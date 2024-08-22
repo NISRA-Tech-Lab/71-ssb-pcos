@@ -135,19 +135,46 @@ if (current_year != ons_year) {
 
 # Awareness Infographic
 # Chart 2
-awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_1a_data.RDS"))
-awareness_info_data1 <- awareness_info_data1[awareness_info_data1$`Response (%)` %like% "Yes", ]
-awareness_info_data1 <- gather(awareness_info_data1, Year, Percentage, -`Response (%)`)
-awareness_info_data1$Percentage <- round_half_up(awareness_info_data1$Percentage) 
-new_info_names <- c("Category", "Year", "Percentage")
-awareness_info_data1 <- awareness_info_data1 %>% 
-  set_names(new_info_names)
-awareness_info_data1$Year <- sub('Note 1', '', awareness_info_data1$Year)
-awareness_info_data1$Year <- gsub("\\[|\\]", "", awareness_info_data1$Year)
-awareness_info_data1$Year <- gsub("[[:space:]]", "", awareness_info_data1$Year)
-awareness_info_data1$Year <- as.numeric(awareness_info_data1$Year)
-awareness_info_data1 <- subset(awareness_info_data1, Year >= 2017 & Year <= current_year)
-line_chart_df <- awareness_info_data1
+
+new_info_names <- c("Category", "Year", "Percentage") 
+
+awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year,"/table_1a_data.RDS")) %>%
+  filter(`Response (%)` == "Yes") %>%
+  gather(Year, Percentage, -`Response (%)`) %>%
+  filter(as.numeric(Year) >= 2016) %>%
+  mutate(Percentage = round_half_up(Percentage),
+         Year = as.numeric(Year),
+         end = Percentage / 2) %>%
+  rename(Category = `Response (%)`) %>%
+  mutate(rank = rank(-Percentage, ties.method = "first"),
+         shape = case_when(rank == 1 ~ "blue circle 1",
+                           rank == 2 ~ "blue circle 2",
+                           rank == 3 ~ "blue circle 3",
+                           rank == max(rank) ~ "green circle",
+                           TRUE ~ "blue circle 4"),
+         text_colour = case_when(rank <= 3 ~ "#ffffff",
+                                 TRUE ~ "#000000"),
+         text_size = case_when(rank <= 3 ~ 5,
+                               TRUE ~ 3.5),
+         diameter = Percentage / sum(Percentage))
+
+unweighted_trend <- readRDS(paste0(data_folder, "Trend/", current_year, "/unweighted trend data.RDS"))
+
+aware_nisra_trend <- f_trend("Awareness")
+aware_nisra_trend[[1]] <- gsub("% ", "", aware_nisra_trend[[1]])
+
+aware_nisra_z <- f_trend_z_scores(aware_nisra_trend, "Yes") %>%
+  filter(.[[1]] == current_year) %>%
+  t() %>% as.data.frame() %>%
+  filter(.[[1]] != current_year) %>%
+  mutate(Year = as.numeric(rownames(.)),
+         Z = as.numeric(.[[1]])) %>%
+  select(Year, Z) %>%
+  mutate(significance = case_when(Z < qnorm(0.975) ~ "significantly lower",
+                                  Z > qnorm(0.975) ~ "significantly higher",
+                                  TRUE ~ "not significantly different"))
+
+
 
 # Chart 3
 awareness_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year,"/aware_nisra_ons_data.RDS"))
