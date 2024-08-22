@@ -174,7 +174,7 @@ aware_nisra_z <- f_trend_z_scores(aware_nisra_trend, "Yes") %>%
   mutate(Year = as.numeric(rownames(.)),
          Z = as.numeric(.[[1]])) %>%
   select(Year, Z) %>%
-  mutate(significance = case_when(Z < qnorm(0.975) ~ "significantly lower",
+  mutate(significance = case_when(Z < qnorm(0.975) * -1 ~ "significantly lower",
                                   Z > qnorm(0.975) ~ "significantly higher",
                                   TRUE ~ "not significantly different"))
 

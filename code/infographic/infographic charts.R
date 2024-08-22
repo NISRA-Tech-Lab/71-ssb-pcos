@@ -17,7 +17,7 @@ trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
   coord_polar(theta="y") +
   xlim(-.2, 3) +
   theme(legend.position="none") +
-  annotate("text", x = -.2, y = 48, size = 4.6, 
+  annotate("text", x = -0.2, y = 48, size = 4.6, 
            label = paste0("Respondents’ trust\nin NISRA statistics\n", current_year),
            color = "#747474") +
   geom_text(aes(
@@ -179,11 +179,9 @@ names(label_cols) <- donut_chart_df$label
 aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fill = Answer)) +
   geom_col(colour = NA,
            size = 0) +
-  coord_polar(theta = "y") +
+  coord_polar(theta = "y", start = 0) +
   xlim(c(0.8,
          hsize + .8)) +
-  labs(title = "Respondents' awareness",
-       subtitle = bquote("of"~bold("NISRA")~.(current_year))) +
   theme_void() +
   theme(legend.position = "none",
         axis.line.x = element_blank(),
@@ -204,7 +202,11 @@ aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fil
   scale_fill_manual(values = c("#CBE346", "#00205b")) +
   scale_color_manual(values = label_cols)
 
-aware_trust_chart_1
+overview_chart_1 <- aware_trust_chart_1 +
+  labs(title = "Respondents' awareness",
+       subtitle = bquote("of"~bold("NISRA")~.(current_year)))
+
+overview_chart_1
   
 ## Chart 2 ####
 # Stacked
@@ -410,7 +412,7 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
 aware_trust_chart_5
 
 ## Overview Output ####
-save_plot(paste0(here(), "/outputs/infographics/Awareness1.png"), fig = aware_trust_chart_1, width = 11, height = 9)
+save_plot(paste0(here(), "/outputs/infographics/Awareness1.png"), fig = overview_chart_1, width = 11, height = 9)
 save_plot(paste0(here(), "/outputs/infographics/Awareness2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
 save_plot(paste0(here(), "/outputs/infographics/Awareness3.png"), fig = aware_trust_chart_3, width = 10, height = 10)
 save_plot(paste0(here(), "/outputs/infographics/Awareness4.png"), fig = aware_trust_chart_4, width = 13, height = 8)
@@ -419,6 +421,35 @@ save_plot(paste0(here(), "/outputs/infographics/Awareness5.png"), fig = aware_tr
 
 
 # Awareness Infographic ####
+
+## Chart 1 #### 
+
+caption_1 <- ggplot() +
+  annotate("text",
+           x = 0,
+           y = 0,
+           label = "Respondents'\nawareness of",
+           color = "#747474",
+           size = 7) +
+  coord_cartesian(clip = "off") +
+  theme_void()
+
+caption_2 <- ggplot() +
+  annotate("text",
+           x = 0,
+           y = 0,
+           label = bquote(bold("NISRA")~.(current_year)),
+           color = "#747474",
+           size = 7) +
+  coord_cartesian(clip = "off") +
+  theme_void()
+
+aware_trust_chart_1 <- aware_trust_chart_1 +
+  inset_element(caption_1, left = 0.5, right = 0.5, top = 0.55, bottom = 0.55) +
+  inset_element(caption_2, left = 0.5, right = 0.5, top = 0.45, bottom = 0.45)
+
+aware_trust_chart_1
+
 ## 2. Bubble Chart ####
 
 current_trend <- aware_nisra_z$significance[aware_nisra_z$Year == current_year - 1]
@@ -547,9 +578,20 @@ for (i in 1:nrow(awareness_info_data1)) {
 
 
 ## Chart 3 ####
-title1 <- "NISRA awareness "  
-title2 <- "significantly lower "
-title3 <- "than ONS."
+
+nisra_ons_z <- f_return_z(p1 = aware_nisra_trend[[as.character(current_year)]][1] / 100,
+                          n1 = aware_nisra_trend[[as.character(current_year)]][2],
+                          p2 = unweighted_ons$Yes[unweighted_ons$`Related Variable` == "PCOS1"] / unweighted_ons_base$`Unweighted base`[unweighted_ons_base$`Related Variable` == "PCOS1"],
+                          n2 = unweighted_ons_base$`Unweighted base`[unweighted_ons_base$`Related Variable` == "PCOS1"])
+
+nisra_ons_sig <- if (nisra_ons_z < qnorm(0.975) * -1) {
+  "significantly lower"
+} else if (nisra_ons_z > qnorm(0.975)) {
+  "significantly higher"
+} else {
+  "similar"
+}
+
 pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group, 
                                                   y=Percentage, 
                                                   x=year,
@@ -557,7 +599,8 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
   geom_bar(position="dodge", stat="identity", height = 0.8,
            colour=NA,size=0) +
   scale_fill_manual(values = alpha(c("#3878c5", "#CBE346"))) +
-  ggtitle(paste0(title1, title2, title3)) +
+  labs(title = bquote(underline("COMPARED TO ONS")),
+       subtitle = bquote(bold("NISRA")~"awareness"~bold(.(nisra_ons_sig))~.(if (nisra_ons_sig == "similar") "to" else "than")~bold("ONS."))) +
   theme(legend.position = "bottom",
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
@@ -565,16 +608,24 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
         legend.text = element_text(size = 11),
         axis.text.y = element_blank(),
         axis.ticks = element_blank(),
-        axis.text.x =element_text(size = 12),
-        plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5,
+                                  color = "#747474"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     color = "#747474"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
-        panel.background = element_blank()) +
+        panel.background = element_blank(),
+        axis.line.x = element_line(color = "#000000",
+                                   linewidth = 2)) +
   geom_text(size = 3.5,
             aes(label=paste0(Percentage, "%")), 
             position=position_dodge(width = 0.9), 
-            vjust = -0.25) 
+            vjust = -0.25) +
+  coord_cartesian(expand = FALSE)
+
+pub_awareness_chart_2
 
 ## Chart 4 ####
 aes(reorder(variable, value), value)
@@ -586,56 +637,60 @@ chart_order <- awareness_info_data3 %>%
 
 pub_awareness_chart_3 <- ggplot(awareness_info_data3,
                                 aes(fill = Answer,
-                                    y = Percentage,
-                                    x = factor(Group,
+                                    x = Percentage,
+                                    y = factor(Group,
                                                levels = rev(chart_order)),
                                     label = Percentage)) + 
-  geom_bar(width=0.5,
+  geom_bar(width = 0.5,
            position = "stack",
            stat = "identity",
            color = NA,
            size = 0) +
-  ggtitle("Awareness of specific NISRA statistics for respondents who were not aware of NISRA") +
+  labs(title = bquote(bold("Awareness")~"of specific"~bold("NISRA statistics")~"for respondents who were not aware of"~bold("NISRA"))) +
   scale_fill_manual(values = alpha(c("#757575", "#98b4d4", "#00205b"))) +
   geom_text(data = awareness_info_data3[awareness_info_data3$Answer == "No",],
             label = round_half_up(awareness_info_data3$Percentage[awareness_info_data3$Answer == "No"]),
-            aes(y = 95),
+            aes(x = 95),
             fontface = "bold",
             size = 6) + 
   geom_text(data = awareness_info_data3[awareness_info_data3$Answer == "Yes",],
             label = round_half_up(awareness_info_data3$Percentage[awareness_info_data3$Answer == "Yes"]),
-            aes(y = 5),
+            aes(x = 5),
             fontface = "bold",
             size = 6,
             color = "white") + 
   geom_text(data = awareness_info_data3[awareness_info_data3$Answer == "Don't Know",],
             label = awareness_info_data3$Percentage[awareness_info_data3$Answer == "Don't Know"],
-            aes(y = 105),
+            aes(x = 105),
             fontface = "bold",
             size = 6) + 
-  coord_flip() +
   theme(text = element_text(size = 12),
         axis.text.x = element_text(size = 15),
         axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 14, vjust =
-                                     0),
-        plot.title = element_text(hjust = 0.2),
+        axis.text.y = element_text(size = 14),
+        axis.ticks = element_blank(),
+        plot.title = element_text(hjust = 0.2,
+                                  color = "#747474",
+                                  size = 16),
         legend.position = "top",
-        legend.text=element_text(size = 12),
-        legend.title=element_blank(),
+        legend.text = element_text(size = 12),
+        legend.title = element_blank(),
         axis.title.y = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         panel.background = element_blank()) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  guides(fill = guide_legend(reverse = TRUE))
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(expand = FALSE)
+
+pub_awareness_chart_3
 
 ## Awareness Infographic Output ####
-save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 20, height = 14)
+save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 14, height = 14)
 save_plot(paste0(here(), "/outputs/infographics/info2.png"), fig = bubble_chart, width = 11, height = 10)
 save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 11, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 28, height = 17)
+save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 30, height = 17)
 
 
 # Convert to PDF ####

@@ -233,9 +233,9 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.64"
-     inkscape:cx="43.75"
-     inkscape:cy="663.28125"
+     inkscape:zoom="0.90509668"
+     inkscape:cx="517.07183"
+     inkscape:cy="265.71747"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -257,19 +257,19 @@
      inkscape:groupmode="layer"
      inkscape:label="1">
     <image
-       height="365.06558"
-       width="447.48718"
+       height="368.08234"
+       width="389.29556"
        href="../../outputs/infographics/trust1.png"
        id="image1"
-       x="-28.694365"
-       y="83.964569" />
+       x="-0.3338058"
+       y="90.353287" />
     <image
-       height="323.22092"
-       width="492.85294"
+       height="339.79373"
+       width="508.32089"
        href="../../outputs/infographics/trust3.png"
        id="image3"
-       x="21.408413"
-       y="445.20145" />
+       x="13.674433"
+       y="444.09659" />
     <image
        height="317.74734"
        width="697.36658"
@@ -278,11 +278,11 @@
        x="387.35425"
        y="113.70759" />
     <image
-       height="338.66187"
-       width="590.8053"
+       height="344.18613"
+       width="610.69269"
        href="../../outputs/infographics/trust4.png"
        id="image4"
-       x="522.32349"
+       x="502.4361"
        y="448.95346" />
     <g
        id="g2" />

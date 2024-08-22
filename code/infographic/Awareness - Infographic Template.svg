@@ -1763,9 +1763,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.69217643"
-     inkscape:cx="236.21145"
-     inkscape:cy="409.57766"
+     inkscape:zoom="0.9788853"
+     inkscape:cx="-281.95336"
+     inkscape:cy="243.64448"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1784,61 +1784,37 @@
        bleed="0" />
   </sodipodi:namedview>
   <image
-     height="458.67963"
-     width="316.00842"
+     height="393.6673"
+     width="393.64258"
      href="../../outputs/infographics/info3.png"
      id="image3"
-     x="48.355427"
-     y="391.2897" />
+     x="14.455881"
+     y="394.74747" />
   <image
-     height="20"
-     width="10"
+     height="294.21039"
+     width="314.14291"
      href="../../outputs/infographics/info1.png"
      id="image1"
-     transform="matrix(38.989933,0,0,38.556516,-12.571624,-125.28566)" />
+     x="17.755003"
+     y="103.53574" />
   <image
-     height="1384.0194"
-     width="713.11725"
+     height="1326.2307"
+     width="653.88379"
      href="../../outputs/infographics/info2.png"
      id="image2"
-     x="382.6467"
-     y="-393.64413" />
+     x="402.87274"
+     y="-369.08392" />
   <image
      height="654.65759"
-     width="612.15302"
+     width="678.14435"
      href="../../outputs/infographics/info4.png"
      id="image4"
-     x="456.02066"
+     x="438.68405"
      y="264.04077" />
   <g
      id="g3"
      inkscape:groupmode="layer"
      inkscape:label="1">
-    <g
-       id="g2">
-      <path
-         id="path2"
-         d="M 3.75,314.02 H 252 v 193.5 H 3.75 Z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath3)" />
-    </g>
-    <g
-       id="g11" />
-    <g
-       id="g12" />
-    <g
-       id="g28" />
-    <g
-       id="g34">
-      <path
-         id="path35"
-         d="M 25.65,210.82 H 300.8 v 68 H 25.65 Z"
-         style="fill:none;stroke:#ffffff;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
-    </g>
-    <g
-       id="g43" />
     <g
        id="g44">
       <path
@@ -1848,20 +1824,6 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
     <g
-       id="g46" />
-    <g
-       id="g66" />
-    <g
-       id="g72" />
-    <g
-       id="g76" />
-    <g
-       id="g80" />
-    <g
-       id="g84" />
-    <g
-       id="g92" />
-    <g
        id="g93">
       <path
          id="path93"
@@ -1870,34 +1832,12 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
     <g
-       id="g100" />
-    <g
-       id="g101">
-      <path
-         id="path101"
-         d="M 12,11.12 H 310.85 V 219.77 H 12 Z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath102)" />
-    </g>
-    <g
-       id="g134" />
-    <g
        id="g135">
       <path
          id="path135"
          d="m 321.5,295.02 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -1 h -1 v 1 z m 0,-2 v -0.25 h -1 v 0.25 z m -3.5,284 c 0,1.66 1.34,3 3,3 1.66,0 3,-1.34 3,-3 0,-1.66 -1.34,-3 -3,-3 -1.66,0 -3,1.34 -3,3 z m 6,-284.25 c 0,-1.6568 -1.34,-2.9999 -3,-2.9999 -1.66,0 -3,1.3431 -3,2.9999 0,1.657 1.34,3 3,3 1.66,0 3,-1.343 3,-3 z"
          style="fill:#b4c7e7;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
-    </g>
-    <g
-       id="g136">
-      <path
-         id="path136"
-         d="m 335.35,0.76996 h 489.5 v 271.2 h -489.5 z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath137)" />
     </g>
   </g>
   <g
@@ -1928,72 +1868,6 @@
        y="0"
        sodipodi:role="line"
        id="tspan1" /></text>
-  <text
-     id="text7"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,447.54688,53.126064)"
-     clip-path="url(#clipPath8-6)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:700;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       x="0"
-       y="0"
-       sodipodi:role="line"
-       id="tspan7"> </tspan></text>
-  <text
-     id="text8"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,607.93514,53.126064)"
-     clip-path="url(#clipPath9-0)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       sodipodi:role="line"
-       id="tspan8"
-       x="0"
-       y="0" /></text>
-  <text
-     id="text9"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,681.53514,53.126064)"
-     clip-path="url(#clipPath10-8)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:700;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       sodipodi:role="line"
-       id="tspan9"
-       x="0"
-       y="0" /></text>
-  <text
-     id="text10"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,748.45514,53.126064)"
-     clip-path="url(#clipPath11-1)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       sodipodi:role="line"
-       id="tspan10"
-       x="0"
-       y="0" /></text>
-  <text
-     id="text11"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,491.58848,89.472731)"
-     clip-path="url(#clipPath12)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       sodipodi:role="line"
-       id="tspan11"
-       x="0"
-       y="0" /></text>
-  <text
-     id="text12"
-     xml:space="preserve"
-     transform="matrix(1.3333333,0,0,1.3333333,837.89514,89.472731)"
-     clip-path="url(#clipPath13)"
-     style="fill:#00205b;fill-opacity:1"><tspan
-       style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:21.96px;font-family:Arial;writing-mode:lr-tb;fill:#00205b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       sodipodi:role="line"
-       id="tspan12"
-       x="0"
-       y="0" /></text>
   <path
      id="path14"
      d="m 761.89512,94.592744 h 53.6 v -2.08 h -53.6 z"
@@ -2014,16 +1888,6 @@
        y="0"
        sodipodi:role="line"
        id="tspan17" /></text>
-  <g
-     id="g14"
-     transform="translate(0.00180871,0.00606406)">
-    <path
-       id="path15-6"
-       d="m 696.15,517.77 h 154.3 v 25.5 h -154.3 z"
-       style="fill:#cdda28;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-       clip-path="url(#clipPath16-3)" />
-  </g>
   <g
      id="g16"
      style="fill:#00205b;fill-opacity:1"
