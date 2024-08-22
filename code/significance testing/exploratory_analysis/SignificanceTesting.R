@@ -194,6 +194,27 @@ currentYear = "data_current"
 # Re-labelling some fields
 data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
 
+# Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
+data_current$PCOS1c1[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c2[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c3[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c4[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c5[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c6[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c7[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c8[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1c9[data_current$PCOS1 == 'No'] <- NA
+data_current$PCOS1d1[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d2[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d3[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d4[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d5[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d6[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d7[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d8[data_current$PCOS1 == 'Yes'] <- NA
+data_current$PCOS1d9[data_current$PCOS1 == 'Yes'] <- NA
+
+# Remove values from PCOS1c1, c2 etc. if not No for PCOS1
 ### **** INPUTS **** ####
 vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
 groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
@@ -220,18 +241,26 @@ pnlist<- apply(stVars, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grou
 allVars<- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
 colnames(allVars) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
 
+stVars_excl_dk <- stVars %>%
+  filter(Answer != "dont_know")
+pnlist_excl_dk <- apply(stVars_excl_dk, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
+allVars_excl_dk <- cbind(stVars_excl_dk, t(pnlist_excl_dk)) # add p and n values to stVars and rename to allVars
+colnames(allVars_excl_dk) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
+
 #Join the p, n and question text data to the relevant variables and groupings in vardf
 vardf <- stCombinations(vars, groupings, currentYear)
 vardf <- vardf[rep(seq_len(nrow(vardf)), each = 3), ]
 number_rows_vardf <- nrow(vardf)/3
 answer <- c("yes", "no", "dont_know")
 vardf$Answer <- rep(answer, number_rows_vardf)
+vardf_excl_dk <- vardf %>%
+  filter(Answer != "dont_know")
+
 vardf <- vardf %>% left_join(allVars, by= c("var1"= "var", "group1" = "group", 
                                             "grouping1" = "grouping", "year1" = "year",
                                             "Answer" = "Answer"))#
 colnames(vardf) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2",
                        "grouping2", "Answer", "question1", "n", "p")
-
 vardf <- vardf%>%  left_join(allVars, by= c("var2"= "var", "group2" = "group",
                                             "grouping2" = "grouping", "year2" = "year",
                                             "Answer" = "Answer")) 
@@ -242,6 +271,20 @@ colnames(vardf) <-  c("year1", "var1","group1","grouping1", "year2","var2" ,"gro
 vardf$p1[is.na(vardf$p1)] <- 0
 vardf$p2[is.na(vardf$p2)] <- 0
 
+vardf_excl_dk <- vardf_excl_dk %>% left_join(allVars_excl_dk, by= c("var1"= "var", "group1" = "group", 
+                                            "grouping1" = "grouping", "year1" = "year",
+                                            "Answer" = "Answer"))#
+colnames(vardf_excl_dk) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                       "grouping2", "Answer", "question1", "n", "p")
+vardf_excl_dk <- vardf_excl_dk %>%  left_join(allVars_excl_dk, by= c("var2"= "var", "group2" = "group",
+                                            "grouping2" = "grouping", "year2" = "year",
+                                            "Answer" = "Answer")) 
+colnames(vardf_excl_dk) <-  c("year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                      "grouping2", "answer", "question1",
+                      "n1","p1", "question2", "n2", "p2")
+vardf_excl_dk$p1[is.na(vardf_excl_dk$p1)] <- 0
+vardf_excl_dk$p2[is.na(vardf_excl_dk$p2)] <- 0
+
 #apply function SignificanceTest to extract significance and directional info
 for(i in 1:nrow(vardf)) {
   x  <- significanceTest(vardf[i,'p1'],vardf[i,'n1'],vardf[i,'p2'],vardf[i,'n2'])
@@ -250,8 +293,23 @@ for(i in 1:nrow(vardf)) {
   vardf[i,'score'] = x['score']
 }
 
+for(i in 1:nrow(vardf_excl_dk)) {
+  x  <- significanceTest(vardf_excl_dk[i,'p1'],vardf_excl_dk[i,'n1'],vardf_excl_dk[i,'p2'],vardf_excl_dk[i,'n2'])
+  vardf_excl_dk[i,'significance'] = x['significance']
+  vardf_excl_dk[i,'direction'] = x['direction']
+  vardf_excl_dk[i,'score'] = x['score']
+}
+
 #structure the data in a more friendly way for presenting and order so that significant changes are first
 vardf <- vardf %>% 
+  select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
+  arrange(desc(significance))
+
+outputfile <- paste0('outputs/significanceTestingAll2022-', Sys.Date(), '.csv') 
+
+write.csv(vardf, outputfile) #a csv file with the results will be written to the outputs folder.
+
+vardf_excl_dk <- vardf_excl_dk %>% 
   select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
   arrange(desc(significance))
 
@@ -287,6 +345,32 @@ addWorksheet(wb2, "PCOS1d6")
 addWorksheet(wb2, "PCOS1d7")
 addWorksheet(wb2, "PCOS1d8")
 addWorksheet(wb2, "PCOS1d9")
+addWorksheet(wb2, "TrustCivilService2_excl_dk")
+addWorksheet(wb2, "TrustNIAssembly2_excl_dk")
+addWorksheet(wb2, "TrustMedia2_excl_dk")
+addWorksheet(wb2, "TrustNISRA2_excl_dk")
+addWorksheet(wb2, "TrustNISRAstats2_excl_dk")
+addWorksheet(wb2, "NISRAstatsImp2_excl_dk")
+addWorksheet(wb2, "Political2_excl_dk")
+addWorksheet(wb2, "Confidential2_excl_dk")
+addWorksheet(wb2, "PCOS1c1_excl_dk")
+addWorksheet(wb2, "PCOS1c2_excl_dk")
+addWorksheet(wb2, "PCOS1c3_excl_dk")
+addWorksheet(wb2, "PCOS1c4_excl_dk")
+addWorksheet(wb2, "PCOS1c5_excl_dk")
+addWorksheet(wb2, "PCOS1c6_excl_dk")
+addWorksheet(wb2, "PCOS1c7_excl_dk")
+addWorksheet(wb2, "PCOS1c8_excl_dk")
+addWorksheet(wb2, "PCOS1c9_excl_dk")
+addWorksheet(wb2, "PCOS1d1_excl_dk")
+addWorksheet(wb2, "PCOS1d2_excl_dk")
+addWorksheet(wb2, "PCOS1d3_excl_dk")
+addWorksheet(wb2, "PCOS1d4_excl_dk")
+addWorksheet(wb2, "PCOS1d5_excl_dk")
+addWorksheet(wb2, "PCOS1d6_excl_dk")
+addWorksheet(wb2, "PCOS1d7_excl_dk")
+addWorksheet(wb2, "PCOS1d8_excl_dk")
+addWorksheet(wb2, "PCOS1d9_excl_dk")
 
 excel_df <- vardf %>%
   mutate(year1 = case_when(year1 == "data_current" ~ current_year,
@@ -297,7 +381,17 @@ excel_df <- vardf %>%
   select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
-  
+
+excel_df_excl_dk <- vardf_excl_dk %>%
+  mutate(year1 = case_when(year1 == "data_current" ~ current_year,
+                           year1 == "data_last" ~ current_year - 1),
+         year2 = case_when(year2 == "data_current" ~ current_year,
+                           year2 == "data_last" ~ current_year - 1),
+         score = as.numeric(score)) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
+  rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
+  arrange(var1)
+
 # Sorting columns
 grouping_1_order <- c("Male", "16-24", "25-34", "35-44", "45-54", "55-64",
                       "65-74", 
@@ -472,14 +566,180 @@ TrustNIAssembly2_df <- subset(excel_df, var1 == "TrustNIAssembly2") %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
   arrange(`Grouping 1`, `Grouping 2`)
 
-sig_df <- data.frame(Table_Name = c("TrustCivilService2", "TrustNIAssembly2",
-                                    "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2",
-                                    "NISRAstatsImp2", "Political2", "Confidential2", 
-                                    "PCOS1c1", "PCOS1c2", "PCOS1c3", "PCOS1c4",
-                                    "PCOS1c5", "PCOS1c6", "PCOS1c7", "PCOS1c8",
-                                    "PCOS1c9", "PCOS1d1", "PCOS1d2", "PCOS1d3", 
-                                    "PCOS1d4", "PCOS1d5", "PCOS1d6", "PCOS1d7",
-                                    "PCOS1d8", "PCOS1d9"), 
+TrustMedia2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustMedia2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustNISRA2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNISRA2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustNISRAstats2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNISRAstats2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+NISRAstatsImp2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "NISRAstatsImp2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+Political2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "Political2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+Confidential2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "Confidential2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c1_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c1") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c3_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c3") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c4_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c4") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c5_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c5") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c6_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c6") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c7_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c7") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c8_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c8") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1c9_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c9") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d1_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d1") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d3_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d3") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d4_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d4") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d5_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d5") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d6_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d6") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d7_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d7") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d8_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d8") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+PCOS1d9_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d9") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustCivilService2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustCivilService2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+TrustNIAssembly2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNIAssembly2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
+
+sig_df <- data.frame(Table_Name = c("TrustCivilService2_df", "TrustNIAssembly2_df",
+                                    "TrustMedia2_df", "TrustNISRA2_df", "TrustNISRAstats2_df",
+                                    "NISRAstatsImp2_df", "Political2_df", "Confidential2_df", 
+                                    "PCOS1c1_df", "PCOS1c2_df", "PCOS1c3_df", "PCOS1c4_df",
+                                    "PCOS1c5_df", "PCOS1c6_df", "PCOS1c7_df", "PCOS1c8_df",
+                                    "PCOS1c9_df", "PCOS1d1_df", "PCOS1d2_df", "PCOS1d3_df", 
+                                    "PCOS1d4_df", "PCOS1d5_df", "PCOS1d6_df", "PCOS1d7_df",
+                                    "PCOS1d8_df", "PCOS1d9_df", 
+                                    "TrustCivilService2_df_excl_dk", "TrustNIAssembly2_df_excl_dk",
+                                    "TrustMedia2_df_excl_dk", "TrustNISRA2_df_excl_dk", "TrustNISRAstats2_df_excl_dk",
+                                    "NISRAstatsImp2_df_excl_dk", "Political2_df_excl_dk", 
+                                    "Confidential2_df_excl_dk", "PCOS1c1_df_excl_dk", 
+                                    "PCOS1c2_df_excl_dk", "PCOS1c3_df_excl_dk", "PCOS1c4_df_excl_dk",
+                                    "PCOS1c5_df_excl_dk", "PCOS1c6_df_excl_dk", "PCOS1c7_df_excl_dk", 
+                                    "PCOS1c8_df_excl_dk", "PCOS1c9_df_excl_dk", "PCOS1d1_df_excl_dk",
+                                    "PCOS1d2_df_excl_dk", "PCOS1d3_df_excl_dk",  "PCOS1d4_df_excl_dk",
+                                    "PCOS1d5_df_excl_dk", "PCOS1d6_df_excl_dk", "PCOS1d7_df_excl_dk",
+                                    "PCOS1d8_df_excl_dk", "PCOS1d9_df_excl_dk"), 
                      Sheet = c("TrustCivilService2", "TrustNIAssembly2",
                                "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2",
                                "NISRAstatsImp2", "Political2", "Confidential2", 
@@ -487,7 +747,15 @@ sig_df <- data.frame(Table_Name = c("TrustCivilService2", "TrustNIAssembly2",
                                "PCOS1c5", "PCOS1c6", "PCOS1c7", "PCOS1c8",
                                "PCOS1c9", "PCOS1d1", "PCOS1d2", "PCOS1d3", 
                                "PCOS1d4", "PCOS1d5", "PCOS1d6", "PCOS1d7",
-                               "PCOS1d8", "PCOS1d9"))
+                               "PCOS1d8", "PCOS1d9", 
+                               "TrustCivilService2_excl_dk", "TrustNIAssembly2_excl_dk",
+                               "TrustMedia2_excl_dk", "TrustNISRA2_excl_dk", "TrustNISRAstats2_excl_dk",
+                               "NISRAstatsImp2_excl_dk", "Political2_excl_dk", "Confidential2_excl_dk", 
+                               "PCOS1c1_excl_dk", "PCOS1c2_excl_dk", "PCOS1c3_excl_dk", "PCOS1c4_excl_dk",
+                               "PCOS1c5_excl_dk", "PCOS1c6_excl_dk", "PCOS1c7_excl_dk", "PCOS1c8_excl_dk",
+                               "PCOS1c9_excl_dk", "PCOS1d1_excl_dk", "PCOS1d2_excl_dk", "PCOS1d3_excl_dk", 
+                               "PCOS1d4_excl_dk", "PCOS1d5_excl_dk", "PCOS1d6_excl_dk", "PCOS1d7_excl_dk",
+                               "PCOS1d8_excl_dk", "PCOS1d9_excl_dk"))
 
 r <- 1
 r <- r + 1
@@ -498,7 +766,7 @@ for (i in 1:nrow(sig_df)) {
   
   writeDataTable(wb2, 
                  sheet = paste0(df$Sheet),
-                 x = get(paste0(df$Table_Name, "_df")),
+                 x = get(paste0(df$Table_Name)),
                  startRow = r,
                  startCol = 1,
                  colNames = TRUE,
@@ -511,7 +779,7 @@ for (i in 1:nrow(sig_df)) {
 
 for (i in 1:nrow(TrustCivilService2_df)) {
   if (!is.na(TrustCivilService2_df[i, 6])) {
-    if (abs(TrustCivilService2_df[i, 5]) > qnorm(0.975)) {
+    if (abs(TrustCivilService2_df[i, 6]) > qnorm(0.975)) {
       addStyle(wb2, "TrustCivilService2",
                style = sig,
                rows = r + i,
@@ -919,6 +1187,424 @@ for (i in 1:nrow(PCOS1d9_df)) {
                cols = 6)
     } else {
       addStyle(wb2, "PCOS1d9",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(TrustCivilService2_df_excl_dk)) {
+  if (!is.na(TrustCivilService2_df_excl_dk[i, 6])) {
+    if (abs(TrustCivilService2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustCivilService2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "TrustCivilService2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(TrustNIAssembly2_df_excl_dk)) {
+  if (!is.na(TrustNIAssembly2_df_excl_dk[i, 6])) {
+    if (abs(TrustNIAssembly2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNIAssembly2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "TrustNIAssembly2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(TrustMedia2_df_excl_dk)) {
+  if (!is.na(TrustMedia2_df_excl_dk[i, 6])) {
+    if (abs(TrustMedia2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustMedia2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "TrustMedia2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+
+for (i in 1:nrow(TrustNISRA2_df_excl_dk)) {
+  if (!is.na(TrustNISRA2_df_excl_dk[i, 6])) {
+    if (abs(TrustNISRA2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNISRA2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "TrustNISRA2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(TrustNISRAstats2_df_excl_dk)) {
+  if (!is.na(TrustNISRAstats2_df_excl_dk[i, 6])) {
+    if (abs(TrustNISRAstats2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "TrustNISRAstats2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "TrustNISRAstats2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(NISRAstatsImp2_df_excl_dk)) {
+  if (!is.na(NISRAstatsImp2_df_excl_dk[i, 6])) {
+    if (abs(NISRAstatsImp2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "NISRAstatsImp2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "NISRAstatsImp2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(Political2_df_excl_dk)) {
+  if (!is.na(Political2_df_excl_dk[i, 6])) {
+    if (abs(Political2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "Political2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "Political2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(Confidential2_df_excl_dk)) {
+  if (!is.na(Confidential2_df_excl_dk[i, 6])) {
+    if (abs(Confidential2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "Confidential2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "Confidential2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c1_df_excl_dk)) {
+  if (!is.na(PCOS1c1_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c1_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c1_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c1_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c2_df_excl_dk)) {
+  if (!is.na(PCOS1c2_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c3_df_excl_dk)) {
+  if (!is.na(PCOS1c3_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c3_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c3_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c3_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c4_df_excl_dk)) {
+  if (!is.na(PCOS1c4_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c4_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c4_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c4_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c5_df_excl_dk)) {
+  if (!is.na(PCOS1c5_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c5_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c5_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c5_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c6_df_excl_dk)) {
+  if (!is.na(PCOS1c6_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c6_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c6_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c6_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c7_df_excl_dk)) {
+  if (!is.na(PCOS1c7_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c7_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c7_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c7_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c8_df_excl_dk)) {
+  if (!is.na(PCOS1c8_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c8_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c8_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c8_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1c9_df_excl_dk)) {
+  if (!is.na(PCOS1c9_df_excl_dk[i, 6])) {
+    if (abs(PCOS1c9_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1c9_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1c9_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d1_df_excl_dk)) {
+  if (!is.na(PCOS1d1_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d1_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d1_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d1_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d2_df_excl_dk)) {
+  if (!is.na(PCOS1d2_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d2_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d2_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d2_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d3_df_excl_dk)) {
+  if (!is.na(PCOS1d3_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d3_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d3_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d3_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d4_df_excl_dk)) {
+  if (!is.na(PCOS1d4_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d4_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d4_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d4_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d5_df_excl_dk)) {
+  if (!is.na(PCOS1d5_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d5_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d5_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d5_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d6_df_excl_dk)) {
+  if (!is.na(PCOS1d6_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d6_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d6_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d6_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d7_df_excl_dk)) {
+  if (!is.na(PCOS1d7_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d7_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d7_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d7_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d8_df_excl_dk)) {
+  if (!is.na(PCOS1d8_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d8_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d8_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d8_excl_dk",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
+}
+
+for (i in 1:nrow(PCOS1d9_df_excl_dk)) {
+  if (!is.na(PCOS1d9_df_excl_dk[i, 6])) {
+    if (abs(PCOS1d9_df_excl_dk[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "PCOS1d9_excl_dk",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "PCOS1d9_excl_dk",
+               
                style = not_sig,
                rows = r + i,
                cols = 6)
