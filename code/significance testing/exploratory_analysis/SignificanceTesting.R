@@ -8,6 +8,11 @@ source(paste0(here(), "/code/significance testing/exploratory_analysis/functions
 data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
 
+data_current$AwareNISRA2 <- fct_collapse(data_current$AwareNISRA2, 
+                                         "yes" = c("Yes"), 
+                                         "no" = c("No"), 
+                                         "dont_know" = "DontKnow")
+
 data_last$PCOS2a <- fct_collapse(data_last$PCOS2a, 
                                 "yes" = c("Trust a great deal","Tend to trust"), 
                                 "no" = c("Tend to distrust", "Distrust greatly"), 
@@ -88,12 +93,12 @@ data_current$PCOS6 <- fct_collapse(data_current$PCOS6,
                                "no" = c("Tend to disagree", "Strongly disagree"), 
                                "dont_know" = "DontKnow")
 
-data_current$TrustNISRA2 <- fct_collapse(data_current$PCOS6, 
+data_current$TrustNISRA2 <- fct_collapse(data_current$TrustNISRA2, 
                                          "yes" = c("Trust a great deal/Tend to trust"), 
                                          "no" = c("Tend to distrust/Distrust greatly"), 
                                          "dont_know" = "DontKnow")
 
-data_current$AwareNISRA2 <- fct_collapse(data_current$PCOS6, 
+data_current$AwareNISRA2 <- fct_collapse(data_current$AwareNISRA2, 
                                       "yes" = c("Yes"), 
                                       "no" = c("No"), 
                                       "dont_know" = "DontKnow")
@@ -133,17 +138,17 @@ data_current$Confidential2 <- fct_collapse(data_current$Confidential2,
                                            "no" = c("Tend to disagree/Strongly disagree"), 
                                            "dont_know" = "DontKnow")
 
-data_current$NISRAstatsImp2 <- fct_collapse(data_current$Confidential2, 
+data_current$NISRAstatsImp2 <- fct_collapse(data_current$NISRAstatsImp2, 
                                             "yes" = c("Strongly Agree/Tend to Agree"), 
                                             "no" = c("Tend to disagree/Strongly disagree"), 
                                             "dont_know" = "DontKnow")
 
-data_last$TrustNISRA2 <- fct_collapse(data_last$PCOS6, 
+data_last$TrustNISRA2 <- fct_collapse(data_last$TrustNISRA2, 
                                          "yes" = c("Trust a great deal/Tend to trust"), 
                                          "no" = c("Tend to distrust/Distrust greatly"), 
                                       "dont_know" = "DontKnow")
 
-data_last$AwareNISRA2 <- fct_collapse(data_last$PCOS6, 
+data_last$AwareNISRA2 <- fct_collapse(data_last$AwareNISRA2, 
                                          "yes" = c("Yes"), 
                                          "no" = c("No"), 
                                       "dont_know" = "DontKnow")
@@ -183,10 +188,11 @@ data_last$Confidential2 <- fct_collapse(data_last$Confidential2,
                                            "no" = c("Tend to disagree/Strongly disagree"), 
                                         "dont_know" = "DontKnow")
 
-data_last$NISRAstatsImp2 <- fct_collapse(data_last$Confidential2, 
+data_last$NISRAstatsImp2 <- fct_collapse(data_last$NISRAstatsImp2, 
                                             "yes" = c("Strongly Agree/Tend to Agree"), 
                                             "no" = c("Tend to disagree/Strongly disagree"), 
                                          "dont_know" = "DontKnow")
+data_current[] <- lapply(data_current, function(x) gsub("Don't know", "dont_know", x))
 
 ### **** CURRENT YEAR **** ####
 currentYear = "data_current"
@@ -213,6 +219,14 @@ data_current$PCOS1d6[data_current$PCOS1 == 'Yes'] <- NA
 data_current$PCOS1d7[data_current$PCOS1 == 'Yes'] <- NA
 data_current$PCOS1d8[data_current$PCOS1 == 'Yes'] <- NA
 data_current$PCOS1d9[data_current$PCOS1 == 'Yes'] <- NA
+
+# Data excluding dont knows 
+data_current_excl_dk <- data_current
+data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) gsub("dont_know", NA, x))
+
+data_last[] <- lapply(data_last, function(x) gsub("Don't know", "dont_know", x))
+data_last_excl_dk <- data_last
+data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) gsub("dont_know", NA, x))
 
 # Remove values from PCOS1c1, c2 etc. if not No for PCOS1
 ### **** INPUTS **** ####
@@ -243,16 +257,21 @@ colnames(allVars) <- c('year', 'var','group','grouping', 'Answer', 'question','n
 
 stVars_excl_dk <- stVars %>%
   filter(Answer != "dont_know")
+
+stVars_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", stVars_excl_dk$year1)
+stVars_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", stVars_excl_dk$year1)
+
 pnlist_excl_dk <- apply(stVars_excl_dk, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
 allVars_excl_dk <- cbind(stVars_excl_dk, t(pnlist_excl_dk)) # add p and n values to stVars and rename to allVars
 colnames(allVars_excl_dk) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
 
-#Join the p, n and question text data to the relevant variables and groupings in vardf
+# Join the p, n and question text data to the relevant variables and groupings in vardf
 vardf <- stCombinations(vars, groupings, currentYear)
 vardf <- vardf[rep(seq_len(nrow(vardf)), each = 3), ]
 number_rows_vardf <- nrow(vardf)/3
 answer <- c("yes", "no", "dont_know")
 vardf$Answer <- rep(answer, number_rows_vardf)
+
 vardf_excl_dk <- vardf %>%
   filter(Answer != "dont_know")
 
@@ -271,6 +290,10 @@ colnames(vardf) <-  c("year1", "var1","group1","grouping1", "year2","var2" ,"gro
 vardf$p1[is.na(vardf$p1)] <- 0
 vardf$p2[is.na(vardf$p2)] <- 0
 
+vardf_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk$year1)
+vardf_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year1)
+vardf_excl_dk$year2 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk$year2)
+vardf_excl_dk$year2 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year2)
 vardf_excl_dk <- vardf_excl_dk %>% left_join(allVars_excl_dk, by= c("var1"= "var", "group1" = "group", 
                                             "grouping1" = "grouping", "year1" = "year",
                                             "Answer" = "Answer"))#
@@ -570,157 +593,183 @@ TrustMedia2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustMedia2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 TrustNISRA2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNISRA2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 TrustNISRAstats2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNISRAstats2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 NISRAstatsImp2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "NISRAstatsImp2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 Political2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "Political2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 Confidential2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "Confidential2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c1_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c1") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c3_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c3") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c4_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c4") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c5_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c5") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c6_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c6") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c7_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c7") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c8_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c8") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1c9_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1c9") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d1_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d1") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d3_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d3") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d4_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d4") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d5_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d5") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d6_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d6") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d7_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d7") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d8_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d8") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 PCOS1d9_df_excl_dk <- subset(excel_df_excl_dk, var1 == "PCOS1d9") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 TrustCivilService2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustCivilService2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 TrustNIAssembly2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNIAssembly2") %>%
   select(-var1, -var2) %>%
   mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
   mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-  arrange(`Grouping 1`, `Grouping 2`)
+  arrange(`Grouping 1`, `Grouping 2`) %>%
+  filter(answer != "no")
 
 sig_df <- data.frame(Table_Name = c("TrustCivilService2_df", "TrustNIAssembly2_df",
                                     "TrustMedia2_df", "TrustNISRA2_df", "TrustNISRAstats2_df",
@@ -1613,6 +1662,6 @@ for (i in 1:nrow(PCOS1d9_df_excl_dk)) {
 }
 
 saveWorkbook(wb2,
-             paste0(here(), "/outputs/significance outputs/exploratory significance output ", current_year, ".xlsx"),
+             paste0("exploratory significance output ", current_year, ".xlsx"),
              overwrite = TRUE)
 
