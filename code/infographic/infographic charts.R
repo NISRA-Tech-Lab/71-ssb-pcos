@@ -285,8 +285,8 @@ aware_trust_chart_3 <- ggplot(confidentiality,
                     labels = chart_labels) +
   labs(title = "Personal Information provided to",
        subtitle = bquote(~bold("NISRA")~"will be kept confidential")) +
-  theme(axis.line = element_line(colour = "black"),
-        axis.line.x = element_blank(),
+  theme(#axis.line = element_line(colour = "black"),
+        axis.line.x = element_line(color = "#D9D9D9"),
         axis.line.y = element_blank(),
         axis.ticks = element_blank(),
         panel.grid.major = element_blank(),
@@ -305,7 +305,8 @@ aware_trust_chart_3 <- ggplot(confidentiality,
                                   hjust = 0.5),
         plot.subtitle = element_text(size = 16,
                                      color = "#747474",
-                                     hjust = 0.5)) +
+                                     hjust = 0.5),
+        plot.margin = margin(r = 10)) +
   geom_text(aes(label = Percentage),
             fontface = "bold",
             size = 3.5,
@@ -315,7 +316,9 @@ aware_trust_chart_3 <- ggplot(confidentiality,
                            "white", "black"),
             hjust = ifelse(confidentiality$Percentage < 4, -2, 0.5)) +
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20)) +
-  guides(fill = guide_legend(reverse = TRUE))
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(xlim = c(0.5, length(unique(confidentiality$Year)) + 0.7),
+                  expand = FALSE)
 
 aware_trust_chart_3
 
@@ -325,8 +328,8 @@ important_df$Category <- factor(important_df$Category,
                                               "Tend to disagree/strongly disagree",
                                               "Strongly agree/tend to agree"))
 
-chart_labels <- c("Don't know\n ", "Tend to disagree/\nstrongly disagree\n ",
-                  "Strongly agree/\ntend to agree")
+chart_labels <- c(" \nDon't know\n ", " \nTend to disagree/\nstrongly disagree\n ",
+                  " \nStrongly agree/\ntend to agree\n ")
 #Create plot
 aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage, x = Year)) + 
   geom_col(position = 'stack', key_glyph = draw_square, width = 0.6, 
@@ -336,16 +339,15 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
   labs(title = bquote(~bold("NISRA")~"statistics are important to understand"),
        subtitle = "Northern Ireland") +
   theme(text = element_text(size = 14),
-        axis.line = element_line(colour = "black"),
-        axis.line.x = element_blank(),
+        axis.line.x = element_line(color = "#D9D9D9"),
         axis.line.y = element_blank(),
         axis.ticks = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank(),
         panel.background = element_blank(),
-        axis.title.x =element_blank(),
-        legend.key=element_blank(),
+        axis.title.x = element_blank(),
+        legend.key = element_blank(),
         legend.title = element_blank(),
         legend.text = element_text(size = 8),
         plot.title = element_text(size = 14,
@@ -359,13 +361,14 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
   geom_text(aes(label = Percentage),
             fontface = "bold",
-            size = 4,
+            size = 3,
             position = position_stack(vjust = 0.5),
-            color = ifelse(important_df$Category == "Strongly agree/tend to agree"|
-                           important_df$Category == "Don't know",
-                           "white", "black"),
-            hjust = ifelse(important_df$Percentage < 4, -2, 0.5)) +
-  guides(fill = guide_legend(reverse = TRUE))
+            color = ifelse(important_df$Category == "Tend to disagree/strongly disagree",
+                           "#000000", "#ffffff"),
+            hjust = ifelse(important_df$Percentage < 4, -3.2, 0.5)) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(xlim = c(0.5, length(unique(important_df$Year)) + 0.7),
+                  expand = FALSE)
 
 aware_trust_chart_4
 
@@ -374,23 +377,22 @@ bar_order <- c('The NI Assembly ', 'The Civil Service ', 'The media ', 'NISRA ')
 ## Chart 5 ####
 aware_trust_chart_5 <- ggplot(trust_compared_df, 
                               aes(fill=Category, 
-                                  y=Percentage, 
-                                  x=factor(Institution, level = bar_order),
+                                  x = Percentage, 
+                                  y = factor(Institution, level = bar_order),
                                   label = Percentage)) + 
   geom_bar(position="stack", width = 0.6, stat="identity", colour=NA,size=0) +
-  coord_flip() +
   scale_fill_manual(values = alpha(c("#888A87", "#CBE346","#00205b"))) +
   labs(title = bquote("Trust in"~bold("NISRA")~"compared to other institutions")) +
   theme(text = element_text(size = 18),
         legend.position = "top",
-        legend.justification='right',
+        legend.justification = "center",
         axis.title.y = element_blank(),
         axis.text = element_text(size = 10),
         legend.title=element_blank(),
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
         axis.ticks = element_blank(),
-        legend.text = element_text(size = 10),
+        legend.text = element_text(size = 8),
         axis.line = element_line(colour = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -399,22 +401,23 @@ aware_trust_chart_5 <- ggplot(trust_compared_df,
         plot.title = element_text(size = 14,
                                   color = "#747474",
                                   hjust = 0.5),
-        plot.margin = margin(l = 50)) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+        plot.margin = margin(l = 20, r = 20)) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
   geom_text(aes(label = Percentage),
           fontface = "bold",
-          size = 4.5,
+          size = 3,
           position = position_stack(vjust = 0.5),
           color = ifelse(trust_compared_df$Category == "Tend to trust/trust a great deal",
                          "white", "black")) +
-  guides(fill = guide_legend(reverse = TRUE)) 
+  guides(fill = guide_legend(reverse = TRUE))  +
+  coord_cartesian(expand = FALSE)
 
 aware_trust_chart_5
 
 ## Overview Output ####
 save_plot(paste0(here(), "/outputs/infographics/Awareness1.png"), fig = overview_chart_1, width = 11, height = 9)
 save_plot(paste0(here(), "/outputs/infographics/Awareness2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/Awareness3.png"), fig = aware_trust_chart_3, width = 10, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/Awareness3.png"), fig = aware_trust_chart_3, width = 11, height = 10)
 save_plot(paste0(here(), "/outputs/infographics/Awareness4.png"), fig = aware_trust_chart_4, width = 13, height = 8)
 save_plot(paste0(here(), "/outputs/infographics/Awareness5.png"), fig = aware_trust_chart_5, width = 18, height = 8)
 
@@ -605,10 +608,10 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
         legend.title = element_blank(),
-        legend.text = element_text(size = 11),
+        legend.text = element_text(size = 10),
         axis.text.y = element_blank(),
         axis.ticks = element_blank(),
-        axis.text.x = element_text(size = 12),
+        axis.text.x = element_text(size = 10),
         plot.title = element_text(hjust = 0.5,
                                   color = "#747474"),
         plot.subtitle = element_text(hjust = 0.5,
@@ -623,7 +626,8 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(fill=Group,
             aes(label=paste0(Percentage, "%")), 
             position=position_dodge(width = 0.9), 
             vjust = -0.25) +
-  coord_cartesian(expand = FALSE)
+  coord_cartesian(ylim = c(0, max(awareness_info_data2$Percentage, na.rm = TRUE) + 5),
+                  expand = FALSE)
 
 pub_awareness_chart_2
 
@@ -661,7 +665,7 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3,
             color = "white") + 
   geom_text(data = awareness_info_data3[awareness_info_data3$Answer == "Don't Know",],
             label = awareness_info_data3$Percentage[awareness_info_data3$Answer == "Don't Know"],
-            aes(x = 105),
+            aes(x = 103),
             fontface = "bold",
             size = 6) + 
   theme(text = element_text(size = 12),
@@ -682,7 +686,8 @@ pub_awareness_chart_3 <- ggplot(awareness_info_data3,
         panel.background = element_blank()) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
   guides(fill = guide_legend(reverse = TRUE)) +
-  coord_cartesian(expand = FALSE)
+  coord_cartesian(xlim = c(0, 105),
+                  expand = FALSE)
 
 pub_awareness_chart_3
 
@@ -690,7 +695,7 @@ pub_awareness_chart_3
 save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 14, height = 14)
 save_plot(paste0(here(), "/outputs/infographics/info2.png"), fig = bubble_chart, width = 11, height = 10)
 save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 11, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 30, height = 17)
+save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 32, height = 17)
 
 
 # Convert to PDF ####

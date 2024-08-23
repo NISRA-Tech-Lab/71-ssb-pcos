@@ -1764,8 +1764,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="0.9788853"
-     inkscape:cx="-281.95336"
-     inkscape:cy="243.64448"
+     inkscape:cx="154.76788"
+     inkscape:cy="407.0957"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1784,12 +1784,19 @@
        bleed="0" />
   </sodipodi:namedview>
   <image
-     height="393.6673"
-     width="393.64258"
+     height="611.13159"
+     width="773.40747"
+     href="../../outputs/infographics/info2.png"
+     id="image2"
+     x="347.70795"
+     y="-6.7734022" />
+  <image
+     height="402.86142"
+     width="397.72885"
      href="../../outputs/infographics/info3.png"
      id="image3"
-     x="14.455881"
-     y="394.74747" />
+     x="10.3696"
+     y="385.55334" />
   <image
      height="294.21039"
      width="314.14291"
@@ -1798,19 +1805,12 @@
      x="17.755003"
      y="103.53574" />
   <image
-     height="1326.2307"
-     width="653.88379"
-     href="../../outputs/infographics/info2.png"
-     id="image2"
-     x="402.87274"
-     y="-369.08392" />
-  <image
-     height="654.65759"
-     width="678.14435"
+     height="415.61017"
+     width="672.01495"
      href="../../outputs/infographics/info4.png"
      id="image4"
-     x="438.68405"
-     y="264.04077" />
+     x="430.51151"
+     y="379.47821" />
   <g
      id="g3"
      inkscape:groupmode="layer"

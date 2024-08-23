@@ -1646,8 +1646,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.97888532"
-     inkscape:cx="127.18548"
-     inkscape:cy="428.54867"
+     inkscape:cx="128.20705"
+     inkscape:cy="510.27428"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1666,47 +1666,44 @@
   </sodipodi:namedview>
   <image
      height="690.22607"
-     width="345.11304"
+     width="354.30719"
      href="../../outputs/infographics/Awareness1.png"
      id="image1"
-     x="-23.369011"
+     x="-32.563141"
      y="-52.788525" />
   <image
-     height="25"
-     width="9"
+     height="1168.0142"
+     width="417.59564"
      href="../../outputs/infographics/Awareness2.png"
      id="image2"
-     transform="matrix(46.399515,0,0,46.720564,307.20638,-286.53807)" />
+     x="306.18481"
+     y="-302.88318" />
   <image
-     height="490.38055"
-     width="318.24915"
+     height="333.05875"
+     width="392.82376"
      href="../../outputs/infographics/Awareness3.png"
      id="image3"
-     x="774.99451"
-     y="51.795616" />
+     x="726.98071"
+     y="121.26237" />
   <image
-     height="25.00008"
-     width="10.322593"
-     href="../../outputs/infographics/Awareness4.png"
-     id="image4"
-     x="-0.62642866"
-     y="-0.70874703"
-     transform="matrix(44.845198,0,0.11243812,44.845057,74.709628,89.690397)" />
-  <image
-     height="597.15833"
-     width="605.54718"
+     height="338.70111"
+     width="623.93542"
      href="../../outputs/infographics/Awareness5.png"
      id="image5"
-     x="495.30997"
-     y="333.4205" />
+     x="505.52567"
+     y="459.07364" />
+  <image
+     height="1121.1343"
+     width="504.55023"
+     href="../../outputs/infographics/Awareness4.png"
+     id="image4"
+     x="15.698772"
+     y="70.165695"
+     transform="matrix(1,0,0.00273273,0.99999627,0,0)" />
   <g
      id="g8"
      inkscape:groupmode="layer"
      inkscape:label="1">
-    <g
-       id="g5" />
-    <g
-       id="g3" />
     <g
        id="g4">
       <path
@@ -1803,15 +1800,6 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
     <g
-       id="g14">
-      <path
-         id="path15"
-         d="m 696.15,517.77 h 154.3 v 25.5 h -154.3 z"
-         style="fill:#cdda28;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath16)" />
-    </g>
-    <g
        id="g16"
        style="fill:#00205b;fill-opacity:1">
       <path
@@ -1833,21 +1821,6 @@
            y="0" /></text>
     </g>
     <g
-       id="g19" />
-    <g
-       id="g25">
-      <path
-         id="path26"
-         d="M 399.65,5.2202 H 826.1 v 214.45 H 399.65 Z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath27)" />
-    </g>
-    <g
-       id="g85" />
-    <g
-       id="g86" />
-    <g
        id="g87">
       <path
          id="path87"
@@ -1856,48 +1829,12 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
     </g>
     <g
-       id="g95">
-      <path
-         id="path96"
-         d="m -6.3999,273.47 h 213.2 v 166.2 h -213.2 z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath97)" />
-    </g>
-    <g
        id="g104">
       <path
          id="path105"
          d="m 12.251,248.47 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 1,0.01 -0.002,1 -1,-0.01 z m 2,0.01 h 1 l -0.002,1 h -1 z m 2,0 h 1 l -0.002,1 h -1 z m 2,0 h 0.999 l -0.001,1 h -1 z m 1.999,0.01 h 1 l -0.001,1 h -1 z m 2,0 h 1 l -0.001,1 h -1 z m 2,0 h 1 l -0.001,1 h -1 z m 2,0.01 h 1 l -0.001,1 h -1 z m 2,0 h 1 l -0.001,1 h -1 z m 2,0 h 1 l -0.001,1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 1,0.01 v 1 l -1,-0.01 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0.01 h 1 v 1 h -1 z m 2,0 h 0.85 v 1 h -0.85 z m -818.005,2.25 c -1.656,0 -2.9975,-1.35 -2.995,-3 0.0025,-1.66 1.348,-3 3.005,-3 1.656,0 2.998,1.35 2.995,3 -0.003,1.66 -1.348,3 -3.005,3 z M 831.1,247.22 c 1.66,0 3,1.35 3,3 0,1.66 -1.35,3 -3,3 -1.66,0 -3,-1.35 -3,-3 0,-1.66 1.35,-3 3,-3 z"
          style="fill:#b4c7e7;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
-    </g>
-    <g
-       id="g123">
-      <path
-         id="path124"
-         d="m 561.2,263.52 h 276.9 v 186.9 H 561.2 Z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath125)" />
-    </g>
-    <g
-       id="g195">
-      <path
-         id="path196"
-         d="M 47.1,5.17 H 370.15 V 203.02 H 47.1 Z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath197)" />
-    </g>
-    <g
-       id="g268">
-      <path
-         id="path269"
-         d="m 215.35,273.07 h 328.8 v 191.7 h -328.8 z"
-         style="fill:none;stroke:#000000;stroke-width:0.14;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
-         clip-path="url(#clipPath270)" />
     </g>
     <g
        id="g340">
