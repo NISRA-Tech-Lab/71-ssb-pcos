@@ -3,26 +3,17 @@ source(paste0(here(), "/code/config.R"))
 wb <- createWorkbook()
 
 # Define all available years based on current_year value from config #### 
-
 data_years <- c(seq(2012, 2018, 2), 2019:current_year)
 
 # Questions to analyse ####
-
 questions <- c("TrustMedia2", "TrustAssemblyElectedBody2")
 
 # Co-variates to include ####
-co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis")
+co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis", "OwnRelig2")
 
-# Lookup list for EQUALGROUPS labels (taken from PfG documentation) ####
-eq_labels <- list("Sex - Male" = "1",
-                  "Sex - Female" = "2",
-                  "Age 16-24" = "3",
-                  "Age 25-34" = "4", 
-                  "Age 35-44" = "69",
-                  "Age 45-54" = "70",
-                  "Age 55-64" = "71",
-                  "Age 65-74" = "72",
-                  "Age 75+" = "8")
+# Lookup table for EQUALGROUPS labels (taken from PfG documentation) ####
+eq_labels <- read.xlsx(xlsxFile = paste0(here(), "/code/pfg tables/Classifications_Equality Groups - Template.xlsx"),
+                       sheet = "Classifications_EQ - Template")
 
 # Loop through questions ####
 
@@ -180,6 +171,21 @@ for (question in questions) {
             
           }
           
+          if (var == "OwnRelig2") {
+            
+            new_levels <- levels(data_year$OwnRelig2)[!levels(data_year$OwnRelig2) %in% c("Refusal", "Dont know")]
+            
+            new_labels <- paste("Religion -", new_levels) %>%
+              gsub("No religion", "no religion", .)
+            
+            data_year <- data_year %>%
+              filter(!OwnRelig2 %in% c("Refusal", "Dont know")) %>%
+              mutate(OwnRelig2 = factor(OwnRelig2,
+                                     levels = new_levels,
+                                     labels = new_labels))
+            
+          }
+          
           #### Values to loop through ####
           
           co_vals <- levels(data_year[[var]])
@@ -210,9 +216,17 @@ for (question in questions) {
               ci <- f_confidence_interval(p = p_unweighted,
                                           n = n_value)
               
+              ##### EQUALGROUPS lookup ####
+              
+              EQUALGROUP <- if (co_val %in% eq_labels$VALUE) {
+                eq_labels$CODE[eq_labels$VALUE == co_val]
+              } else {
+                ""
+              }
+              
               new_row <- data.frame(STATISTIC = character(1)) %>%
                       mutate(`TLIST(A1)` = year,
-                             EQUALGROUPS = eq_labels[[co_val]],
+                             EQUALGROUPS = EQUALGROUP,
                              `Variable name` = co_val,
                              `Lower limit` = ci[["lower_cl"]] * 100,
                              VALUE = p_weighted,
