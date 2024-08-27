@@ -342,6 +342,7 @@ write.csv(vardf, outputfile) #a csv file with the results will be written to the
 
 wb2 <- createWorkbook()
 modifyBaseFont(wb2, fontSize = 12, fontName = "Arial")
+addWorksheet(wb2, "AwareNISRA2")
 addWorksheet(wb2, "TrustCivilService2")
 addWorksheet(wb2, "TrustCivilService2_excl_dk")
 addWorksheet(wb2, "TrustNIAssembly2")
@@ -432,6 +433,12 @@ grouping_2_order <- c("Female",
                       "Other higher education below degree level",
                       "Qualifications at level 1 and below", 
                       "Not in paid employment")
+
+AwareNISRA2_df <- subset(excel_df, var1 == "AwareNISRA2") %>%
+  select(-var1, -var2) %>%
+  mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order))) %>%
+  mutate(`Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+  arrange(`Grouping 1`, `Grouping 2`)
 
 TrustMedia2_df <- subset(excel_df, var1 == "TrustMedia2") %>%
   select(-var1, -var2) %>%
@@ -771,7 +778,7 @@ TrustNIAssembly2_df_excl_dk <- subset(excel_df_excl_dk, var1 == "TrustNIAssembly
   arrange(`Grouping 1`, `Grouping 2`) %>%
   filter(answer != "no")
 
-sig_df <- data.frame(Table_Name = c("TrustCivilService2_df", "TrustNIAssembly2_df",
+sig_df <- data.frame(Table_Name = c("AwareNISRA2_df", "TrustCivilService2_df", "TrustNIAssembly2_df",
                                     "TrustMedia2_df", "TrustNISRA2_df", "TrustNISRAstats2_df",
                                     "NISRAstatsImp2_df", "Political2_df", "Confidential2_df", 
                                     "PCOS1c1_df", "PCOS1c2_df", "PCOS1c3_df", "PCOS1c4_df",
@@ -789,7 +796,7 @@ sig_df <- data.frame(Table_Name = c("TrustCivilService2_df", "TrustNIAssembly2_d
                                     "PCOS1d2_df_excl_dk", "PCOS1d3_df_excl_dk",  "PCOS1d4_df_excl_dk",
                                     "PCOS1d5_df_excl_dk", "PCOS1d6_df_excl_dk", "PCOS1d7_df_excl_dk",
                                     "PCOS1d8_df_excl_dk", "PCOS1d9_df_excl_dk"), 
-                     Sheet = c("TrustCivilService2", "TrustNIAssembly2",
+                     Sheet = c("AwareNISRA2", "TrustCivilService2", "TrustNIAssembly2",
                                "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2",
                                "NISRAstatsImp2", "Political2", "Confidential2", 
                                "PCOS1c1", "PCOS1c2", "PCOS1c3", "PCOS1c4",
@@ -824,6 +831,22 @@ for (i in 1:nrow(sig_df)) {
                  withFilter = FALSE,
                  bandedRows = FALSE)
   
+}
+
+for (i in 1:nrow(AwareNISRA2_df)) {
+  if (!is.na(AwareNISRA2_df[i, 6])) {
+    if (abs(AwareNISRA2_df[i, 6]) > qnorm(0.975)) {
+      addStyle(wb2, "AwareNISRA2",
+               style = sig,
+               rows = r + i,
+               cols = 6)
+    } else {
+      addStyle(wb2, "AwareNISRA2",
+               style = not_sig,
+               rows = r + i,
+               cols = 6)
+    }
+  }
 }
 
 for (i in 1:nrow(TrustCivilService2_df)) {
