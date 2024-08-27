@@ -107,6 +107,8 @@ library(odsconvertr)
 library(pagedown)
 library(formattable)
 library(grid)
+library(patchwork)
+library(png)
 
 # turn off warning messages
 options(warn = -1)
