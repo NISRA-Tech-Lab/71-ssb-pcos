@@ -107,8 +107,8 @@ stVars$question <- "A"
 stVars<- cbind(stVars, question) # add question text into stVars dataframe
 
 #apply varAnalysis to extract the p and n values for each case in stVars
-pnlist<- apply(stVars, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
-allVars<- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
+pnlist <- apply(stVars, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
+allVars <- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
 colnames(allVars) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
 
 stVars_excl_dk <- stVars %>%
@@ -154,6 +154,7 @@ vardf_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk
 vardf_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year1)
 vardf_excl_dk$year2 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk$year2)
 vardf_excl_dk$year2 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year2)
+
 vardf_excl_dk <- vardf_excl_dk %>% left_join(allVars_excl_dk, by= c("var1"= "var", "group1" = "group", 
                                             "grouping1" = "grouping", "year1" = "year",
                                             "Answer" = "Answer"))#
@@ -188,10 +189,6 @@ vardf <- vardf %>%
   select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
   arrange(desc(significance))
 
-outputfile <- paste0('outputs/significanceTestingAll2022-', Sys.Date(), '.csv') 
-
-write.csv(vardf, outputfile) #a csv file with the results will be written to the outputs folder.
-
 vardf_excl_dk <- vardf_excl_dk %>% 
   select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
   arrange(desc(significance))
@@ -212,32 +209,33 @@ excel_df <- vardf %>%
   arrange(var1)
 
 excel_df_excl_dk <- vardf_excl_dk %>%
-  mutate(year1 = case_when(year1 == "data_current" ~ current_year,
-                           year1 == "data_last" ~ current_year - 1),
-         year2 = case_when(year2 == "data_current" ~ current_year,
-                           year2 == "data_last" ~ current_year - 1),
+  mutate(year1 = case_when(year1 == "data_current_excl_dk" ~ current_year,
+                           year1 == "data_last_excl_dk" ~ current_year - 1),
+         year2 = case_when(year2 == "data_current_excl_dk" ~ current_year,
+                           year2 == "data_last_excl_dk" ~ current_year - 1),
          score = as.numeric(score)) %>%
   select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
 
 # Sorting columns
-grouping_1_order <- c("Male", "16-24", "25-34", "35-44", "45-54", "55-64",
-                      "65-74", 
-                      "All", "A levels, vocational level 3 and equivalents",
-                      "Degree, or Degree equivalent and above",
-                      "GCSE/O level grade A*-C. vocational level 2 and equivalents",
-                      "Other higher education below degree level",
-                      "Qualifications at level 1 and below", "In paid employment")
 
-grouping_2_order <- c("Female", 
-                      "25-34", "35-44", "45-54", "55-64", "65-74", "75 and over",
-                      "All", "A levels, vocational level 3 and equivalents", 
-                      "GCSE/O level grade A*-C. vocational level 2 and equivalents",
-                      "No qualification",
-                      "Other higher education below degree level",
-                      "Qualifications at level 1 and below", 
-                      "Not in paid employment")
+co_vars <- unique(groupings$group1)
+
+grouping_order <- c()
+
+for (i in 1:length(co_vars)) {
+  
+  grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
+  
+  if (co_vars[i] == "AGE2") {
+    grouping_order <- c(grouping_order, "All")
+  }
+  
+}
+
+grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
+
 
 for (i in 1:nrow(vars)) {
   
@@ -245,17 +243,14 @@ for (i in 1:nrow(vars)) {
          excel_df %>%
            filter(var1 == vars$data_current[i]) %>%
            select(-var1, -var2) %>%
-           mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order)),
-                  `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
+           mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
+                  `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))) %>%
            arrange(`Grouping 1`, `Grouping 2`))
   
-  assign(paste0(vars$data_current[i], "_df_excl_dk"),
-         excel_df_excl_dk %>%
-           filter(var1 == vars$data_current[i] & answer != "no") %>%
-           select(-var1, -var2) %>%
-           mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_1_order)),
-                  `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_2_order))) %>%
-           arrange(`Grouping 1`, `Grouping 2`))
+  if (vars$data_current[i] == "AwareNISRA2") {
+    AwareNISRA2_df <- AwareNISRA2_df %>%
+      filter(answer == "yes")
+  }
   
   addWorksheet(wb, vars$data_current[i])
   
@@ -295,6 +290,14 @@ for (i in 1:nrow(vars)) {
   }
   
   if (vars$data_current[i] != "AwareNISRA2") {
+    
+    assign(paste0(vars$data_current[i], "_df_excl_dk"),
+           excel_df_excl_dk %>%
+             filter(var1 == vars$data_current[i] & answer != "no") %>%
+             select(-var1, -var2) %>%
+             mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
+                    `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))) %>%
+             arrange(`Grouping 1`, `Grouping 2`))
   
     addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
     
