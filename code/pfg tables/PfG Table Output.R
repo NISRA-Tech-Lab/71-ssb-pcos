@@ -176,7 +176,7 @@ for (question in questions) {
             new_levels <- levels(data_year$OwnRelig2)[!levels(data_year$OwnRelig2) %in% c("Refusal", "Dont know")]
             
             new_labels <- paste("Religion -", new_levels) %>%
-              gsub("No religion", "no religion", .)
+              gsub("No Religion", "no religion", .)
             
             data_year <- data_year %>%
               filter(!OwnRelig2 %in% c("Refusal", "Dont know")) %>%
