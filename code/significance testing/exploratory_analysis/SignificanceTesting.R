@@ -4,73 +4,63 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 source(paste0(here(), "/code/significance testing/exploratory_analysis/functions/SignificanceTestingFunctions.R"))
 
+### **** INPUTS **** ####
+vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
+groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
+ 
 ### **** DATA **** ####
 data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
 
-data_last$PCOS2a <- fct_collapse(data_last$PCOS2a, 
-                                "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
+for (i in 1:nrow(vars)) {
+  
+  data_last[[vars$data_last[i]]] <- fct_collapse(data_last[[vars$data_last[i]]],
+                                                 "yes" = c("Yes",
+                                                 "Trust a great deal",
+                                                 "Tend to trust",
+                                                 "Tend to trust them",
+                                                 "Trust them greatly",
+                                                 "Strongly agree",
+                                                 "Tend to agree",
+                                                 "Trust a great deal/Tend to trust",
+                                                 "Strongly Agree/Tend to Agree"),
+                                       "no" = c("No",
+                                                "Tend to distrust",
+                                                "Distrust greatly", 
+                                                "Tend not to trust them",
+                                                "Distrust them greatly",
+                                                "Tend to disagree",
+                                                "Strongly disagree",
+                                                "Tend to distrust/Distrust greatly",
+                                                "Tend to disagree/Strongly disagree"),
+                                       "dont_know" = c("DontKnow",
+                                                       "Don't know"))
+  
+  data_current[[vars$data_current[i]]] <- fct_collapse(data_current[[vars$data_current[i]]],
+                                                       "yes" = c("Yes",
+                                                       "Trust a great deal",
+                                                       "Tend to trust",
+                                                       "Tend to trust them",
+                                                       "Trust them greatly",
+                                                       "Strongly agree",
+                                                       "Tend to agree",
+                                                       "Trust a great deal/Tend to trust",
+                                                       "Strongly Agree/Tend to Agree"),
+                                                       "no" = c("No",
+                                                                "Tend to distrust",
+                                                                "Distrust greatly", 
+                                                                "Tend not to trust them",
+                                                                "Distrust them greatly",
+                                                                "Tend to disagree",
+                                                                "Strongly disagree",
+                                                                "Tend to distrust/Distrust greatly",
+                                                                "Tend to disagree/Strongly disagree"),
+                                                       "dont_know" = c("DontKnow",
+                                                                       "Don't know"))
+  
+}
 
-data_last$PCOS2b <- fct_collapse(data_last$PCOS2b, 
-                                "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
 
-data_last$PCOS2c <- fct_collapse(data_last$PCOS2c, 
-                               "yes" = c("Trust a great deal","Tend to trust"), 
-                               "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_last$PCOS2d <- fct_collapse(data_last$PCOS2d, 
-                               "yes" = c("Trust a great deal","Tend to trust"), 
-                               "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_last$PCOS3 <- fct_collapse(data_last$PCOS3, 
-                               "yes" = c("Tend to trust them", "Trust them greatly"), 
-                               "no" = c("Tend not to trust them", "Distrust them greatly"))
-
-data_last$PCOS4 <- fct_collapse(data_last$PCOS4, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
-
-data_last$PCOS5 <- fct_collapse(data_last$PCOS5, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
-
-data_last$PCOS6 <- fct_collapse(data_last$PCOS6, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
-
-data_current$PCOS2a <- fct_collapse(data_current$PCOS2a, 
-                                            "yes" = c("Trust a great deal","Tend to trust"), 
-                                            "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_current$PCOS2b <- fct_collapse(data_current$PCOS2b, 
-                                "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_current$PCOS2c <- fct_collapse(data_current$PCOS2c, 
-                                "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_current$PCOS2d <- fct_collapse(data_current$PCOS2d, 
-                                "yes" = c("Trust a great deal","Tend to trust"), 
-                                "no" = c("Tend to distrust", "Distrust greatly"))
-
-data_current$PCOS3 <- fct_collapse(data_current$PCOS3, 
-                               "yes" = c("Tend to trust them", "Trust them greatly"), 
-                               "no" = c("Tend not to trust them", "Distrust them greatly"))
-
-data_current$PCOS4 <- fct_collapse(data_current$PCOS4, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
-
-data_current$PCOS5 <- fct_collapse(data_current$PCOS5, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
-
-data_current$PCOS6 <- fct_collapse(data_current$PCOS6, 
-                               "yes" = c("Strongly agree","Tend to agree"), 
-                               "no" = c("Tend to disagree", "Strongly disagree"))
 
 ### **** CURRENT YEAR **** ####
 currentYear = "data_current"
@@ -78,9 +68,26 @@ currentYear = "data_current"
 # Re-labelling some fields
 data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
 
-### **** INPUTS **** ####
-vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
-groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
+# Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
+
+for (i in 1:9) {
+  
+  data_current[[paste0("PCOS1c", i)]][data_current$PCOS1 == "No"] <- NA
+  data_current[[paste0("PCOS1d", i)]][data_current$PCOS1 == "Yes"] <- NA
+  
+  data_last[[paste0("PCOS1c", i)]][data_last$PCOS1 == "No"] <- NA
+  data_last[[paste0("PCOS1d", i)]][data_last$PCOS1 == "Yes"] <- NA
+  
+} 
+
+# Data excluding don't knows 
+data_current_excl_dk <- data_current
+data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) gsub("dont_know", NA, x))
+
+data_last[] <- lapply(data_last, function(x) gsub("Don't know", "dont_know", x))
+data_last_excl_dk <- data_last
+data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) gsub("dont_know", NA, x))
+
 
 ### **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs 
@@ -89,6 +96,10 @@ vardf <- stCombinations(vars, groupings, currentYear)
 # flatten file to extract all variable info needed for significance testing
 stVars <- rbindlist(split.default(as.data.table(vardf), c(0, sequence(ncol(vardf)-1) %/% 4)), use.names = FALSE) 
 stVars <- unique(stVars) # remove duplicated entries
+stVars <- stVars[rep(seq_len(nrow(stVars)), each = 3), ]
+number_rows_stvars <- nrow(stVars)/3
+answer <- c("yes", "no", "dont_know")
+stVars$Answer <- rep(answer, number_rows_stvars)
 
 #Extract question text
 question<- apply(stVars, 1, function(y) extractQuestionText(y['year1'],y['var1']))
@@ -96,15 +107,67 @@ stVars$question <- "A"
 stVars<- cbind(stVars, question) # add question text into stVars dataframe
 
 #apply varAnalysis to extract the p and n values for each case in stVars
-pnlist<- apply(stVars, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1']))
-allVars<- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
-colnames(allVars) <- c('year', 'var','group','grouping', 'question','n','p') # rename columns for next stage
+pnlist <- apply(stVars, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
+allVars <- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
+colnames(allVars) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
 
-#Join the p, n and question text data to the relevant variables and groupings in vardf
-vardf <- vardf %>% left_join(allVars, by= c("var1"= "var", "group1" = "group", "grouping1" = "grouping", "year1" = "year"))#
-colnames(vardf) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2","grouping2","question1", "n1","p1" )
-vardf <- vardf%>%  left_join(allVars, by= c("var2"= "var", "group2" = "group", "grouping2" = "grouping", "year2" = "year")) 
-colnames(vardf) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2","grouping2","question1", "n1","p1", "question2", "n2", "p2" )
+stVars_excl_dk <- stVars %>%
+  filter(Answer != "dont_know")
+
+stVars_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", stVars_excl_dk$year1)
+stVars_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", stVars_excl_dk$year1)
+
+pnlist_excl_dk <- apply(stVars_excl_dk, 1, function(y) varAnalysis(y['year1'],y['group1'],y['grouping1'],y['var1'],y['Answer']))
+allVars_excl_dk <- cbind(stVars_excl_dk, t(pnlist_excl_dk)) # add p and n values to stVars and rename to allVars
+colnames(allVars_excl_dk) <- c('year', 'var','group','grouping', 'Answer', 'question','n','p') # rename columns for next stage
+
+# Join the p, n and question text data to the relevant variables and groupings in vardf
+vardf <- stCombinations(vars, groupings, currentYear)
+vardf <- vardf[rep(seq_len(nrow(vardf)), each = 3), ]
+number_rows_vardf <- nrow(vardf)/3
+answer <- c("yes", "no", "dont_know")
+vardf$Answer <- rep(answer, number_rows_vardf)
+
+vardf_excl_dk <- vardf %>%
+  filter(Answer != "dont_know")
+
+vardf <- vardf %>% left_join(allVars, by= c("var1"= "var", "group1" = "group", 
+                                            "grouping1" = "grouping", "year1" = "year",
+                                            "Answer" = "Answer"))
+
+colnames(vardf) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                       "grouping2", "Answer", "question1", "n", "p")
+
+vardf <- vardf %>% 
+  left_join(allVars, by= c("var2"= "var", "group2" = "group",
+                                            "grouping2" = "grouping", "year2" = "year",
+                                            "Answer" = "Answer"))
+
+colnames(vardf) <-  c("year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                       "grouping2", "answer", "question1",
+                       "n1","p1", "question2", "n2", "p2")
+
+vardf$p1[is.na(vardf$p1)] <- 0
+vardf$p2[is.na(vardf$p2)] <- 0
+
+vardf_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk$year1)
+vardf_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year1)
+vardf_excl_dk$year2 <- sub("data_current", "data_current_excl_dk", vardf_excl_dk$year2)
+vardf_excl_dk$year2 <- sub("data_last", "data_last_excl_dk", vardf_excl_dk$year2)
+
+vardf_excl_dk <- vardf_excl_dk %>% left_join(allVars_excl_dk, by= c("var1"= "var", "group1" = "group", 
+                                            "grouping1" = "grouping", "year1" = "year",
+                                            "Answer" = "Answer"))#
+colnames(vardf_excl_dk) <-  c( "year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                       "grouping2", "Answer", "question1", "n", "p")
+vardf_excl_dk <- vardf_excl_dk %>%  left_join(allVars_excl_dk, by= c("var2"= "var", "group2" = "group",
+                                            "grouping2" = "grouping", "year2" = "year",
+                                            "Answer" = "Answer")) 
+colnames(vardf_excl_dk) <-  c("year1", "var1","group1","grouping1", "year2","var2" ,"group2",
+                      "grouping2", "answer", "question1",
+                      "n1","p1", "question2", "n2", "p2")
+vardf_excl_dk$p1[is.na(vardf_excl_dk$p1)] <- 0
+vardf_excl_dk$p2[is.na(vardf_excl_dk$p2)] <- 0
 
 #apply function SignificanceTest to extract significance and directional info
 for(i in 1:nrow(vardf)) {
@@ -114,29 +177,26 @@ for(i in 1:nrow(vardf)) {
   vardf[i,'score'] = x['score']
 }
 
+for(i in 1:nrow(vardf_excl_dk)) {
+  x  <- significanceTest(vardf_excl_dk[i,'p1'],vardf_excl_dk[i,'n1'],vardf_excl_dk[i,'p2'],vardf_excl_dk[i,'n2'])
+  vardf_excl_dk[i,'significance'] = x['significance']
+  vardf_excl_dk[i,'direction'] = x['direction']
+  vardf_excl_dk[i,'score'] = x['score']
+}
+
 #structure the data in a more friendly way for presenting and order so that significant changes are first
 vardf <- vardf %>% 
-  select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, question2, n2, p2,significance, direction, score) %>%
+  select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
   arrange(desc(significance))
 
-outputfile <- paste0('outputs/significanceTestingAll2022-', Sys.Date(), '.csv') 
+vardf_excl_dk <- vardf_excl_dk %>% 
+  select(year1, group1, grouping1, var1, question1, n1, p1, year2, group2, grouping2, var2, answer, n2, p2,significance, direction, score) %>%
+  arrange(desc(significance))
 
-write.csv(vardf, outputfile) #a csv file with the results will be written to the outputs folder.
 
+wb <- createWorkbook()
+modifyBaseFont(wb, fontSize = 12, fontName = "Arial")
 
-wb2 <- createWorkbook()
-modifyBaseFont(wb2, fontSize = 12, fontName = "Arial")
-addWorksheet(wb2, "PCOS1")
-addWorksheet(wb2, "PCOS1c")
-addWorksheet(wb2, "PCOS1d")
-addWorksheet(wb2, "PCOS2a")
-addWorksheet(wb2, "PCOS2b")
-addWorksheet(wb2, "PCOS2c")
-addWorksheet(wb2, "PCOS2d")
-addWorksheet(wb2, "PCOS3")
-addWorksheet(wb2, "PCOS4")
-addWorksheet(wb2, "PCOS5")
-addWorksheet(wb2, "PCOS6")
 
 excel_df <- vardf %>%
   mutate(year1 = case_when(year1 == "data_current" ~ current_year,
@@ -144,262 +204,142 @@ excel_df <- vardf %>%
          year2 = case_when(year2 == "data_current" ~ current_year,
                            year2 == "data_last" ~ current_year - 1),
          score = as.numeric(score)) %>%
-  select(year1, grouping1, var1, year2, grouping2, var2, score) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
+
+excel_df_excl_dk <- vardf_excl_dk %>%
+  mutate(year1 = case_when(year1 == "data_current_excl_dk" ~ current_year,
+                           year1 == "data_last_excl_dk" ~ current_year - 1),
+         year2 = case_when(year2 == "data_current_excl_dk" ~ current_year,
+                           year2 == "data_last_excl_dk" ~ current_year - 1),
+         score = as.numeric(score)) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
+  rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
+  arrange(var1)
+
+# Sorting columns
+
+co_vars <- unique(groupings$group1)
+
+grouping_order <- c()
+
+for (i in 1:length(co_vars)) {
   
-
-PCOS1_df <- subset(excel_df, var1 == "PCOS1") %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS1c_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS1c")) %>%
-  arrange(`Grouping 1`)
-
-PCOS1d_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS1d")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS2a_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2a")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS2b_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2b")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS2c_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2c")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS2d_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS2d")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-PCOS3_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS3")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS4_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS4")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS5_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS5")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-PCOS6_df <- excel_df %>%
-  filter(str_detect(var1, "PCOS6")) %>%
-  select(-var1, -var2) %>%
-  arrange(`Grouping 1`)
-
-sig_df <- data.frame(Table_Name = c("PCOS1_df", "PCOS1c_df",  "PCOS1d_df", "PCOS2a_df", "PCOS2b_df", 
-                                    "PCOS2c_df", "PCOS2d_df", "PCOS3_df", "PCOS4_df", "PCOS5_df", "PCOS6_df"), 
-                     Sheet = c("PCOS1", "PCOS1c", "PCOS1d", "PCOS2a", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3",
-                               "PCOS4", "PCOS5", "PCOS6"))
-r <- 1
-r <- r + 1
-
-for (i in 1:nrow(sig_df)) {
+  grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
   
-  df <- sig_df[i,]
+  if (co_vars[i] == "AGE2") {
+    grouping_order <- c(grouping_order, "All")
+  }
   
-  writeDataTable(wb2, 
-                 sheet = paste0(df$Sheet),
-                 x = get(df$Table_Name),
-                 startRow = r,
+}
+
+grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
+
+
+for (i in 1:nrow(vars)) {
+  
+  assign(paste0(vars$data_current[i], "_df"),
+         excel_df %>%
+           filter(var1 == vars$data_current[i]) %>%
+           select(-var1, -var2) %>%
+           mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
+                  `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))) %>%
+           arrange(`Grouping 1`, `Grouping 2`))
+  
+  if (vars$data_current[i] == "AwareNISRA2") {
+    AwareNISRA2_df <- AwareNISRA2_df %>%
+      filter(answer == "yes")
+  }
+  
+  addWorksheet(wb, vars$data_current[i])
+  
+  writeDataTable(wb, 
+                 sheet = vars$data_current[i],
+                 x = get(paste0(vars$data_current[i], "_df")),
+                 startRow = 2,
                  startCol = 1,
                  colNames = TRUE,
                  tableStyle = "none",
-                 tableName = df$Table_Name,
+                 tableName = vars$data_current[i],
                  withFilter = FALSE,
                  bandedRows = FALSE)
   
-}
-
-for (i in 1:nrow(PCOS1_df)) {
-  if (!is.na(PCOS1_df[i, 5])) {
-    if (abs(PCOS1_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS1",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS1",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
+  for (j in 1:nrow(get(paste0(vars$data_current[i], "_df")))) {
+    
+    if (!is.na(get(paste0(vars$data_current[i], "_df"))[j, 6])) {
+      
+      if (abs(get(paste0(vars$data_current[i], "_df"))[j, 6]) > qnorm(0.975)) {
+        
+        addStyle(wb, vars$data_current[i],
+                 style = sig,
+                 rows = 2 + j,
+                 cols = 6)
+        
+      } else {
+        
+        addStyle(wb, vars$data_current[i],
+                 style = not_sig,
+                 rows = 2 + j,
+                 cols = 6)
+        
+      }
+      
     }
+    
   }
-}
-
-for (i in 1:nrow(PCOS1c_df)) {
-  if (!is.na(PCOS1c_df[i, 7])) {
-    if (abs(PCOS1c_df[i, 7]) > 1.96) {
-      addStyle(wb2, "PCOS1c",
-               style = sig,
-               rows = r + i,
-               cols = 7)
-    } else {
-      addStyle(wb2, "PCOS1c",
-               style = not_sig,
-               rows = r + i,
-               cols = 7)
+  
+  if (vars$data_current[i] != "AwareNISRA2") {
+    
+    assign(paste0(vars$data_current[i], "_df_excl_dk"),
+           excel_df_excl_dk %>%
+             filter(var1 == vars$data_current[i] & answer != "no") %>%
+             select(-var1, -var2) %>%
+             mutate(`Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
+                    `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))) %>%
+             arrange(`Grouping 1`, `Grouping 2`))
+  
+    addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
+    
+    writeDataTable(wb, 
+                   sheet = paste0(vars$data_current[i], "_excl_dk"),
+                   x = get(paste0(vars$data_current[i], "_df_excl_dk")),
+                   startRow = 2,
+                   startCol = 1,
+                   colNames = TRUE,
+                   tableStyle = "none",
+                   tableName = paste0(vars$data_current[i], "_excl_dk"),
+                   withFilter = FALSE,
+                   bandedRows = FALSE)
+    
+    for (j in 1:nrow(get(paste0(vars$data_current[i], "_df_excl_dk")))) {
+      
+      if (!is.na(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 6])) {
+        
+        if (abs(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 6]) > qnorm(0.975)) {
+          
+          addStyle(wb, paste0(vars$data_current[i], "_excl_dk"),
+                   style = sig,
+                   rows = 2 + j,
+                   cols = 6)
+          
+        } else {
+          
+          addStyle(wb, paste0(vars$data_current[i], "_excl_dk"),
+                   style = not_sig,
+                   rows = 2 + j,
+                   cols = 6)
+          
+        }
+        
+      }
+      
     }
+  
   }
+  
 }
 
-for (i in 1:nrow(PCOS1d_df)) {
-  if (!is.na(PCOS1d_df[i, 5])) {
-    if (abs(PCOS1d_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS1d",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS1d",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS2a_df)) {
-  if (!is.na(PCOS2a_df[i, 5])) {
-    if (abs(PCOS2a_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2a",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS2a",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS2b_df)) {
-  if (!is.na(PCOS2b_df[i, 5])) {
-    if (abs(PCOS2b_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2b",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS2b",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS2c_df)) {
-  if (!is.na(PCOS2c_df[i, 5])) {
-    if (abs(PCOS2c_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2c",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS2c",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS2d_df)) {
-  if (!is.na(PCOS2d_df[i, 5])) {
-    if (abs(PCOS2d_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS2d",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS2d",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS3_df)) {
-  if (!is.na(PCOS3_df[i, 5])) {
-    if (abs(PCOS3_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS3",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS3",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS4_df)) {
-  if (!is.na(PCOS4_df[i, 5])) {
-    if (abs(PCOS4_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS4",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS4",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS5_df)) {
-  if (!is.na(PCOS5_df[i, 5])) {
-    if (abs(PCOS5_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS5",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS5",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-for (i in 1:nrow(PCOS6_df)) {
-  if (!is.na(PCOS6_df[i, 5])) {
-    if (abs(PCOS6_df[i, 5]) > 1.96) {
-      addStyle(wb2, "PCOS6",
-               style = sig,
-               rows = r + i,
-               cols = 5)
-    } else {
-      addStyle(wb2, "PCOS6",
-               style = not_sig,
-               rows = r + i,
-               cols = 5)
-    }
-  }
-}
-
-saveWorkbook(wb2,
+saveWorkbook(wb,
              paste0(here(), "/outputs/significance outputs/exploratory significance output ", current_year, ".xlsx"),
              overwrite = TRUE)
-
