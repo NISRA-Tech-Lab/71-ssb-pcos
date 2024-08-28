@@ -3,13 +3,16 @@ library(here)
 # R Scripts containing bespoke functions for significance testing
 source(paste0(here(), "/code/config.R"))
 
-### **** INPUTS **** ####
+## INPUTS ####
 vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
 groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
 
-### **** DATA **** ####
-data_last <- readRDS(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
-data_current <- readRDS(paste0(data_folder, "Final/PCOS 2022 Final Dataset.RDS"))
+analysis_year <- 2022
+comparison_year <- 2021
+
+## DATA ####
+data_last <- readRDS(paste0(data_folder, "Final/PCOS ", comparison_year, " Final Dataset.RDS"))
+data_current <- readRDS(paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS"))
 
 for (i in 1:nrow(vars)) {
   data_last[[vars$data_last[i]]] <- fct_collapse(data_last[[vars$data_last[i]]],
@@ -226,12 +229,12 @@ modifyBaseFont(wb, fontSize = 12, fontName = "Arial")
 excel_df <- vardf %>%
   mutate(
     year1 = case_when(
-      year1 == "data_current" ~ current_year,
-      year1 == "data_last" ~ current_year - 1
+      year1 == "data_current" ~ analysis_year,
+      year1 == "data_last" ~ comparison_year
     ),
     year2 = case_when(
-      year2 == "data_current" ~ current_year,
-      year2 == "data_last" ~ current_year - 1
+      year2 == "data_current" ~ analysis_year,
+      year2 == "data_last" ~ comparison_year
     ),
     score = as.numeric(score)
   ) %>%
@@ -242,12 +245,12 @@ excel_df <- vardf %>%
 excel_df_excl_dk <- vardf_excl_dk %>%
   mutate(
     year1 = case_when(
-      year1 == "data_current_excl_dk" ~ current_year,
-      year1 == "data_last_excl_dk" ~ current_year - 1
+      year1 == "data_current_excl_dk" ~ analysis_year,
+      year1 == "data_last_excl_dk" ~ comparison_year
     ),
     year2 = case_when(
-      year2 == "data_current_excl_dk" ~ current_year,
-      year2 == "data_last_excl_dk" ~ current_year - 1
+      year2 == "data_current_excl_dk" ~ analysis_year,
+      year2 == "data_last_excl_dk" ~ comparison_year
     ),
     score = as.numeric(score)
   ) %>%
@@ -370,6 +373,6 @@ for (i in 1:nrow(vars)) {
 }
 
 saveWorkbook(wb,
-  paste0(here(), "/outputs/significance outputs/exploratory significance output ", current_year, ".xlsx"),
+  paste0(here(), "/outputs/significance outputs/exploratory significance output ", analysis_year, " - with ", comparison_year," comparison.xlsx"),
   overwrite = TRUE
 )
