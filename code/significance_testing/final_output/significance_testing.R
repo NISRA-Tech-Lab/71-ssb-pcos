@@ -6,10 +6,9 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-
 # Create trend data up to 2021 in R format (once off)
 if (!file.exists(paste0(data_folder, "Trend/2021/unweighted trend data.RDS"))) {
-  source(paste0(here(), "/code/significance testing/final_output/unweighted_trend.R"))
+  source(paste0(here(), "/code/significance_testing/final_output/unweighted_trend.R"))
 }
 
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))

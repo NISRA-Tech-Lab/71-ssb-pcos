@@ -1,5 +1,5 @@
 library(here)
-source(paste0(here(), "/code/data_prep.R"))
+source(paste0(here(), "/code/html_publiation/data_prep.R"))
 
 if (!dir.exists(paste0(here(), "/outputs/infographics"))) {
   dir.create(paste0(here(), "/outputs/infographics"))
