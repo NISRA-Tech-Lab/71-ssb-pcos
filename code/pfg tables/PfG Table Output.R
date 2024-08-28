@@ -33,7 +33,7 @@ for (question in questions) {
     ## Read data from Remote location ####
     data_year <- readRDS(paste0(data_folder, "Final/PCOS ", year, " Final Dataset.RDS"))
     
-    ### assign data frame to global environemnt ####  
+    ### assign data frame to global environment ####  
     assign(paste0("data_", year),
            data_year)
     
@@ -245,18 +245,14 @@ for (question in questions) {
                 bind_rows(new_row)
             
           }
-          
+        
         }
-        
-        
-        
-      }
       
-     
-        
       }
-      
+    
     }
+      
+  }
   
   ## Sort final data frame ####
   
