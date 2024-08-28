@@ -4,8 +4,8 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 
 ## INPUTS ####
-vars <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/var.csv"))
-groupings <- read.csv(paste0(here(), "/code/significance testing/exploratory_analysis/inputs/grouping.csv"))
+vars <- read.csv(paste0(here(), "/code/significance_testing/exploratory_analysis/inputs/var.csv"))
+groupings <- read.csv(paste0(here(), "/code/significance_testing/exploratory_analysis/inputs/grouping.csv"))
 
 analysis_year <- 2022
 comparison_year <- 2021

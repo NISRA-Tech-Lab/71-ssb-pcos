@@ -7,7 +7,7 @@ output:
     toc_float: true
     toc_depth: 3
     code_download: no
-    css: "style.css"
+    css: "../style.css"
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
@@ -21,8 +21,9 @@ knit: (function(input, ...) {
 :::
 
 ```{=html}
-<script src = "cookies_script.js"></script>
+<script src = "../cookies_script.js"></script>
 ```
+
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
 knitr::opts_chunk$set(

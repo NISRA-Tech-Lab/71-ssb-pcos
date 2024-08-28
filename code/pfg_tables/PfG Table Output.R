@@ -13,7 +13,7 @@ co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis", "OwnRelig2", "URBH")
 
 # Lookup table for EQUALGROUPS labels (taken from PfG documentation) ####
 eq_labels <- read.xlsx(
-  xlsxFile = paste0(here(), "/code/pfg tables/Classifications_Equality Groups - Template.xlsx"),
+  xlsxFile = paste0(here(), "/code/pfg_tables/Classifications_Equality Groups - Template.xlsx"),
   sheet = "Classifications_EQ - Template"
 )
 

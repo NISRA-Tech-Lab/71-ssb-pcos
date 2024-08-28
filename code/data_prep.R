@@ -22,7 +22,7 @@ data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
 )
 
 ## Raw variable check ran and output to Excel workbook in Outputs folder ####
-source(paste0(here(), "/code/check_raw_variables.R"))
+source(paste0(here(), "/code/html_publication/check_raw_variables.R"))
 
 # Read in ONS data from Excel ####
 data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
@@ -154,17 +154,17 @@ data_final <- data_final %>%
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
 
 ## Check created variables against originals (see outputs folder) ####
-source(paste0(here(), "/code/check_created_variables.R"))
+source(paste0(here(), "/code/html_publication/check_created_variables.R"))
 
 ## Supplementary tables output to outputs folder ####
-source(paste0(here(), "/code/supplementary_tables.R"))
+source(paste0(here(), "/code/html_publication/supplementary_tables.R"))
 
 # Create data frames for charts ####
 
 # Check Trend folder for 2021 exists
 if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
   dir.create(paste0(data_folder, "Trend/2021"))
-  source(paste0(here(), "/code/trend_data_for_charts.R"))
+  source(paste0(here(), "/code/html_publication/trend_data_for_charts.R"))
   source(paste0(here(), "/code/ods_tables/ods_trend_data.R"))
 }
 
