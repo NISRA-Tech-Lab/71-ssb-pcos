@@ -5,7 +5,7 @@ output:
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
-      output_dir = "../outputs/",
+      output_dir = "../../outputs/",
       envir = globalenv()
     )
   })
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, echo = FALSE)
 
 library(here)
 
-source(paste0(here(),"/code/data_prep.R"))
+source(paste0(here(), "/code/data_prep.R"))
 
 ```
 

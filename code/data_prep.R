@@ -5,6 +5,7 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 
 # Old and new names for all "trust" based answers
+# trust_body_var is defined in config.R
 trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
 trust_q_new <- c("TrustCivilService2", trust_body_var, "TrustAssemblyElectedBody2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
 
