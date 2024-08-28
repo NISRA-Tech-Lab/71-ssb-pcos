@@ -889,6 +889,56 @@ f_insert_sig_table(
   title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
 )
 
+# Trust NI Assembly ####
+
+addWorksheet(wb, "Trust NI Assembly")
+
+setColWidths(wb, "Trust NI Assembly",
+             cols = 1:ncol(assembly_trend_z_scores_yes),
+             widths = c(47, rep(12, ncol(assembly_trend_z_scores_yes) - 1))
+)
+
+r <- 1
+
+writeData(wb, "Trust NI Assembly",
+          x = "Trust in NISRA Statistics (UNWEIGHTED)",
+          startRow = r
+)
+
+addStyle(wb, "Trust NI Assembly",
+         style = pt,
+         rows = r,
+         cols = 1
+)
+
+r <- r + 2
+
+## Trend ####
+
+f_insert_sig_table(
+  df = assembly_trend,
+  sheet = "Trust NI Assembly",
+  title = paste0("Trust in NI Assembly - 2014 to ", current_year)
+)
+
+f_insert_z_table(
+  df = assembly_trend_z_scores_yes,
+  sheet = "Trust NI Assembly",
+  title = paste0("Yes - Trust in NI Assembly - 2014 to ", current_year)
+)
+
+f_insert_z_table(
+  df = assembly_trend_z_scores_no,
+  sheet = "Trust NI Assembly",
+  title = paste0("No - Trust in NI Assembly - 2014 to ", current_year)
+)
+
+f_insert_z_table(
+  df = assembly_trend_z_scores_dk,
+  sheet = "Trust NI Assembly",
+  title = paste0("Don't know - Trust in NI Assembly - 2014 to ", current_year)
+)
+
 # Trust NISRA Statistics ####
 
 addWorksheet(wb, "TrustNISRAStats")

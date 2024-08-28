@@ -78,7 +78,19 @@ unweighted_new <- data.frame(stat = unweighted_old$stat) %>%
     f_return_p(data_current$Confidential2, "Don't know") * 100,
     f_return_n(data_current$Confidential2),
     f_return_p(data_current$Confidential2[data_current$Confidential2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
-    f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"])
+    f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"]),
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Don't know") * 100,
+    f_return_n(data_current$TrustAssemblyElectedBody2),
+    f_return_p(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_n(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"]),
+    f_return_p(data_current$TrustMedia2, "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current$TrustMedia2, "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current$TrustMedia2, "Don't know") * 100,
+    f_return_n(data_current$TrustMedia2),
+    f_return_p(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"])
   ))
 
 names(unweighted_new) <- c("stat", current_year)
@@ -451,6 +463,18 @@ trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great
 ## Limiting longstanding illness ####
 
 trust_illness_ex_dk <- f_ill_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust NI Assembly ####
+
+## Trend ####
+
+assembly_trend <- f_trend("Trust NI Assembly")
+
+assembly_trend_z_scores_yes <- f_trend_z_scores(assembly_trend, "% Yes")
+
+assembly_trend_z_scores_no <- f_trend_z_scores(assembly_trend, "% No")
+
+assembly_trend_z_scores_dk <- f_trend_z_scores(assembly_trend, "% DK")
 
 # Trust NISRA Statistics ####
 
