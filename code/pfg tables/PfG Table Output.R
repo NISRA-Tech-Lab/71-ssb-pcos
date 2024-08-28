@@ -9,7 +9,7 @@ data_years <- c(seq(2012, 2018, 2), 2019:current_year)
 questions <- c("TrustMedia2", "TrustAssemblyElectedBody2")
 
 # Co-variates to include ####
-co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis", "OwnRelig2")
+co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis", "OwnRelig2", "URBH")
 
 # Lookup table for EQUALGROUPS labels (taken from PfG documentation) ####
 eq_labels <- read.xlsx(xlsxFile = paste0(here(), "/code/pfg tables/Classifications_Equality Groups - Template.xlsx"),
@@ -183,6 +183,15 @@ for (question in questions) {
               mutate(OwnRelig2 = factor(OwnRelig2,
                                      levels = new_levels,
                                      labels = new_labels))
+            
+          }
+          
+          if (var == "URBH") {
+            
+            data_year <- data_year %>%
+              mutate(URBH = factor(URBH,
+                                   levels = c("URBAN", "RURAL"),
+                                   labels = c("Urban Rural - Urban", "Urban Rural - Rural")))
             
           }
           
