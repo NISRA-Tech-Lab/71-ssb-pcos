@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 )
 
 library(here)
-source(paste0(here(), "/code/excel tables/run_excel_tables.R"))
+source(paste0(here(), "/code/ods_tables/run_ods_tables.R"))
 ```
 
 ::: {data-nics-theme="`r nics_theme`"}

@@ -165,7 +165,7 @@ source(paste0(here(), "/code/supplementary_tables.R"))
 if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
   dir.create(paste0(data_folder, "Trend/2021"))
   source(paste0(here(), "/code/trend_data_for_charts.R"))
-  source(paste0(here(), "/code/excel tables/excel_trend_data.R"))
+  source(paste0(here(), "/code/ods_tables/ods_trend_data.R"))
 }
 
 ## Read in all last year's trend data ####

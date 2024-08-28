@@ -1,6 +1,6 @@
 # Read in the data prep script ####
 library(here)
-source(paste0(here(), "/code/excel tables/data_prep_for_excel.R"))
+source(paste0(here(), "/code/ods_tables/data_prep_for_ods.R"))
 
 # Create new workbook ####
 wb <- createWorkbook(
