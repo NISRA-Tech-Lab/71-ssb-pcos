@@ -81,7 +81,7 @@ f_banner <- function(subtitle = "") {
         if (statistic_type == "as") {
           div(
             style = "display: flex; justify-content: center",
-              img(src = acc_official_stats, alt = nat_alt, width = "100px")
+            img(src = acc_official_stats, alt = nat_alt, width = "100px")
           )
         },
         div(
@@ -144,7 +144,7 @@ f_header <- function() {
       class = "row", style = "display:flex",
       div(
         style = "width: 60%; padding-left:15px; font-size: 12pt;",
-        strong("Status: "),a(href = "#status", statistic_type_text)
+        strong("Status: "), a(href = "#status", statistic_type_text)
       ),
       div(
         style = "width: 40%; font-size: 12pt;",
@@ -171,7 +171,7 @@ f_contact <- function() {
 }
 
 f_footer <- function() {
-HTML('
+  HTML('
 <footer style="color: #ffffff; background-color: #00205b;">
   <div class="col-wide" data-analytics="footer">
     <div class="row" style = "display: flex;">
@@ -206,5 +206,5 @@ HTML('
     </div>
   </div>
 </footer>
-')  
+')
 }

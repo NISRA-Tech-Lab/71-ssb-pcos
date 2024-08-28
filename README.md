@@ -8,7 +8,7 @@ Carry out the following updates each year to create new publication:
 
 -   If new ONS data is available, place the .xlsx file in the `ONS` folder
 
--   Take a copy of the entire R Project by [duplicating this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) on Github and name it for the new year.
+-   Take a copy of the entire R Project by [duplicating this repository](https://github.com/new/import) on Github and name it for the new year.
 
 -   In `code\config.R` file, update the following values:
 

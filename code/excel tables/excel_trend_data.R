@@ -19,19 +19,27 @@ ods_file_path <- paste0(data_folder, "Trend/PCOS Tables 2022 reduced.ODS")
 ## Table 1a: Awareness of NISRA by year ####
 
 table_1a_data <- read_ods(ods_file_path, sheet = "Awareness_of_NISRA", range = "A4:J8") %>%
-  mutate(`2009 [Note 1]` = as.numeric(case_when(`2009 [Note 1]` == "No data" ~ NA,
-                                                TRUE ~ `2009 [Note 1]`)),
-         `2010 [Note 1]` = as.numeric(case_when(`2010 [Note 1]` == "No data" ~ NA,
-                                                TRUE ~ `2010 [Note 1]`)))
+  mutate(
+    `2009 [Note 1]` = as.numeric(case_when(
+      `2009 [Note 1]` == "No data" ~ NA,
+      TRUE ~ `2009 [Note 1]`
+    )),
+    `2010 [Note 1]` = as.numeric(case_when(
+      `2010 [Note 1]` == "No data" ~ NA,
+      TRUE ~ `2010 [Note 1]`
+    ))
+  )
 
 saveRDS(table_1a_data, paste0(data_folder, "Trend/2021/table_1a_data.RDS"))
 
 ## Table 1c: Awareness of ONS by year ####
 
 table_1c_data <- data.frame(Response = c("Yes", "No", "Don't Know", "Number of Respondents")) %>%
-  mutate(`2014` = c(71, 27.4956998577179, 1.33128506479173, 1907),
-         `2016` = c(71.2539450324221, 27.2537935894976, 1.49226137808037, 1966),
-         `2018` = c(69, 29, 1, 1965))
+  mutate(
+    `2014` = c(71, 27.4956998577179, 1.33128506479173, 1907),
+    `2016` = c(71.2539450324221, 27.2537935894976, 1.49226137808037, 1966),
+    `2018` = c(69, 29, 1, 1965)
+  )
 
 saveRDS(table_1c_data, paste0(data_folder, "Trend/2021/table_1c_data.RDS"))
 
@@ -68,7 +76,7 @@ saveRDS(table_3.4a_data, paste0(data_folder, "Trend/2021/table_3.4a_data.RDS"))
 # Trust NISRA Statistics ####
 
 ## Table 4a: Trust NISRA Statistics by year ####
- 
+
 table_4a_data <- read_ods(ods_file_path, sheet = "Trust_NISRA_Statistics", range = "A4:F8")
 
 saveRDS(table_4a_data, paste0(data_folder, "Trend/2021/table_4a_data.RDS"))
@@ -76,9 +84,11 @@ saveRDS(table_4a_data, paste0(data_folder, "Trend/2021/table_4a_data.RDS"))
 ## Table 4d: Trust ONS Statistics by year ####
 
 table_4d_data <- data.frame(Response = c("Yes", "No", "Don't Know", "Number of Respondents")) %>%
-  mutate(`2014` = c(66.40047, 15.74657, 17.85295, 1906),
-         `2016` = c(69.54472, 12.5457, 17.90959, 1966),
-         `2018` = c(69.0196674316804, 12.0987869494368, 18.8815456188828, 1965))
+  mutate(
+    `2014` = c(66.40047, 15.74657, 17.85295, 1906),
+    `2016` = c(69.54472, 12.5457, 17.90959, 1966),
+    `2018` = c(69.0196674316804, 12.0987869494368, 18.8815456188828, 1965)
+  )
 
 saveRDS(table_4d_data, paste0(data_folder, "Trend/2021/table_4d_data.RDS"))
 
