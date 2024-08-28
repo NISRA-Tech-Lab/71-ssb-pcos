@@ -656,16 +656,6 @@ The following questions were included in the Continuous Household Survey (CHS) b
 `r f_footer()`
 `r unlink(xl_filename)`
 
-<!-- message to rotate screen if it is below 400px width -->
-
-::: {#rotate-screen}
-<p style="color: white;">
-
-Please rotate your screen for optimal experience
-
-</p>
-:::
-
 ```{js}
 
 // Function to remove map shapes from tab order, and add tabs to table of contents
