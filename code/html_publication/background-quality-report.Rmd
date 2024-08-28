@@ -23,6 +23,9 @@ params:
   prerelease: FALSE
 ---
 
+<div id = "cookie-banner"></div>
+<script src = "../cookies.js"></script>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   message= FALSE, warning = FALSE, echo = FALSE

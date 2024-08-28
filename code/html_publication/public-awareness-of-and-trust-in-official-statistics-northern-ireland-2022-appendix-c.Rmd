@@ -18,7 +18,7 @@ knit: (function(input, ...) {
 ---
 
 <div id = "cookie-banner"></div>
-<script src = "../cookies_script.js"></script>
+<script src = "../cookies.js"></script>
 
 ```{r settings, include=FALSE}
 # this chunk sets chunk options for all chunks in this file
