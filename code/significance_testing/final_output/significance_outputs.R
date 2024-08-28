@@ -1,3 +1,5 @@
+# Select All and run this script to produce final output
+
 library(here)
 source(paste0(here(), "/code/significance testing/final_output/significance_testing.R"))
 
