@@ -537,9 +537,18 @@ f_insert_z_table(
   title = paste0("Awareness of NISRA by Highest Qualification Achieved - ", current_year)
 )
 
+## Limiting longstanding illness ####
+
+f_insert_sig_table(
+  df = aware_illness,
+  sheet = "Awareness",
+  title = paste0("Awareness of NISRA by Limiting Longstanding Illness - ", current_year)
+)
+
+
 setColWidths(wb, "Awareness",
-  cols = 1:ncol(age_z_scores),
-  widths = c(47, rep(12, ncol(age_z_scores) - 1))
+  cols = 1:ncol(aware_trend),
+  widths = c(47, rep(12, ncol(aware_trend) - 1))
 )
 
 # Products ####
@@ -670,6 +679,12 @@ setColWidths(wb, "Products",
 
 addWorksheet(wb, "Trust in NISRA")
 
+setColWidths(wb, "Trust in NISRA",
+             cols = 1:ncol(trust_age_z_scores),
+             widths = c(55, rep(12, ncol(trust_age_z_scores) - 1))
+)
+
+
 r <- 1
 
 writeData(wb, "Trust in NISRA",
@@ -780,6 +795,14 @@ f_insert_z_table(
   title = paste0("Don't know - Trust in NISRA by highest qualification achieved - ", current_year)
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = trust_illness,
+  sheet = "Trust in NISRA",
+  title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year)
+)
+
 # Trust in NISRA (exc DK) ####
 
 addWorksheet(wb, "TruNISRAexcDK")
@@ -856,6 +879,14 @@ f_insert_z_table(
   df = trust_nisra_qual_z_scores_ex_dk,
   sheet = "TruNISRAexcDK",
   title = paste0("Trust in NISRA by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+)
+
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = trust_illness_ex_dk,
+  sheet = "TruNISRAexcDK",
+  title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
 )
 
 # Trust NISRA Statistics ####
@@ -969,6 +1000,14 @@ f_insert_z_table(
   title = paste0("Don't know - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = trust_stats_illness,
+  sheet = "TrustNISRAStats",
+  title = paste0("Trust in NISRA Statistics - by Limited Longstanding Illness - ", current_year)
+)
+
 # Trust NISRA stats (exc DK) ####
 
 addWorksheet(wb, "TruNISRAStatsexcDK")
@@ -1045,6 +1084,14 @@ f_insert_z_table(
   df = trust_stats_qual_z_scores_ex_dk,
   sheet = "TruNISRAStatsexcDK",
   title = paste0("Trust NISRA stats by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+)
+
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = trust_stats_illness_ex_dk,
+  sheet = "TruNISRAStatsexcDK",
+  title = paste0("Trust NISRA stats - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
 )
 
 # Value ####
@@ -1158,6 +1205,14 @@ f_insert_z_table(
   title = paste0("Don't know - NISRA stats are important by highest qualification achieved - ", current_year)
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = value_illness,
+  sheet = "Value",
+  title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year)
+)
+
 # Value NISRA stats (exc DK) ####
 
 addWorksheet(wb, "ValuesExDK")
@@ -1234,6 +1289,14 @@ f_insert_z_table(
   df = value_qual_z_scores_ex_dk,
   sheet = "ValuesExDK",
   title = paste0("NISRA stats are important by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+)
+
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = value_illness_ex_dk,
+  sheet = "ValuesExDK",
+  title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
 )
 
 # Interference ####
@@ -1346,6 +1409,14 @@ f_insert_z_table(
   title = paste0("Don't know - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = interference_illness,
+  sheet = "Interference",
+  title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year)
+)
+
 # NISRA stats free from interference (exc DK) ####
 
 addWorksheet(wb, "InterfExDK")
@@ -1424,6 +1495,13 @@ f_insert_z_table(
   title = paste0("NISRA stats are free from political interference by Highest Qualification Achieved - ", current_year, " (exc DKs)")
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = interference_illness_ex_dk,
+  sheet = "InterfExDK",
+  title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+)
 
 # Confidentiality ####
 
@@ -1535,6 +1613,14 @@ f_insert_z_table(
   title = paste0("Don't know - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
 )
 
+## Limited longstanding illness ####
+
+f_insert_sig_table(
+  df = confidential_illness,
+  sheet = "Confidentiality",
+  title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year)
+)
+
 # NISRA will keep my information confidential (exc DK) ####
 
 addWorksheet(wb, "ConfExDK")
@@ -1611,6 +1697,12 @@ f_insert_z_table(
   df = confidential_qual_z_scores_ex_dk,
   sheet = "ConfExDK",
   title = paste0("NISRA will keep my information confidential by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+)
+
+f_insert_sig_table(
+  df = confidential_illness_ex_dk,
+  sheet = "ConfExDK",
+  title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
 )
 
 # Save Workbook ####

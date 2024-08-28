@@ -514,7 +514,7 @@ f_trend <- function(sheet) {
 
   if (sheet != "Awareness") {
     trend <- trend %>%
-      select(-`2018`)
+      select(-`2018`, -`2012`)
   }
 
   names(trend)[names(trend) == "stat"] <- " "
@@ -552,6 +552,81 @@ f_trend_z_scores <- function(trend, response) {
 f_confidence_interval <- function(p, n) {
   ci_calc <- qnorm(0.975) * sqrt((p * (1 - p)) / n)
   return(c(value = p, lower_cl = p - ci_calc, upper_cl = p + ci_calc))
+}
+
+# Will return stats by limiting long standing illness
+
+f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
+  if (dk) {
+    ill_stats <- data.frame(
+      stat = c("% Yes", "% No", "% DK", "Base"),
+      work = c(
+        f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
+        f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
+        f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "No Limiting longstanding illness") * 100,
+        f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness")
+      ),
+      not = c(
+        f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "Limiting longstanding illness") * 100,
+        f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "Limiting longstanding illness") * 100,
+        f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "Limiting longstanding illness") * 100,
+        f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
+      ),
+      z = c(
+        f_return_z(
+          p1 = f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "No Limiting longstanding illness"),
+          n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "Limiting longstanding illness"),
+          n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
+        ),
+        f_return_z(
+          p1 = f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "No Limiting longstanding illness"),
+          n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "Limiting longstanding illness"),
+          n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
+        ),
+        f_return_z(
+          p1 = f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "No Limiting longstanding illness"),
+          n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "Limiting longstanding illness"),
+          n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
+        ),
+        NA
+      )
+    )
+  } else {
+    ill_stats <- data.frame(
+      trust = c("% Yes", "Base"),
+      work = c(
+        data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "No Limiting longstanding illness") %>%
+          nrow() / data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
+          nrow() * 100,
+        data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
+          nrow()
+      ),
+      not = c(
+        data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "Limiting longstanding illness") %>%
+          nrow() / data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
+          nrow() * 100,
+        data_current %>%
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
+          nrow()
+      )
+    ) %>%
+      mutate(Z = case_when(
+        trust == "Base" ~ NA,
+        TRUE ~ f_return_z(work / 100, work[trust == "Base"], not / 100, not[trust == "Base"])
+      ))
+  }
+  
+  names(ill_stats) <- c(" ", "No Limiting longstanding illness", "Limiting longstanding illness", "Z Score")
+  
+  ill_stats
 }
 
 # From Exploratory Analysis ####

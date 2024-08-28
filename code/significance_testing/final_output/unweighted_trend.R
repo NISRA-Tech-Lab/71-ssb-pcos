@@ -620,6 +620,39 @@ trend_data <- trend_data %>%
   )) %>%
   select(-pct)
 
+# Missing values from 2012 ####
+
+data_2012 <- readRDS(paste0(data_folder, "Final/PCOS 2012 Final Dataset.RDS"))
+
+## PCOS4 ####
+
+aware_2012 <- data_2012 %>%
+  group_by(PCOS4) %>%
+  summarise(count = n()) %>%
+  filter(!is.na(PCOS4)) %>%
+  mutate(pct = count / sum(count) * 100) %>%
+  adorn_totals() %>%
+  filter(!PCOS4 %in% c("No", "Don't Know")) %>%
+  mutate(
+    stat = c(
+      "Awareness - % Yes",
+      "Awareness - Base"
+    ),
+    pct = case_when(
+      grepl("Base", stat) ~ count,
+      TRUE ~ pct
+    )
+  ) %>%
+  select(stat, pct)
+
+## Insert missing 2012 values into data frame ####
+
+names(aware_2012) <- c("stat", "2012")
+
+trend_data <- trend_data %>%
+  left_join(aware_2012,
+            by = "stat")
+
 # Remove 2022 from trend data (save out to 2021 folder) ####
 
 # 2022 (and all future) values will be recalculated when
