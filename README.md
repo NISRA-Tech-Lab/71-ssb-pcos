@@ -40,40 +40,46 @@ Carry out the following updates each year to create new publication:
 
 -   Run `excel tables/run_excel_tables.R` script.
 
-### Key files and folders
+## Onloading a new user
 
-| File                        | Purpose                                                          |
-|----------------------|-------------------------------------------------|
-| `code/`                     | Main RMarkdown report; Appendices; and Background Quality Report |
-| `code/excel_tables`         | Code to produce excel tables booklet                             |
-| `code/infographic`          | Code to produce infographics                                     |
-| `code/significance testing` | Code to produce significance outputs                             |
+### Git
 
-### Main Report Rmarkdown file - public-awareness-of-and-trust-in-official-statistics-northern-ireland-YYYY.Rmd
+For more information on Git look at the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
 
-This `Rmd` file is the key file that is used to build the html report. When a report is knitted it is saved out to the `outputs` folder.
+Enter the following lines of code in the R terminal:
 
-### Config file - config.R
+```         
+git config --global http.sslVerify false
+git config --global http.proxy http://cloud-lb.nigov.net:8080
+git config --global https.proxy https://cloud-lb.nigov.net:8080
+git config --global user.name "YourUsername"
+git config --global user.email firstname.lastname@nisra.gov.uk
+git update-index --assume-unchanged code/path_to_data.R
+```
 
-`config.R` is the configuration file for the html report. This file is where specific report parameters can be set including the name of the department (DoF in this case) to set colours, the current year for the report, report title and the statistic type (e.g, Accredited Statistic, Official Statistic etc). There is also a section that loads in the required R packages using the `library` command. If packages are not loading check they are installed using the `install.packages()` function.
+## Key files and folders
 
-The rest of the config file relates to the structure and set-up of the report including logos, colour schemes and loading functions. These sections should not need to be changed normally.
+### [code](code)
 
-### Data Prep Script - data_prep.R
+### [code/functions](code/functions)
 
-The data prep script loads all the data for the report from SPSS and Excel files in the data folder. All data frames for charts are created and coded into his file. In addition variables for automating the text are created also. The script has a number of sections (denoted by a series of hash marks) as follows:
+f_banner(), f_header() and f_borderline() are functions used to create the html banner including logos and title, the Report header and the borderline used between each section. They can be edited within the `html_formatting.R` file in the functions folder. Each of these functions are called in the Report Rmd using inline code e.g.
 
--   **Reading data from SPSS:** The password protected SPSS data is read in to R and stored under the value `data_raw`
--   **Recode variables:** This section replicates all steps in the original SPSS process in order to
-    -   recode variables;
-    -   set refusals to missing;
-    -   and remove any cases where a respondent refused to answer all questions
--   **Create data frames for charts:** Separate data frames containing only the data needed to produce a particular chart are created. The data for Chart 1 will be stored under the name `chart_1_data` etc. Any trend series data up to the previous year is read in at this point, and data points for the new year are appended.
--   **Figures for commentary:** Individual values are calculated from the data and stored so they can be inserted in the report's commentary.
+```         
+`r f_banner()`  
+`r f_header()`
+`r f_borderline()`
+```
 
-### Charts
+f_contact() is also in the `html_formatting.R` file and is used to create the contact section near the bottom of the report.
 
-Within the report there are 15 charts. There is one line chart, one grouped bar chart and the remaining charts are stacked bar charts.
+The f_email() function in the `f_email.R` script makes an email a live link.
+
+### [code/html_publication](code/html_publication)
+
+<img src="data/images/Data%20flow.svg">
+
+#### Charts
 
 For all charts in the code the R charting package **Plotly** is used. Some helpful resources are below:
 
@@ -93,27 +99,17 @@ There are many different attributes that are used in the code that help to style
 -   [Line chart plolty R attributes](https://plotly.com/r/reference/)
 -   [Bar Charts in R](https://plotly.com/r/bar-charts/)
 -   [Bar chart plolty R attributes](https://plotly.com/r/reference/bar/)
--   [Pie Charts in R](https://plotly.com/r/pie-charts/)
--   [Pie chart plolty R attributes](https://plotly.com/r/reference/pie/)
 -   [Horizontal Bar Charts in R](https://plotly.com/r/horizontal-bar-charts/)
 
-### Download Buttons
+#### Download Buttons
 
-In the functions folder the `f_embed_xl` R Script contains a function called `f_embed_xl()` that creates the Excel and CSV download links that are under each of the charts in the main report as well as all the tables listed in Appendix B. The function generates a hyper-link that sits behind the download button and allows a user to click the button and download data from the corresponding chart into csv or excel format.
+### [code/infographic](code/infographic)
 
-In the code this function is called after each figure and has four parameters fed into it: - data (the data frame - created in the `data_prep.R` script), - title (the title to be given to the downloaded file), - data_style (style applied to the excel file - styles can be viewed in the `Style.R` script), - data_dir (the file path the downloaded files should be stored in - in the example below the file path is set to the `figdata` folder within the `outputs` folder).
+### [code/ministerial_sub](code/ministerial_sub)
 
-```         
-f_make_tables(data = figure_2.1_dl,
-              title = paste0("Figure 2.1: Number of farms and area farmed,
-              Northern Ireland,", currentyear - 40, "-", currentyear),
-              data_style = ns_comma,
-              data_dir = paste0(here(), "/outputs/figdata/"))  
-```
+### [code/ods_tables](code/ods_tables)
 
-### Excel Workbook
-
-In order to produce the accompanying Excel outputs for this report, follow these steps:
+In order to produce the accompanying ODS outputs for this report, follow these steps:
 
 -   Use Windows file explorer to open the R project file.
 -   With the project open in R Studio, open the `excel tables/run_excel_tables.R` file.
@@ -122,59 +118,30 @@ In order to produce the accompanying Excel outputs for this report, follow these
 
 Learn more: [Creating & Formatting Excel Workbooks](https://datavis.nisra.gov.uk/techlab/yalcbs/Useful-R-Info.html#Excel_table_functions)
 
+
+
+
+
+
+
+
+
 ### Other Project Files and Features
 
-#### Functions Folder
 
-f_banner(), f_header() and f_borderline() are functions used to create the html banner including logos and title, the Report header and the borderline used between each section. They can be edited within the `html_formatting.R` file in the functions folder. Each of these functions are called in the Report Rmd using inline code e.g.
 
-```         
-`r f_banner()`  
-`r f_header()`
-`r f_borderline()`
-```
 
-f_contact() is also in the `html_formatting.R` file and is used to create the contact section near the bottom of the report.
 
-The f_email() function in the `f_email.R` script makes an email a live link.
 
-#### Footer
 
-The footer for the report is written in html code located at the bottom of the `report.Rmd` from lines 172 to 208. The footer contains numerous required links for NISRA reports. It is possible to add to the code to create additional links and information if required.
-
-#### gitignore
-
-The `.gitignore` file tells Git which files to ignore when committing your project to the GitHub repository e.g. data files. For more information see [What is Gitignore](https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/) and [Git Ignore and .gitignore](https://www.w3schools.com/git/git_ignore.asp?remote=github)
 
 #### Cascading Style Sheets (CSS) file
 
 Cascading Style Sheets (CSS) is used to format the layout of a html webpage. For the report there is `style.css` file in the code folder that can be updated to edit elements of the html report. With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more. For more information see [CSS Tutorial](https://www.w3schools.com/css/default.asp), [HTML Styles - CSS](https://www.w3schools.com/html/html_css.asp) and [Apply custom CSS](https://bookdown.org/yihui/rmarkdown-cookbook/html-css.html)
 
-#### Cookies Banner
 
-The cookies banner is called in the html code (see below) at the top of the `report.Rmd`. This code is in a javascript file called `cookies_script.js`.
 
-```         
-<div id = "cookie-banner"></div>
-<script src = "cookies_script.js"></script>
-```
 
-Google analytics are included in the cookies banner code and these analytics can be accessed from Dissemination Branch.
-
-### Git
-
-For more information on Git look at the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
-
-Enter the following lines of code in the R terminal:
-
-```         
-git config --global http.sslVerify false
-git config --global http.proxy http://cloud-lb.nigov.net:8080
-git config --global https.proxy https://cloud-lb.nigov.net:8080
-git config --global user.name "YourUsername"
-git config --global user.email firstname.lastname@nisra.gov.uk
-git update-index --assume-unchanged code/path_to_data.R
-```
 
 ### Links
 
