@@ -152,7 +152,7 @@ Each .RDS file is stored in the `Trend/2021` directory on the remote drive. Thes
 
 This script should only be run once. There is no need to run this script manually as it will be automatically triggered in `data_prep.R` in the event the 2021 trend data is missing from the remote drive.
 
-#### [public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-b.Rmd](code/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-b.Rmd)
+#### [public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-b.Rmd](code/html_publication/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-b.Rmd)
 
 In order to output a new version of the Appendix B HTML document:
 
@@ -161,7 +161,7 @@ In order to output a new version of the Appendix B HTML document:
 3. Add any new tables to the appropritate place in the document.
 4. Save and click __Knit__.
 
-#### [public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd](code/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd)
+#### [public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd](code/html_publication/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd)
 
 In order to output a new version of the Appendix C HTML document:
 
