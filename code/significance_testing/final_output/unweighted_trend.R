@@ -651,7 +651,8 @@ names(aware_2012) <- c("stat", "2012")
 
 trend_data <- trend_data %>%
   left_join(aware_2012,
-            by = "stat")
+    by = "stat"
+  )
 
 # Remove 2022 from trend data (save out to 2021 folder) ####
 
@@ -666,46 +667,56 @@ trend_data <- trend_data %>%
 data_years <- c(2014, 2016, 2019:2021)
 
 for (year in data_years) {
-  
   data_year <- readRDS(paste0(data_folder, "Final/PCOS ", year, " Final Dataset.RDS"))
-  
+
   if (year == data_years[1]) {
-    
-    trust_assembly <- data.frame(stat = c("Trust NI Assembly - % Yes",
-                                          "Trust NI Assembly - % No",
-                                          "Trust NI Assembly - % DK",
-                                          "Trust NI Assembly - Base"))
-    
-    trust_assembly_ex_dk <- data.frame(stat = c("TruNIAssemExDK - % Yes",
-                                                "TruNIAssemExDK - Base"))
-    
-    trust_media <- data.frame(stat = c("Trust in media - % Yes",
-                                       "Trust in media - % No",
-                                       "Trust in media - % DK",
-                                       "Trust in media - Base"))
-    
-    trust_media_ex_dk <- data.frame(stat = c("TruMediaExDK - % Yes",
-                                             "TruMediaExDK - Base"))
-    
+    trust_assembly <- data.frame(stat = c(
+      "Trust NI Assembly - % Yes",
+      "Trust NI Assembly - % No",
+      "Trust NI Assembly - % DK",
+      "Trust NI Assembly - Base"
+    ))
+
+    trust_assembly_ex_dk <- data.frame(stat = c(
+      "TruNIAssemExDK - % Yes",
+      "TruNIAssemExDK - Base"
+    ))
+
+    trust_media <- data.frame(stat = c(
+      "Trust in media - % Yes",
+      "Trust in media - % No",
+      "Trust in media - % DK",
+      "Trust in media - Base"
+    ))
+
+    trust_media_ex_dk <- data.frame(stat = c(
+      "TruMediaExDK - % Yes",
+      "TruMediaExDK - Base"
+    ))
   }
-  
+
   trust_assembly_year <- data_year %>%
     group_by(TrustAssemblyElectedBody2) %>%
     summarise(count = n()) %>%
     filter(!is.na(TrustAssemblyElectedBody2)) %>%
     mutate(pct = count / sum(count) * 100) %>%
     adorn_totals() %>%
-    mutate(stat = trust_assembly$stat,
-           pct = case_when(grepl("Base", stat) ~ count,
-                           TRUE ~ pct)) %>%
+    mutate(
+      stat = trust_assembly$stat,
+      pct = case_when(
+        grepl("Base", stat) ~ count,
+        TRUE ~ pct
+      )
+    ) %>%
     select(stat, pct)
-  
+
   names(trust_assembly_year) <- c("stat", as.character(year))
-  
+
   trust_assembly <- trust_assembly %>%
     left_join(trust_assembly_year,
-              by = "stat")
-  
+      by = "stat"
+    )
+
   trust_assembly_ex_dk_year <- data_year %>%
     filter(!TrustAssemblyElectedBody2 %in% c("Don't know", "Don't Know")) %>%
     group_by(TrustAssemblyElectedBody2) %>%
@@ -714,34 +725,44 @@ for (year in data_years) {
     mutate(pct = count / sum(count) * 100) %>%
     adorn_totals() %>%
     filter(!TrustAssemblyElectedBody2 %in% c("Tend to distrust/distrust greatly", "Tend to distrust/Distrust greatly")) %>%
-    mutate(stat = trust_assembly_ex_dk$stat,
-           pct = case_when(grepl("Base", stat) ~ count,
-                           TRUE ~ pct)) %>%
+    mutate(
+      stat = trust_assembly_ex_dk$stat,
+      pct = case_when(
+        grepl("Base", stat) ~ count,
+        TRUE ~ pct
+      )
+    ) %>%
     select(stat, pct)
-  
+
   names(trust_assembly_ex_dk_year) <- c("stat", as.character(year))
-  
+
   trust_assembly_ex_dk <- trust_assembly_ex_dk %>%
     left_join(trust_assembly_ex_dk_year,
-              by = "stat")
-  
+      by = "stat"
+    )
+
   trust_media_year <- data_year %>%
     group_by(TrustMedia2) %>%
     summarise(count = n()) %>%
     filter(!is.na(TrustMedia2)) %>%
     mutate(pct = count / sum(count) * 100) %>%
     adorn_totals() %>%
-    mutate(stat = trust_media$stat,
-           pct = case_when(grepl("Base", stat) ~ count,
-                           TRUE ~ pct)) %>%
+    mutate(
+      stat = trust_media$stat,
+      pct = case_when(
+        grepl("Base", stat) ~ count,
+        TRUE ~ pct
+      )
+    ) %>%
     select(stat, pct)
-  
+
   names(trust_media_year) <- c("stat", as.character(year))
-  
+
   trust_media <- trust_media %>%
     left_join(trust_media_year,
-              by = "stat")
-  
+      by = "stat"
+    )
+
   trust_media_ex_dk_year <- data_year %>%
     filter(!TrustMedia2 %in% c("Don't know", "Don't Know")) %>%
     group_by(TrustMedia2) %>%
@@ -750,24 +771,30 @@ for (year in data_years) {
     mutate(pct = count / sum(count) * 100) %>%
     adorn_totals() %>%
     filter(!TrustMedia2 %in% c("Tend to distrust/distrust greatly", "Tend to distrust/Distrust greatly")) %>%
-    mutate(stat = trust_media_ex_dk$stat,
-           pct = case_when(grepl("Base", stat) ~ count,
-                           TRUE ~ pct)) %>%
+    mutate(
+      stat = trust_media_ex_dk$stat,
+      pct = case_when(
+        grepl("Base", stat) ~ count,
+        TRUE ~ pct
+      )
+    ) %>%
     select(stat, pct)
-  
+
   names(trust_media_ex_dk_year) <- c("stat", as.character(year))
-  
+
   trust_media_ex_dk <- trust_media_ex_dk %>%
     left_join(trust_media_ex_dk_year,
-              by = "stat")
-  
+      by = "stat"
+    )
 }
 
 trend_data <- trend_data %>%
-  bind_rows(trust_assembly,
-            trust_assembly_ex_dk,
-            trust_media,
-            trust_media_ex_dk)
+  bind_rows(
+    trust_assembly,
+    trust_assembly_ex_dk,
+    trust_media,
+    trust_media_ex_dk
+  )
 
 
 saveRDS(trend_data, paste0(data_folder, "Trend/2021/unweighted trend data.RDS"))

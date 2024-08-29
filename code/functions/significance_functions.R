@@ -601,8 +601,8 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "No Limiting longstanding illness") %>%
           nrow() / data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
-          nrow() * 100,
+            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
+            nrow() * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
           nrow()
@@ -611,8 +611,8 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "Limiting longstanding illness") %>%
           nrow() / data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
-          nrow() * 100,
+            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
+            nrow() * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
           nrow()
@@ -623,9 +623,9 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
         TRUE ~ f_return_z(work / 100, work[trust == "Base"], not / 100, not[trust == "Base"])
       ))
   }
-  
+
   names(ill_stats) <- c(" ", "No Limiting longstanding illness", "Limiting longstanding illness", "Z Score")
-  
+
   ill_stats
 }
 
@@ -646,7 +646,7 @@ significanceTest <- function(p1, n1, p2, n2) {
   s9 <- sqrt(s7 * s8 * s1)
   z <- s6 / s9
   z <- ifelse(is.na(z), 0, z)
-  
+
   if (abs(z) > qnorm(0.975)) {
     significance <- "Significant"
     if (z < 0) {
@@ -683,7 +683,7 @@ varAnalysis <- function(df1, group1, grouping1, var1, Answer) {
       select(var)
     # print(group1)
   }
-  
+
   colnames(df) <- "var1"
   df <- df %>%
     filter(!is.na(var1)) %>%
@@ -697,7 +697,7 @@ varAnalysis <- function(df1, group1, grouping1, var1, Answer) {
       var1 == "DontKnow" ~ "dont_know",
       TRUE ~ "yes"
     ))
-  
+
   n <- nrow(df)
   p <- prop.table(table(df$var1))[Answer]
   return(c(n = n, p = p))
@@ -708,8 +708,8 @@ extractQuestionText <- function(df, var) {
   df <- get(df)
   # print(var)
   qText <- attributes(df)$variable.labels[var]
-  
-  
+
+
   return(q = qText)
 }
 
@@ -732,17 +732,17 @@ stCombinations <- function(vars, groupings, currentYear) {
   yearlyCombinations <- crossing(year1 = colnames(vars), year2 = colnames(vars)) # work out all the possible combinations of years for comparison
   yearlyCombinations <- yearlyCombinations[!duplicated(apply(yearlyCombinations, 1, sort), MARGIN = 2), ] # remove duplicated combinations
   yearlyCombinations <- yearlyCombinations %>% filter(year1 == currentYear | year2 == currentYear) # only retain years that include the current year
-  
+
   x <- yearlyCombinations %>%
     left_join(v2, by = c("year1" = "year")) %>%
     mutate(var1 = var) %>%
     select(-var) # Add in the variables for all year1 cases
   var2 <- apply(x, 1, function(y) extractVar2(vars, y["year1"], y["var1"], y["year2"])) # identify the corresponding year2 variables
   varYears <- cbind(x, var2) # add in corresponding year2 variables
-  
+
   vardf <- data.frame() # create emply dataframe
   z <- 1 # initialise z
-  
+
   # loop around all variables and groupings adding in to the dataframe
   for (i in 1:nrow(varYears)) {
     if (varYears[i, "year1"] == currentYear | varYears[i, "year2"] == currentYear) {
@@ -759,7 +759,7 @@ stCombinations <- function(vars, groupings, currentYear) {
           z <- z + 1
         }
       }
-      
+
       vardf[z, "year1"] <- varYears[i, "year1"]
       vardf[z, "var1"] <- varYears[i, "var1"]
       vardf[z, "year2"] <- varYears[i, "year2"]
@@ -776,4 +776,3 @@ stCombinations <- function(vars, groupings, currentYear) {
   vardf <- vardf %>% anti_join(exdf)
   return(vardf)
 }
-

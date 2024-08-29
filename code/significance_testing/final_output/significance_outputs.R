@@ -680,8 +680,8 @@ setColWidths(wb, "Products",
 addWorksheet(wb, "Trust in NISRA")
 
 setColWidths(wb, "Trust in NISRA",
-             cols = 1:ncol(trust_age_z_scores),
-             widths = c(55, rep(12, ncol(trust_age_z_scores) - 1))
+  cols = 1:ncol(trust_age_z_scores),
+  widths = c(55, rep(12, ncol(trust_age_z_scores) - 1))
 )
 
 
@@ -894,21 +894,21 @@ f_insert_sig_table(
 addWorksheet(wb, "Trust NI Assembly")
 
 setColWidths(wb, "Trust NI Assembly",
-             cols = 1:ncol(assembly_trend_z_scores_yes),
-             widths = c(47, rep(12, ncol(assembly_trend_z_scores_yes) - 1))
+  cols = 1:ncol(assembly_trend_z_scores_yes),
+  widths = c(47, rep(12, ncol(assembly_trend_z_scores_yes) - 1))
 )
 
 r <- 1
 
 writeData(wb, "Trust NI Assembly",
-          x = "Trust in NI Assembly (UNWEIGHTED)",
-          startRow = r
+  x = "Trust in NI Assembly (UNWEIGHTED)",
+  startRow = r
 )
 
 addStyle(wb, "Trust NI Assembly",
-         style = pt,
-         rows = r,
-         cols = 1
+  style = pt,
+  rows = r,
+  cols = 1
 )
 
 r <- r + 2
@@ -1012,21 +1012,21 @@ f_insert_sig_table(
 addWorksheet(wb, "TruNIAssemExDK")
 
 setColWidths(wb, "TruNIAssemExDK",
-             cols = 1:ncol(assembly_age_z_scores_ex_dk),
-             widths = c(47, rep(12, ncol(assembly_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(assembly_age_z_scores_ex_dk),
+  widths = c(47, rep(12, ncol(assembly_age_z_scores_ex_dk) - 1))
 )
 
 r <- 1
 
 writeData(wb, "TruNIAssemExDK",
-          x = "Trust in NI Assembly (excluding Don't knows) (UNWEIGHTED)",
-          startRow = r
+  x = "Trust in NI Assembly (excluding Don't knows) (UNWEIGHTED)",
+  startRow = r
 )
 
 addStyle(wb, "TruNIAssemExDK",
-         style = pt,
-         rows = r,
-         cols = 1
+  style = pt,
+  rows = r,
+  cols = 1
 )
 
 r <- r + 2
@@ -1098,21 +1098,21 @@ f_insert_sig_table(
 addWorksheet(wb, "Trust in media")
 
 setColWidths(wb, "Trust in media",
-             cols = 1:ncol(media_trend_z_scores_yes),
-             widths = c(47, rep(12, ncol(media_trend_z_scores_yes) - 1))
+  cols = 1:ncol(media_trend_z_scores_yes),
+  widths = c(47, rep(12, ncol(media_trend_z_scores_yes) - 1))
 )
 
 r <- 1
 
 writeData(wb, "Trust in media",
-          x = "Trust in the Media (UNWEIGHTED)",
-          startRow = r
+  x = "Trust in the Media (UNWEIGHTED)",
+  startRow = r
 )
 
 addStyle(wb, "Trust in media",
-         style = pt,
-         rows = r,
-         cols = 1
+  style = pt,
+  rows = r,
+  cols = 1
 )
 
 r <- r + 2
@@ -1216,21 +1216,21 @@ f_insert_sig_table(
 addWorksheet(wb, "TruMediaExDK")
 
 setColWidths(wb, "TruMediaExDK",
-             cols = 1:ncol(media_age_z_scores_ex_dk),
-             widths = c(47, rep(12, ncol(media_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(media_age_z_scores_ex_dk),
+  widths = c(47, rep(12, ncol(media_age_z_scores_ex_dk) - 1))
 )
 
 r <- 1
 
 writeData(wb, "TruMediaExDK",
-          x = "Trust in the Media (excluding Don't knows) (UNWEIGHTED)",
-          startRow = r
+  x = "Trust in the Media (excluding Don't knows) (UNWEIGHTED)",
+  startRow = r
 )
 
 addStyle(wb, "TruMediaExDK",
-         style = pt,
-         rows = r,
-         cols = 1
+  style = pt,
+  rows = r,
+  cols = 1
 )
 
 r <- r + 2
