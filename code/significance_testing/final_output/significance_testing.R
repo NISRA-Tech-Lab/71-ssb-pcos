@@ -78,7 +78,19 @@ unweighted_new <- data.frame(stat = unweighted_old$stat) %>%
     f_return_p(data_current$Confidential2, "Don't know") * 100,
     f_return_n(data_current$Confidential2),
     f_return_p(data_current$Confidential2[data_current$Confidential2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
-    f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"])
+    f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"]),
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current$TrustAssemblyElectedBody2, "Don't know") * 100,
+    f_return_n(data_current$TrustAssemblyElectedBody2),
+    f_return_p(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_n(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"]),
+    f_return_p(data_current$TrustMedia2, "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current$TrustMedia2, "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current$TrustMedia2, "Don't know") * 100,
+    f_return_n(data_current$TrustMedia2),
+    f_return_p(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"])
   ))
 
 names(unweighted_new) <- c("stat", current_year)
@@ -282,62 +294,23 @@ aware_trend_z_scores <- f_trend_z_scores(aware_trend, "% Yes")
 
 ## In Work vs Not in work ####
 
-work_status <- data.frame(
-  stat = c("% Yes", "Base"),
-  work = c(
-    f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "In paid employment") * 100,
-    f_return_n_group(data_current$PCOS1, data_current$EMPST2, "In paid employment")
-  ),
-  not = c(
-    f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "Not in paid employment") * 100,
-    f_return_n_group(data_current$PCOS1, data_current$EMPST2, "Not in paid employment")
-  ),
-  z = c(
-    f_return_z(
-      p1 = f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "In paid employment"),
-      n1 = f_return_n_group(data_current$PCOS1, data_current$EMPST2, "In paid employment"),
-      p2 = f_return_p_group(data_current$PCOS1, "Yes", data_current$EMPST2, "Not in paid employment"),
-      n2 = f_return_n_group(data_current$PCOS1, data_current$EMPST2, "Not in paid employment")
-    ),
-    NA
-  )
-)
-
-names(work_status) <- c(" ", "In work", "Not in work", "Z Score")
+work_status <- f_work_stats("PCOS1", "Yes", dk = FALSE)
 
 ## Age groups ####
 
-age_groups <- levels(data_current$AGE2)
-
-age_stats <- data.frame(stat = c("% Yes", "Base"))
-
-for (age in age_groups) {
-  age_stats[[age]] <- c(
-    f_return_p_group(data_current$PCOS1, "Yes", data_current$AGE2, age) * 100,
-    f_return_n_group(data_current$PCOS1, data_current$AGE2, age)
-  )
-}
-
-names(age_stats)[names(age_stats) == "stat"] <- " "
+age_stats <- f_age_stats("PCOS1", "Yes", dk = FALSE)
 
 age_z_scores <- f_age_z_scores("PCOS1", "Yes")
 
 ## Qualifications ####
 
-quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
-
-qual_stats <- data.frame(stat = c("% Yes", "Base"))
-
-for (qual in quals) {
-  qual_stats[[qual]] <- c(
-    f_return_p_group(data_current$PCOS1, "Yes", data_current$DERHIanalysis, qual) * 100,
-    f_return_n_group(data_current$PCOS1, data_current$DERHIanalysis, qual)
-  )
-}
-
-names(qual_stats)[names(qual_stats) == "stat"] <- " "
+qual_stats <- f_qual_stats("PCOS1", "Yes", dk = FALSE)
 
 qual_z_scores <- f_qual_z_scores("PCOS1", "Yes")
+
+## Limiting longstanding illness ####
+
+aware_illness <- f_ill_stats("PCOS1", "Yes", dk = FALSE)
 
 # Products ####
 
@@ -455,6 +428,10 @@ distrust_qual_z_scores <- f_qual_z_scores("TrustNISRA2", "Tend to distrust/Distr
 
 dont_know_qual_age_z_scores <- f_qual_z_scores("TrustNISRA2", "Don't know")
 
+## Limiting longstanding illness ####
+
+trust_illness <- f_ill_stats("TrustNISRA2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
 # Trust in NISRA (exc DK) ####
 
 ## Trend ####
@@ -482,6 +459,154 @@ trust_nisra_qual_ex_dk <- f_qual_stats("TrustNISRA2", "Trust a great deal/Tend t
 ## Qualification comparison ####
 
 trust_nisra_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+trust_illness_ex_dk <- f_ill_stats("TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust NI Assembly ####
+
+## Trend ####
+
+assembly_trend <- f_trend("Trust NI Assembly")
+
+assembly_trend_z_scores_yes <- f_trend_z_scores(assembly_trend, "% Yes")
+
+assembly_trend_z_scores_no <- f_trend_z_scores(assembly_trend, "% No")
+
+assembly_trend_z_scores_dk <- f_trend_z_scores(assembly_trend, "% DK")
+
+## Trust NI Assembly by Work Status ####
+
+assembly_work_stats <- f_work_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## Trust NI Assembly by Age ####
+
+assembly_age_stats <- f_age_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+assembly_age_z_scores <- f_age_z_scores("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust")
+
+assembly_disagree_age_z_scores <- f_age_z_scores("TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly")
+
+assembly_dont_know_age_z_scores <- f_age_z_scores("TrustAssemblyElectedBody2", "Don't know")
+
+## Trust NI Assembly by Qualification ####
+
+assembly_qual_stats <- f_qual_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+assembly_qual_z_scores <- f_qual_z_scores("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust")
+
+assembly_disagree_qual_z_scores <- f_qual_z_scores("TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly")
+
+assembly_dont_know_qual_z_scores <- f_qual_z_scores("TrustAssemblyElectedBody2", "Don't know")
+
+## Limited longstanding illness ####
+
+assembly_illness <- f_ill_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+# Trust NI Assembly (exc DK) ####
+
+## Trend ####
+
+assembly_trend_ex_dk <- f_trend("TruNIAssemExDK")
+
+assembly_trend_z_scores_ex_dk <- f_trend_z_scores(assembly_trend_ex_dk, "% Yes")
+
+## In work vs not in work ####
+
+assembly_work_ex_dk <- f_work_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+##  By Age ####
+
+assembly_age_ex_dk <- f_age_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+assembly_age_z_scores_ex_dk <- f_age_z_scores("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+assembly_qual_ex_dk <- f_qual_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+assembly_qual_z_scores_ex_dk <- f_qual_z_scores("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+assembly_illness_ex_dk <- f_ill_stats("TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust the Media ####
+
+## Trend ####
+
+media_trend <- f_trend("Trust in media")
+
+media_trend_z_scores_yes <- f_trend_z_scores(media_trend, "% Yes")
+
+media_trend_z_scores_no <- f_trend_z_scores(media_trend, "% No")
+
+media_trend_z_scores_dk <- f_trend_z_scores(media_trend, "% DK")
+
+## Trust the Media by Work Status ####
+
+media_work_stats <- f_work_stats("TrustMedia2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## Trust the Media by Age ####
+
+media_age_stats <- f_age_stats("TrustMedia2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+media_age_z_scores <- f_age_z_scores("TrustMedia2", "Trust a great deal/Tend to trust")
+
+media_disagree_age_z_scores <- f_age_z_scores("TrustMedia2", "Tend to distrust/Distrust greatly")
+
+media_dont_know_age_z_scores <- f_age_z_scores("TrustMedia2", "Don't know")
+
+## Trust the Media by Qualification ####
+
+media_qual_stats <- f_qual_stats("TrustMedia2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+media_qual_z_scores <- f_qual_z_scores("TrustMedia2", "Trust a great deal/Tend to trust")
+
+media_disagree_qual_z_scores <- f_qual_z_scores("TrustMedia2", "Tend to distrust/Distrust greatly")
+
+media_dont_know_qual_z_scores <- f_qual_z_scores("TrustMedia2", "Don't know")
+
+## Limited longstanding illness ####
+
+media_illness <- f_ill_stats("TrustMedia2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+# Trust the Media (exc DK) ####
+
+## Trend ####
+
+media_trend_ex_dk <- f_trend("TruMediaExDK")
+
+media_trend_z_scores_ex_dk <- f_trend_z_scores(media_trend_ex_dk, "% Yes")
+
+## In work vs not in work ####
+
+media_work_ex_dk <- f_work_stats("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+##  By Age ####
+
+media_age_ex_dk <- f_age_stats("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+media_age_z_scores_ex_dk <- f_age_z_scores("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+media_qual_ex_dk <- f_qual_stats("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+media_qual_z_scores_ex_dk <- f_qual_z_scores("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+media_illness_ex_dk <- f_ill_stats("TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 # Trust NISRA Statistics ####
 
@@ -519,6 +644,9 @@ trust_stats_disagree_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Tend 
 
 trust_stats_dont_know_qual_z_scores <- f_qual_z_scores("TrustNISRAstats2", "Don't know")
 
+## Limiting longstanding illness ####
+
+trust_stats_illness <- f_ill_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
 
 # Trust NISRA stats (exc DK) ####
 
@@ -547,6 +675,10 @@ trust_stats_qual_ex_dk <- f_qual_stats("TrustNISRAstats2", "Trust a great deal/T
 ## Qualification comparison ####
 
 trust_stats_qual_z_scores_ex_dk <- f_qual_z_scores("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+trust_stats_illness_ex_dk <- f_ill_stats("TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE)
 
 # Value ####
 
@@ -585,6 +717,10 @@ value_disagree_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Tend to disag
 
 value_dont_know_qual_z_scores <- f_qual_z_scores("NISRAstatsImp2", "Don't know")
 
+## Limiting longstanding illness ####
+
+value_illness <- f_ill_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
 # Value NISRA stats (exc DK) ####
 
 ## Trend ####
@@ -614,6 +750,9 @@ value_qual_ex_dk <- f_qual_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree
 
 value_qual_z_scores_ex_dk <- f_qual_z_scores("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
+## Limiting longstanding illness ####
+
+value_illness_ex_dk <- f_ill_stats("NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
 # Interference ####
 
@@ -647,6 +786,10 @@ interference_disagree_qual_z_scores <- f_qual_z_scores("Political2", "Tend to di
 
 interference_dont_know_qual_z_scores <- f_qual_z_scores("Political2", "Don't know")
 
+## Limiting longstanding illness ####
+
+interference_illness <- f_ill_stats("Political2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
+
 # NISRA stats free from interference (exc DK) ####
 
 ## Trend ####
@@ -675,6 +818,10 @@ interference_qual_ex_dk <- f_qual_stats("Political2", "Strongly Agree/Tend to Ag
 
 interference_qual_z_scores_ex_dk <- f_qual_z_scores("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
 
+## Limiting longstanding illness ####
+
+interference_illness_ex_dk <- f_ill_stats("Political2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
 # Confidentiality ####
 
 ## Trend ####
@@ -691,6 +838,8 @@ confidential_trend_z_scores_dk <- f_trend_z_scores(confidential_trend, "% DK")
 
 confidential_work_stats <- f_work_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
+## By Age ####
+
 confidential_age_stats <- f_age_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
 confidential_age_z_scores <- f_age_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
@@ -699,6 +848,8 @@ confidential_disagree_age_z_scores <- f_age_z_scores("Confidential2", "Tend to d
 
 confidential_dont_know_age_z_scores <- f_age_z_scores("Confidential2", "Don't know")
 
+## By Qualification ####
+
 confidential_qual_stats <- f_qual_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
 confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree")
@@ -706,6 +857,10 @@ confidential_qual_z_scores <- f_qual_z_scores("Confidential2", "Strongly Agree/T
 confidential_disagree_qual_z_scores <- f_qual_z_scores("Confidential2", "Tend to disagree/Strongly disagree")
 
 confidential_dont_know_qual_z_scores <- f_qual_z_scores("Confidential2", "Don't know")
+
+## Limiting longstanding illness ####
+
+confidential_illness <- f_ill_stats("Confidential2", "Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree")
 
 # NISRA will keep my information confidential (exc DK) ####
 
@@ -734,3 +889,7 @@ confidential_qual_ex_dk <- f_qual_stats("Confidential2", "Strongly Agree/Tend to
 ## Qualification comparison ####
 
 confidential_qual_z_scores_ex_dk <- f_qual_z_scores("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+confidential_illness_ex_dk <- f_ill_stats("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
