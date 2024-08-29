@@ -3,7 +3,7 @@ source(paste0(here(), "/code/config.R"))
 
 # 2021 Data ####
 
-data_2021 <- readspss::read.sav(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022).sav"), use.missings = TRUE) %>%
+data_2021 <- readspss::read.sav(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022) (PCOS1 DK set to valid).sav"), use.missings = TRUE) %>%
   mutate(
     AwareNISRA2 = PCOS1,
     TrustAssemblyElectedBody2 = TrustNIAssembly2,
