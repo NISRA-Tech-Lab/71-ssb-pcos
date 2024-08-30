@@ -180,6 +180,22 @@ In order to output a new version of the Background Quality Report HTML document:
 
 ### [code/infographic](code/infographic)
 
+This folder contains code and templates needed to produce infographics. The infographics are output as PDF files.
+
+The three template files:
+
+-    Awareness - Infographic Template.svg
+-    Overview - Infographic Template.svg
+-    Trust - Infographic Template.svg
+
+The templates can be edited using [Inkscape](https://inkscape.org/) (available on ITAssist Store)
+
+#### [infographic prep.R](code/infographic/infographic%20prep.R)
+
+This script is used to prepare data frames that will be used to plot the various charts that appear in the three infographic.
+
+#### [infographic charts.R](code/infographic/infographic%20charts.R)
+
 ### [code/ministerial_sub](code/ministerial_sub)
 
 ### [code/ods_tables](code/ods_tables)
