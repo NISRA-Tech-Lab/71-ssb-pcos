@@ -242,6 +242,14 @@ aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fil
       hjust = 0.5
     )
   ) +
+  scale_fill_manual(values = c("#CBE346", "#00205b")) +
+  scale_color_manual(values = label_cols)
+
+overview_chart_1 <- aware_trust_chart_1 +
+  labs(
+    title = "Respondents' awareness",
+    subtitle = bquote("of" ~ bold("NISRA") ~ .(current_year))
+  ) +
   geom_text(
     x = c(3.7, -2.15),
     aes(
@@ -251,14 +259,6 @@ aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fil
     ),
     size = 6,
     fontface = "bold"
-  ) +
-  scale_fill_manual(values = c("#CBE346", "#00205b")) +
-  scale_color_manual(values = label_cols)
-
-overview_chart_1 <- aware_trust_chart_1 +
-  labs(
-    title = "Respondents' awareness",
-    subtitle = bquote("of" ~ bold("NISRA") ~ .(current_year))
   )
 
 overview_chart_1
@@ -447,7 +447,7 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
     subtitle = "Northern Ireland"
   ) +
   theme(
-    text = element_text(size = 14),
+    text = element_text(size = 12),
     axis.line.x = element_line(color = "#D9D9D9"),
     axis.line.y = element_blank(),
     axis.ticks = element_blank(),
@@ -550,15 +550,15 @@ aware_trust_chart_5 <- ggplot(
 aware_trust_chart_5
 
 ## Overview Output ####
-save_plot(paste0(here(), "/outputs/infographics/Awareness1.png"), fig = overview_chart_1, width = 11, height = 9)
-save_plot(paste0(here(), "/outputs/infographics/Awareness2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/Awareness3.png"), fig = aware_trust_chart_3, width = 11, height = 8)
-save_plot(paste0(here(), "/outputs/infographics/Awareness4.png"), fig = aware_trust_chart_4, width = 11, height = 7)
-save_plot(paste0(here(), "/outputs/infographics/Awareness5.png"), fig = aware_trust_chart_5, width = 18, height = 7)
+save_plot(paste0(here(), "/outputs/infographics/Overview1.png"), fig = overview_chart_1, width = 11, height = 9)
+save_plot(paste0(here(), "/outputs/infographics/Overview2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/Overview3.png"), fig = aware_trust_chart_3, width = 11, height = 8)
+save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 11, height = 7)
+save_plot(paste0(here(), "/outputs/infographics/Overview5.png"), fig = aware_trust_chart_5, width = 18, height = 7)
 
 # Awareness Infographic ####
 
-## Chart 1 ####
+## Respondents' Awareness of NISRA ####
 
 caption_1 <- ggplot() +
   annotate("text",
@@ -583,10 +583,22 @@ caption_2 <- ggplot() +
   theme_void()
 
 aware_trust_chart_1 <- aware_trust_chart_1 +
+  geom_text(
+    x = c(3.7, -2.15),
+    aes(
+      y = c(12, 12),
+      label = label,
+      color = label
+    ),
+    size = 8,
+    fontface = "bold"
+  ) +
   inset_element(caption_1, left = 0.5, right = 0.5, top = 0.55, bottom = 0.55) +
   inset_element(caption_2, left = 0.5, right = 0.5, top = 0.45, bottom = 0.45)
 
 aware_trust_chart_1
+
+save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 14, height = 14)
 
 ## Bubble Chart ####
 
@@ -639,8 +651,6 @@ caption_2 <- ggplot() +
   coord_cartesian(clip = "off") +
   theme_void()
 
-
-
 bubble_chart <- ggplot() +
   theme_void() +
   theme(
@@ -663,7 +673,8 @@ bubble_chart <- ggplot() +
 
 connecting_line <- ggplot() + 
   theme_void() +
-  geom_hline(yintercept = 0)
+  geom_hline(yintercept = 0,
+             linewidth = 2)
 
 for (i in 1:nrow(awareness_info_data1)) {
   
@@ -721,15 +732,14 @@ for (i in 1:nrow(awareness_info_data1)) {
       top = 0.5
     )
   
-  if (i != nrow(awareness_info_data1)) {
+  if (i != 1) {
     
     bubble_chart <- bubble_chart +
-      +
       inset_element(
         p = connecting_line,
-        left = right,
+        left = left - 0.015,
         bottom = 0.5,
-        right = right + awareness_info_data1$diameter[i],
+        right = left + 0.015,
         top = 0.5
       )
     
@@ -737,10 +747,14 @@ for (i in 1:nrow(awareness_info_data1)) {
   
 }
 
-
 bubble_chart
 
-## Chart 3 ####
+png(filename = paste0(here(), "/outputs/infographics/info2.png"),
+    width = 11, height = 10, units = "cm", res = 300)
+print(bubble_chart)
+dev.off()
+
+## Compared to ONS ####
 
 nisra_ons_z <- f_return_z(
   p1 = aware_nisra_trend[[as.character(current_year)]][1] / 100,
@@ -764,8 +778,13 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
   label = Percentage
 )) +
   geom_bar(
-    position = "dodge", stat = "identity", height = 0.8,
-    colour = NA, size = 0
+    position = "dodge",
+    stat = "identity", 
+    height = 0.8,
+    colour = NA, 
+    size = 0,
+    width = 0.7,
+    key_glyph = draw_square
   ) +
   scale_fill_manual(values = alpha(c("#3878c5", "#CBE346"))) +
   labs(
@@ -778,16 +797,19 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
     axis.title.x = element_blank(),
     legend.title = element_blank(),
     legend.text = element_text(size = 10),
+    legend.key = element_blank(),
     axis.text.y = element_blank(),
     axis.ticks = element_blank(),
     axis.text.x = element_text(size = 10),
     plot.title = element_text(
       hjust = 0.5,
-      color = "#747474"
+      color = "#747474",
+      size = 14
     ),
     plot.subtitle = element_text(
       hjust = 0.5,
-      color = "#747474"
+      color = "#747474",
+      size = 14
     ),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -795,7 +817,7 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
     panel.background = element_blank(),
     axis.line.x = element_line(
       color = "#000000",
-      linewidth = 2
+      linewidth = 1.5
     )
   ) +
   geom_text(
@@ -811,7 +833,9 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
 
 pub_awareness_chart_2
 
-## Chart 4 ####
+save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 12, height = 10)
+
+## Awareness of specific NISRA statistics ####
 aes(reorder(variable, value), value)
 
 chart_order <- awareness_info_data3 %>%
@@ -831,7 +855,7 @@ pub_awareness_chart_3 <- ggplot(
   )
 ) +
   geom_bar(
-    width = 0.5,
+    width = 0.7,
     position = "stack",
     stat = "identity",
     color = NA,
@@ -865,12 +889,12 @@ pub_awareness_chart_3 <- ggplot(
     text = element_text(size = 12),
     axis.text.x = element_text(size = 15),
     axis.title.x = element_text(size = 15),
-    axis.text.y = element_text(size = 14),
+    axis.text.y = element_text(size = 15),
     axis.ticks = element_blank(),
     plot.title = element_text(
-      hjust = 0.2,
+      hjust = 1,
       color = "#747474",
-      size = 16
+      size = 24
     ),
     legend.position = "top",
     legend.text = element_text(size = 12),
@@ -890,12 +914,13 @@ pub_awareness_chart_3 <- ggplot(
 
 pub_awareness_chart_3
 
+save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 34, height = 17)
+
 ## Awareness Infographic Output ####
-save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 14, height = 14)
-# save_plot(paste0(here(), "/outputs/infographics/info2.png"), fig = bubble_chart, width = 11, height = 10)
-ggsave(paste0(here(), "/outputs/infographics/info2.png"), plot = bubble_chart, width = 11, height = 10, units = "cm", bg = "transparent")
-save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 11, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 32, height = 17)
+
+
+
+
 
 
 # Convert to PDF ####
@@ -903,7 +928,7 @@ save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness
 infographic_template <- readLines(paste0(here(), "/code/infographic/Overview - Infographic template.svg")) %>%
   gsub('id="tspan12">YEAR', paste0('id="tspan12">', current_year), ., fixed = TRUE)
 
-for (plot in c("Awareness1", "Awareness2", "Awareness3", "Awareness4", "Awareness5")) {
+for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5")) {
   infographic_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
     paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
     infographic_template,
