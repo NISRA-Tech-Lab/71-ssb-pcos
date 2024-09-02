@@ -1760,12 +1760,12 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.9788853"
-     inkscape:cx="154.76788"
-     inkscape:cy="407.0957"
+     inkscape:zoom="1.9577706"
+     inkscape:cx="725.5702"
+     inkscape:cy="322.04999"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1783,13 +1783,13 @@
        margin="0"
        bleed="0" />
   </sodipodi:namedview>
-  <image
-     height="611.13159"
-     width="773.40747"
-     href="../../outputs/infographics/info2.png"
-     id="image2"
-     x="347.70795"
-     y="-6.7734022" />
+  <rect
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:square;stroke-miterlimit:26.3;stroke-dasharray:none;paint-order:markers stroke fill"
+     id="rect4"
+     width="72.531479"
+     height="44.438301"
+     x="962.82983"
+     y="259.47882" />
   <image
      height="402.86142"
      width="397.72885"
@@ -1797,6 +1797,24 @@
      id="image3"
      x="10.3696"
      y="385.55334" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+     d="m 475.30954,282.9755 481.09681,-0.62138"
+     id="path2" />
+  <rect
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:square;stroke-miterlimit:26.3;stroke-dasharray:none;paint-order:markers stroke fill"
+     id="rect2"
+     width="72.531479"
+     height="44.438301"
+     x="696.71082"
+     y="261.01117" />
+  <rect
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:square;stroke-miterlimit:26.3;stroke-dasharray:none;paint-order:markers stroke fill"
+     id="rect3"
+     width="72.531479"
+     height="44.438301"
+     x="835.13354"
+     y="262.03275" />
   <image
      height="294.21039"
      width="314.14291"
@@ -1804,6 +1822,15 @@
      id="image1"
      x="17.755003"
      y="103.53574" />
+  <image
+     height="611.13159"
+     width="773.40747"
+     href="../../outputs/infographics/info2.png"
+     id="image2"
+     x="346.58371"
+     y="-23.541672"
+     style="image-rendering:optimizeQuality"
+     inkscape:svg-dpi="1" />
   <image
      height="415.61017"
      width="672.01495"
@@ -1868,10 +1895,6 @@
        y="0"
        sodipodi:role="line"
        id="tspan1" /></text>
-  <path
-     id="path14"
-     d="m 761.89512,94.592744 h 53.6 v -2.08 h -53.6 z"
-     style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.33333" />
   <text
      id="text19"
      xml:space="preserve"
@@ -1888,6 +1911,10 @@
        y="0"
        sodipodi:role="line"
        id="tspan17" /></text>
+  <path
+     id="path14"
+     d="m 761.89512,96.59274 h 53.6 v -2.08 h -53.6 z"
+     style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.33333" />
   <g
      id="g16"
      style="fill:#00205b;fill-opacity:1"

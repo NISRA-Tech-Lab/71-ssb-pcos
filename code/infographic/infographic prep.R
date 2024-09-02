@@ -1,5 +1,5 @@
 library(here)
-source(paste0(here(), "/code/html_publiation/data_prep.R"))
+source(paste0(here(), "/code/html_publication/data_prep.R"))
 
 if (!dir.exists(paste0(here(), "/outputs/infographics"))) {
   dir.create(paste0(here(), "/outputs/infographics"))
@@ -237,6 +237,8 @@ awareness_info_data2$Group <- toupper(awareness_info_data2$Group)
 awareness_info_data3 <- gather(aware_stats_data, Answer, Percentage, -`output`) %>%
   rename(Group = output) %>%
   mutate(
+    Group = case_when(grepl("Percentage of journeys", Group) ~ "Journeys by walking, cycling, public transport",
+                      TRUE ~ Group),
     Percentage = round_half_up(Percentage, 1),
     Answer = factor(Answer,
       levels = c("dont_know", "no", "yes"),

@@ -7,7 +7,7 @@
    width="1122.5601"
    height="793.76001"
    viewBox="0 0 1122.5601 793.76001"
-   sodipodi:docname="Overview - Infographic template.svg"
+   sodipodi:docname="Overview - Infographic Template.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -1680,11 +1680,11 @@
      y="-302.88318" />
   <image
      height="333.05875"
-     width="392.82376"
+     width="376.47864"
      href="../../outputs/infographics/Awareness3.png"
      id="image3"
-     x="726.98071"
-     y="121.26237" />
+     x="736.1748"
+     y="118.19765" />
   <image
      height="338.70111"
      width="623.93542"
@@ -1693,13 +1693,13 @@
      x="505.52567"
      y="459.07364" />
   <image
-     height="1121.1343"
+     height="259.96451"
      width="504.55023"
      href="../../outputs/infographics/Awareness4.png"
      id="image4"
-     x="15.698772"
-     y="70.165695"
-     transform="matrix(1,0,0.00273273,0.99999627,0,0)" />
+     x="5.908277"
+     y="500.28125"
+     transform="matrix(1,0,0.01178529,0.99993055,0,0)" />
   <g
      id="g8"
      inkscape:groupmode="layer"

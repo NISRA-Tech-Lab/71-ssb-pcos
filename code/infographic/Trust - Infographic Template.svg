@@ -222,6 +222,69 @@
          clip-rule="evenodd"
          id="path2" />
     </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath7">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-296.57001,555.48001)"
+         clip-rule="evenodd"
+         id="path7" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-335.65881,555.48001)"
+         clip-rule="evenodd"
+         id="path8" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath9">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-455.95001,555.48001)"
+         clip-rule="evenodd"
+         id="path9" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath10">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-511.15001,555.48001)"
+         clip-rule="evenodd"
+         id="path10" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath11">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-561.34001,555.48001)"
+         clip-rule="evenodd"
+         id="path11" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath12">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-368.69001,528.22001)"
+         clip-rule="evenodd"
+         id="path12" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath13">
+      <path
+         d="m 266.93,521.86 h 503.59 v 54.264 H 266.93 Z"
+         transform="matrix(1,0,0,-1,-628.42001,528.22001)"
+         clip-rule="evenodd"
+         id="path13" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="namedview1"
@@ -233,9 +296,9 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.64"
-     inkscape:cx="736.71875"
-     inkscape:cy="236.71875"
+     inkscape:zoom="1.8101934"
+     inkscape:cx="671.47521"
+     inkscape:cy="581.98201"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -258,32 +321,32 @@
      inkscape:label="1">
     <image
        height="368.08234"
-       width="389.29556"
+       width="452.82468"
        href="../../outputs/infographics/trust1.png"
        id="image1"
-       x="-0.3338058"
-       y="90.353287" />
+       x="-31.269726"
+       y="94.772705" />
     <image
        height="339.79373"
-       width="508.32089"
+       width="495.61505"
        href="../../outputs/infographics/trust3.png"
        id="image3"
-       x="13.674433"
+       x="5.9404526"
        y="444.09659" />
     <image
-       height="317.74734"
+       height="287.91629"
        width="697.36658"
        href="../../outputs/infographics/trust2.png"
        id="image2"
-       x="387.35425"
-       y="113.70759" />
+       x="390.66882"
+       y="123.65128" />
     <image
        height="344.18613"
-       width="610.69269"
+       width="581.41406"
        href="../../outputs/infographics/trust4.png"
        id="image4"
-       x="502.4361"
-       y="448.95346" />
+       x="519.00891"
+       y="446.19135" />
     <g
        id="g22">
       <path
@@ -300,69 +363,6 @@
          style="fill:#002060;fill-opacity:1;fill-rule:evenodd;stroke:#002060;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
          transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)"
          clip-path="url(#clipPath25)" />
-    </g>
-    <g
-       id="g25">
-      <text
-         id="text25"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,364.38667,39.52)"
-         clip-path="url(#clipPath26)"><tspan
-           style="font-variant:normal;font-weight:700;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 12.34032 23.642879 34.945438 40.089119"
-           y="0"
-           sodipodi:role="line"
-           id="tspan25">Publi</tspan></text>
-      <text
-         id="text26"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,424.54667,39.52)"
-         clip-path="url(#clipPath27)"><tspan
-           style="font-variant:normal;font-weight:700;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 10.28736 15.43104 26.733601 33.930241 45.119999 55.40736 61.566238 66.709923 71.763359 83.065918 88.209602 100.54992 106.7088 116.99616 123.15504 128.16336 138.45071 144.6096 149.75328 159.97296"
-           y="0"
-           sodipodi:role="line"
-           id="tspan26">c Trust in Statistics</tspan></text>
-      <text
-         id="text27"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,658.49333,39.52)"
-         clip-path="url(#clipPath28)"><tspan
-           style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 10.28736 16.310881 26.59824 36.885601 47.172958 56.422562 66.597122 76.884483 82.02816 92.383202"
-           y="0"
-           sodipodi:role="line"
-           id="tspan27">produced by</tspan></text>
-      <text
-         id="text28"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,800.77333,39.52)"
-         clip-path="url(#clipPath29)"><tspan
-           style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 5.1436801 15.36336 25.650721 30.726721 44.082241 54.369598 60.528481 65.672157 75.846718 86.134079 92.292961 102.58032"
-           y="0"
-           sodipodi:role="line"
-           id="tspan28">the Northern </tspan></text>
-      <text
-         id="text29"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,944.45333,39.52)"
-         clip-path="url(#clipPath30)"><tspan
-           style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 5.1436801 11.1672 21.454559 25.56048 35.757599 46.04496 56.332321"
-           y="0"
-           sodipodi:role="line"
-           id="tspan29">Ireland </tspan></text>
-      <text
-         id="text30"
-         xml:space="preserve"
-         transform="matrix(1.3333333,0,0,1.3333333,518.30667,76.666667)"
-         clip-path="url(#clipPath31)"><tspan
-           style="font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:22.56px;font-family:Arial;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           x="0 12.34032 17.483999 27.816481 32.960159 37.066078 46.180321 51.324001 55.42992 64.67952 73.929123 79.0728 89.26992 99.557281 109.84464 114.8304 128.18591 138.47328 147.72289 157.92 168.20737 174.36624 183.61584 193.9032 198.95663 211.29697 221.51665 231.71376 242.00111 251.25072 260.50031"
-           y="0"
-           sodipodi:role="line"
-           id="tspan30">Statistics and Research Agency </tspan></text>
     </g>
     <g
        id="g18-1"
@@ -513,5 +513,27 @@
        d="m 1049.3868,80.125 h 3.1928 l -6.9735,7.96839 8.2036,10.84461 h -6.4218 l -5.0333,-6.57551 -5.7524,6.57551 h -3.1974 l 7.4574,-8.52465 -7.8644,-10.28835 h 6.5845 l 4.545,6.01021 z m -1.1215,16.90456 h 1.7682 l -11.4144,-15.09562 h -1.8994 z"
        id="path1-6"
        style="fill:#ffffff;fill-opacity:1;stroke-width:0.0452235" />
+    <text
+       xml:space="preserve"
+       style="fill:#ffffff;fill-opacity:1;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.28px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke:none"
+       x="711.31909"
+       y="42.398785"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="711.31909"
+         y="42.398785"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Arial;-inkscape-font-specification:'Arial Condensed';fill:#ffffff"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-family:Arial;-inkscape-font-specification:'Arial Bold Condensed';fill:#ffffff"
+   id="tspan4">Public Trust in Statistics</tspan> produced by the Northern Ireland</tspan><tspan
+         sodipodi:role="line"
+         x="711.31909"
+         y="78.998779"
+         id="tspan3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Arial;-inkscape-font-specification:'Arial Condensed';fill:#ffffff">Statistics and Research Agency YEAR</tspan></text>
+    <path
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:1.86774;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="M 858.37208,82.472657 H 909.9834"
+       id="path3" />
   </g>
 </svg>
