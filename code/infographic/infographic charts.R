@@ -1,6 +1,344 @@
 library(here)
 source(paste0(here(), "/code/infographic/infographic prep.R"))
 
+# Overview Infographic ####
+## Respondents' awareness of NISRA ####
+
+label_cols <- c("#00205b", "#889956")
+names(label_cols) <- donut_chart_df$label
+
+aware_nisra_chart <- ggplot(donut_chart_df, aes(x = 2.5, y = Percentage, fill = Answer)) +
+  geom_col(
+    colour = NA,
+    size = 0
+  ) +
+  coord_polar(theta = "y", start = 0) +
+  xlim(c(
+    0.8,
+    3.3
+  )) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    axis.line.x = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks = element_blank(),
+    plot.title = element_text(
+      size = 18,
+      color = "#747474",
+      hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 18,
+      color = "#747474",
+      hjust = 0.5
+    )
+  ) +
+  scale_fill_manual(values = c("#CBE346", "#00205b")) +
+  scale_color_manual(values = label_cols)
+
+overview_chart_1 <- aware_nisra_chart +
+  labs(
+    title = "Respondents' awareness",
+    subtitle = bquote("of" ~ bold("NISRA") ~ .(current_year))
+  ) +
+  geom_text(
+    x = c(3.7, -2.15),
+    aes(
+      y = c(12, 12),
+      label = label,
+      color = label
+    ),
+    size = 6,
+    fontface = "bold"
+  )
+
+overview_chart_1
+
+save_plot(paste0(here(), "/outputs/infographics/Overview1.png"), fig = overview_chart_1, width = 11, height = 9)
+
+## Trust in NISRA statistics ####
+
+aware_trust_chart_2 <- ggplot(trust_df, aes(fill = Category, x = Percentage, y = Year)) +
+  geom_bar(
+    colour = NA, size = 0, position = "stack", width = 0.6, stat = "identity",
+    key_glyph = f_draw_square
+  ) +
+  scale_fill_manual(
+    values = alpha(c("#888A87", "#CBE346", "#00205b")),
+    labels = c(
+      " \nDon't know\n ", " \nTend to distrust/\ndistrust greatly\n ",
+      " \nTend to trust/\ntrust a great deal\n "
+    )
+  ) +
+  labs(title = bquote("Trust in" ~ bold("NISRA") ~ "statistics")) +
+  theme(
+    axis.line = element_line(colour = "black"),
+    axis.line.x = element_blank(),
+    axis.line.y = element_line(color = "#D9D9D9"),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.title.y = element_blank(),
+    text = element_text(size = 15),
+    legend.key = element_blank(),
+    legend.title = element_blank(),
+    plot.title = element_text(
+      hjust = 1,
+      vjust = -2,
+      size = 20,
+      margin = margin(0, 0, 30, 0),
+      color = "#747474"
+    )
+  ) +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20)) +
+  geom_text(aes(label = Percentage),
+    fontface = "bold",
+    size = 3.5,
+    position = position_stack(vjust = 0.5),
+    color = ifelse(trust_df$Category == "Tend to distrust/distrust a great deal",
+      "#404040",
+      "#ffffff"
+    )
+  ) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(expand = FALSE)
+
+aware_trust_chart_2
+
+save_plot(paste0(here(), "/outputs/infographics/Overview2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
+
+## Personal information provided to NISRA will be kept confidential ####
+
+aware_trust_chart_3 <- ggplot(
+  confidentiality,
+  aes(fill = Category, y = Percentage, x = Year)
+) +
+  geom_bar(
+    position = "stack",
+    width = 0.6,
+    stat = "identity",
+    colour = NA,
+    size = 0,
+    key_glyph = f_draw_square
+  ) +
+  scale_fill_manual(
+    values = alpha(c("#888A87", "#CBE346", "#00205b")),
+    labels = c(
+      " \nDon't know\n ", " \nTend to disagree/\nstrongly disagree\n ",
+      " \nStrongly agree/\ntend to agree\n "
+    )
+  ) +
+  labs(
+    title = "Personal Information provided to",
+    subtitle = bquote(~ bold("NISRA") ~ "will be kept confidential")
+  ) +
+  theme( # axis.line = element_line(colour = "black"),
+    axis.line.x = element_line(color = "#D9D9D9"),
+    axis.line.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.title.x = element_blank(),
+    text = element_text(size = 16),
+    legend.key = element_blank(),
+    legend.text = element_text(size = 8),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.box.margin = margin(-7, -7, -7, -7),
+    legend.title = element_blank(),
+    plot.title = element_text(
+      size = 14,
+      color = "#747474",
+      hjust = 0.5,
+      vjust = 4
+    ),
+    plot.subtitle = element_text(
+      size = 14,
+      color = "#747474",
+      hjust = 0.5,
+      vjust = 4
+    ),
+    plot.margin = margin(r = 10, t = 20)
+  ) +
+  geom_text(aes(label = Percentage),
+    fontface = "bold",
+    size = 3.5,
+    position = position_stack(vjust = 0.5),
+    color = ifelse(confidentiality$Category == "Strongly Agree/Tend to agree" |
+      confidentiality$Category == "Don't know",
+    "white", "black"
+    ),
+    hjust = ifelse(confidentiality$Percentage < 4, -2, 0.5)
+  ) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20)) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(
+    xlim = c(0.5, length(unique(confidentiality$Year)) + 0.7),
+    expand = FALSE
+  )
+
+aware_trust_chart_3
+
+save_plot(paste0(here(), "/outputs/infographics/Overview3.png"), fig = aware_trust_chart_3, width = 11, height = 8)
+
+## NISRA statistics are important to understand Northern Ireland ####
+important_df$Category <- factor(important_df$Category,
+  levels = c(
+    "Don't know",
+    "Tend to disagree/strongly disagree",
+    "Strongly agree/tend to agree"
+  )
+)
+
+# Create plot
+aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage, x = Year)) +
+  geom_col(
+    position = "stack", key_glyph = f_draw_square, width = 0.6,
+    stat = "identity", colour = NA, size = 0
+  ) +
+  scale_fill_manual(
+    values = alpha(c("#888A87", "#CBE346", "#00205b", "#00205b", "#00205b")),
+    labels = c(
+      " \nDon't know\n ", " \nTend to disagree/\nstrongly disagree\n ",
+      " \nStrongly agree/\ntend to agree\n "
+    )
+  ) +
+  labs(
+    title = bquote(~ bold("NISRA") ~ "statistics are important to understand"),
+    subtitle = "Northern Ireland"
+  ) +
+  theme(
+    text = element_text(size = 12),
+    axis.line.x = element_line(color = "#D9D9D9"),
+    axis.line.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.title.x = element_blank(),
+    legend.key = element_blank(),
+    legend.title = element_blank(),
+    legend.text = element_text(size = 8),
+    plot.title = element_text(
+      size = 12,
+      color = "#747474",
+      hjust = 0.5,
+      vjust = 0.6
+    ),
+    plot.subtitle = element_text(
+      size = 12,
+      color = "#747474",
+      hjust = 0.5,
+      vjust = 1.5
+    ),
+    plot.margin = margin(l = 10)
+  ) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  geom_text(aes(label = Percentage),
+    fontface = "bold",
+    size = 3,
+    position = position_stack(vjust = 0.5),
+    color = ifelse(important_df$Category == "Tend to disagree/strongly disagree",
+      "#000000", "#ffffff"
+    ),
+    hjust = ifelse(important_df$Percentage < 4, -3.2, 0.5)
+  ) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(
+    xlim = c(0.5, length(unique(important_df$Year)) + 0.7),
+    expand = FALSE
+  )
+
+aware_trust_chart_4
+
+save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 11, height = 7)
+
+## Trust in NISRA compared to other institutions ####
+
+bar_order <- c("The NI Assembly ", "The Civil Service ", "The media ", "NISRA ")
+
+aware_trust_chart_5 <- ggplot(
+  trust_compared_df,
+  aes(
+    fill = Category,
+    x = Percentage,
+    y = factor(Institution, level = bar_order),
+    label = Percentage
+  )
+) +
+  geom_bar(position = "stack", width = 0.5, stat = "identity", colour = NA, size = 0, key_glyph = f_draw_square) +
+  scale_fill_manual(values = alpha(c("#888A87", "#CBE346", "#00205b"))) +
+  labs(title = bquote("Trust in" ~ bold("NISRA") ~ "compared to other institutions")) +
+  theme(
+    text = element_text(size = 18),
+    legend.position = "top",
+    legend.justification = "center",
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(size = 8),
+    axis.text = element_text(size = 10),
+    legend.title = element_blank(),
+    axis.line.x = element_blank(),
+    axis.line.y = element_blank(),
+    axis.ticks = element_blank(),
+    legend.text = element_text(size = 8),
+    legend.key = element_blank(),
+    axis.line = element_line(colour = "black"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    plot.title = element_text(
+      size = 14,
+      color = "#747474",
+      hjust = 0.5,
+      vjust = 5
+    ),
+    plot.margin = margin(l = 20, r = 20, t = 50)
+  ) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  geom_text(aes(label = Percentage),
+    fontface = "bold",
+    size = 3,
+    position = position_stack(vjust = 0.5),
+    color = ifelse(trust_compared_df$Category == "Tend to distrust/distrust a great deal",
+      "#000000",
+      "#ffffff"
+    )
+  ) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  coord_cartesian(expand = FALSE)
+
+aware_trust_chart_5
+
+save_plot(paste0(here(), "/outputs/infographics/Overview5.png"), fig = aware_trust_chart_5, width = 18, height = 10)
+
+## Convert to PDF ####
+infographic_template <- readLines(paste0(here(), "/code/infographic/Overview - Infographic template.svg")) %>%
+  gsub('id="tspan12">YEAR', paste0('id="tspan12">', current_year), ., fixed = TRUE)
+
+for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5")) {
+  infographic_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
+    paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
+    infographic_template,
+    fixed = TRUE
+  )
+}
+
+writeLines(infographic_template, paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
+
+rsvg_pdf(
+  svg = paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"),
+  file = paste0(here(), "/outputs/Overview Infographic - ", current_year, ".pdf")
+)
+
+unlink(paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
+
+
 # Trust Infographic ####
 ## Respondents' Trust NISRA Statistics ####
 
@@ -35,6 +373,8 @@ trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
   scale_color_manual(values = label_cols)
 
 trust_chart_1
+
+save_plot(paste0(here(), "/outputs/infographics/trust1.png"), fig = trust_chart_1, width = 12, height = 10)
 
 ## Trust in NISRA ####
 
@@ -86,7 +426,9 @@ trust_chart_2 <- ggplot(trust_info_data2, aes(Year, `Percentage\n`)) +
 
 trust_chart_2
 
-## Chart 3 ####
+save_plot(paste0(here(), "/outputs/infographics/trust2.png"), fig = trust_chart_2, width = 40, height = 18)
+
+## NISRA stats are free from political interference ####
 
 chart_3_perc <- paste0(trust_info_data3$Percentage[trust_info_data3$Year == current_year], "%")
 
@@ -145,8 +487,7 @@ trust_chart_3 <- ggplot(
 
 trust_chart_3
 
-## Chart 4 ####
-# Trust in NISRA statistics remains high at 85%
+## Trust in statistics compared to ONS ####
 
 chart_4_perc <- paste0(trust_info_data4$Percentage[trust_info_data4$Year == current_year], "%")
 
@@ -197,364 +538,9 @@ trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = 
 
 trust_chart_4
 
-## Trust Infographic Output ####
-save_plot(paste0(here(), "/outputs/infographics/trust1.png"), fig = trust_chart_1, width = 12, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/trust2.png"), fig = trust_chart_2, width = 40, height = 18)
-save_plot(paste0(here(), "/outputs/infographics/trust3.png"), fig = trust_chart_3, width = 18, height = 12)
 save_plot(paste0(here(), "/outputs/infographics/trust4.png"), fig = trust_chart_4, width = 32, height = 18)
 
-# Overview Infographic ####
-## Respondents' awareness of NISRA ####
 
-hsize <- 2.5
-
-addline_format <- function(x, ...) {
-  gsub("\\s", "\n", x)
-}
-
-label_cols <- c("#00205b", "#889956")
-names(label_cols) <- donut_chart_df$label
-
-aware_trust_chart_1 <- ggplot(donut_chart_df, aes(x = hsize, y = Percentage, fill = Answer)) +
-  geom_col(
-    colour = NA,
-    size = 0
-  ) +
-  coord_polar(theta = "y", start = 0) +
-  xlim(c(
-    0.8,
-    hsize + .8
-  )) +
-  theme_void() +
-  theme(
-    legend.position = "none",
-    axis.line.x = element_blank(),
-    axis.line.y = element_blank(),
-    axis.ticks = element_blank(),
-    plot.title = element_text(
-      size = 18,
-      color = "#747474",
-      hjust = 0.5
-    ),
-    plot.subtitle = element_text(
-      size = 18,
-      color = "#747474",
-      hjust = 0.5
-    )
-  ) +
-  scale_fill_manual(values = c("#CBE346", "#00205b")) +
-  scale_color_manual(values = label_cols)
-
-overview_chart_1 <- aware_trust_chart_1 +
-  labs(
-    title = "Respondents' awareness",
-    subtitle = bquote("of" ~ bold("NISRA") ~ .(current_year))
-  ) +
-  geom_text(
-    x = c(3.7, -2.15),
-    aes(
-      y = c(12, 12),
-      label = label,
-      color = label
-    ),
-    size = 6,
-    fontface = "bold"
-  )
-
-overview_chart_1
-
-## Trust in NISRA statistics ####
-
-draw_square <- function(data, params, size) {
-  if (is.null(data$size)) {
-    data$size <- 0.4
-  }
-  lwd <- 2
-  grid::rectGrob(
-    width = unit(1, "snpc") - unit(lwd, "mm"),
-    height = unit(1, "snpc") - unit(lwd, "mm"),
-    gp = gpar(
-      col = data$colour %||% NA,
-      fill = alpha(data$fill %||% "grey20", data$alpha),
-      lty = data$linetype %||% 1,
-      lwd = lwd * .pt,
-      linejoin = params$linejoin %||% "mitre",
-      lineend = if (identical(params$linejoin, "round")) "round" else "square"
-    )
-  )
-}
-
-chart_labels <- c(
-  " \nDon't know\n ", " \nTend to distrust/\ndistrust greatly\n ",
-  " \nTend to trust/\ntrust a great deal\n "
-)
-
-
-
-aware_trust_chart_2 <- ggplot(trust_df, aes(fill = Category, x = Percentage, y = Year)) +
-  geom_bar(
-    colour = NA, size = 0, position = "stack", width = 0.6, stat = "identity",
-    key_glyph = draw_square
-  ) +
-  scale_fill_manual(
-    values = alpha(c("#888A87", "#CBE346", "#00205b")),
-    labels = chart_labels
-  ) +
-  labs(title = bquote("Trust in" ~ bold("NISRA") ~ "statistics")) +
-  theme(
-    axis.line = element_line(colour = "black"),
-    axis.line.x = element_blank(),
-    axis.line.y = element_line(color = "#D9D9D9"),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    panel.background = element_blank(),
-    axis.title.y = element_blank(),
-    text = element_text(size = 15),
-    legend.key = element_blank(),
-    legend.title = element_blank(),
-    plot.title = element_text(
-      hjust = 1,
-      vjust = -2,
-      size = 20,
-      margin = margin(0, 0, 30, 0),
-      color = "#747474"
-    )
-  ) +
-  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20)) +
-  geom_text(aes(label = Percentage),
-    fontface = "bold",
-    size = 3.5,
-    position = position_stack(vjust = 0.5),
-    color = ifelse(trust_df$Category == "Tend to distrust/distrust a great deal",
-                   "#404040",
-                   "#ffffff"
-      
-    )
-  ) +
-  guides(fill = guide_legend(reverse = TRUE)) +
-  coord_cartesian(expand = FALSE)
-
-aware_trust_chart_2
-
-## Personal information provided to NISRA will be kept confidential ####
-confidentiality$Category <- factor(confidentiality$Category,
-  levels = c(
-    "Don't know", "Tend to disagree/Strongly disagree",
-    "Strongly Agree/Tend to agree"
-  )
-)
-
-chart_labels <- c(
-  " \nDon't know\n ", " \nTend to disagree/\nstrongly disagree\n ",
-  " \nStrongly agree/\ntend to agree\n "
-)
-
-aware_trust_chart_3 <- ggplot(
-  confidentiality,
-  aes(fill = Category, y = Percentage, x = Year)
-) +
-  geom_bar(
-    position = "stack",
-    width = 0.6,
-    stat = "identity",
-    colour = NA,
-    size = 0,
-    key_glyph = draw_square
-  ) +
-  scale_fill_manual(
-    values = alpha(c("#888A87", "#CBE346", "#00205b")),
-    labels = chart_labels
-  ) +
-  labs(
-    title = "Personal Information provided to",
-    subtitle = bquote(~ bold("NISRA") ~ "will be kept confidential")
-  ) +
-  theme( # axis.line = element_line(colour = "black"),
-    axis.line.x = element_line(color = "#D9D9D9"),
-    axis.line.y = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    panel.background = element_blank(),
-    axis.title.x = element_blank(),
-    text = element_text(size = 16),
-    legend.key = element_blank(),
-    legend.text = element_text(size = 8),
-    legend.margin = margin(0, 0, 0, 0),
-    legend.box.margin = margin(-7, -7, -7, -7),
-    legend.title = element_blank(),
-    plot.title = element_text(
-      size = 14,
-      color = "#747474",
-      hjust = 0.5,
-      vjust = 4
-    ),
-    plot.subtitle = element_text(
-      size = 14,
-      color = "#747474",
-      hjust = 0.5,
-      vjust = 4
-    ),
-    plot.margin = margin(r = 10, t = 20)
-  ) +
-  geom_text(aes(label = Percentage),
-    fontface = "bold",
-    size = 3.5,
-    position = position_stack(vjust = 0.5),
-    color = ifelse(confidentiality$Category == "Strongly Agree/Tend to agree" |
-      confidentiality$Category == "Don't know",
-    "white", "black"
-    ),
-    hjust = ifelse(confidentiality$Percentage < 4, -2, 0.5)
-  ) +
-  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20)) +
-  guides(fill = guide_legend(reverse = TRUE)) +
-  coord_cartesian(
-    xlim = c(0.5, length(unique(confidentiality$Year)) + 0.7),
-    expand = FALSE
-  )
-
-aware_trust_chart_3
-
-## NISRA statistics are important to understand Northern Ireland ####
-important_df$Category <- factor(important_df$Category,
-  levels = c(
-    "Don't know",
-    "Tend to disagree/strongly disagree",
-    "Strongly agree/tend to agree"
-  )
-)
-
-chart_labels <- c(
-  " \nDon't know\n ", " \nTend to disagree/\nstrongly disagree\n ",
-  " \nStrongly agree/\ntend to agree\n "
-)
-# Create plot
-aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage, x = Year)) +
-  geom_col(
-    position = "stack", key_glyph = draw_square, width = 0.6,
-    stat = "identity", colour = NA, size = 0
-  ) +
-  scale_fill_manual(
-    values = alpha(c("#888A87", "#CBE346", "#00205b", "#00205b", "#00205b")),
-    labels = chart_labels
-  ) +
-  labs(
-    title = bquote(~ bold("NISRA") ~ "statistics are important to understand"),
-    subtitle = "Northern Ireland"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.line.x = element_line(color = "#D9D9D9"),
-    axis.line.y = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    panel.background = element_blank(),
-    axis.title.x = element_blank(),
-    legend.key = element_blank(),
-    legend.title = element_blank(),
-    legend.text = element_text(size = 8),
-    plot.title = element_text(
-      size = 12,
-      color = "#747474",
-      hjust = 0.5,
-      vjust = 0.6
-    ),
-    plot.subtitle = element_text(
-      size = 12,
-      color = "#747474",
-      hjust = 0.5,
-      vjust = 1.5
-    ),
-    plot.margin = margin(l = 10)
-  ) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  geom_text(aes(label = Percentage),
-    fontface = "bold",
-    size = 3,
-    position = position_stack(vjust = 0.5),
-    color = ifelse(important_df$Category == "Tend to disagree/strongly disagree",
-      "#000000", "#ffffff"
-    ),
-    hjust = ifelse(important_df$Percentage < 4, -3.2, 0.5)
-  ) +
-  guides(fill = guide_legend(reverse = TRUE)) +
-  coord_cartesian(
-    xlim = c(0.5, length(unique(important_df$Year)) + 0.7),
-    expand = FALSE
-  )
-
-aware_trust_chart_4
-
-
-
-## Trust in NISRA compared to other institutions ####
-
-bar_order <- c("The NI Assembly ", "The Civil Service ", "The media ", "NISRA ")
-
-aware_trust_chart_5 <- ggplot(
-  trust_compared_df,
-  aes(
-    fill = Category,
-    x = Percentage,
-    y = factor(Institution, level = bar_order),
-    label = Percentage
-  )
-) +
-  geom_bar(position = "stack", width = 0.5, stat = "identity", colour = NA, size = 0, key_glyph = draw_square) +
-  scale_fill_manual(values = alpha(c("#888A87", "#CBE346", "#00205b"))) +
-  labs(title = bquote("Trust in" ~ bold("NISRA") ~ "compared to other institutions")) +
-  theme(
-    text = element_text(size = 18),
-    legend.position = "top",
-    legend.justification = "center",
-    axis.title.y = element_blank(),
-    axis.title.x = element_text(size = 8),
-    axis.text = element_text(size = 10),
-    legend.title = element_blank(),
-    axis.line.x = element_blank(),
-    axis.line.y = element_blank(),
-    axis.ticks = element_blank(),
-    legend.text = element_text(size = 8),
-    legend.key = element_blank(),
-    axis.line = element_line(colour = "black"),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    panel.background = element_blank(),
-    plot.title = element_text(
-      size = 14,
-      color = "#747474",
-      hjust = 0.5
-    ),
-    plot.margin = margin(l = 20, r = 20)
-  ) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  geom_text(aes(label = Percentage),
-    fontface = "bold",
-    size = 3,
-    position = position_stack(vjust = 0.5),
-    color = ifelse(trust_compared_df$Category == "Tend to distrust/distrust a great deal",
-      "#000000",
-      "#ffffff"
-    )
-  ) +
-  guides(fill = guide_legend(reverse = TRUE)) +
-  coord_cartesian(expand = FALSE)
-
-aware_trust_chart_5
-
-## Overview Output ####
-save_plot(paste0(here(), "/outputs/infographics/Overview1.png"), fig = overview_chart_1, width = 11, height = 9)
-save_plot(paste0(here(), "/outputs/infographics/Overview2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
-save_plot(paste0(here(), "/outputs/infographics/Overview3.png"), fig = aware_trust_chart_3, width = 11, height = 8)
-save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 11, height = 7)
-save_plot(paste0(here(), "/outputs/infographics/Overview5.png"), fig = aware_trust_chart_5, width = 18, height = 7)
 
 # Awareness Infographic ####
 
@@ -582,7 +568,7 @@ caption_2 <- ggplot() +
   coord_cartesian(clip = "off") +
   theme_void()
 
-aware_trust_chart_1 <- aware_trust_chart_1 +
+aware_nisra_chart <- aware_nisra_chart +
   geom_text(
     x = c(3.7, -2.15),
     aes(
@@ -596,9 +582,9 @@ aware_trust_chart_1 <- aware_trust_chart_1 +
   inset_element(caption_1, left = 0.5, right = 0.5, top = 0.55, bottom = 0.55) +
   inset_element(caption_2, left = 0.5, right = 0.5, top = 0.45, bottom = 0.45)
 
-aware_trust_chart_1
+aware_nisra_chart
 
-save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_trust_chart_1, width = 14, height = 14)
+save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_nisra_chart, width = 14, height = 14)
 
 ## Bubble Chart ####
 
@@ -671,13 +657,14 @@ bubble_chart <- ggplot() +
     top = 0.7
   )
 
-connecting_line <- ggplot() + 
+connecting_line <- ggplot() +
   theme_void() +
-  geom_hline(yintercept = 0,
-             linewidth = 2)
+  geom_hline(
+    yintercept = 0,
+    linewidth = 2
+  )
 
 for (i in 1:nrow(awareness_info_data1)) {
-  
   diameter <- awareness_info_data1$diameter[i]
 
   if (i == 1) {
@@ -731,9 +718,8 @@ for (i in 1:nrow(awareness_info_data1)) {
       right = right,
       top = 0.5
     )
-  
+
   if (i != 1) {
-    
     bubble_chart <- bubble_chart +
       inset_element(
         p = connecting_line,
@@ -742,15 +728,15 @@ for (i in 1:nrow(awareness_info_data1)) {
         right = left + 0.015,
         top = 0.5
       )
-    
   }
-  
 }
 
 bubble_chart
 
-png(filename = paste0(here(), "/outputs/infographics/info2.png"),
-    width = 11, height = 10, units = "cm", res = 300)
+png(
+  filename = paste0(here(), "/outputs/infographics/info2.png"),
+  width = 11, height = 10, units = "cm", res = 300
+)
 print(bubble_chart)
 dev.off()
 
@@ -779,12 +765,12 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
 )) +
   geom_bar(
     position = "dodge",
-    stat = "identity", 
+    stat = "identity",
     height = 0.8,
-    colour = NA, 
+    colour = NA,
     size = 0,
     width = 0.7,
-    key_glyph = draw_square
+    key_glyph = f_draw_square
   ) +
   scale_fill_manual(values = alpha(c("#3878c5", "#CBE346"))) +
   labs(
@@ -924,26 +910,7 @@ save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness
 
 
 # Convert to PDF ####
-## Overview ####
-infographic_template <- readLines(paste0(here(), "/code/infographic/Overview - Infographic template.svg")) %>%
-  gsub('id="tspan12">YEAR', paste0('id="tspan12">', current_year), ., fixed = TRUE)
 
-for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5")) {
-  infographic_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
-    paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
-    infographic_template,
-    fixed = TRUE
-  )
-}
-
-writeLines(infographic_template, paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
-
-rsvg_pdf(
-  svg = paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"),
-  file = paste0(here(), "/outputs/Overview Infographic - ", current_year, ".pdf")
-)
-
-unlink(paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
 
 
 ## Awareness ####

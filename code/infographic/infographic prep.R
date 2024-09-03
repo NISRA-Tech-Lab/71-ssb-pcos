@@ -49,17 +49,26 @@ trust_df <- gather(trust_nisra_stats, Category, Percentage, -Year) %>%
 # Confidentiality
 confidentiality <- confidential_data %>%
   tail(5) %>%
-  mutate(year = as.numeric(year))
-confidentiality <- confidentiality %>%
+  mutate(year = as.numeric(year)) %>%
   set_names(c(
     "Year",
     "Strongly Agree/Tend to agree",
     "Tend to disagree/Strongly disagree",
     "Don't know"
-  ))
-confidentiality <- gather(confidentiality, Category, Percentage, -Year)
-confidentiality$Percentage <- round_half_up(confidentiality$Percentage)
-confidentiality$Year <- as.character(confidentiality$Year)
+  )) %>%
+  gather(Category, Percentage, -Year) %>%
+  mutate(
+    Percentage = round_half_up(Percentage),
+    Year = as.character(Year),
+    Category = factor(Category,
+      levels = c(
+        "Don't know",
+        "Tend to disagree/Strongly disagree",
+        "Strongly Agree/Tend to agree"
+      )
+    )
+  )
+
 
 ## Personal Information provided to NISRA will be kept confidential ####
 importance <- stats_important_data %>%
@@ -237,8 +246,10 @@ awareness_info_data2$Group <- toupper(awareness_info_data2$Group)
 awareness_info_data3 <- gather(aware_stats_data, Answer, Percentage, -`output`) %>%
   rename(Group = output) %>%
   mutate(
-    Group = case_when(grepl("Percentage of journeys", Group) ~ "Journeys by walking, cycling, public transport",
-                      TRUE ~ Group),
+    Group = case_when(
+      grepl("Percentage of journeys", Group) ~ "Journeys by walking, cycling, public transport",
+      TRUE ~ Group
+    ),
     Percentage = round_half_up(Percentage, 1),
     Answer = factor(Answer,
       levels = c("dont_know", "no", "yes"),

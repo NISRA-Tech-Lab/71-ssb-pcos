@@ -376,3 +376,5 @@ saveWorkbook(wb,
   paste0(here(), "/outputs/significance outputs/exploratory significance output ", analysis_year, " - with ", comparison_year," comparison.xlsx"),
   overwrite = TRUE
 )
+
+openXL(paste0(here(), "/outputs/significance outputs/exploratory significance output ", analysis_year, " - with ", comparison_year," comparison.xlsx"))
