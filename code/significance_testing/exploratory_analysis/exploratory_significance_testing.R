@@ -7,6 +7,9 @@ source(paste0(here(), "/code/config.R"))
 vars <- read.csv(paste0(here(), "/code/significance_testing/exploratory_analysis/inputs/var.csv"))
 groupings <- read.csv(paste0(here(), "/code/significance_testing/exploratory_analysis/inputs/grouping.csv"))
 
+time_series_vars <- readxl::read_xlsx(paste0(here(), "/code/significance_testing/exploratory_analysis/inputs/var read across - time series.XLSX"),
+                                      sheet = "var read across ")
+
 analysis_year <- 2022
 comparison_year <- 2021
 
