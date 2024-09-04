@@ -487,6 +487,8 @@ trust_chart_3 <- ggplot(
 
 trust_chart_3
 
+save_plot(paste0(here(), "/outputs/infographics/trust3.png"), fig = trust_chart_3, width = 18, height = 14)
+
 ## Trust in statistics compared to ONS ####
 
 chart_4_perc <- paste0(trust_info_data4$Percentage[trust_info_data4$Year == current_year], "%")
@@ -902,16 +904,8 @@ pub_awareness_chart_3
 
 save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 34, height = 17)
 
-## Awareness Infographic Output ####
-
-
-
-
-
 
 # Convert to PDF ####
-
-
 
 ## Awareness ####
 
