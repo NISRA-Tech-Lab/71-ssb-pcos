@@ -116,25 +116,25 @@ for (i in 1:length(co_vars)) {
 
 grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
 
-group1 <- c("SEX", "SEX", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", 
+a <- c("SEX", "SEX", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", 
        "All", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", 
        "DERHIanalysis", "DERHIanalysis", "EMPST2", "EMPST2")
 
-grouping1 <- data.frame()
+b <- data.frame()
 for (i in 1:nrow(vars)) {
   data_last_question <- c(rep(vars[i, "data_last"], 18))
   data_last_question <- as.data.frame(data_last_question)
   b <- rbind(b, data_last_question)
 }
 
-grouping2 <- data.frame()
+c <- data.frame()
 for (i in 1:nrow(vars)) {
   data_current_question <- c(rep(vars[i, "data_current"], 18))
   data_current_question <- as.data.frame(data_current_question)
   c <- rbind(c, data_current_question)
 }
 
-previous_year_comp_df <- cbind(grouping_order, group1, grouping1, grouping1)
+previous_year_comp_df <- cbind(grouping_order, a, b, c)
 
 vardf <- stCombinations(vars, groupings, currentYear)
 vardf <- vardf[!duplicated(vardf), ]
