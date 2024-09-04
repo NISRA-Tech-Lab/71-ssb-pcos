@@ -100,12 +100,46 @@ data_last[] <- lapply(data_last, function(x) gsub("Don't know", "dont_know", x))
 data_last_excl_dk <- data_last
 data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) gsub("dont_know", NA, x))
 
-
 ### **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs
-vardf <- stCombinations(vars, groupings, currentYear)
+co_vars <- unique(groupings$group1)
 
-# flatten file to extract all variable info needed for significance testing
+grouping_order <- c()
+
+for (i in 1:length(co_vars)) {
+  grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
+  
+  if (co_vars[i] == "AGE2") {
+    grouping_order <- c(grouping_order, "All")
+  }
+}
+
+grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
+
+group1 <- c("SEX", "SEX", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", 
+       "All", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", 
+       "DERHIanalysis", "DERHIanalysis", "EMPST2", "EMPST2")
+
+grouping1 <- data.frame()
+for (i in 1:nrow(vars)) {
+  data_last_question <- c(rep(vars[i, "data_last"], 18))
+  data_last_question <- as.data.frame(data_last_question)
+  b <- rbind(b, data_last_question)
+}
+
+grouping2 <- data.frame()
+for (i in 1:nrow(vars)) {
+  data_current_question <- c(rep(vars[i, "data_current"], 18))
+  data_current_question <- as.data.frame(data_current_question)
+  c <- rbind(c, data_current_question)
+}
+
+previous_year_comp_df <- cbind(grouping_order, group1, grouping1, grouping1)
+
+vardf <- stCombinations(vars, groupings, currentYear)
+vardf <- vardf[!duplicated(vardf), ]
+
+# flatten file tvardf# flatten file to extract all variable info needed for significance testing
 stVars <- rbindlist(split.default(as.data.table(vardf), c(0, sequence(ncol(vardf) - 1) %/% 4)), use.names = FALSE)
 stVars <- unique(stVars) # remove duplicated entries
 stVars <- stVars[rep(seq_len(nrow(stVars)), each = 3), ]
@@ -135,6 +169,8 @@ colnames(allVars_excl_dk) <- c("year", "var", "group", "grouping", "Answer", "qu
 
 # Join the p, n and question text data to the relevant variables and groupings in vardf
 vardf <- stCombinations(vars, groupings, currentYear)
+vardf <- vardf[!duplicated(vardf), ]
+
 vardf <- vardf[rep(seq_len(nrow(vardf)), each = 3), ]
 number_rows_vardf <- nrow(vardf) / 3
 answer <- c("yes", "no", "dont_know")
@@ -242,6 +278,8 @@ excel_df <- vardf %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
 
+excel_df <- excel_df[!duplicated(excel_df), ]
+
 excel_df_excl_dk <- vardf_excl_dk %>%
   mutate(
     year1 = case_when(
@@ -260,19 +298,7 @@ excel_df_excl_dk <- vardf_excl_dk %>%
 
 # Sorting columns
 
-co_vars <- unique(groupings$group1)
-
-grouping_order <- c()
-
-for (i in 1:length(co_vars)) {
-  grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
-
-  if (co_vars[i] == "AGE2") {
-    grouping_order <- c(grouping_order, "All")
-  }
-}
-
-grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
+excel_df_excl_dk <- excel_df_excl_dk[!duplicated(excel_df_excl_dk), ]
 
 
 for (i in 1:nrow(vars)) {
@@ -285,7 +311,7 @@ for (i in 1:nrow(vars)) {
         `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
         `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
       ) %>%
-      arrange(`Grouping 1`, `Grouping 2`)
+      arrange(year2, `Grouping 1`, `Grouping 2`)
   )
 
   if (vars$data_current[i] == "AwareNISRA2") {
@@ -335,7 +361,7 @@ for (i in 1:nrow(vars)) {
           `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
           `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
         ) %>%
-        arrange(`Grouping 1`, `Grouping 2`)
+        arrange(year2, `Grouping 1`, `Grouping 2`)
     )
 
     addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
@@ -378,3 +404,4 @@ saveWorkbook(wb,
 )
 
 openXL(paste0(here(), "/outputs/significance outputs/exploratory significance output ", analysis_year, " - with ", comparison_year," comparison.xlsx"))
+

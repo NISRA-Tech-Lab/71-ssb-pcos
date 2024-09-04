@@ -758,8 +758,22 @@ stCombinations <- function(vars, groupings, currentYear) {
           vardf[z, "grouping2"] <- groupings[j, "grouping2"]
           z <- z + 1
         }
+        
+
       }
 
+      for (k in 1:nrow(previous_year_comp_df)) {
+        vardf[z, "year1"] <- "data_current"
+        vardf[z, "var1"] <- previous_year_comp_df[k, "data_current_question"]
+        vardf[z, "year2"] <- "data_last"
+        vardf[z, "var2"] <- previous_year_comp_df[k, "data_last_question"]
+        vardf[z, "group1"] <- previous_year_comp_df[k, "group1"]
+        vardf[z, "grouping1"] <- previous_year_comp_df[k, "grouping_order"]
+        vardf[z, "group2"] <- previous_year_comp_df[k, "group1"]
+        vardf[z, "grouping2"] <- previous_year_comp_df[k, "grouping_order"]
+        z <- z + 1
+      }
+      
       vardf[z, "year1"] <- varYears[i, "year1"]
       vardf[z, "var1"] <- varYears[i, "var1"]
       vardf[z, "year2"] <- varYears[i, "year2"]
