@@ -13,6 +13,17 @@ time_series_vars <- readxl::read_xlsx(paste0(here(), "/code/significance_testing
 analysis_year <- 2022
 comparison_year <- 2021
 
+vars$data_last <- c()
+
+for (i in 1:nrow(vars)) {
+  
+  vars$data_last[i] <- time_series_vars %>%
+    filter(.[[as.character(analysis_year)]] == vars$data_current[i]) %>%
+    pull(as.character(comparison_year))
+  
+}
+
+
 ## DATA ####
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", comparison_year, " Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS"))
