@@ -767,9 +767,9 @@ stCombinations <- function(vars, groupings, currentYear) {
         vardf[z, "var1"] <- previous_year_comp_df[k, "data_current_question"]
         vardf[z, "year2"] <- "data_last"
         vardf[z, "var2"] <- previous_year_comp_df[k, "data_last_question"]
-        vardf[z, "group1"] <- previous_year_comp_df[k, "a"]
+        vardf[z, "group1"] <- previous_year_comp_df[k, "group1"]
         vardf[z, "grouping1"] <- previous_year_comp_df[k, "grouping_order"]
-        vardf[z, "group2"] <- previous_year_comp_df[k, "a"]
+        vardf[z, "group2"] <- previous_year_comp_df[k, "group1"]
         vardf[z, "grouping2"] <- previous_year_comp_df[k, "grouping_order"]
         z <- z + 1
       }
