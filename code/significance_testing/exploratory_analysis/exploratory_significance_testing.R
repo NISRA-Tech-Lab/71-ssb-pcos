@@ -93,9 +93,6 @@ for (i in 1:nrow(vars)) {
 ### **** CURRENT YEAR **** ####
 currentYear <- "data_current"
 
-# Re-labelling some fields
-data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
-
 # Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
 
 for (i in 1:9) {
@@ -118,21 +115,23 @@ data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) gsub("dont_know", N
 # Build dataframe for testing from vars and groupings inputs
 co_vars <- unique(groupings$group1)
 
-grouping_order <- c()
+grouping_order <- c("All")
 
 for (i in 1:length(co_vars)) {
   grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
   
-  if (co_vars[i] == "AGE2") {
-    grouping_order <- c(grouping_order, "All")
-  }
 }
 
 grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
 
-a <- c("SEX", "SEX", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", "AGE2", 
-       "All", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", "DERHIanalysis", 
-       "DERHIanalysis", "DERHIanalysis", "EMPST2", "EMPST2")
+grouping_df <- groupings %>%
+  select(-group2) %>%
+  pivot_longer(cols=c('grouping1', 'grouping2'),
+                    names_to='year',
+                    values_to='points') %>%
+  select(-year) %>%
+  rename("grouping_order" = 2)
+grouping_df <- grouping_df[!duplicated(grouping_df), ]
 
 b <- data.frame()
 for (i in 1:nrow(vars)) {
@@ -147,8 +146,13 @@ for (i in 1:nrow(vars)) {
   data_current_question <- as.data.frame(data_current_question)
   c <- rbind(c, data_current_question)
 }
-
-previous_year_comp_df <- cbind(grouping_order, a, b, c)
+previous_year_comp_df <- cbind(grouping_order, b, c)
+previous_year_comp_df <- merge(x = previous_year_comp_df, 
+             y = grouping_df, 
+             by = "grouping_order", 
+             all.x = TRUE)
+previous_year_comp_df <- previous_year_comp_df %>% 
+  replace(is.na(.), "All")
 
 vardf <- stCombinations(vars, groupings, currentYear)
 vardf <- vardf[!duplicated(vardf), ]
@@ -325,7 +329,7 @@ for (i in 1:nrow(vars)) {
         `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
         `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
       ) %>%
-      arrange(year2, `Grouping 1`, `Grouping 2`)
+      arrange(-year2, `Grouping 1`, `Grouping 2`)
   )
 
   if (vars$data_current[i] == "AwareNISRA2") {
@@ -375,7 +379,7 @@ for (i in 1:nrow(vars)) {
           `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
           `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
         ) %>%
-        arrange(year2, `Grouping 1`, `Grouping 2`)
+        arrange(-year2, `Grouping 1`, `Grouping 2`)
     )
 
     addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
