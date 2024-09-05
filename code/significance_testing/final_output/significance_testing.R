@@ -93,6 +93,9 @@ unweighted_new <- data.frame(stat = unweighted_old$stat) %>%
     f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"])
   ))
 
+## Add new variables to this list. Take 6 lines for last variable and change var name
+## and check response wording on each line.
+
 names(unweighted_new) <- c("stat", current_year)
 
 unweighted_trend <- left_join(unweighted_new,

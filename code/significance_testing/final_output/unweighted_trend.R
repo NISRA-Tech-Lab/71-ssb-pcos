@@ -663,6 +663,7 @@ trend_data <- trend_data %>%
   select(-`2022`)
 
 # Add figures for new sheets (Trust Assembly, Trust Media) ####
+## Follow the block of code below to add a new variable over time
 
 data_years <- c(2014, 2016, 2019:2021)
 

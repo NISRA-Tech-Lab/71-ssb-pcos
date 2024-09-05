@@ -560,13 +560,13 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   if (dk) {
     ill_stats <- data.frame(
       stat = c("% Yes", "% No", "% DK", "Base"),
-      work = c(
+      not_ill = c(
         f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
         f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
         f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "No Limiting longstanding illness") * 100,
         f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness")
       ),
-      not = c(
+      ill = c(
         f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "Limiting longstanding illness") * 100,
         f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "Limiting longstanding illness") * 100,
         f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "Limiting longstanding illness") * 100,
@@ -597,22 +597,22 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   } else {
     ill_stats <- data.frame(
       trust = c("% Yes", "Base"),
-      work = c(
+      not_ill = c(
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "No Limiting longstanding illness") %>%
           nrow() / data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
-            nrow() * 100,
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
+          nrow() * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
           nrow()
       ),
-      not = c(
+      ill = c(
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "Limiting longstanding illness") %>%
           nrow() / data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
-            nrow() * 100,
+          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
+          nrow() * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
           nrow()
@@ -620,12 +620,12 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     ) %>%
       mutate(Z = case_when(
         trust == "Base" ~ NA,
-        TRUE ~ f_return_z(work / 100, work[trust == "Base"], not / 100, not[trust == "Base"])
+        TRUE ~ f_return_z(not_ill / 100, work[trust == "Base"], ill / 100, not[trust == "Base"])
       ))
   }
-
+  
   names(ill_stats) <- c(" ", "No Limiting longstanding illness", "Limiting longstanding illness", "Z Score")
-
+  
   ill_stats
 }
 
