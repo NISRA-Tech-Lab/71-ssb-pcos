@@ -93,6 +93,10 @@ for (i in 1:nrow(vars)) {
 ### **** CURRENT YEAR **** ####
 currentYear <- "data_current"
 
+# Re-labelling some fields
+data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
+data_last$SEX <- recode(data_last$SEX, "M" = "Male", "F" = "Female")
+
 # Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
 
 for (i in 1:9) {
@@ -131,6 +135,7 @@ grouping_df <- groupings %>%
                     values_to='points') %>%
   select(-year) %>%
   rename("grouping_order" = 2)
+
 grouping_df <- grouping_df[!duplicated(grouping_df), ]
 
 b <- data.frame()
