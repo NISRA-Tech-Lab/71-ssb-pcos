@@ -7,14 +7,11 @@ output:
     toc_float: true
     toc_depth: 4
     code_download: no
-    css: "style.css"
+    css: "../style.css"
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
-      output_dir = "../outputs/",
-      output_file = paste0(
-        xfun::sans_ext(input), '_', format(Sys.time(), "%d-%m-%Y_%H%M") , '.html'
-      ),
+      output_dir = "../../outputs/",
       envir = globalenv()
     )
   })
@@ -36,48 +33,7 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 ```
 
-```{r banner}
-div(
-    div(
-      style = "background-color: var(--nics-banner-bg); padding: 10px",
-      div(
-        class = "grid mtb",
-        div(style = "display: flex; justify-content: center;
-            align-items: center;", a(
-          href = "https://nisra.gov.uk",
-          img(
-            src = nisra_logo,
-            alt = "NISRA logo",
-            width = "200px",
-            height = "80px"
-          )
-        )),
-        if (statistic_type == "as") {
-          div(
-            style = "display: flex; justify-content: center",
-              img(src = acc_official_stats, alt = nat_alt, width = "100px")
-          )
-        },
-        div(
-          style = "display: flex; justify-content: center",
-          a(
-            href = departmental_link,
-            img(src = dep_logo, alt = dep_alt, width = "200px")
-          )
-        )
-      ),
-      div(
-        style = "display: flex; justify-content: center; text-align: center;",
-        p(style = "color: #ffffff; font-size: 30px;
-            text-transform: capitalize;", class = "toc-ignore", "Background Quality Report - Public Awareness of and Trust in Official Statistics, Northern Ireland")
-      ),
-      div(style = "font-size: 18px; color: #ffffff; display: flex;
-          justify-content: center;  text-align: center;", subtitle)
-    ),
-    div(style = paste0("background-color: var(--nics-banner-highlight);
-                       height: 9px; width: 100%;"))
-)
-```
+`r f_banner(rmarkdown::metadata$title)`
 
 ## Public Awareness of and Trust in Official Statistics, Northern Ireland
 

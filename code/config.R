@@ -30,8 +30,6 @@ ons_filename <- "ONS PCOS Data - 2021.xlsx"
 
 current_year <- 2022
 ons_year <- 2021
-title <- "Public Awareness of and Trust in Official Statistics, Northern Ireland 2022"
-subtitle <- ""
 
 survey_start_mth <- "September"
 survey_end_mth <- "December"

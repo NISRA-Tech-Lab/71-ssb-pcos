@@ -31,7 +31,7 @@ source(paste0(here(), "/code/ods_tables/run_ods_tables.R"))
 ```
 
 ::: {data-nics-theme="`r nics_theme`"}
-`r f_banner()`
+`r f_banner(title = rmarkdown::metadata$title)`
 
 `r f_header()`
 
@@ -94,7 +94,7 @@ Although there has been a decrease since 2020 and 2021, awareness of NISRA in 20
 
 #### Chart 1: Awareness of NISRA (2009-`r current_year`)
 
-```{r Chart 1}
+```{r Chart 1, fig.alt = "Line graph showing awareness of NISRA. Awareness of NISRA ranged between 30% and 35% between 2009-2019, before rising to 58%"}
 
 plot_ly(aware_nisra_data,
         x = ~year,

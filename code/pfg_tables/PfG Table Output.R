@@ -87,16 +87,10 @@ for (question in questions) {
         filter(!is.na(.[[question]])) %>%
         nrow()
 
-      ### Unweighted p for NI for year ####
-
-      ni_p <- data_year %>%
-        filter(!is.na(.[[question]]) & .[[question]] %in% c("Trust a great deal/Tend to trust", "Tend to trust/trust a great deal")) %>%
-        nrow() / ni_n
-
       ### Confidence intervals for NI for year ####
 
       ni_ci <- f_confidence_interval(
-        p = ni_p,
+        p = ni_value / 100,
         n = ni_n
       )
 
@@ -212,14 +206,9 @@ for (question in questions) {
               filter(!is.na(.[[question]]) & .[[var]] == co_val) %>%
               nrow()
 
-            ##### Unweighted p ####
-            p_unweighted <- data_year %>%
-              filter(!is.na(.[[question]]) & .[[var]] == co_val & .[[question]] %in% c("Trust a great deal/Tend to trust", "Tend to trust/trust a great deal")) %>%
-              nrow() / n_value
-
             ##### Confidence interval ####
             ci <- f_confidence_interval(
-              p = p_unweighted,
+              p = p_weighted / 100,
               n = n_value
             )
 

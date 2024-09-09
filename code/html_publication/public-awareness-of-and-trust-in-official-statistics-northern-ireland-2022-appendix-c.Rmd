@@ -39,7 +39,7 @@ h3, h4 {
 
 <div data-nics-theme="`r nics_theme`">
 
-`r f_banner(subtitle = "Appendix C")` 
+`r f_banner(title = rmarkdown::metadata$title, subtitle = "Appendix C")` 
 
 <div id="main" role="main">
 

@@ -62,7 +62,7 @@ if (!exists("nicstheme")) {
   departmental_link <- NULL
 }
 
-f_banner <- function(subtitle = "") {
+f_banner <- function(title, subtitle = "") {
   div(
     div(
       style = "background-color: var(--nics-banner-bg); padding: 10px",
