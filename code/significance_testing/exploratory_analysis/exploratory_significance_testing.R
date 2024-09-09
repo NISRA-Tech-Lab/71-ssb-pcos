@@ -109,11 +109,11 @@ for (i in 1:9) {
 
 # Data excluding don't knows
 data_current_excl_dk <- data_current
-data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) gsub("dont_know", NA, x))
+data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) if (class(x) == "character") gsub("dont_know", NA, x) else x)
 
-data_last[] <- lapply(data_last, function(x) gsub("Don't know", "dont_know", x))
+data_last[] <- lapply(data_last, function(x) if (class(x) == "character") gsub("Don't know", "dont_know", x) else x)
 data_last_excl_dk <- data_last
-data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) gsub("dont_know", NA, x))
+data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) if (class(x) == "character") gsub("dont_know", NA, x) else x)
 
 ### **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs
@@ -173,11 +173,34 @@ stVars$Answer <- rep(answer, number_rows_stvars)
 # Extract question text
 question <- apply(stVars, 1, function(y) extractQuestionText(y["year1"], y["var1"]))
 stVars$question <- "A"
-stVars <- cbind(stVars, question) # add question text into stVars dataframe
+stVars <- cbind(stVars, question)
 
-# apply varAnalysis to extract the p and n values for each case in stVars
-pnlist <- apply(stVars, 1, function(y) varAnalysis(y["year1"], y["group1"], y["grouping1"], y["var1"], y["Answer"]))
-allVars <- cbind(stVars, t(pnlist)) # add p and n values to stVars and rename to allVars
+allVars <- stVars
+
+for (i in 1:nrow(stVars)) {
+  
+  weight <- if (grepl("AGE", stVars$group1[i])) {
+    "W1"
+  } else if (stVars$group1[i] == "SEX") {
+    "W2"
+  } else {
+    "W3"
+  }
+  
+  df <- get(stVars$year1[i]) %>%
+    filter(!is.na(.[[stVars$var1[i]]]))
+  
+  if (stVars$group1[i] != "All") {
+    df <- df %>%
+      filter(.[[stVars$group1[i]]] == stVars$grouping1[i])
+  }
+  
+  allVars$n[i] <- nrow(df)
+  
+  allVars$p[i] <- sum(df[[weight]][df[[stVars$var1[i]]] == stVars$Answer[i]]) / sum(df[[weight]])
+  
+}
+  
 colnames(allVars) <- c("year", "var", "group", "grouping", "Answer", "question", "n", "p") # rename columns for next stage
 
 stVars_excl_dk <- stVars %>%
@@ -186,8 +209,32 @@ stVars_excl_dk <- stVars %>%
 stVars_excl_dk$year1 <- sub("data_current", "data_current_excl_dk", stVars_excl_dk$year1)
 stVars_excl_dk$year1 <- sub("data_last", "data_last_excl_dk", stVars_excl_dk$year1)
 
-pnlist_excl_dk <- apply(stVars_excl_dk, 1, function(y) varAnalysis(y["year1"], y["group1"], y["grouping1"], y["var1"], y["Answer"]))
-allVars_excl_dk <- cbind(stVars_excl_dk, t(pnlist_excl_dk)) # add p and n values to stVars and rename to allVars
+allVars_excl_dk <- stVars_excl_dk
+
+for (i in 1:nrow(stVars_excl_dk)) {
+  
+  weight <- if (grepl("AGE", stVars_excl_dk$group1[i])) {
+    "W1"
+  } else if (stVars_excl_dk$group1[i] == "SEX") {
+    "W2"
+  } else {
+    "W3"
+  }
+  
+  df <- get(stVars_excl_dk$year1[i]) %>%
+    filter(!is.na(.[[stVars_excl_dk$var1[i]]]))
+  
+  if (stVars_excl_dk$group1[i] != "All") {
+    df <- df %>%
+      filter(.[[stVars_excl_dk$group1[i]]] == stVars_excl_dk$grouping1[i])
+  }
+  
+  allVars_excl_dk$n[i] <- nrow(df)
+  
+  allVars_excl_dk$p[i] <- sum(df[[weight]][df[[stVars_excl_dk$var1[i]]] == stVars_excl_dk$Answer[i]]) / sum(df[[weight]])
+  
+}
+
 colnames(allVars_excl_dk) <- c("year", "var", "group", "grouping", "Answer", "question", "n", "p") # rename columns for next stage
 
 # Join the p, n and question text data to the relevant variables and groupings in vardf

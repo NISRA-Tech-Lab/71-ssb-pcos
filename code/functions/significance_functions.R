@@ -668,41 +668,6 @@ confidenceInterval <- function(p, n) {
   return(c(confIn = ciCalc, lowerCL = p - ciCalc, upperCL = p + ciCalc))
 }
 
-varAnalysis <- function(df1, group1, grouping1, var1, Answer) {
-  # This function establishes the p and n values for a given variable and grouping.
-  df <- get(df1)
-  #  group1 <- get(group1, df)
-  #  grouping1 <- grouping1
-  var <- as.name(var1)
-  if (group1 == "All") {
-    df <- df %>% select(var)
-  } else {
-    group1 <- get(group1, df)
-    df <- df %>%
-      filter(group1 == grouping1) %>%
-      select(var)
-    # print(group1)
-  }
-
-  colnames(df) <- "var1"
-  df <- df %>%
-    filter(!is.na(var1)) %>%
-    mutate(var1 = case_when(
-      var1 == "Yes" ~ "yes",
-      var1 == "No" ~ "no",
-      var1 == "yes" ~ "yes",
-      var1 == "no" ~ "no",
-      var1 == "Never" ~ "no",
-      var1 == "dont_know" ~ "dont_know",
-      var1 == "DontKnow" ~ "dont_know",
-      TRUE ~ "yes"
-    ))
-
-  n <- nrow(df)
-  p <- prop.table(table(df$var1))[Answer]
-  return(c(n = n, p = p))
-}
-
 extractQuestionText <- function(df, var) {
   # This function extracts the question text as stored in the SPSS file for a specific variable
   df <- get(df)
