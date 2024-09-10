@@ -28,36 +28,44 @@ data_last <- readRDS(paste0(data_folder, "Final/PCOS ", comparison_year, " Final
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS"))
 
 for (i in 1:nrow(vars)) {
-  data_last[[vars$data_last[i]]] <- fct_collapse(data_last[[vars$data_last[i]]],
-    "yes" = c(
-      "Yes",
-      "Trust a great deal",
-      "Tend to trust",
-      "Tend to trust them",
-      "Trust them greatly",
-      "Strongly agree",
-      "Tend to agree",
-      "Trust a great deal/Tend to trust",
-      "Strongly Agree/Tend to Agree"
-    ),
-    "no" = c(
-      "No",
-      "Tend to distrust",
-      "Distrust greatly",
-      "Tend not to trust them",
-      "Distrust them greatly",
-      "Tend to disagree",
-      "Strongly disagree",
-      "Tend to distrust/Distrust greatly",
-      "Tend to disagree/Strongly disagree"
-    ),
-    "dont_know" = c(
-      "DontKnow",
-      "Don't know",
-      "Don't Know"
+  
+  if (!is.na(vars$data_last[i])) {
+  
+    data_last[[vars$data_last[i]]] <- fct_collapse(data_last[[vars$data_last[i]]],
+      "yes" = c(
+        "Yes",
+        "Trust a great deal",
+        "Tend to trust",
+        "Tend to trust them",
+        "Trust them greatly",
+        "Strongly agree",
+        "Tend to agree",
+        "Trust a great deal/Tend to trust",
+        "Strongly Agree/Tend to Agree"
+      ),
+      "no" = c(
+        "No",
+        "Tend to distrust",
+        "Distrust greatly",
+        "Tend not to trust them",
+        "Distrust them greatly",
+        "Tend to disagree",
+        "Strongly disagree",
+        "Tend to distrust/Distrust greatly",
+        "Tend to disagree/Strongly disagree"
+      ),
+      "dont_know" = c(
+        "DontKnow",
+        "Don't know",
+        "Don't Know"
+      )
     )
-  )
-
+  
+    data_last[[vars$data_last[i]]] <- case_when(data_last[[vars$data_last[i]]] == "Refusal" ~ NA,
+                                                TRUE ~ data_last[[vars$data_last[i]]])
+  
+  }
+  
   data_current[[vars$data_current[i]]] <- fct_collapse(data_current[[vars$data_current[i]]],
     "yes" = c(
       "Yes",
@@ -87,20 +95,15 @@ for (i in 1:nrow(vars)) {
       "Don't Know"
     )
   )
+  
+  data_current[[vars$data_current[i]]] <- case_when(data_current[[vars$data_current[i]]] == "Refusal" ~ NA,
+                                                    TRUE ~ data_current[[vars$data_current[i]]])
 }
 
-
-
-### **** CURRENT YEAR **** ####
-currentYear <- "data_current"
 
 # Re-labelling some fields
 data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
 data_last$SEX <- recode(data_last$SEX, "M" = "Male", "F" = "Female")
-
-# Remove 'Refusal' answers
-data_current[] <- lapply(data_current, function(x) {gsub("Refusal", NA, x)})
-data_last[] <- lapply(data_last, function(x) {gsub("Refusal", NA, x)})
 
 # Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
 
@@ -108,17 +111,32 @@ for (i in 1:9) {
   data_current[[paste0("PCOS1c", i)]][data_current$PCOS1 == "No"] <- NA
   data_current[[paste0("PCOS1d", i)]][data_current$PCOS1 == "Yes"] <- NA
 
-  data_last[[paste0("PCOS1c", i)]][data_last$PCOS1 == "No"] <- NA
-  data_last[[paste0("PCOS1d", i)]][data_last$PCOS1 == "Yes"] <- NA
+  if (paste0("PCOS1c", i) %in% names(data_last)) {
+    data_last[[paste0("PCOS1c", i)]][data_last$PCOS1 == "No"] <- NA
+  }
+  
+  if (paste0("PCOS1d", i) %in% names(data_last)) {
+    data_last[[paste0("PCOS1d", i)]][data_last$PCOS1 == "Yes"] <- NA
+  }
 }
 
 # Data excluding don't knows
 data_current_excl_dk <- data_current
-data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) {gsub("dont_know", NA, x)})
-
-data_last_excl_dk[] <- lapply(data_last, function(x) {gsub("Don't know", "dont_know", x)})
 data_last_excl_dk <- data_last
-data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) {gsub("dont_know", NA, x)})
+
+for (i in 1:nrow(vars)) {
+  
+  if (!is.na(vars$data_last[i])) {
+    
+    data_last_excl_dk[[vars$data_last[i]]] <- case_when(data_last_excl_dk[[vars$data_last[i]]] == "dont_know" ~ NA,
+                                                        TRUE ~ data_last_excl_dk[[vars$data_last[i]]])
+    
+  }
+  
+  data_current_excl_dk[[vars$data_current[i]]] <- case_when(data_current_excl_dk[[vars$data_current[i]]] == "dont_know" ~ NA,
+                                                            TRUE ~ data_current_excl_dk[[vars$data_current[i]]])
+  
+}
 
 ### **** CODE **** #####PCOS1## **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs
@@ -128,7 +146,6 @@ grouping_order <- c("All")
 
 for (i in 1:length(co_vars)) {
   grouping_order <- c(grouping_order, levels(data_current[[co_vars[i]]]))
-  
 }
 
 grouping_order <- base::setdiff(grouping_order, c("Refusal", "DontKnow"))
@@ -164,7 +181,7 @@ previous_year_comp_df <- merge(x = previous_year_comp_df,
 previous_year_comp_df <- previous_year_comp_df %>% 
   replace(is.na(.), "All")
 
-vardf <- stCombinations(vars, groupings, currentYear)
+vardf <- stCombinations(vars, groupings, "data_current")
 vardf <- vardf[!duplicated(vardf), ]
 
 # flatten file tvardf# flatten file to extract all variable info needed for significance testing
@@ -178,7 +195,8 @@ stVars$Answer <- rep(answer, number_rows_stvars)
 # Extract question text
 question <- apply(stVars, 1, function(y) extractQuestionText(y["year1"], y["var1"]))
 stVars$question <- "A"
-stVars <- cbind(stVars, question)
+stVars <- cbind(stVars, question) %>%
+  filter(var1 != "All")
 
 allVars <- stVars
 
@@ -243,7 +261,7 @@ for (i in 1:nrow(stVars_excl_dk)) {
 colnames(allVars_excl_dk) <- c("year", "var", "group", "grouping", "Answer", "question", "n", "p") # rename columns for next stage
 
 # Join the p, n and question text data to the relevant variables and groupings in vardf
-vardf <- stCombinations(vars, groupings, currentYear)
+vardf <- stCombinations(vars, groupings, "data_current")
 vardf <- vardf[!duplicated(vardf), ]
 
 vardf <- vardf[rep(seq_len(nrow(vardf)), each = 3), ]

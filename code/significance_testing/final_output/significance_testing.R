@@ -7,24 +7,12 @@ library(here)
 source(paste0(here(), "/code/config.R"))
 
 # Create trend data up to 2021 in R format (once off)
-if (!file.exists(paste0(data_folder, "Trend/2021/unweighted trend data.RDS"))) {
-  source(paste0(here(), "/code/significance_testing/final_output/unweighted_trend.R"))
+if (!file.exists(paste0(data_folder, "Trend/2021/weighted trend data.RDS"))) {
+  source(paste0(here(), "/code/significance_testing/final_output/weighted_trend.R"))
 }
 
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
-
-data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
-  filter(Year == ons_year)
-
-names(data_ons_raw) <- gsub(".", " ", names(data_ons_raw), fixed = TRUE)
-
-data_ons <- data_ons_raw %>%
-  mutate(
-    `Weighted base` = 100 - `Prefer not to answer`,
-    across(.cols = `Don't know`:`Strongly disagree`, ~ .x / `Weighted base` * 100)
-  ) %>%
-  select(-`Prefer not to answer`, -`Weighted base`)
 
 unweighted_ons <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "unweighted_n") %>%
   filter(Year == ons_year)
@@ -34,76 +22,91 @@ names(unweighted_ons) <- gsub(".", " ", names(unweighted_ons), fixed = TRUE)
 unweighted_ons <- unweighted_ons %>%
   mutate(
     `Unweighted base` = `Unweighted base` - `Prefer not to answer`,
+    `Unweighted base (ex DK)` = `Unweighted base` - `Don't know`
+  ) %>%
+  select(Question, `Unweighted base`, `Unweighted base (ex DK)`)
+
+data_ons_raw <- read.xlsx(paste0(data_folder, "ONS/", ons_filename), sheet = "weighted_pct") %>%
+  filter(Year == ons_year)
+
+names(data_ons_raw) <- gsub(".", " ", names(data_ons_raw), fixed = TRUE)
+
+data_ons <- data_ons_raw %>%
+  mutate(
+    `Weighted base` = 100 - `Prefer not to answer`,
+    across(.cols = `Don't know`:`Strongly disagree`, ~ .x / `Weighted base` * 100),
     `Trust a great deal/Tend to trust` = `Trust a great deal` + `Tend to trust`,
     `Tend to distrust/Distrust greatly` = `Tend to distrust` + `Distrust greatly`,
     `Strongly Agree/Tend to Agree` = `Strongly agree` + `Tend to agree`,
     `Tend to disagree/Strongly disagree` = `Tend to disagree` + `Strongly disagree`
   ) %>%
-  select(-`Prefer not to answer`)
+  select(-`Prefer not to answer`) %>%
+  left_join(unweighted_ons,
+            by = "Question")
 
 # Add unweighted trend data to trend file ####
 
-unweighted_old <- readRDS(paste0(data_folder, "Trend/", current_year - 1, "/unweighted trend data.RDS"))
+weighted_old <- readRDS(paste0(data_folder, "Trend/", current_year - 1, "/weighted trend data.RDS"))
 
-unweighted_new <- data.frame(stat = unweighted_old$stat) %>%
+weighted_new <- data.frame(stat = weighted_old$stat) %>%
   mutate(new = c(
-    f_return_p(data_current$PCOS1, "Yes") * 100,
+    f_return_p(data_current, "PCOS1", "Yes") * 100,
     f_return_n(data_current$PCOS1),
-    f_return_p(data_current$TrustNISRA2, "Trust a great deal/Tend to trust") * 100,
-    f_return_p(data_current$TrustNISRA2, "Tend to distrust/Distrust greatly") * 100,
-    f_return_p(data_current$TrustNISRA2, "Don't know") * 100,
+    f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustNISRA2", "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current, "TrustNISRA2", "Don't know") * 100,
     f_return_n(data_current$TrustNISRA2),
-    f_return_p(data_current$TrustNISRA2[data_current$TrustNISRA2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
     f_return_n(data_current$TrustNISRA2[data_current$TrustNISRA2 != "Don't know"]),
-    f_return_p(data_current$TrustNISRAstats2, "Trust a great deal/Tend to trust") * 100,
-    f_return_p(data_current$TrustNISRAstats2, "Tend to distrust/Distrust greatly") * 100,
-    f_return_p(data_current$TrustNISRAstats2, "Don't know") * 100,
+    f_return_p(data_current, "TrustNISRAstats2", "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustNISRAstats2", "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current, "TrustNISRAstats2", "Don't know") * 100,
     f_return_n(data_current$TrustNISRAstats2),
-    f_return_p(data_current$TrustNISRAstats2[data_current$TrustNISRAstats2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustNISRAstats2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
     f_return_n(data_current$TrustNISRAstats2[data_current$TrustNISRAstats2 != "Don't know"]),
-    f_return_p(data_current$NISRAstatsImp2, "Strongly Agree/Tend to Agree") * 100,
-    f_return_p(data_current$NISRAstatsImp2, "Tend to disagree/Strongly disagree") * 100,
-    f_return_p(data_current$NISRAstatsImp2, "Don't know") * 100,
+    f_return_p(data_current, "NISRAstatsImp2", "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "NISRAstatsImp2", "Tend to disagree/Strongly disagree") * 100,
+    f_return_p(data_current, "NISRAstatsImp2", "Don't know") * 100,
     f_return_n(data_current$NISRAstatsImp2),
-    f_return_p(data_current$NISRAstatsImp2[data_current$NISRAstatsImp2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "NISRAstatsImp2", "Strongly Agree/Tend to Agree", dk = FALSE) * 100,
     f_return_n(data_current$NISRAstatsImp2[data_current$NISRAstatsImp2 != "Don't know"]),
-    f_return_p(data_current$Political2, "Strongly Agree/Tend to Agree") * 100,
-    f_return_p(data_current$Political2, "Tend to disagree/Strongly disagree") * 100,
-    f_return_p(data_current$Political2, "Don't know") * 100,
+    f_return_p(data_current, "Political2", "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "Political2", "Tend to disagree/Strongly disagree") * 100,
+    f_return_p(data_current, "Political2", "Don't know") * 100,
     f_return_n(data_current$Political2),
-    f_return_p(data_current$Political2[data_current$Political2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "Political2", "Strongly Agree/Tend to Agree", dk = FALSE) * 100,
     f_return_n(data_current$Political2[data_current$Political2 != "Don't know"]),
-    f_return_p(data_current$Confidential2, "Strongly Agree/Tend to Agree") * 100,
-    f_return_p(data_current$Confidential2, "Tend to disagree/Strongly disagree") * 100,
-    f_return_p(data_current$Confidential2, "Don't know") * 100,
+    f_return_p(data_current, "Confidential2", "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "Confidential2", "Tend to disagree/Strongly disagree") * 100,
+    f_return_p(data_current, "Confidential2", "Don't know") * 100,
     f_return_n(data_current$Confidential2),
-    f_return_p(data_current$Confidential2[data_current$Confidential2 != "Don't know"], "Strongly Agree/Tend to Agree") * 100,
+    f_return_p(data_current, "Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE) * 100,
     f_return_n(data_current$Confidential2[data_current$Confidential2 != "Don't know"]),
-    f_return_p(data_current$TrustAssemblyElectedBody2, "Trust a great deal/Tend to trust") * 100,
-    f_return_p(data_current$TrustAssemblyElectedBody2, "Tend to distrust/Distrust greatly") * 100,
-    f_return_p(data_current$TrustAssemblyElectedBody2, "Don't know") * 100,
+    f_return_p(data_current, "TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current, "TrustAssemblyElectedBody2", "Don't know") * 100,
     f_return_n(data_current$TrustAssemblyElectedBody2),
-    f_return_p(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
     f_return_n(data_current$TrustAssemblyElectedBody2[data_current$TrustAssemblyElectedBody2 != "Don't know"]),
-    f_return_p(data_current$TrustMedia2, "Trust a great deal/Tend to trust") * 100,
-    f_return_p(data_current$TrustMedia2, "Tend to distrust/Distrust greatly") * 100,
-    f_return_p(data_current$TrustMedia2, "Don't know") * 100,
+    f_return_p(data_current, "TrustMedia2", "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustMedia2", "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current, "TrustMedia2", "Don't know") * 100,
     f_return_n(data_current$TrustMedia2),
-    f_return_p(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"], "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
     f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"])
   ))
 
 ## Add new variables to this list. Take 6 lines for last variable and change var name
 ## and check response wording on each line.
 
-names(unweighted_new) <- c("stat", current_year)
+names(weighted_new) <- c("stat", current_year)
 
-unweighted_trend <- left_join(unweighted_new,
-  unweighted_old,
+weighted_trend <- left_join(weighted_new,
+  weighted_old,
   by = "stat"
 )
 
-saveRDS(unweighted_trend, paste0(data_folder, "Trend/", current_year, "/unweighted trend data.RDS"))
+saveRDS(weighted_trend, paste0(data_folder, "Trend/", current_year, "/weighted trend data.RDS"))
 
 # This year vs last year with DKs ####
 
@@ -334,12 +337,12 @@ products <- c(
 heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes") * 100
-  heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes") * 100
+  heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1c", i), "Yes") * 100
+  heard_stats$current[i] <- f_return_p(data_current, paste0("PCOS1c", i), "Yes") * 100
   heard_stats$z[i] <- f_return_z(
-    p1 = f_return_p(data_last[[paste0("PCOS1c", i)]], "Yes"),
+    p1 = f_return_p(data_last, paste0("PCOS1c", i), "Yes"),
     n1 = f_return_n(data_last[[paste0("PCOS1c", i)]]),
-    p2 = f_return_p(data_current[[paste0("PCOS1c", i)]], "Yes"),
+    p2 = f_return_p(data_current, paste0("PCOS1c", i), "Yes"),
     n2 = f_return_n(data_current[[paste0("PCOS1c", i)]])
   )
 }
@@ -361,12 +364,12 @@ names(heard_stats) <- c("% Aware produced by NISRA", current_year - 1, current_y
 not_heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  not_heard_stats$last[i] <- f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes") * 100
-  not_heard_stats$current[i] <- f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes") * 100
+  not_heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1d", i), "Yes") * 100
+  not_heard_stats$current[i] <- f_return_p(data_current, paste0("PCOS1d", i), "Yes") * 100
   not_heard_stats$z[i] <- f_return_z(
-    p1 = f_return_p(data_last[[paste0("PCOS1d", i)]], "Yes"),
+    p1 = f_return_p(data_last, paste0("PCOS1d", i), "Yes"),
     n1 = f_return_n(data_last[[paste0("PCOS1d", i)]]),
-    p2 = f_return_p(data_current[[paste0("PCOS1d", i)]], "Yes"),
+    p2 = f_return_p(data_current, paste0("PCOS1d", i), "Yes"),
     n2 = f_return_n(data_current[[paste0("PCOS1d", i)]])
   )
 }

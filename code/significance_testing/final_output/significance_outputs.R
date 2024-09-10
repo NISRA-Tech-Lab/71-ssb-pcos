@@ -24,7 +24,7 @@ setColWidths(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
 r <- 1
 
 writeData(wb, paste0(current_year, "vs", current_year - 1, "withDKs"),
-  x = paste0(current_year, " vs ", current_year - 1, " with Don't Know responses (UNWEIGHTED)"),
+  x = paste0(current_year, " vs ", current_year - 1, " with Don't Know responses (WEIGHTED)"),
   startRow = r
 )
 
@@ -264,7 +264,7 @@ setColWidths(wb, paste0(current_year, "vs", current_year - 1, "exclDKs"),
 r <- 1
 
 writeData(wb, paste0(current_year, "vs", current_year - 1, "exclDKs"),
-  x = paste0(current_year, " vs ", current_year - 1, " excl Don't Know responses (UNWEIGHTED)"),
+  x = paste0(current_year, " vs ", current_year - 1, " excl Don't Know responses (WEIGHTED)"),
   startRow = r
 )
 
@@ -339,7 +339,7 @@ addWorksheet(wb, "ONSvsNISRA")
 r <- 1
 
 writeData(wb, "ONSvsNISRA",
-  x = "NISRA vs ONS Comparisons (UNWEIGHTED)",
+  x = "NISRA vs ONS Comparisons (WEIGHTED)",
   startRow = r
 )
 
@@ -406,7 +406,7 @@ addWorksheet(wb, "ONSvNISRAexcDKs")
 r <- 1
 
 writeData(wb, "ONSvNISRAexcDKs",
-  x = "NISRA vs ONS (exc DKs) (UNWEIGHTED)",
+  x = "NISRA vs ONS (exc DKs) (WEIGHTED)",
   startRow = r
 )
 
@@ -475,7 +475,7 @@ addWorksheet(wb, "Awareness")
 r <- 1
 
 writeData(wb, "Awareness",
-  x = "Awareness of NISRA (UNWEIGHTED)",
+  x = "Awareness of NISRA (WEIGHTED)",
   startRow = r
 )
 
@@ -558,7 +558,7 @@ addWorksheet(wb, "Products")
 r <- 1
 
 writeData(wb, "Products",
-  x = "Products (UNWEIGHTED)",
+  x = "Products (WEIGHTED)",
   startRow = r
 )
 
@@ -688,7 +688,7 @@ setColWidths(wb, "Trust in NISRA",
 r <- 1
 
 writeData(wb, "Trust in NISRA",
-  x = "Trust in NISRA (UNWEIGHTED)",
+  x = "Trust in NISRA (WEIGHTED)",
   startRow = r
 )
 
@@ -815,7 +815,7 @@ setColWidths(wb, "TruNISRAexcDK",
 r <- 1
 
 writeData(wb, "TruNISRAexcDK",
-  x = "Trust in NISRA (excluding Don't knows) (UNWEIGHTED)",
+  x = "Trust in NISRA (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -901,7 +901,7 @@ setColWidths(wb, "Trust NI Assembly",
 r <- 1
 
 writeData(wb, "Trust NI Assembly",
-  x = "Trust in NI Assembly (UNWEIGHTED)",
+  x = "Trust in NI Assembly (WEIGHTED)",
   startRow = r
 )
 
@@ -1019,7 +1019,7 @@ setColWidths(wb, "TruNIAssemExDK",
 r <- 1
 
 writeData(wb, "TruNIAssemExDK",
-  x = "Trust in NI Assembly (excluding Don't knows) (UNWEIGHTED)",
+  x = "Trust in NI Assembly (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -1105,7 +1105,7 @@ setColWidths(wb, "Trust in media",
 r <- 1
 
 writeData(wb, "Trust in media",
-  x = "Trust in the Media (UNWEIGHTED)",
+  x = "Trust in the Media (WEIGHTED)",
   startRow = r
 )
 
@@ -1223,7 +1223,7 @@ setColWidths(wb, "TruMediaExDK",
 r <- 1
 
 writeData(wb, "TruMediaExDK",
-  x = "Trust in the Media (excluding Don't knows) (UNWEIGHTED)",
+  x = "Trust in the Media (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -1309,7 +1309,7 @@ setColWidths(wb, "TrustNISRAStats",
 r <- 1
 
 writeData(wb, "TrustNISRAStats",
-  x = "Trust in NISRA Statistics (UNWEIGHTED)",
+  x = "Trust in NISRA Statistics (WEIGHTED)",
   startRow = r
 )
 
@@ -1428,7 +1428,7 @@ setColWidths(wb, "TruNISRAStatsexcDK",
 r <- 1
 
 writeData(wb, "TruNISRAStatsexcDK",
-  x = "Trust NISRA stats (excluding Don't knows) (UNWEIGHTED)",
+  x = "Trust NISRA stats (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -1514,7 +1514,7 @@ setColWidths(wb, "Value",
 r <- 1
 
 writeData(wb, "Value",
-  x = "NISRA Statistics are important to understand Northern Ireland (UNWEIGHTED)",
+  x = "NISRA Statistics are important to understand Northern Ireland (WEIGHTED)",
   startRow = r
 )
 
@@ -1633,7 +1633,7 @@ setColWidths(wb, "ValuesExDK",
 r <- 1
 
 writeData(wb, "ValuesExDK",
-  x = "NISRA Statistics are important to understand Northern Ireland (excluding Don't knows) (UNWEIGHTED)",
+  x = "NISRA Statistics are important to understand Northern Ireland (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -1719,7 +1719,7 @@ setColWidths(wb, "Interference",
 r <- 1
 
 writeData(wb, "Interference",
-  x = "NISRA Statistics are free from political interference (UNWEIGHTED)",
+  x = "NISRA Statistics are free from political interference (WEIGHTED)",
   startRow = r
 )
 
@@ -1837,7 +1837,7 @@ setColWidths(wb, "InterfExDK",
 r <- 1
 
 writeData(wb, "InterfExDK",
-  x = "NISRA stats are free from political interference (excluding Don't knows) (UNWEIGHTED)",
+  x = "NISRA stats are free from political interference (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 
@@ -1923,7 +1923,7 @@ setColWidths(wb, "Confidentiality",
 r <- 1
 
 writeData(wb, "Confidentiality",
-  x = "NISRA will keep my information confidential (UNWEIGHTED)",
+  x = "NISRA will keep my information confidential (WEIGHTED)",
   startRow = r
 )
 
@@ -2041,7 +2041,7 @@ setColWidths(wb, "ConfExDK",
 r <- 1
 
 writeData(wb, "ConfExDK",
-  x = "NISRA will keep my information confidential (excluding Don't knows) (UNWEIGHTED)",
+  x = "NISRA will keep my information confidential (excluding Don't knows) (WEIGHTED)",
   startRow = r
 )
 

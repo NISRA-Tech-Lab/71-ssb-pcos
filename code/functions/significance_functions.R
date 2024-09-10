@@ -6,16 +6,33 @@ f_return_n <- function(var) {
 }
 
 # Returns percentage of times a given "value" occurs in column "var"
-f_return_p <- function(var, value) {
-  length(var[!is.na(var) & var == value]) / f_return_n(var)
+f_return_p <- function(data, var, value, weight = "W3", dk = TRUE) {
+  p_data <- data %>%
+    filter(!is.na(.[[var]]))
+  
+  if (dk == FALSE) {
+    p_data <- p_data %>%
+      filter(tolower(.[[var]]) != c("don't know"))
+  }
+  
+  sum(p_data[[weight]][p_data[[var]] == value]) / sum(p_data[[weight]])
 }
 
 f_return_n_group <- function(var, group_var, group_value) {
   length(var[!is.na(var) & !is.na(group_var) & group_var == group_value])
 }
 
-f_return_p_group <- function(var, value, group_var, group_value) {
-  length(var[!is.na(var) & !is.na(group_var) & var == value & group_var == group_value]) / f_return_n_group(var, group_var, group_value)
+f_return_p_group <- function(data, var, value, group_var, group_value, weight = "W3", dk = TRUE) {
+  
+  p_data <- data %>%
+    filter(!is.na(.[[var]]) & .[[group_var]] == group_value)
+  
+  if (dk == FALSE) {
+    p_data <- p_data %>%
+      filter(tolower(.[[var]]) != c("don't know"))
+  }
+  
+  sum(p_data[[weight]][p_data[[var]] == value]) / sum(p_data[[weight]])
 }
 
 f_return_z <- function(p1, n1, p2, n2) {
@@ -46,18 +63,18 @@ f_significance_year <- function(var, value, dk = TRUE) {
   sig_table <- data.frame(
     stat = c("%", "Base"),
     current = c(
-      f_return_p(data_current_f[[var]], value) * 100,
+      f_return_p(data_current_f, var, value) * 100,
       f_return_n(data_current_f[[var]])
     ),
     last = c(
-      f_return_p(data_last_f[[var]], value) * 100,
+      f_return_p(data_last_f, var, value) * 100,
       f_return_n((data_last_f[[var]]))
     ),
     z = c(
       f_return_z(
-        p1 = f_return_p(data_current_f[[var]], value),
+        p1 = f_return_p(data_current_f, var, value),
         n1 = f_return_n(data_current_f[[var]]),
-        p2 = f_return_p(data_last_f[[var]], value),
+        p2 = f_return_p(data_last_f, var, value),
         n2 = f_return_n(data_last_f[[var]])
       ),
       NA
@@ -80,26 +97,18 @@ f_age_z_scores <- function(var, value, dk = TRUE) {
       if (i > j) {
         if (dk) {
           col[j] <- f_return_z(
-            p1 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[j]),
+            p1 = f_return_p_group(data_current, var, value, "AGE2", age_groups[j], weight = "W1"),
             n1 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[j]),
-            p2 = f_return_p_group(data_current[[var]], value, data_current$AGE2, age_groups[i]),
+            p2 = f_return_p_group(data_current, var, value, "AGE2", age_groups[i], weight = "W1"),
             n2 = f_return_n_group(data_current[[var]], data_current$AGE2, age_groups[i])
           )
         } else {
           col[j] <- f_return_z(
-            p1 = data_current %>%
-              filter(!is.na(.[[var]]) & .[[var]] == value & AGE2 == age_groups[j]) %>%
-              nrow() / data_current %>%
-                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[j]) %>%
-                nrow(),
+            p1 = f_return_p_group(data_current, var, value, "AGE2", age_groups[j], weight = "W1", dk = FALSE),
             n1 = data_current %>%
               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[j]) %>%
               nrow(),
-            p2 = data_current %>%
-              filter(!is.na(.[[var]]) & .[[var]] == value & AGE2 == age_groups[i]) %>%
-              nrow() / data_current %>%
-                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[i]) %>%
-                nrow(),
+            p2 = f_return_p_group(data_current, var, value, "AGE2", age_groups[i], weight = "W1", dk = FALSE),
             n2 = data_current %>%
               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & AGE2 == age_groups[i]) %>%
               nrow()
@@ -128,26 +137,18 @@ f_qual_z_scores <- function(var, value, dk = TRUE) {
       if (i > j) {
         if (dk) {
           col[j] <- f_return_z(
-            p1 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[j]),
+            p1 = f_return_p_group(data_current, var, value, "DERHIanalysis", quals[j]),
             n1 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[j]),
-            p2 = f_return_p_group(data_current[[var]], value, data_current$DERHIanalysis, quals[i]),
+            p2 = f_return_p_group(data_current, var, value, "DERHIanalysis", quals[i]),
             n2 = f_return_n_group(data_current[[var]], data_current$DERHIanalysis, quals[i])
           )
         } else {
           col[j] <- f_return_z(
-            p1 = data_current %>%
-              filter(!is.na(.[[var]]) & .[[var]] == value & DERHIanalysis == quals[j]) %>%
-              nrow() / data_current %>%
-                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[j]) %>%
-                nrow(),
+            p1 = f_return_p_group(data_current, var, value, "DERHIanalysis", quals[j], dk = FALSE),
             n1 = data_current %>%
               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[j]) %>%
               nrow(),
-            p2 = data_current %>%
-              filter(!is.na(.[[var]]) & .[[var]] == value & DERHIanalysis == quals[i]) %>%
-              nrow() / data_current %>%
-                filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[i]) %>%
-                nrow(),
+            p2 = f_return_p_group(data_current, var, value, "DERHIanalysis", quals[i], dk = FALSE),
             n2 = data_current %>%
               filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == quals[i]) %>%
               nrow()
@@ -170,34 +171,34 @@ f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     work_stats <- data.frame(
       stat = c("% Yes", "% No", "% DK", "Base"),
       work = c(
-        f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment") * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment") * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment") * 100,
+        f_return_p_group(data_current, var, value1, "EMPST2", "In paid employment") * 100,
+        f_return_p_group(data_current, var, value2, "EMPST2", "In paid employment") * 100,
+        f_return_p_group(data_current, var, "Don't know", "EMPST2", "In paid employment") * 100,
         f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment")
       ),
       not = c(
-        f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment") * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment") * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment") * 100,
+        f_return_p_group(data_current, var, value1, "EMPST2", "Not in paid employment") * 100,
+        f_return_p_group(data_current, var, value2, "EMPST2", "Not in paid employment") * 100,
+        f_return_p_group(data_current, var, "Don't know", "EMPST2", "Not in paid employment") * 100,
         f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")
       ),
       z = c(
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "In paid employment"),
+          p1 = f_return_p_group(data_current, var, value1, "EMPST2", "In paid employment"),
           n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-          p2 = f_return_p_group(data_current[[var]], value1, data_current$EMPST2, "Not in paid employment"),
+          p2 = f_return_p_group(data_current, var, value1, "EMPST2", "Not in paid employment"),
           n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")
         ),
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "In paid employment"),
+          p1 = f_return_p_group(data_current, var, value2, "EMPST2", "In paid employment"),
           n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-          p2 = f_return_p_group(data_current[[var]], value2, data_current$EMPST2, "Not in paid employment"),
+          p2 = f_return_p_group(data_current, var, value2, "EMPST2", "Not in paid employment"),
           n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")
         ),
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "In paid employment"),
+          p1 = f_return_p_group(data_current, var, "Don't know", "EMPST2", "In paid employment"),
           n1 = f_return_n_group(data_current[[var]], data_current$EMPST2, "In paid employment"),
-          p2 = f_return_p_group(data_current[[var]], "Don't know", data_current$EMPST2, "Not in paid employment"),
+          p2 = f_return_p_group(data_current, var, "Don't know", "EMPST2", "Not in paid employment"),
           n2 = f_return_n_group(data_current[[var]], data_current$EMPST2, "Not in paid employment")
         ),
         NA
@@ -207,21 +208,13 @@ f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     work_stats <- data.frame(
       trust = c("%", "Base"),
       work = c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & EMPST2 == "In paid employment") %>%
-          nrow() / data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "In paid employment") %>%
-            nrow() * 100,
+        f_return_p_group(data_current, var, value1, "EMPST2", "In paid employment", dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "In paid employment") %>%
           nrow()
       ),
       not = c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & EMPST2 == "Not in paid employment") %>%
-          nrow() / data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "Not in paid employment") %>%
-            nrow() * 100,
+        f_return_p_group(data_current, var, value1, "EMPST2", "Not in paid employment", dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & EMPST2 == "Not in paid employment") %>%
           nrow()
@@ -229,7 +222,10 @@ f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     ) %>%
       mutate(Z = case_when(
         trust == "Base" ~ NA,
-        TRUE ~ f_return_z(work / 100, work[trust == "Base"], not / 100, not[trust == "Base"])
+        TRUE ~ f_return_z(p1 = work / 100, 
+                          n1 = work[trust == "Base"],
+                          p2 = not / 100,
+                          n2 = not[trust == "Base"])
       ))
   }
 
@@ -246,9 +242,9 @@ f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
     for (age in age_groups) {
       age_stats[[age]] <- c(
-        f_return_p_group(data_current[[var]], value1, data_current$AGE2, age) * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$AGE2, age) * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$AGE2, age) * 100,
+        f_return_p_group(data_current, var, value1, "AGE2", age, weight = "W1") * 100,
+        f_return_p_group(data_current, var, value2, "AGE2", age, weight = "W1") * 100,
+        f_return_p_group(data_current, var, "Don't know", "AGE2", age, weight = "W1") * 100,
         f_return_n_group(data_current[[var]], data_current$AGE2, age)
       )
     }
@@ -257,12 +253,7 @@ f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
     for (age in age_groups) {
       age_stats[[age]] <- c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & data_current$AGE2 == age) %>%
-          nrow() /
-          data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & data_current$AGE2 == age) %>%
-            nrow() * 100,
+        f_return_p_group(data_current, var, value1, "AGE2", age, weight = "W1", dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & data_current$AGE2 == age) %>%
           nrow()
@@ -283,9 +274,9 @@ f_qual_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
     for (qual in quals) {
       qual_stats[[qual]] <- c(
-        f_return_p_group(data_current[[var]], value1, data_current$DERHIanalysis, qual) * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$DERHIanalysis, qual) * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$DERHIanalysis, qual) * 100,
+        f_return_p_group(data_current, var, value1, "DERHIanalysis", qual) * 100,
+        f_return_p_group(data_current, var, value2, "DERHIanalysis", qual) * 100,
+        f_return_p_group(data_current, var, "Don't know", "DERHIanalysis", qual) * 100,
         f_return_n_group(data_current[[var]], data_current$DERHIanalysis, qual)
       )
     }
@@ -438,24 +429,19 @@ f_insert_z_table <- function(df, sheet, title) {
 }
 
 f_nisra_ons_ex_dk <- function(var, val) {
+  
   df <- data.frame(
     trust = c("% Yes", "Base"),
-    nisra = c(
-      data_current %>%
-        filter(.[[var]] == val) %>%
-        nrow() / data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
-          nrow() * 100,
+    nisra = c(f_return_p(data_current, var, val) * 100,
       data_current %>%
         filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
         nrow()
     ),
     ons = c(
-      unweighted_ons[[val]][unweighted_ons$`Related Variable` == var] /
-        (unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
-          unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var]) * 100,
-      unweighted_ons$`Unweighted base`[unweighted_ons$`Related Variable` == var] -
-        unweighted_ons$`Don't know`[unweighted_ons$`Related Variable` == var]
+      data_ons[[val]][data_ons$`Related Variable` == var] /
+        (data_ons$`Weighted base`[data_ons$`Related Variable` == var] -
+          data_ons$`Don't know`[data_ons$`Related Variable` == var]) * 100,
+      data_ons$`Unweighted base (ex DK)`[data_ons$`Related Variable` == var]
     )
   ) %>%
     mutate(Z = case_when(
@@ -474,21 +460,21 @@ f_nisra_ons_ex_dk <- function(var, val) {
 }
 
 f_nisra_ons <- function(var, val_1, val_2) {
-  ons_values <- unweighted_ons %>%
+  ons_values <- data_ons %>%
     filter(`Related Variable` == var)
 
   df <- data.frame(
     trust = c("% Yes", "% No", "% Don't know", "Base"),
     nisra = c(
-      f_return_p(data_current[[var]], val_1) * 100,
-      f_return_p(data_current[[var]], val_2) * 100,
-      f_return_p(data_current[[var]], "Don't know") * 100,
+      f_return_p(data_current, var, val_1) * 100,
+      f_return_p(data_current, var, val_2) * 100,
+      f_return_p(data_current, var, "Don't know") * 100,
       f_return_n(data_current[[var]])
     ),
     ons = c(
-      ons_values[[val_1]] / ons_values$`Unweighted base` * 100,
-      ons_values[[val_2]] / ons_values$`Unweighted base` * 100,
-      ons_values$`Don't know` / ons_values$`Unweighted base` * 100,
+      ons_values[[val_1]],
+      ons_values[[val_2]],
+      ons_values$`Don't know`,
       ons_values$`Unweighted base`
     )
   ) %>%
@@ -507,8 +493,9 @@ f_nisra_ons <- function(var, val_1, val_2) {
   df
 }
 
+
 f_trend <- function(sheet) {
-  trend <- unweighted_trend %>%
+  trend <- weighted_trend %>%
     filter(grepl(paste0(sheet, " - "), stat)) %>%
     mutate(stat = sub(paste0(sheet, " - "), "", stat))
 
@@ -561,34 +548,34 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     ill_stats <- data.frame(
       stat = c("% Yes", "% No", "% DK", "Base"),
       not_ill = c(
-        f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "No Limiting longstanding illness") * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "No Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, value1, "LimLongStand", "No Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, value2, "LimLongStand", "No Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, "Don't know", "LimLongStand", "No Limiting longstanding illness") * 100,
         f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness")
       ),
       ill = c(
-        f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "Limiting longstanding illness") * 100,
-        f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "Limiting longstanding illness") * 100,
-        f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, value1, "LimLongStand", "Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, value2, "LimLongStand", "Limiting longstanding illness") * 100,
+        f_return_p_group(data_current, var, "Don't know", "LimLongStand", "Limiting longstanding illness") * 100,
         f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
       ),
       z = c(
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "No Limiting longstanding illness"),
+          p1 = f_return_p_group(data_current, var, value1, "LimLongStand", "No Limiting longstanding illness"),
           n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
-          p2 = f_return_p_group(data_current[[var]], value1, data_current$LimLongStand, "Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current, var, value1, "LimLongStand", "Limiting longstanding illness"),
           n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
         ),
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "No Limiting longstanding illness"),
+          p1 = f_return_p_group(data_current, var, value2, "LimLongStand", "No Limiting longstanding illness"),
           n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
-          p2 = f_return_p_group(data_current[[var]], value2, data_current$LimLongStand, "Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current, var, value2, "LimLongStand", "Limiting longstanding illness"),
           n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
         ),
         f_return_z(
-          p1 = f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "No Limiting longstanding illness"),
+          p1 = f_return_p_group(data_current, var, "Don't know", "LimLongStand", "No Limiting longstanding illness"),
           n1 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "No Limiting longstanding illness"),
-          p2 = f_return_p_group(data_current[[var]], "Don't know", data_current$LimLongStand, "Limiting longstanding illness"),
+          p2 = f_return_p_group(data_current, var, "Don't know", "LimLongStand", "Limiting longstanding illness"),
           n2 = f_return_n_group(data_current[[var]], data_current$LimLongStand, "Limiting longstanding illness")
         ),
         NA
@@ -598,21 +585,13 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     ill_stats <- data.frame(
       trust = c("% Yes", "Base"),
       not_ill = c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "No Limiting longstanding illness") %>%
-          nrow() / data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
-          nrow() * 100,
+        f_return_p_group(data_current, var, value1, "LimLongStand", "No Limiting longstanding illness", dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "No Limiting longstanding illness") %>%
           nrow()
       ),
       ill = c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & LimLongStand == "Limiting longstanding illness") %>%
-          nrow() / data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
-          nrow() * 100,
+        f_return_p_group(data_current, var, value1, "LimLongStand", "Limiting longstanding illness", dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & LimLongStand == "Limiting longstanding illness") %>%
           nrow()
@@ -620,7 +599,10 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     ) %>%
       mutate(Z = case_when(
         trust == "Base" ~ NA,
-        TRUE ~ f_return_z(not_ill / 100, work[trust == "Base"], ill / 100, not[trust == "Base"])
+        TRUE ~ f_return_z(p1 = not_ill / 100,
+                          n1 = not_ill[trust == "Base"],
+                          p2 = ill / 100,
+                          n2 = ill[trust == "Base"])
       ))
   }
   
