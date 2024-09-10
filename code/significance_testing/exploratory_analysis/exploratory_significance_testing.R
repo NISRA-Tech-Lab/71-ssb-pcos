@@ -23,7 +23,6 @@ for (i in 1:nrow(vars)) {
   
 }
 
-
 ## DATA ####
 data_last <- readRDS(paste0(data_folder, "Final/PCOS ", comparison_year, " Final Dataset.RDS"))
 data_current <- readRDS(paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS"))
@@ -54,7 +53,8 @@ for (i in 1:nrow(vars)) {
     ),
     "dont_know" = c(
       "DontKnow",
-      "Don't know"
+      "Don't know",
+      "Don't Know"
     )
   )
 
@@ -83,7 +83,8 @@ for (i in 1:nrow(vars)) {
     ),
     "dont_know" = c(
       "DontKnow",
-      "Don't know"
+      "Don't know",
+      "Don't Know"
     )
   )
 }
@@ -97,6 +98,10 @@ currentYear <- "data_current"
 data_current$SEX <- recode(data_current$SEX, "M" = "Male", "F" = "Female")
 data_last$SEX <- recode(data_last$SEX, "M" = "Male", "F" = "Female")
 
+# Remove 'Refusal' answers
+data_current[] <- lapply(data_current, function(x) {gsub("Refusal", NA, x)})
+data_last[] <- lapply(data_last, function(x) {gsub("Refusal", NA, x)})
+
 # Remove values from PCOS1c1, c2 etc. if not Yes for PCOS1
 
 for (i in 1:9) {
@@ -109,13 +114,13 @@ for (i in 1:9) {
 
 # Data excluding don't knows
 data_current_excl_dk <- data_current
-data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) if (class(x) == "character") gsub("dont_know", NA, x) else x)
+data_current_excl_dk[] <- lapply(data_current_excl_dk, function(x) {gsub("dont_know", NA, x)})
 
-data_last[] <- lapply(data_last, function(x) if (class(x) == "character") gsub("Don't know", "dont_know", x) else x)
+data_last_excl_dk[] <- lapply(data_last, function(x) {gsub("Don't know", "dont_know", x)})
 data_last_excl_dk <- data_last
-data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) if (class(x) == "character") gsub("dont_know", NA, x) else x)
+data_last_excl_dk[] <- lapply(data_last_excl_dk, function(x) {gsub("dont_know", NA, x)})
 
-### **** CODE **** ####
+### **** CODE **** #####PCOS1## **** CODE **** ####
 # Build dataframe for testing from vars and groupings inputs
 co_vars <- unique(groupings$group1)
 
