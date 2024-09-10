@@ -1694,28 +1694,32 @@
      href="../../outputs/infographics/Overview1.png"
      id="image1"
      x="-31.541569"
-     y="135.18039" />
+     y="135.18039"
+     alt="overview1alt"/>
   <image
      height="302.06711"
      width="415.55249"
      href="../../outputs/infographics/Overview2.png"
      id="image2"
      x="304.14169"
-     y="132.30566" />
+     y="132.30566"
+     alt="overview2alt"/>
   <image
      height="333.05875"
      width="376.47864"
      href="../../outputs/infographics/Overview3.png"
      id="image3"
      x="740.1748"
-     y="118.19765" />
+     y="118.19765"
+     alt="overview3alt"/>
   <image
      height="327.70834"
      width="667.51428"
      href="../../outputs/infographics/Overview5.png"
      id="image5"
      x="478.96487"
-     y="433.53442" />
+     y="433.53442"
+     alt="overview5alt"/>
   <image
      height="289.3515"
      width="484.24216"
@@ -1723,7 +1727,7 @@
      id="image4"
      x="23.246729"
      y="482.43906"
-     transform="matrix(1,0,0.01016218,0.99994836,0,0)" />
+     alt="overview4alt"/>
   <g
      id="g8"
      inkscape:groupmode="layer"

@@ -329,6 +329,12 @@ for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5"))
   )
 }
 
+# for (text in c("overview1alt", "overview2alt", "overview3alt", "overview4alt", "overview5alt")) {
+#   
+#   infographic_template <- gsub(text, )
+#   
+# }
+
 writeLines(infographic_template, paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
 
 rsvg_pdf(
@@ -375,6 +381,15 @@ trust_chart_1 <- ggplot(trust_info_data1, aes(x = 2, y = prop, fill = class)) +
 trust_chart_1
 
 save_plot(paste0(here(), "/outputs/infographics/trust1.png"), fig = trust_chart_1, width = 12, height = 10)
+
+trust1alt <- paste0("Donut chart showing respondents trust in NISRA Statistics ",
+                    current_year, ". ",
+                    trust_info_data1$prop[trust_info_data1$class == "Yes"],
+                    "% said yes, ",
+                    trust_info_data1$prop[trust_info_data1$class == "No"],
+                    "% said no, while ",
+                    trust_info_data1$prop[trust_info_data1$class == "Don't know"],
+                    "% said they did not know.")
 
 ## Trust in NISRA ####
 
@@ -427,6 +442,16 @@ trust_chart_2 <- ggplot(trust_info_data2, aes(Year, `Percentage\n`)) +
 trust_chart_2
 
 save_plot(paste0(here(), "/outputs/infographics/trust2.png"), fig = trust_chart_2, width = 40, height = 18)
+
+trust2alt <- paste0("Line chart showing trust in NISRA statistics from ",
+                    min(trust_info_data2$Year),
+                    " to ",
+                    current_year,
+                    ". Trust in NISRA statistics in ",
+                    current_year,
+                    " remains high at ",
+                    trust_info_data2$`Percentage\n`[trust_info_data2$Year == current_year],
+                    "%.")
 
 ## NISRA stats are free from political interference ####
 
@@ -542,7 +567,30 @@ trust_chart_4
 
 save_plot(paste0(here(), "/outputs/infographics/trust4.png"), fig = trust_chart_4, width = 32, height = 18)
 
+## Convert to PDF ####
 
+trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographic template.svg")) %>%
+  gsub("Statistics and Research Agency YEAR", paste0("Statistics and Research Agency ", current_year), ., fixed = TRUE)
+
+for (plot in c("trust1", "trust2", "trust3", "trust4")) {
+  trust_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
+                         paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
+                         trust_template,
+                         fixed = TRUE
+  )
+}
+
+trust_template <- gsub("trust1alt", trust1alt, trust_template, fixed = TRUE)
+trust_template <- gsub("trust2alt", trust2alt, trust_template, fixed = TRUE)
+
+writeLines(trust_template, paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
+
+rsvg_pdf(
+  svg = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"),
+  file = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".pdf")
+)
+
+# unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
 
 # Awareness Infographic ####
 
@@ -930,24 +978,4 @@ rsvg_pdf(
 unlink(paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
 
 
-## Trust ####
 
-trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographic template.svg")) %>%
-  gsub("Statistics and Research Agency YEAR", paste0("Statistics and Research Agency ", current_year), ., fixed = TRUE)
-
-for (plot in c("trust1", "trust2", "trust3", "trust4")) {
-  trust_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
-    paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
-    trust_template,
-    fixed = TRUE
-  )
-}
-
-writeLines(trust_template, paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
-
-rsvg_pdf(
-  svg = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"),
-  file = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".pdf")
-)
-
-unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))

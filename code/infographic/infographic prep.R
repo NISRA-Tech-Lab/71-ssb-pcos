@@ -208,7 +208,7 @@ awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year, "/ta
     diameter = Percentage / sum(Percentage)
   )
 
-unweighted_trend <- readRDS(paste0(data_folder, "Trend/", current_year, "/unweighted trend data.RDS"))
+weighted_trend <- readRDS(paste0(data_folder, "Trend/", current_year, "/weighted trend data.RDS"))
 
 aware_nisra_trend <- f_trend("Awareness")
 aware_nisra_trend[[1]] <- gsub("% ", "", aware_nisra_trend[[1]])

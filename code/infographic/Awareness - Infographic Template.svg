@@ -1815,28 +1815,32 @@
      x="346.58371"
      y="-23.541672"
      style="image-rendering:optimizeQuality"
-     inkscape:svg-dpi="1" />
+     inkscape:svg-dpi="1"
+     alt="info2alt"/>
   <image
      height="408.99084"
      width="422.24652"
      href="../../outputs/infographics/info3.png"
      id="image3"
      x="2.1970391"
-     y="385.55334" />
+     y="385.55334"
+     alt="info3alt"/>
   <image
      height="294.21039"
      width="314.14291"
      href="../../outputs/infographics/info1.png"
      id="image1"
      x="17.755003"
-     y="103.53574" />
+     y="103.53574"
+     alt="info1alt"/>
   <image
      height="369.63953"
      width="687.3385"
      href="../../outputs/infographics/info4.png"
      id="image4"
      x="430.51151"
-     y="399.90961" />
+     y="399.90961"
+     alt="info4alt"/>
   <g
      id="g3"
      inkscape:groupmode="layer"

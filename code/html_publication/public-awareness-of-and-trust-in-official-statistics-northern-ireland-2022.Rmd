@@ -158,10 +158,11 @@ plot_ly(aware_nisra_data,
   ) %>%
   config(displayModeBar = FALSE)
 
+f_embed_ods(df = table_1a_data,
+  sheet_title = paste0("Table 1a: Awareness of NISRA, 2009-", current_year),
+  tab_name = "awareness_of_nisra")
 
 ```
-
-`r f_embed_ods(df = table_1a_data, sheet_title = paste0("Table 1a: Awareness of NISRA, 2009-", current_year), tab_name = "awareness_of_nisra")`
 
 ### Comparison with ONS
 
@@ -169,7 +170,7 @@ Public awareness of NISRA remains lower than awareness of ONS, with three quarte
 
 #### Chart 2: Awareness of NISRA (2014-`r current_year`) and ONS (2014-`r ons_year`)
 
-```{r Chart 2, fig.alt = "Awareness of NISRA (2014-2022) and ONS (2014-2021). Bar chart showing a comparison between awareness of NISRA, in dark blue bars, and ONS, in light blue bars. Awareness of ONS has been greater than that of NISRA, with 75% aware of ONS in 2021, and 49% aware of NISRA in 2022."}
+```{r Chart 2, fig.alt = "Bar chart showing a comparison between awareness of NISRA, in dark blue bars, and ONS, in light blue bars. Awareness of ONS has been greater than that of NISRA, with 75% aware of ONS in 2021, and 49% aware of NISRA in 2022."}
 
 plot_ly(aware_nisra_ons_data,
         x = ~year,
@@ -209,9 +210,11 @@ plot_ly(aware_nisra_ons_data,
   config(displayModeBar = FALSE)
 
 
-```
+f_embed_ods(df = table_1c_data,
+  sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"),
+  tab_name = "awareness_of_ons")
 
-`r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"), tab_name = "awareness_of_ons")`
+```
 
 ## 2. Awareness of NISRA Statistics
 
@@ -223,7 +226,7 @@ Respondents who had not previously heard of NISRA were asked whether they had he
 
 #### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
 
-```{r Chart 3, fig.alt = "Awareness of specific NISRA statistics for respondents who were not aware of NISRA, 2022. Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
+```{r Chart 3, fig.alt = "Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
 
 plot_ly(aware_stats_data,
         x = ~yes,
@@ -264,9 +267,11 @@ plot_ly(aware_stats_data,
          margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
-```
+f_extract_sheet(path = xl_filename,
+  sheet_name = "Awareness_NISRA_Statistics",
+  sheet_title = paste0("Table 2.1a-j: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))
 
-`r f_extract_sheet(xl_filename, "Awareness_NISRA_Statistics", paste0("Table 2.1a-j: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))`
+```
 
 ### Aware statistics produced by NISRA, heard of NISRA
 
@@ -276,7 +281,7 @@ Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%),
 
 #### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
 
-```{r Chart 4, fig.alt = "Aware NISRA produces specific statistics for respondents who were aware of NISRA, 2022. Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
+```{r Chart 4, fig.alt = "Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
 
 plot_ly(aware_stats_by_nisra_data,
         x = ~yes,
@@ -317,9 +322,11 @@ plot_ly(aware_stats_by_nisra_data,
          margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
-```
+f_extract_sheet(path = xl_filename,
+  sheet_name = "Aware_Statistics_by_NISRA", 
+  sheet_title = paste0("Table 2.2a-j: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))
 
-`r f_extract_sheet(xl_filename, "Aware_Statistics_by_NISRA", paste0("Table 2.2a-j: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))`
+```
 
 `r f_borderline()`
 
@@ -337,7 +344,7 @@ Trust in NISRA in the last three years (2022, 2021 and 2020) was significantly h
 
 #### Chart 5: Trust in NISRA (2014-`r current_year`)
 
-```{r Chart 5, fig.alt = "Trust in NISRA (2014-2022). Vertical stacked bar chart, with those trust represented by the dark blue segments, distrust by the light blue segments, and don't know responses represented by grey."}
+```{r Chart 5, fig.alt = "Vertical stacked bar chart, with those trust represented by the dark blue segments, distrust by the light blue segments, and don't know responses represented by grey."}
 
 f_stacked_bar_vertical(trust_nisra_data)
 
@@ -351,13 +358,19 @@ Trust in NISRA is similar to trust in ONS (`r trust_in_ons`%) (Chart 6). However
 
 #### Chart 6: Trust in NISRA (`r current_year`) and ONS (`r ons_year`) as institutions
 
-```{r Chart 6, fig.alt = "Trust in NISRA (2022) and ONS (2021) as institutions. Vertical stacked bar chart showing trust in NISRA and ONS as institutions. Trust in NISRA, represented by the dark blue segment, was 84% in 2022, compared to 83% for ONS. Distrust in NISRA, represented by the light blue segment, was 3% compared to 11% for ONS. Don't know responses (13% for NISRA, 7% for ONS) are represented by grey segments."}
+```{r Chart 6, fig.alt = "Vertical stacked bar chart showing trust in NISRA and ONS as institutions. Trust in NISRA, represented by the dark blue segment, was 84% in 2022, compared to 83% for ONS. Distrust in NISRA, represented by the light blue segment, was 3% compared to 11% for ONS. Don't know responses (13% for NISRA, 7% for ONS) are represented by grey segments."}
 
 f_stacked_bar_vertical(trust_nisra_ons_data)
 
-```
+f_embed_ods(df = table_3.1b_data,
+  sheet_title = if (current_year == ons_year) {
+    paste0("Table 3.1b: Trust in NISRA and ONS, ", current_year)
+  } else {
+    paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")
+  },
+  tab_name = "trust_nisra_ons")
 
-`r f_embed_ods(df = table_3.1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 3.1b: Trust in NISRA and ONS, ", current_year)} else {paste0("Table 3.1b: Trust in NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "trust_nisra_ons")`
+```
 
 ###	Comparison with other institutions
 
@@ -369,7 +382,7 @@ A higher proportion of respondents don’t know if they trust NISRA or not (`r d
 
 #### Chart 7: Trust in institutions, `r current_year`
 
-```{r Chart 7, fig.alt = "Trust in institutions, 2022. Horizontal stacked bar charts showing trust in NISRA, the media, the Civil Service and the NI Assembly."}
+```{r Chart 7, fig.alt = "Horizontal stacked bar charts showing trust in NISRA, the media, the Civil Service and the NI Assembly."}
 
 plot_ly(trust_institutions_data,
         x = ~trust,
@@ -441,13 +454,15 @@ Amongst those who expressed an opinion there was no significant difference in tr
 
 #### Chart 8: Trust in NISRA statistics (2014-`r current_year`)
 
-```{r Chart 8, fig.alt = "Trust in NISRA statistics (2014-2022). Vertical stacked bar charts, with trust responses in dark blue, distrust in light blue and don't know responses in grey. Each bar represents a different year"}
+```{r Chart 8, fig.alt = "Vertical stacked bar charts, with trust responses in dark blue, distrust in light blue and don't know responses in grey. Each bar represents a different year"}
 
 f_stacked_bar_vertical(trust_stats_data)
 
-```
+f_embed_ods(df = table_4a_data, 
+  sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), 
+  tab_name = "trust_stats")
 
-`r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), tab_name = "trust_stats")`
+```
 
 ###	Comparison with ONS
 
@@ -457,13 +472,19 @@ More respondents answered ‘don’t know’ with regard to NISRA statistics (`r
 
 #### Chart 9: Trust in statistics produced by NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 9, fig.alt = "Trust in statistics produced by NISRA (2022) and ONS (2021). Bar chart with trust in NISRA statistics at 85%, compared to 84% for ONS statistics. This is represented by dark blue segments. Distrust (4% for NISRA statistics, 12% for ONS statistics) is represented by light blue segments. Don't know responses are in grey segments - 11% for NISRA, 3% for ONS."}
+```{r Chart 9, fig.alt = "Bar chart with trust in NISRA statistics at 85%, compared to 84% for ONS statistics. This is represented by dark blue segments. Distrust (4% for NISRA statistics, 12% for ONS statistics) is represented by light blue segments. Don't know responses are in grey segments - 11% for NISRA, 3% for ONS."}
 
 f_stacked_bar_vertical(trust_stats_nisra_ons_data)
 
-```
+f_embed_ods(df = table_4b_data,
+  sheet_title = if (current_year == ons_year) {
+    paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")
+  } else {
+    paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")
+  }, 
+  tab_name ="trust_nisra_ons_stats")
 
-`r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats")`
+```
 
 `r f_borderline()`
 
@@ -479,13 +500,15 @@ Amongst respondents who had a view, the proportion agreeing that NISRA statistic
 
 #### Chart 10: NISRA statistics are important to understand Northern Ireland (2016-`r current_year`)
 
-```{r Chart 10, fig.alt = "NISRA statistics are important to understand Northern Ireland (2016-2022). Vertical bar chart showing belief that NISRA statistics are important to understand Northern Ireland - agree responses in dark blue, disagree responses in light blue, and don't know responses in grey. Each bar represents a different year."}
+```{r Chart 10, fig.alt = "Vertical bar chart showing belief that NISRA statistics are important to understand Northern Ireland - agree responses in dark blue, disagree responses in light blue, and don't know responses in grey. Each bar represents a different year."}
 
 f_stacked_bar_vertical(stats_important_data)
 
-```
+f_embed_ods(df = table_5a_data,
+  sheet_title = paste0("Table 5a: Statistics produced by NISRA are important to understand Northern Ireland, 2016 to ", current_year),
+  tab_name = "value_nisra")
 
-`r f_embed_ods(df = table_5a_data, sheet_title = paste0("Table 5a: Statistics produced by NISRA are important to understand Northern Ireland, 2016 to ", current_year), tab_name = "value_nisra")`
+```
 
 ###	Comparison with ONS
 
@@ -493,13 +516,19 @@ The percentage of respondents who agree that the statistics produced are importa
 
 #### Chart 11: Statistics produced are important to understand our country, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 11, fig.alt = "Statistics produced are important to understand our country, NISRA 2022 and ONS 2021. Vertical bar chart showing belief that statistics produced by each institution are important in understanding the country. 90% for NISRA in 2022, 88% for ONS in 2021."}
+```{r Chart 11, fig.alt = "Vertical bar chart showing belief that statistics produced by each institution are important in understanding the country. 90% for NISRA in 2022, 88% for ONS in 2021."}
 
 f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
-```
+f_embed_ods(df = table_5b_data, 
+  sheet_title = if (current_year == ons_year) {
+    paste0("Table 5b: Statistics produced are important to understand our country (NISRA and ONS), ", current_year)
+  } else {
+    paste0("Table 5b: Statistics produced are important to understand our country (NISRA ", current_year, " and ONS ", ons_year, ")")
+  },
+  tab_name = "trust_nisra_ons_stats")
 
-`r f_embed_ods(df = table_5b_data, sheet_title = if (current_year == ons_year) {paste0("Table 5b: Statistics produced are important to understand our country (NISRA and ONS), ", current_year)} else { paste0("Table 5b: Statistics produced are important to understand our country (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "trust_nisra_ons_stats")`
+```
 
 `r f_borderline()`
 
@@ -515,13 +544,15 @@ When only those who expressed an opinion are considered, there is no significant
 
 #### Chart 12: NISRA statistics are free from political interference (2014-`r current_year`)
 
-```{r Chart 12, fig.alt = "NISRA statistics are free from political interference (2014-2022). Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
+```{r Chart 12, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
 
 f_stacked_bar_vertical(political_data)
 
-```
+f_embed_ods(df = table_6a_data, 
+  sheet_title = paste0("Table 6a: Statistics produced by NISRA are free from political interference, 2014 to ", current_year),
+  tab_name = "political_nisra")
 
-`r f_embed_ods(df = table_6a_data, sheet_title = paste0("Table 6a: Statistics produced by NISRA are free from political interference, 2014 to ", current_year), tab_name = "political_nisra")`
+```
 
 ###	Comparison with ONS
 
@@ -529,13 +560,18 @@ In comparison, `r free_from_interference_ons`% of respondents agree that statist
 
 #### Chart 13: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 13, fig.alt = "Statistics produced are free from political interference, NISRA (2022) and ONS (2021). Vertical stacked bar chart showing belief that statistics are free from political interference. Belief that NISRA statistics are free from interference is at 82% in 2022 (dark blue segment), compared to 68% for ONS in 2021."}
+```{r Chart 13, fig.alt = "Vertical stacked bar chart showing belief that statistics are free from political interference. Belief that NISRA statistics are free from interference is at 82% in 2022 (dark blue segment), compared to 68% for ONS in 2021."}
 
 f_stacked_bar_vertical(political_nisra_ons_data)
 
-```
+f_embed_ods(df = table_6b_data,
+  sheet_title = if (current_year == ons_year) {
+    paste0("Table 6b: Statistics produced are free from political interference (NISRA and ONS) , ", current_year)
+  } else {
+    paste0("Table 6b: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")")},
+  tab_name = "political_nisra_ons")
 
-`r f_embed_ods(df = table_6b_data, sheet_title = if (current_year == ons_year) {paste0("Table 6b: Statistics produced are free from political interference (NISRA and ONS) , ", current_year)} else {paste0("Table 6b: Statistics produced are free from political interference (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "political_nisra_ons")`
+```
 
 `r f_borderline()`
 
@@ -551,13 +587,15 @@ When only those who expressed an opinion are considered, there is no significant
 
 #### Chart 14: Personal information provided to NISRA will be kept confidential (2014-`r current_year`)
 
-```{r Chart 14, fig.alt = "Personal information provided to NISRA will be kept confidential (2014-2022). Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
+```{r Chart 14, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
 
 f_stacked_bar_vertical(confidential_data)
 
-```
+f_embed_ods(df = table_7a_data, 
+  sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year),
+  tab_name = "confidential_nisra")
 
-`r f_embed_ods(df = table_7a_data, sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year), tab_name = "confidential_nisra")`
+```
 
 ###	Comparison with ONS
 
@@ -565,13 +603,19 @@ In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` ag
 
 #### Chart 15: Belief that personal information provided will be kept confidential, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 15, fig.alt = "Belief that personal information provided will be kept confidential, NISRA 2022 and ONS 2021. Vertical bar chart showing belief that personal information will be kept confidential by institution. In 2022, 92% believed that NISRA would keep personal information confidential (dark blue segment), compared to 89% for ONS in 2021."}
+```{r Chart 15, fig.alt = "Vertical bar chart showing belief that personal information will be kept confidential by institution. In 2022, 92% believed that NISRA would keep personal information confidential (dark blue segment), compared to 89% for ONS in 2021."}
 
 f_stacked_bar_vertical(condifential_nisra_ons_data)
 
-```
+f_embed_ods(df = table_7b_data, 
+  sheet_title = if (current_year == ons_year) {
+    paste0("Table 7b: Personal information provided will be kept confidential (NISRA and ONS), ", current_year)
+  } else {
+  paste0("Table 7b: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")")
+  }, 
+  tab_name = "confidential_nisra_ons")
 
-`r f_embed_ods(df = table_7b_data, sheet_title = if (current_year == ons_year) {paste0("Table 7b: Personal information provided will be kept confidential (NISRA and ONS), ", current_year)} else {paste0("Table 7b: Personal information provided will be kept confidential (NISRA ", current_year, " and ONS ", ons_year, ")")}, tab_name = "confidential_nisra_ons")`
+```
 
 `r f_borderline()`
 

@@ -349,28 +349,32 @@
        href="../../outputs/infographics/trust1.png"
        id="image1"
        x="-40.108559"
-       y="93.667854" />
+       y="93.667854"
+       alt="trust1alt"/>
     <image
        height="339.79373"
        width="450.31601"
        href="../../outputs/infographics/trust3.png"
        id="image3"
        x="25.827831"
-       y="439.67715" />
+       y="439.67715" 
+       alt="trust3alt"/>
     <image
        height="287.91629"
        width="697.36658"
        href="../../outputs/infographics/trust2.png"
        id="image2"
        x="390.66882"
-       y="123.65128" />
+       y="123.65128"
+       alt="trust2alt"/>
     <image
        height="344.18613"
        width="581.41406"
        href="../../outputs/infographics/trust4.png"
        id="image4"
        x="519.00891"
-       y="446.19135" />
+       y="446.19135"
+       alt="trust4alt"/>
     <g
        id="g22">
       <path
