@@ -46,6 +46,9 @@ for (question in questions) {
     if (question %in% names(data_year)) {
       ### Which weight variables to use depending on year ####
 
+      # Set Refusals to NA
+      data_year[[question]][data_year[[question]] == "Refusal"] <- NA
+      
       #### NI level / Most co-vars ####
       ni_weight <- if (year == 2020) {
         "W4"
