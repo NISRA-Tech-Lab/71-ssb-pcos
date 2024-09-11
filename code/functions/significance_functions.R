@@ -5,7 +5,9 @@ f_return_n <- function(var) {
   length(var[!is.na(var)])
 }
 
-# Returns percentage of times a given "value" occurs in column "var"
+# Returns percentage of times a given "value" occurs in column "var" in data frame "data"
+# "weight" is set as W3 and can be customised in function call
+# "dk" is whether to include don't knows. Default setting is TRUE
 f_return_p <- function(data, var, value, weight = "W3", dk = TRUE) {
   p_data <- data %>%
     filter(!is.na(.[[var]]))
@@ -18,10 +20,15 @@ f_return_p <- function(data, var, value, weight = "W3", dk = TRUE) {
   sum(p_data[[weight]][p_data[[var]] == value]) / sum(p_data[[weight]])
 }
 
+# Returns number of blank values in column "var" when "group_var" is filtered by "group_value"
 f_return_n_group <- function(var, group_var, group_value) {
   length(var[!is.na(var) & !is.na(group_var) & group_var == group_value])
 }
 
+# Returns percentage of times a given "value" occurs in column "var" in data frame "data"
+# when "group_var" is filtered by "group_value"
+# "weight" is set as W3 and can be customised in function call
+# "dk" is whether to include don't knows. Default setting is TRUE
 f_return_p_group <- function(data, var, value, group_var, group_value, weight = "W3", dk = TRUE) {
   
   p_data <- data %>%
@@ -35,6 +42,7 @@ f_return_p_group <- function(data, var, value, group_var, group_value, weight = 
   sum(p_data[[weight]][p_data[[var]] == value]) / sum(p_data[[weight]])
 }
 
+# Returns the z score given p1, n1, p2, n2
 f_return_z <- function(p1, n1, p2, n2) {
   s1 <- (1 / n1) + (1 / n2)
   s2 <- p1 * n1
@@ -48,6 +56,9 @@ f_return_z <- function(p1, n1, p2, n2) {
   s6 / s9
 }
 
+
+# Returns data frame comparing significant change of "value" in "var" between current year and previous
+# Default behaviour "dk" includes don't knows.
 f_significance_year <- function(var, value, dk = TRUE) {
   data_current_f <- data_current
   data_last_f <- data_last
@@ -86,6 +97,8 @@ f_significance_year <- function(var, value, dk = TRUE) {
   sig_table
 }
 
+# Returns data frame comparing significant differences of "value" in "var" across all age groups
+# Default behaviour "dk" includes don't knows.
 f_age_z_scores <- function(var, value, dk = TRUE) {
   age_groups <- levels(data_current$AGE2)
 
@@ -126,6 +139,8 @@ f_age_z_scores <- function(var, value, dk = TRUE) {
   age_z_scores
 }
 
+# Returns data frame comparing significant differences of "value" in "var" across all levels of qualification
+# Default behaviour "dk" includes don't knows.
 f_qual_z_scores <- function(var, value, dk = TRUE) {
   quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
 
@@ -166,6 +181,8 @@ f_qual_z_scores <- function(var, value, dk = TRUE) {
   qual_z_scores
 }
 
+# Returns data frame comparing significant differences of "value" in "var" across work statuses
+# Default behaviour "dk" includes don't knows.
 f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   if (dk) {
     work_stats <- data.frame(
@@ -234,6 +251,8 @@ f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   work_stats
 }
 
+# Returns data frame containing p and n values of "value1" (and optionally "value2") in "var" across all age groups
+# Default behaviour "dk" includes don't knows.
 f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   age_groups <- levels(data_current$AGE2)
 
@@ -265,6 +284,9 @@ f_age_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
   age_stats
 }
+
+# Returns data frame containing p and n values of "value1" (and optionally "value2") in "var" across all qualification levels
+# Default behaviour "dk" includes don't knows.
 
 f_qual_stats <- function(var, value1, value2 = NA, dk = TRUE) {
   quals <- levels(data_current$DERHIanalysis)[!levels(data_current$DERHIanalysis) %in% c("Refusal", "DontKnow", "Other qualifications")]
@@ -368,6 +390,7 @@ f_insert_sig_table <- function(df, sheet, title, c = 1) {
   r <<- r + nrow(df) + 2
 }
 
+# Inserts table into Excel work sheet containing z score comaprisons in a grid format
 f_insert_z_table <- function(df, sheet, title) {
   writeData(wb, sheet,
     x = title,
@@ -428,6 +451,7 @@ f_insert_z_table <- function(df, sheet, title) {
   r <<- r + nrow(df) + 2
 }
 
+# Compares nisra with ons for "val" in "var", don't knows are excluded
 f_nisra_ons_ex_dk <- function(var, val) {
   
   df <- data.frame(
@@ -459,6 +483,7 @@ f_nisra_ons_ex_dk <- function(var, val) {
   df
 }
 
+# Compares nisra with ons for "val_1" and "val_2" in "var", don't knows are included
 f_nisra_ons <- function(var, val_1, val_2) {
   ons_values <- data_ons %>%
     filter(`Related Variable` == var)
@@ -493,7 +518,7 @@ f_nisra_ons <- function(var, val_1, val_2) {
   df
 }
 
-
+# Returns trend data frame when sheet name is entered
 f_trend <- function(sheet) {
   trend <- weighted_trend %>%
     filter(grepl(paste0(sheet, " - "), stat)) %>%
@@ -509,6 +534,8 @@ f_trend <- function(sheet) {
   trend
 }
 
+# Outputs z scores for "trend" based using data frame extracted using function above
+# "response" is the response being analysed
 f_trend_z_scores <- function(trend, response) {
   years <- names(trend)[names(trend) != " "]
 
@@ -613,7 +640,7 @@ f_ill_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
 # From Exploratory Analysis ####
 
-significanceTest <- function(p1, n1, p2, n2) {
+f_significance_test <- function(p1, n1, p2, n2) {
   # This function follows the method used in the spreadsheet exactly. It outputs
   # whether the difference is significant or not and where significant, it indicates
   # whether p1 or p2 is larger.
@@ -643,14 +670,8 @@ significanceTest <- function(p1, n1, p2, n2) {
   return(c(significance = significance, direction = direction, score = z))
 }
 
-confidenceInterval <- function(p, n) {
-  # This fucntion returns the upper and lower confidence limits
-  # **not used in this code currently**
-  ciCalc <- qnorm(0.975) * sqrt((p * (1 - p)) / n)
-  return(c(confIn = ciCalc, lowerCL = p - ciCalc, upperCL = p + ciCalc))
-}
 
-extractQuestionText <- function(df, var) {
+f_extract_question_text <- function(df, var) {
   # This function extracts the question text as stored in the SPSS file for a specific variable
   df <- get(df)
   # print(var)
@@ -660,7 +681,7 @@ extractQuestionText <- function(df, var) {
   return(q = qText)
 }
 
-extractVar2 <- function(vars, y1, v1, y2) {
+f_extract_var_2 <- function(vars, y1, v1, y2) {
   # This function extracts the corresponding variable for a specified year
   # given the year and variable to compare to
   year1 <- get(y1, vars)
@@ -671,7 +692,7 @@ extractVar2 <- function(vars, y1, v1, y2) {
 }
 
 
-stCombinations <- function(vars, groupings, currentYear) {
+f_st_combinations <- function(vars, groupings, currentYear) {
   # Build dataframe for testing from vars and groupings inputs
   v2 <- vars %>%
     pivot_longer(cols = colnames(vars), names_to = "year", values_to = "var") %>%
@@ -684,7 +705,7 @@ stCombinations <- function(vars, groupings, currentYear) {
     left_join(v2, by = c("year1" = "year")) %>%
     mutate(var1 = var) %>%
     select(-var) # Add in the variables for all year1 cases
-  var2 <- apply(x, 1, function(y) extractVar2(vars, y["year1"], y["var1"], y["year2"])) # identify the corresponding year2 variables
+  var2 <- apply(x, 1, function(y) f_extract_var_2(vars, y["year1"], y["var1"], y["year2"])) # identify the corresponding year2 variables
   varYears <- cbind(x, var2) # add in corresponding year2 variables
 
   vardf <- data.frame() # create emply dataframe

@@ -57,6 +57,12 @@ overview_chart_1
 
 save_plot(paste0(here(), "/outputs/infographics/Overview1.png"), fig = overview_chart_1, width = 11, height = 9)
 
+overview1alt <- paste0(
+  "Donut chart showing respondents awareness of NISRA ", current_year, ". ",
+  donut_chart_df$Percentage[donut_chart_df$Answer == "Yes"],
+  "% said they were aware of NISRA."
+)
+
 ## Trust in NISRA statistics ####
 
 aware_trust_chart_2 <- ggplot(trust_df, aes(fill = Category, x = Percentage, y = Year)) +
@@ -109,6 +115,13 @@ aware_trust_chart_2 <- ggplot(trust_df, aes(fill = Category, x = Percentage, y =
 aware_trust_chart_2
 
 save_plot(paste0(here(), "/outputs/infographics/Overview2.png"), fig = aware_trust_chart_2, width = 13, height = 10)
+
+overview2alt <- paste0(
+  "Stacked bar chart showing Trust in NISRA statistics. Trust in NISRA in ",
+  current_year, " was ",
+  trust_df$Percentage[trust_df$Year == current_year & trust_df$Category == "Tend to trust/trust a great deal"],
+  "%"
+)
 
 ## Personal information provided to NISRA will be kept confidential ####
 
@@ -185,6 +198,12 @@ aware_trust_chart_3
 
 save_plot(paste0(here(), "/outputs/infographics/Overview3.png"), fig = aware_trust_chart_3, width = 11, height = 8)
 
+overview3alt <- paste0(
+  "Stacked bar chart showing belief that information provided to NISRA will be kept confidential. ",
+  confidentiality$Percentage[confidentiality$Year == current_year & confidentiality$Category == "Strongly Agree/Tend to agree"],
+  "% of people agreed with this belief in ", current_year, "."
+)
+
 ## NISRA statistics are important to understand Northern Ireland ####
 important_df$Category <- factor(important_df$Category,
   levels = c(
@@ -258,6 +277,12 @@ aware_trust_chart_4
 
 save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 11, height = 7)
 
+overview4alt <- paste0(
+  "Stacked bar chart showing belief that NISRA statistics are important to understand Northern Ireland. ",
+  important_df$Percentage[important_df$Year == current_year & important_df$Category == "Strongly agree/tend to agree"],
+  "% of people agreed with this belief in ", current_year, "."
+)
+
 ## Trust in NISRA compared to other institutions ####
 
 bar_order <- c("The NI Assembly ", "The Civil Service ", "The media ", "NISRA ")
@@ -317,6 +342,18 @@ aware_trust_chart_5
 
 save_plot(paste0(here(), "/outputs/infographics/Overview5.png"), fig = aware_trust_chart_5, width = 18, height = 10)
 
+overview5alt <- paste0(
+  "Stacked bar chart comparing Trust in NISRA to other institutions. Trust in NISRA was ",
+  trust_compared_df$Percentage[trust_compared_df$Institution == "NISRA " & trust_compared_df$Category == "Tend to trust/trust a great deal"],
+  "%; trust in the media was ",
+  trust_compared_df$Percentage[trust_compared_df$Institution == "The media " & trust_compared_df$Category == "Tend to trust/trust a great deal"],
+  "%; trust in the Civil Serice was ",
+  trust_compared_df$Percentage[trust_compared_df$Institution == "The Civil Service " & trust_compared_df$Category == "Tend to trust/trust a great deal"],
+  "% and trust in the NI Assembly was ",
+  trust_compared_df$Percentage[trust_compared_df$Institution == "The NI Assembly " & trust_compared_df$Category == "Tend to trust/trust a great deal"],
+  "%."
+)
+
 ## Convert to PDF ####
 infographic_template <- readLines(paste0(here(), "/code/infographic/Overview - Infographic template.svg")) %>%
   gsub('id="tspan12">YEAR', paste0('id="tspan12">', current_year), ., fixed = TRUE)
@@ -327,13 +364,13 @@ for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5"))
     infographic_template,
     fixed = TRUE
   )
-}
 
-# for (text in c("overview1alt", "overview2alt", "overview3alt", "overview4alt", "overview5alt")) {
-#   
-#   infographic_template <- gsub(text, )
-#   
-# }
+  infographic_template <- gsub(paste0(tolower(plot), "alt"),
+    get(paste0(tolower(plot), "alt")),
+    infographic_template,
+    fixed = TRUE
+  )
+}
 
 writeLines(infographic_template, paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
 
@@ -382,14 +419,16 @@ trust_chart_1
 
 save_plot(paste0(here(), "/outputs/infographics/trust1.png"), fig = trust_chart_1, width = 12, height = 10)
 
-trust1alt <- paste0("Donut chart showing respondents trust in NISRA Statistics ",
-                    current_year, ". ",
-                    trust_info_data1$prop[trust_info_data1$class == "Yes"],
-                    "% said yes, ",
-                    trust_info_data1$prop[trust_info_data1$class == "No"],
-                    "% said no, while ",
-                    trust_info_data1$prop[trust_info_data1$class == "Don't know"],
-                    "% said they did not know.")
+trust1alt <- paste0(
+  "Donut chart showing respondents trust in NISRA Statistics ",
+  current_year, ". ",
+  trust_info_data1$prop[trust_info_data1$class == "Yes"],
+  "% said yes, ",
+  trust_info_data1$prop[trust_info_data1$class == "No"],
+  "% said no, while ",
+  trust_info_data1$prop[trust_info_data1$class == "Don't know"],
+  "% said they did not know."
+)
 
 ## Trust in NISRA ####
 
@@ -443,15 +482,17 @@ trust_chart_2
 
 save_plot(paste0(here(), "/outputs/infographics/trust2.png"), fig = trust_chart_2, width = 40, height = 18)
 
-trust2alt <- paste0("Line chart showing trust in NISRA statistics from ",
-                    min(trust_info_data2$Year),
-                    " to ",
-                    current_year,
-                    ". Trust in NISRA statistics in ",
-                    current_year,
-                    " remains high at ",
-                    trust_info_data2$`Percentage\n`[trust_info_data2$Year == current_year],
-                    "%.")
+trust2alt <- paste0(
+  "Line chart showing trust in NISRA statistics from ",
+  min(trust_info_data2$Year),
+  " to ",
+  current_year,
+  ". Trust in NISRA statistics in ",
+  current_year,
+  " remains high at ",
+  trust_info_data2$`Percentage\n`[trust_info_data2$Year == current_year],
+  "%."
+)
 
 ## NISRA stats are free from political interference ####
 
@@ -514,6 +555,8 @@ trust_chart_3
 
 save_plot(paste0(here(), "/outputs/infographics/trust3.png"), fig = trust_chart_3, width = 18, height = 14)
 
+trust3alt <- paste0("Bar chart showing that the belief that NISRA statistics are free from political interference remains high at ", chart_3_perc)
+
 ## Trust in statistics compared to ONS ####
 
 chart_4_perc <- paste0(trust_info_data4$Percentage[trust_info_data4$Year == current_year], "%")
@@ -567,6 +610,20 @@ trust_chart_4
 
 save_plot(paste0(here(), "/outputs/infographics/trust4.png"), fig = trust_chart_4, width = 32, height = 18)
 
+trust4alt <- paste0(
+  "Bar chart showing comparisons between trust in NISRA and ONS statistics from ",
+  trust_info_data4$Year[1], ", ",
+  trust_info_data4$Year[2], ", ",
+  trust_info_data4$Year[3], " and ",
+  trust_info_data4$Year[4], ". Trust in NISRA statistics (",
+  current_year, "; ",
+  trust_info_data4$Percentage[trust_info_data4$Organisation == "NISRA" & trust_info_data4$Year == current_year],
+  "%) is similar to trust in ONS statistics in ",
+  ons_year, " (",
+  trust_info_data4$Percentage[trust_info_data4$Organisation == "ONS" & trust_info_data4$Year == ons_year],
+  "%)"
+)
+
 ## Convert to PDF ####
 
 trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographic template.svg")) %>%
@@ -574,14 +631,17 @@ trust_template <- readLines(paste0(here(), "/code/infographic/Trust - Infographi
 
 for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   trust_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
-                         paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
-                         trust_template,
-                         fixed = TRUE
+    paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
+    trust_template,
+    fixed = TRUE
+  )
+
+  trust_template <- gsub(paste0(plot, "alt"),
+    get(paste0(plot, "alt")),
+    trust_template,
+    fixed = TRUE
   )
 }
-
-trust_template <- gsub("trust1alt", trust1alt, trust_template, fixed = TRUE)
-trust_template <- gsub("trust2alt", trust2alt, trust_template, fixed = TRUE)
 
 writeLines(trust_template, paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
 
@@ -590,7 +650,7 @@ rsvg_pdf(
   file = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".pdf")
 )
 
-# unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
 
 # Awareness Infographic ####
 
@@ -635,6 +695,12 @@ aware_nisra_chart <- aware_nisra_chart +
 aware_nisra_chart
 
 save_plot(paste0(here(), "/outputs/infographics/info1.png"), fig = aware_nisra_chart, width = 14, height = 14)
+
+info1alt <- paste0(
+  "Donut chart showing respondents awareness of NISRA ", current_year, ". ",
+  donut_chart_df$Percentage[donut_chart_df$Answer == "Yes"],
+  "% said they were aware of NISRA."
+)
 
 ## Bubble Chart ####
 
@@ -790,6 +856,12 @@ png(
 print(bubble_chart)
 dev.off()
 
+info2alt <- paste0(
+  "Awareness of NISRA is significantly lower than in 2020 and 2021, but significantly higher than in previous years. 2016 - 33%. 2018 - 35%. 2019 - 35%. 2020 - 58%. 2021 - 55%. ",
+  current_year, " - ",
+  awareness_info_data1$Percentage[awareness_info_data1$Year == current_year], "%."
+)
+
 ## Compared to ONS ####
 
 nisra_ons_z <- f_return_z(
@@ -870,6 +942,14 @@ pub_awareness_chart_2 <- ggplot(awareness_info_data2, aes(
 pub_awareness_chart_2
 
 save_plot(paste0(here(), "/outputs/infographics/info3.png"), fig = pub_awareness_chart_2, width = 12, height = 10)
+
+info3alt <- paste0(
+  "Bar chart comparing awareness of NISRA with awareness of ONS. Awareness of NISRA (",
+  awareness_info_data2$Percentage[awareness_info_data2$Group == "NISRA" & awareness_info_data2$year == current_year],
+  "%) is significantly lower than awareness of ONS (",
+  awareness_info_data2$Percentage[awareness_info_data2$Group == "ONS" & awareness_info_data2$year == ons_year],
+  "%)."
+)
 
 ## Awareness of specific NISRA statistics ####
 aes(reorder(variable, value), value)
@@ -952,10 +1032,9 @@ pub_awareness_chart_3
 
 save_plot(paste0(here(), "/outputs/infographics/info4.png"), fig = pub_awareness_chart_3, width = 34, height = 17)
 
+info4alt <- paste0("Bar chart showing awareness of NISRA outputs by respondents who were not previously aware of NISRA.")
 
-# Convert to PDF ####
-
-## Awareness ####
+## Convert to PDF ####
 
 awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - Infographic template.svg")) %>%
   gsub("Statistics and Research Agency YEAR", paste0("Statistics and Research Agency ", current_year), ., fixed = TRUE)
@@ -963,6 +1042,12 @@ awareness_template <- readLines(paste0(here(), "/code/infographic/Awareness - In
 for (plot in c("info1", "info2", "info3", "info4")) {
   awareness_template <- gsub(paste0("../../outputs/infographics/", plot, ".png"),
     paste0("data:image/png;base64,", base64_encode(paste0(here(), "/outputs/infographics/", plot, ".png"))),
+    awareness_template,
+    fixed = TRUE
+  )
+
+  awareness_template <- gsub(paste0(plot, "alt"),
+    get(paste0(plot, "alt")),
     awareness_template,
     fixed = TRUE
   )
@@ -976,6 +1061,3 @@ rsvg_pdf(
 )
 
 unlink(paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
-
-
-

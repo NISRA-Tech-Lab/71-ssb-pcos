@@ -150,6 +150,7 @@ trust_info_data4 <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_
     Percentage = round_half_up(as.numeric(V1))
   ) %>%
   select(-V1) %>%
+  tail(4) %>%
   bind_rows(trust_info_data2 %>%
     as.data.frame() %>%
     filter(!Year %in% 2019:2020) %>%
@@ -157,7 +158,8 @@ trust_info_data4 <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_
       Organisation = "NISRA",
       Year = as.character((Year))
     ) %>%
-    select(Organisation, Year, Percentage = `Percentage\n`)) %>%
+    select(Organisation, Year, Percentage = `Percentage\n`) %>%
+    tail(4)) %>%
   arrange(Organisation)
 
 rownames(trust_info_data4) <- 1:nrow(trust_info_data4)
