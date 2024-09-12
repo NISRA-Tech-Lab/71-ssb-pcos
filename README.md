@@ -8,7 +8,9 @@ Carry out the following updates each year to create new publication:
 
 -   If new ONS data is available, place the .xlsx file in the `ONS` folder
 
--   Take a copy of the entire R Project by [duplicating this repository](https://github.com/new/import) on Github and name it for the new year.
+-   Take a copy of the entire R Project by [duplicating the previous year's repository](https://github.com/new/import) on Github and name it for the new year.
+
+-   Open RStudio. Click __File__ > __New Project__ > __Version Control__ > __Git__ and paste the new repository's URL in. Save your local clone of the Git repository under `C:\Users\USERNAME\Documents\R`.
 
 -   In `code\config.R` file, update the following values:
 
@@ -32,20 +34,18 @@ Carry out the following updates each year to create new publication:
 
 -   After knitting report:
 
-    -   QA the report and make any necessary changes.
+    -   QA the report and make any necessary changes in the Rmd document itself.
     -   Ensure that all automated text makes sense.
 
--   Knit updated `report.Rmd` for final draft.
-
--   Run `excel tables/run_excel_tables.R` script.
+-   Knit updated `public-awareness-of-and-trust-in-official-statistics-northern-ireland-YYYY.Rmd` for final draft.
 
 ## Onloading a new user
 
 ### Git
 
-For more information on Git look at the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
+For more information on Git see the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
 
-Enter the following lines of code in the R terminal:
+Enter the following lines of code in the R terminal (one at a time, pressing Enter after each line):
 
 ```         
 git config --global http.sslVerify false
@@ -53,7 +53,6 @@ git config --global http.proxy http://cloud-lb.nigov.net:8080
 git config --global https.proxy https://cloud-lb.nigov.net:8080
 git config --global user.name "YourUsername"
 git config --global user.email firstname.lastname@nisra.gov.uk
-git update-index --assume-unchanged code/path_to_data.R
 ```
 
 ## Key files and folders
@@ -277,7 +276,7 @@ One time run to produce trend figures up to 2021, required for the significance 
 
 This produces all the data frames required to output the final significance output. Data frames for new tables should be constructed in here. The functions used to output the data frames are found in [code/functions/significance_functions.R](code/functions/significance_functions.R)
 
-This script is automatically execectured when `significance_outputs.R`.
+This script is automatically execectured when `significance_outputs.R` is run.
 
 #### [significance_outputs.R](code/significance_testing/final_output/significance_outputs.R)
 
