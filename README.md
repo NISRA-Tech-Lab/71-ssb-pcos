@@ -318,7 +318,7 @@ This script is automatically execectured when `significance_outputs.R` is run.
 This script will produce the final significance output workbook. Any data frames created in `significance_testing.R` need positioned on the page here.
 
 
-### Links
+## Useful Links
 
 The [NISRA Technology & Support Lab RAP Skeleton Git Page](https://github.com/NISRA-Tech-Lab/rap-skeleton) has lots of useful information that forms the basis for the development of this project.
 
