@@ -288,8 +288,6 @@ nisra_ons_political_ex_dk <- f_nisra_ons_ex_dk("Political2", "Strongly Agree/Ten
 
 nisra_ons_confidential_ex_dk <- f_nisra_ons_ex_dk("Confidential2", "Strongly Agree/Tend to Agree")
 
-
-
 # Awareness of NISRA ####
 
 ## Trend ####

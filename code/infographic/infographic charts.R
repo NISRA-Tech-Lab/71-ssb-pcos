@@ -1,4 +1,4 @@
-# Select all and Ctrl + R to produce infographics
+# Select all and Ctrl + Enter to produce infographics
 
 library(here)
 source(paste0(here(), "/code/infographic/infographic prep.R"))
