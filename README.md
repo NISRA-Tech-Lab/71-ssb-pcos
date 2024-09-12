@@ -51,6 +51,8 @@ New users will also need a service request submitted to have the following softw
 
 -   [Git for Windows](https://git-scm.com/download/win)
 
+New users need to create an account on [github.com](http://github.com) using their NISRA email address. The admin for the SSB Github Organisation will need to add the new account to the organisation.
+
 ### Git
 
 For more information on Git see the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
