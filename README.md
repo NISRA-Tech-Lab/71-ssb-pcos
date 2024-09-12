@@ -41,9 +41,21 @@ Carry out the following updates each year to create new publication:
 
 ## Onloading a new user
 
+New users will require the following software from the ITAssist Store (icon on your Desktop):
+
+-   R version 4.4
+-   RStudio
+-   Inkscape
+
+New users will also need a service request submitted to have the following software installed:
+
+-   [Git for Windows](https://git-scm.com/download/win)
+
 ### Git
 
 For more information on Git see the [RAP Skeleton Git infomation section](https://github.com/NISRA-Tech-Lab/rap-skeleton?tab=readme-ov-file#storing-your-r-project-in-a-github-repository)
+
+Before you can clone a local copy of this Repository, first open RStudio and click on the Terminal tab.
 
 Enter the following lines of code in the R terminal (one at a time, pressing Enter after each line):
 
@@ -54,6 +66,19 @@ git config --global https.proxy https://cloud-lb.nigov.net:8080
 git config --global user.name "YourUsername"
 git config --global user.email firstname.lastname@nisra.gov.uk
 ```
+### Cloning the repo
+
+Click __File__ > __New Project__ > __Version Control__ > __Git__ and paste this repository's URL in. Save your local clone of the Git repository under `C:\Users\USERNAME\Documents\R`.
+
+__To revisit the Project after closing RStudio, double click on the .Rproj file contained in the Project folder.__
+
+### install necessary packages using renv
+
+In RStudio, switch from the "Terminal" tab to the "Console" tab. Enter the code in the Console:
+
+`renv::restore()`
+
+and follow any on screen prompts in the Console.
 
 ## Key files and folders
 
