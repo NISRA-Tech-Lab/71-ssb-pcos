@@ -17,7 +17,6 @@ Carry out the following updates each year to create new publication:
     -   `ons_filename` - The file name of the XLSX data for ONS that is stored in the `ONS` folder
     -   `current_year` - The reporting year for NISRA survey
     -   `ons_year` - The reporting year for ONS survey
-    -   `title` - The title to appear at the top of the document
     -   `pub_date` - Date of publication in "DD Mmm YYYY" format
     -   Check all other parameters are still correct. Adjust if needed.
 
@@ -72,6 +71,8 @@ The code folder contains a number of sub-folders (detailed below) as well as som
 -   [style.css](code/style.css) - Cascading Style Sheets (CSS) is used to format the layout of a html webpage. With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, what background images or background colors are to be used, different displays for different devices and screen sizes, and much more. For more information see [CSS Tutorial](https://www.w3schools.com/css/default.asp), [HTML Styles - CSS](https://www.w3schools.com/html/html_css.asp) and [Apply custom CSS](https://bookdown.org/yihui/rmarkdown-cookbook/html-css.html)
 
 ### [code/functions](code/functions)
+
+All of the functions used throughout the project are defined in this folder. This folder is automatically sourced any time `config.R` is called. The folder also contains the script `Styles.R` which provides definitions of individual cell formats for Excel (or ODS) based outputs.
 
 ### [code/html_publication](code/html_publication)
 
@@ -188,23 +189,100 @@ The three template files:
 -    Overview - Infographic Template.svg
 -    Trust - Infographic Template.svg
 
-The templates can be edited using [Inkscape](https://inkscape.org/) (available on ITAssist Store)
+The templates can be edited using [Inkscape](https://inkscape.org/) (available on ITAssist Store). You can only make edits to the overall layout of the infographic canvas here. Adjusting individuaol graphics is done elsewhere in the code.
 
 #### [infographic prep.R](code/infographic/infographic%20prep.R)
 
-This script is used to prepare data frames that will be used to plot the various charts that appear in the three infographic.
+This script is used to prepare data frames that will be used to plot the various charts that appear in the three infographics.
+
+There is no need to run this script as it is called at a specific point in the running of `infographic charts.R`.
 
 #### [infographic charts.R](code/infographic/infographic%20charts.R)
 
+This script takes the data frames created in `infographic prep.R` and produces charts using [ggplot2](https://ggplot2.tidyverse.org/reference/). It also uses the content of the data frames to output alt text on each figure.
+
+The charts are then embedded in the infogrpahic templates, along with the alt text and these are then saved as PDF files in the `outputs` folder. The individual infographics are also saved in the outputs folder as .png images where they can be used in social media posts.
+
 ### [code/ministerial_sub](code/ministerial_sub)
+
+Code in this folder produces the Ministerial Submission in Word Document format with automated values from the data. It can then be reviewed and saved to PDF.
+
+#### [ministerial_sub_template.docx](code/ministerial_sub/ministerial_sub_template.docx)
+
+This is a reference document that is used by the Rmd in this folder. Like CSS, it is used to set font styles for the Ministerial Submission.
+
+#### [Submission - Public Awareness of and Trust in Official Statistics 2022.Rmd](code/ministerial_sub/Submission%20-%20Public%20Awareness%20of%20and%20Trust%20in%20Official%20Statistics%202022.Rmd)
+
+When knitted this file will output the Ministerial Submisison in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighed in red text.
 
 ### [code/ods_tables](code/ods_tables)
 
-In order to produce the accompanying ODS outputs for this report, follow these steps:
+The code to produce the ODS tables is automatically executed when you Knit the main Rmd for the Report or for Appendix B. The scripts here can be amended to alter the ODS output.
 
+#### [ods_trend_data.R](code/ods_tables/ods_trend_data.R)
 
+A one-time run script to create trend data files in RDS format for all tables up to 2021. There are instructions elsewhere in the code to execute this script automatically should the 2021 Trend Data be missing in the remote location.
+
+#### [data_prep_for_ods.R](code/ods_tables/data_prep_for_ods.R)
+
+This script constructs data frames for all the tables in the ODS booklet using trend data from the previous year, current year NISRA data and the most recent year ONS data.
+
+Trend values are appended to trend files for the current year so that they can be picked up the following year.
+
+There is no need to run this script as it is called at a specific point in the running of `run_ods_tables.R`.
+
+### [code/pfg_tables](code/pfg_tables)
+
+The code in here will generate an Excel workbook with a tab for each of the questions required for the Data Portal.
+
+#### [Historic Data to R.R](code/pfg_tables/Historic%20Data%20to%20R.R)
+
+This script takes the final SPSS .SAV datasets from previous years (up to 2021) and converts them to RDS. Where required, variables have been recoded to match their 2022 formatting.
+
+#### [PfG Table Output.R](code/pfg_tables/PfG%20Table%20Output.R)
+
+This code will loop through the required variables, co-variates and available years' data to produce the Excel workbook containing the weighted values and their confidence intervals.
 
 Learn more: [Creating & Formatting Excel Workbooks](https://datavis.nisra.gov.uk/techlab/yalcbs/Useful-R-Info.html#Excel_table_functions)
+
+### [code/press_release](code/press_release)
+
+Code in this folder produces the Press Release in Word Document format with automated values from the data. It can then be reviewed and saved to PDF.
+
+#### [press_release_template.docx](code/ministerial_sub/press_release_template.docx)
+
+This is a reference document that is used by the Rmd in this folder. Like CSS, it is used to set font styles for the Press Release.
+
+#### [Public Awareness of and Trust in Official Statistics Press Release.Rmd](code/ministerial_sub/Public%20Awareness%20of%20and%20Trust%20in%20Official%20Statistics%20Press%20Release.Rmd)
+
+When knitted this file will output the Press Release in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighed in red text.
+
+### [code/significance_testing](code/significance_testing)
+
+There are two outputs produced: the exploratory significance output and the final significance output
+
+#### [exploratory_significance_testing.R](code/significance_testing/exploratory_significance_testing.R)
+
+This script will produce a list of Z Scores for a quick look at significance trends. Each questions appears in its own tab.
+
+The main way to edit the inputs to this analysis is through the csv files and Excel document contained in the inputs folder.
+
+The years being comapred can be changed setting the `comparison_year` and `analysis_year` values at the top of the script.
+
+#### [weighted_trend.R](code/significance_testing/final_output/weighted_trend.R)
+
+One time run to produce trend figures up to 2021, required for the significance analysis. This script will be executed automatically in `significance_testing.R` if the trend file is missing.
+
+#### [significance_testing.R](code/significance_testing/final_output/weighted_trend.R)
+
+This produces all the data frames required to output the final significance output. Data frames for new tables should be constructed in here. The functions used to output the data frames are found in [code/functions/significance_functions.R](code/functions/significance_functions.R)
+
+This script is automatically execectured when `significance_outputs.R`.
+
+#### [significance_outputs.R](code/significance_testing/final_output/significance_outputs.R)
+
+This script will produce the final significance output workbook. Any data frames created in `significance_testing.R` need positioned on the page here.
+
 
 ### Links
 
