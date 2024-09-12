@@ -130,7 +130,7 @@ ii. the publication of the Statistics Bulletin
 
 10.	Public trust in the statistics produced by NISRA is `r f_red_text("also high")` (`r trust_in_nisra_stats`%). Among those that have heard of NISRA by name, trust in NISRA statistics `r f_red_text("increases")` to `r heard_of_and_trust_nisra_stats`%\
 
-11.	For respondents who gave an opinion, there was `r f_red_text("no significant difference")` in the level of trust in NISRA statistics between 2021 and 2022. However for these respondents, trust in NISRA statistics is `r f_red_text("higher in 2022 compared to 2019 and previous years.")`\
+11.	For respondents who gave an opinion, there was `r f_red_text("no significant difference")` in the level of trust in NISRA statistics between `r current_year - 1` and `r current_year` However for these respondents, trust in NISRA statistics is `r f_red_text("higher in 2022 compared to 2019 and previous years.")`\
 
 12.	Trust in NISRA statistics is `r f_red_text("similar")` to the level of trust in ONS statistics (`r trust_in_ons_stats`%). However, distrust in NISRA statistics (`r distrust_nisra_stats`%) is `r f_red_text("notably lower")` than distrust in ONS statistics (`r distrust_ons_stats`%).\
 
