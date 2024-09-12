@@ -82,6 +82,14 @@ In RStudio, switch from the "Terminal" tab to the "Console" tab. Enter the code 
 
 and follow any on screen prompts in the Console.
 
+## Running code
+
+See below for further description of the individual roles each piece of code plays in the project. There are two main types of script in use:
+
+-   An __Rmarkdown script__ _(filename ending *.Rmd)_ is knitted by clicking the __Knit__  button at the top of the script pane. Or by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd>
+
+-   An __R script__ _(filename ending *.R)_ is run by highlighting all code (using __Edit__ > __Select All__ or pressing <kbd>Ctrl</kbd> + <kbd>A</kbd>) and then clicking __Run__ at the top of the script pane. Or by pressing <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+
 ## Key files and folders
 
 ### [code](code)
