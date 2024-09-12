@@ -25,8 +25,26 @@ for (i in 1:nrow(vars)) {
 
 
 ## DATA ####
-data_last <- readRDS(paste0(data_folder, "Final/PCOS ", comparison_year, " Final Dataset.RDS"))
-data_current <- readRDS(paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS"))
+
+# Check for existence of comparison_year data 
+
+data_last_name <- paste0(data_folder, "Final/PCOS ", comparison_year, " Final Dataset.RDS")
+
+if (!file.exists(data_last_name)) {
+  source(paste0(here(), "/code/pfg_tables/Historic Data to R.R"))
+}
+
+data_last <- readRDS(data_last_name)
+
+# Check for existence of analysis_year data
+
+data_current_name <- paste0(data_folder, "Final/PCOS ", analysis_year, " Final Dataset.RDS")
+
+if (!file.exists(data_current_name)) {
+  source(paste0(here(), "/code/html_publication/data_prep.R"))
+}
+
+data_current <- readRDS(data_current_name)
 
 # Check co-variate names with previous year
 co_vars <- unique(groupings$group1)

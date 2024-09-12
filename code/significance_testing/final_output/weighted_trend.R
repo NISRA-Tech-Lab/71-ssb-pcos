@@ -1,7 +1,24 @@
+# Script to create weighted trend data file up to 2021.
+# One-off run
+
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-trend_folder <- paste0(data_folder, "Trend/", current_year - 1, "/")
+# Check trend folder for 2021 exists and run script to create it if not
+trend_folder <- paste0(data_folder, "Trend/2021/")
+
+if (!dir.exists(trend_folder)) {
+  source(paste0(here(), "/code/html_publication/trend_data_for_charts.R"))
+  source(paste0(here(), "/code/ods_tables/ods_trend_data.R"))
+}
+
+trend_years <- c(seq(2012, 2018, 2), 2019:2021)
+
+for (year in trend_years) {
+  if (!file.exists(paste0(data_folder, "Final/PCOS ", year, " Final Dataset.RDS"))) {
+    source(paste0(here(), "/code/pfg_tables/Historic Data to R.R"))
+  }
+}
 
 # Awareness of NISRA ####
 
@@ -74,8 +91,6 @@ for (year in trend_years) {
   
   year_data <- readRDS(paste0(data_folder, "Final/PCOS ", year, " Final Dataset.RDS")) %>%
     filter(TrustNISRAstats2 != "Refusal")
-  
-  print(list(year, levels(year_data$TrustNISRAstats2)))
   
   levels(year_data$TrustNISRAstats2)[levels(year_data$TrustNISRAstats2) == "Tend to trust/trust a great deal"] <- "Trust a great deal/Tend to trust"
   levels(year_data$TrustNISRAstats2)[levels(year_data$TrustNISRAstats2) == "Don't Know"] <- "Don't know"
