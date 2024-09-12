@@ -1,5 +1,6 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/pfg_tables/Historic Data to R.R"))
 wb <- createWorkbook()
 
 # Define all available years based on current_year value from config ####

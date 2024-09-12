@@ -137,12 +137,14 @@ pub_date_words_my <- format(pub_date, "%B-%Y")
 
 #### CONFIGURE FOLDER PATHS FOR DOWNLOAD BUTTONS #####
 
-# create folder for download button csv and excel files if it doesn't exist
-ifelse(!dir.exists(paste0(here(), "/outputs/")), dir.create(paste0(
-  here(),
-  "/outputs/"
-)), "output folder already exists")
+# create folder for outputs
+if (!dir.exists(paste0(here(), "/outputs"))) {
+  dir.create(paste0(here(), "/outputs"))
+}
 
+if (!dir.exists(paste0(here(), "/outputs/significance outputs"))) {
+  dir.create(paste0(here(), "/outputs/significance outputs"))
+}
 
 #### NISRA COLOURS AND LOGOS ####
 ##### LOGOS #####

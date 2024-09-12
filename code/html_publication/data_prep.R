@@ -154,6 +154,17 @@ data_final <- data_final %>%
 
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
 
+# Check for existence of pre 2021 data
+if (!file.exists(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))) {
+  source(paste0(here(), "/code/pfg_tables/Historic Data to R.R"))
+}
+
+# Check for existence of previous year data (post 2021)
+if (!file.exists(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Dataset.RDS"))) {
+  print(paste0("Final Dataset RDS file missing for ", current_year - 1),
+        ". Re-visit the Project for ", current_year - 1, " and re-run that year's data_prep.R script")
+}
+
 ## Check created variables against originals (see outputs folder) ####
 source(paste0(here(), "/code/html_publication/check_created_variables.R"))
 

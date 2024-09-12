@@ -1,3 +1,5 @@
+# Select all and Ctrl + R to produce infographics
+
 library(here)
 source(paste0(here(), "/code/infographic/infographic prep.R"))
 
@@ -867,8 +869,8 @@ info2alt <- paste0(
 nisra_ons_z <- f_return_z(
   p1 = aware_nisra_trend[[as.character(current_year)]][1] / 100,
   n1 = aware_nisra_trend[[as.character(current_year)]][2],
-  p2 = unweighted_ons$Yes[unweighted_ons$`Related Variable` == "PCOS1"] / unweighted_ons_base$`Unweighted base`[unweighted_ons_base$`Related Variable` == "PCOS1"],
-  n2 = unweighted_ons_base$`Unweighted base`[unweighted_ons_base$`Related Variable` == "PCOS1"]
+  p2 = data_ons$Yes[data_ons$`Related Variable` == "PCOS1"] / 100,
+  n2 = data_ons$`Unweighted base`[data_ons$`Related Variable` == "PCOS1"]
 )
 
 nisra_ons_sig <- if (nisra_ons_z < qnorm(0.975) * -1) {

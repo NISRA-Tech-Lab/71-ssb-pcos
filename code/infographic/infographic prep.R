@@ -1,3 +1,5 @@
+# Prepare infographic data frames here. Script is automatically sourced in infographic charts.R
+
 library(here)
 source(paste0(here(), "/code/html_publication/data_prep.R"))
 
@@ -210,7 +212,13 @@ awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year, "/ta
     diameter = Percentage / sum(Percentage)
   )
 
-weighted_trend <- readRDS(paste0(data_folder, "Trend/", current_year, "/weighted trend data.RDS"))
+weighted_trend_name <- paste0(data_folder, "Trend/", current_year, "/weighted trend data.RDS")
+
+if (!file.exists(weighted_trend_name)) {
+  source(paste0(here(), "/code/significance_testing/final_output/significance_testing.R"))
+}
+
+weighted_trend <- readRDS(weighted_trend_name)
 
 aware_nisra_trend <- f_trend("Awareness")
 aware_nisra_trend[[1]] <- gsub("% ", "", aware_nisra_trend[[1]])

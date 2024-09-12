@@ -93,15 +93,15 @@ Detailed tables including the source data for all the charts and commentary and 
 
 ### Trust in the Civil Service
 
-* `r f_embed_ods(df = table_3.2_data, sheet_title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year), tab_name = "trust_nics", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.2a_data, sheet_title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year), tab_name = "trust_nics", app_b = TRUE)`
 
 ### Trust in the Northern Ireland Assembly
 
-* `r f_embed_ods(df = table_3.3_data, sheet_title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year), tab_name = "trust_assembly", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.3a_data, sheet_title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year), tab_name = "trust_assembly", app_b = TRUE)`
 
 ### Trust in the Media
 
-* `r f_embed_ods(df = table_3.4_data, sheet_title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year), tab_name = "trust_media", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.4a_data, sheet_title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year), tab_name = "trust_media", app_b = TRUE)`
 
 ### Trust in the statistics produced by NISRA
 
