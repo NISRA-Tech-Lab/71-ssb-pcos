@@ -12,6 +12,8 @@ Carry out the following updates each year to create new publication:
 
 -   Open RStudio. Click __File__ > __New Project__ > __Version Control__ > __Git__ and paste the new repository's URL in. Save your local clone of the Git repository under `C:\Users\USERNAME\Documents\R`.
 
+-   Run `renv::restore()` in the R console.
+
 -   In `code\config.R` file, update the following values:
 
     -   `data_filename` - This is the file name of the SPSS data that is stored in the `Raw` folder
@@ -80,7 +82,13 @@ In RStudio, switch from the "Terminal" tab to the "Console" tab. Enter the code 
 
 `renv::restore()`
 
-and follow any on screen prompts in the Console.
+press Enter and follow any on screen prompts in the Console.
+
+You can check packages have been correctly installed by running `renv::status()`.
+
+#### Troubleshooting
+
+If the above commands do not appear to work or error message appear, read more about troubleshooting renv in the TechLab's [R Documentation](https://datavis.nisra.gov.uk/techlab/drpvze/r.html#renv_troubleshooting)
 
 ## Running code
 
