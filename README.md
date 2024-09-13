@@ -193,7 +193,7 @@ In order to output a new version of the Appendix B HTML document:
 
 1. Rename the Rmd file for the new year. The filename of the Rmd will also be the filename of the resulting HTML document.
 2. Ensure `config.R` script is up to date.
-3. Add any new tables to the appropritate place in the document.
+3. Add any new tables to the appropriate place in the document.
 4. Save and click __Knit__.
 
 #### [public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd](code/html_publication/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2022-appendix-c.Rmd)
@@ -223,7 +223,7 @@ The three template files:
 -    Overview - Infographic Template.svg
 -    Trust - Infographic Template.svg
 
-The templates can be edited using [Inkscape](https://inkscape.org/) (available on ITAssist Store). You can only make edits to the overall layout of the infographic canvas here. Adjusting individuaol graphics is done elsewhere in the code.
+The templates can be edited using [Inkscape](https://inkscape.org/) (available on ITAssist Store). You can only make edits to the overall layout of the infographic canvas here. Adjusting individual graphics is done elsewhere in the code.
 
 #### [infographic prep.R](code/infographic/infographic%20prep.R)
 
@@ -247,7 +247,7 @@ This is a reference document that is used by the Rmd in this folder. Like CSS, i
 
 #### [Submission - Public Awareness of and Trust in Official Statistics 2022.Rmd](code/ministerial_sub/Submission%20-%20Public%20Awareness%20of%20and%20Trust%20in%20Official%20Statistics%202022.Rmd)
 
-When knitted this file will output the Ministerial Submisison in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighed in red text.
+When knitted this file will output the Ministerial Submission in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighted in red text.
 
 ### [code/ods_tables](code/ods_tables)
 
@@ -289,7 +289,7 @@ This is a reference document that is used by the Rmd in this folder. Like CSS, i
 
 #### [Public Awareness of and Trust in Official Statistics Press Release.Rmd](code/ministerial_sub/Public%20Awareness%20of%20and%20Trust%20in%20Official%20Statistics%20Press%20Release.Rmd)
 
-When knitted this file will output the Press Release in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighed in red text.
+When knitted this file will output the Press Release in Word format. Where possible, values have been automated. Other areas of the text that may require further attention have been highlighted in red text.
 
 ### [code/significance_testing](code/significance_testing)
 
@@ -301,7 +301,7 @@ This script will produce a list of Z Scores for a quick look at significance tre
 
 The main way to edit the inputs to this analysis is through the csv files and Excel document contained in the inputs folder.
 
-The years being comapred can be changed setting the `comparison_year` and `analysis_year` values at the top of the script.
+The years being compared can be changed setting the `comparison_year` and `analysis_year` values at the top of the script.
 
 #### [weighted_trend.R](code/significance_testing/final_output/weighted_trend.R)
 
@@ -311,7 +311,7 @@ One time run to produce trend figures up to 2021, required for the significance 
 
 This produces all the data frames required to output the final significance output. Data frames for new tables should be constructed in here. The functions used to output the data frames are found in [code/functions/significance_functions.R](code/functions/significance_functions.R)
 
-This script is automatically execectured when `significance_outputs.R` is run.
+This script is automatically executed when `significance_outputs.R` is run.
 
 #### [significance_outputs.R](code/significance_testing/final_output/significance_outputs.R)
 
