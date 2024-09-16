@@ -1083,13 +1083,8 @@
     "odsconvertr": {
       "Package": "odsconvertr",
       "Version": "0.2.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "department-for-transport",
-      "RemoteRepo": "odsconvertr",
-      "RemoteRef": "main",
-      "RemoteSha": "d81cecbb7267f63c94193ad615f1cc5fb22fed4a",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Hash": "5368519248093044aa3fb6d2fd4a01b9"
     },
     "officedown": {
@@ -1432,7 +1427,8 @@
     "readspss": {
       "Package": "readspss",
       "Version": "0.17.1",
-      "Source": "GitHub",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "JanMarvin",
