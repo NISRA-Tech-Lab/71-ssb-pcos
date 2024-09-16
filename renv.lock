@@ -361,7 +361,7 @@
       "Package": "datawizard",
       "Version": "0.12.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "insight",
@@ -581,7 +581,7 @@
       "Package": "gdtools",
       "Version": "0.3.7",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "Rcpp",
@@ -626,7 +626,7 @@
       "Package": "ggeffects",
       "Version": "1.7.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "graphics",
@@ -794,7 +794,7 @@
       "Package": "insight",
       "Version": "0.20.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "methods",
@@ -1083,9 +1083,14 @@
     "odsconvertr": {
       "Package": "odsconvertr",
       "Version": "0.2.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "5368519248093044aa3fb6d2fd4a01b9"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "odsconvertr",
+      "RemoteUsername": "department-for-transport",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "d81cecbb7267f63c94193ad615f1cc5fb22fed4a",
+      "Hash": "80ee4897305c6b4623f84b36d1c0e507"
     },
     "officedown": {
       "Package": "officedown",
@@ -1177,7 +1182,7 @@
       "Package": "parameters",
       "Version": "0.22.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "bayestestR",
@@ -1212,7 +1217,7 @@
       "Package": "performance",
       "Version": "0.12.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "bayestestR",
@@ -1427,8 +1432,7 @@
     "readspss": {
       "Package": "readspss",
       "Version": "0.17.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "JanMarvin",
@@ -1535,7 +1539,7 @@
       "Package": "rvg",
       "Version": "0.3.3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "Rcpp",
@@ -1585,7 +1589,7 @@
       "Package": "servr",
       "Version": "0.30",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "R",
         "httpuv",
@@ -2021,7 +2025,7 @@
       "Package": "xfun",
       "Version": "0.46",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "//pr-clus-vfpdfp/DOF_NISRA_R_Packages/development",
       "Requirements": [
         "grDevices",
         "stats",
