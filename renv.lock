@@ -3,8 +3,28 @@
     "Version": "4.4.0",
     "Repositories": [
       {
+        "Name": "internal_repo",
+        "URL": "file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production"
+      },
+      {
+        "Name": "internal_repo2",
+        "URL": "file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production-2024-08-21"
+      },
+      {
+        "Name": "internal_repo3",
+        "URL": "file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production-2024-08-22"
+      },
+      {
+        "Name": "internal_repo4",
+        "URL": "file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production-2024-09-06"
+      },
+      {
+        "Name": "internal_repo5",
+        "URL": "file:////pr-clus-vfpdfp/DOF_NISRA_R_Packages/production-2024-09-16"
+      },
+      {
         "Name": "CRAN",
-        "URL": "https://packagemanager.posit.co/cran/latest"
+        "URL": "https://cran.rstudio.com"
       }
     ]
   },
@@ -258,7 +278,7 @@
       "Package": "cli",
       "Version": "3.6.3",
       "Source": "Repository",
-      "Repository": "internal_repo2",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
@@ -475,7 +495,7 @@
       "Package": "fastmap",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "internal_repo2",
+      "Repository": "CRAN",
       "Hash": "aa5e1cd11c2d15497494c5292d7ffcc8"
     },
     "fontBitstreamVera": {
@@ -726,7 +746,7 @@
       "Package": "htmltools",
       "Version": "0.5.8.1",
       "Source": "Repository",
-      "Repository": "internal_repo",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "base64enc",
@@ -1481,7 +1501,7 @@
       "Package": "rlang",
       "Version": "1.1.4",
       "Source": "Repository",
-      "Repository": "internal_repo2",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
@@ -2062,7 +2082,7 @@
       "Package": "yaml",
       "Version": "2.3.10",
       "Source": "Repository",
-      "Repository": "internal_repo4",
+      "Repository": "CRAN",
       "Hash": "51dab85c6c98e50a18d7551e9d49f76c"
     },
     "zip": {
