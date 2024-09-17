@@ -15,19 +15,26 @@ for (i in seq_along(repos)) {
   }
   
   if(i == 1) {
-    repo_list[[paste0("CRAN")]] <- repo
+    repo_list[[paste0("internal_repo")]] <- repo
   } else {
-    repo_list[[paste0("CRAN",i)]] <- repo
+    repo_list[[paste0("internal_repo",i)]] <- repo
   }
 }
+names(repo_list)[length(repo_list)] <- "CRAN"
 
-options(repos = unlist(repo_list))
-options("repos")
+# set renv.config.repos.override option
 options(renv.config.repos.override = unlist(repo_list))
-options("renv.config.repos.override")
-
-# clear working directory
-rm(list=ls())
+# set repos option
+options(repos = unlist(repo_list))
 
 # conditional activation of renv
 source("renv/activate.R")
+
+# tell renv to prefer binary installs over source
+options(renv.config.install.prefer.binary = TRUE)
+
+# reset repos option - cleared by activate
+options(repos = unlist(repo_list))
+
+# clear working directory
+rm(list=ls())

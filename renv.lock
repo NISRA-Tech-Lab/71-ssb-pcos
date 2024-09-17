@@ -258,7 +258,7 @@
       "Package": "cli",
       "Version": "3.6.3",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "internal_repo2",
       "Requirements": [
         "R",
         "utils"
@@ -475,7 +475,7 @@
       "Package": "fastmap",
       "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "internal_repo2",
       "Hash": "aa5e1cd11c2d15497494c5292d7ffcc8"
     },
     "fontBitstreamVera": {
@@ -726,7 +726,7 @@
       "Package": "htmltools",
       "Version": "0.5.8.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "internal_repo",
       "Requirements": [
         "R",
         "base64enc",
@@ -1086,11 +1086,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "odsconvertr",
       "RemoteUsername": "department-for-transport",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "odsconvertr",
+      "RemoteRef": "main",
       "RemoteSha": "d81cecbb7267f63c94193ad615f1cc5fb22fed4a",
-      "Hash": "80ee4897305c6b4623f84b36d1c0e507"
+      "Hash": "5368519248093044aa3fb6d2fd4a01b9"
     },
     "officedown": {
       "Package": "officedown",
@@ -1481,7 +1481,7 @@
       "Package": "rlang",
       "Version": "1.1.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "internal_repo2",
       "Requirements": [
         "R",
         "utils"
@@ -2062,7 +2062,7 @@
       "Package": "yaml",
       "Version": "2.3.10",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "internal_repo4",
       "Hash": "51dab85c6c98e50a18d7551e9d49f76c"
     },
     "zip": {
