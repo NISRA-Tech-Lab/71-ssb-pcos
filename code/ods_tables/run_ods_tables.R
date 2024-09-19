@@ -27,7 +27,7 @@ intro_text <- c(
   pub_date_words_dmy,
   "Data sources:",
   paste0("2018 to ", current_year, " data: Northern Ireland Continuous Household Survey (CHS)"),
-  "2006 to 2016 data: northern Ireland Omnibus Survey (April 2009, April 2010, June 2012, September 2014, October 2016)",
+  "2006 to 2016 data: Northern Ireland Omnibus Survey (April 2009, April 2010, June 2012, September 2014, October 2016)",
   paste0("ONS data (2018 to ", ons_year, "): Public Confidence in Official Statistics (PCOS) survey"),
   "ONS data (2014 to 2016): British Social Attitudes survey (BSA)",
   "Limitations:",
@@ -100,6 +100,7 @@ writeData(wb,
 
 setColWidths(wb, "Introduction", widths = 112, cols = 1)
 setRowHeights(wb, "Introduction", rows = c(1, heading_rows), heights = 30)
+setRowHeights(wb, "Introduction", rows = 2, heights = 60)
 
 # Contents Page ####
 
@@ -382,7 +383,7 @@ f_worksheet(wb,
   sheet_name = "Value",
   contents = "Value",
   title = "Qu 5: Statistics produced by NISRA are important to understand Northern Ireland",
-  outlining = "which concern the value in NISRA statistics.",
+  outlining = "which concern the value of NISRA statistics.",
   tables = list(
     list(
       data = table_5a_data,
@@ -432,7 +433,7 @@ f_worksheet(wb,
   sheet_name = "Confidentiality",
   contents = "Confidentiality",
   title = "Qu 7: I believe that personal information provided to NISRA will be kept confidential",
-  outlining = "which concern belief that statistics produced by NISRA will be kept confidential.",
+  outlining = "which concern belief that statistics provided to NISRA will be kept confidential.",
   tables = list(
     list(
       data = table_7a_data,
