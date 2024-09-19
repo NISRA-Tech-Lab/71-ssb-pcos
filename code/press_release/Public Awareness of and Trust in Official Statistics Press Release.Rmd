@@ -27,62 +27,83 @@ STATISTICS PRESS NOTICE
 `r run_columnbreak()`
 `r external_img(paste0(here(),"/data/images/NISRA_logo_bilingual_colour.png"), height = 3.33, width = 8.33, unit = "cm")`
 <!---BLOCK_MULTICOL_STOP{widths: [3.5, 3.5], space: 0.2, sep: false}--->
+
 \
 
 :::{custom-style="heading_style"}
-Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`
-::: 
-\
-
-:::{custom-style="paragraph_style"}
-The level of public trust in official statistics produced by the Northern Ireland Statistics and Research Agency (NISRA), the government agency which produces the majority of Northern Ireland official statistics across all government departments `r f_red_text("remains high")`.\
-
-This is according to the latest findings from the ‘Public Awareness of and Trust in Northern Ireland Official Statistics’ questions in the Northern Ireland Continuous Household Survey.\
-
-The report shows the `r f_red_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in `r survey_start_mth` to `r survey_end_mth` `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r f_red_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.\
-
-Trust in NISRA as the body which produces official statistics is `r f_red_text("also high")`, with (`r trust_in_nisra`%) of respondents trusting NISRA a great deal or tending to trust NISRA; this `r f_red_text("remains higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. Trust in NISRA is `r f_red_text("also higher")` than trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("favourably")` with trust in the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assembly`%).\
-
-Other key findings are as follows:\
-
+Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`\
 :::
 
 :::{custom-style="paragraph_style"}
-**Awareness** 
+The level of public trust in official statistics produced by the Northern Ireland Statistics and Research Agency (NISRA), the government agency which produces the majority of Northern Ireland official statistics across all government departments `r f_red_text("remains high")`.
 
 \
-1. `r f_red_text("Almost half of respondents")` (`r heard_of_nisra`%) indicated they had heard of NISRA before being contacted about the survey. 
+This is according to the latest findings from the ‘Public Awareness of and Trust in Northern Ireland Official Statistics’ questions in the Northern Ireland Continuous Household Survey.
 
 \
-**Value** 
+The report shows the `r f_red_text("majority")` of respondents (`r trust_in_nisra_stats`%), surveyed in `r survey_start_mth` to `r survey_end_mth` `r current_year`, trust NISRA statistics a great deal or tend to trust them. The level of trust in NISRA statistics `r f_red_text("increases")` to (`r heard_of_and_trust_nisra_stats`%) for those respondents who have heard of NISRA by name.
 
 \
-2. Statistics produced by NISRA are valued - `r f_red_text("9 out of 10")` respondents (`r importance_of_stats`%) agree that statistics produced by NISRA are important to understand Northern Ireland. 
+Trust in NISRA as the body which produces official statistics is `r f_red_text("also high")`, with (`r trust_in_nisra`%) of respondents trusting NISRA a great deal or tending to trust NISRA; this `r f_red_text("remains higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. Trust in NISRA is `r f_red_text("also higher")` than trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("favourably")` with trust in the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assembly`%).
 
 \
-**Political Interference** 
+Other key findings are as follows:
 
 \
-3. `r f_red_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference.
+**Awareness**\
+:::
+:::{custom-style="numbered_point"}
+`r f_red_text("Almost half of respondents")` (`r heard_of_nisra`%) indicated they had heard of NISRA before being contacted about the survey.
 :::
 
-:::{custom-style="paragraph_style"}
+\
+**Value**\
+
+:::{custom-style="numbered_point"}
+Statistics produced by NISRA are valued - `r f_red_text("9 out of 10")` respondents (`r importance_of_stats`%) agree that statistics produced by NISRA are important to understand Northern Ireland. 
+:::
+
+\
+**Political Interference**\
+
+:::{custom-style="numbered_point"}
+`r f_red_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference.
+:::
 
 \newpage
-**NOTES TO EDITORS**
+**NOTES TO EDITORS**\
+
+:::{custom-style="numbered_style_2"}
+The ‘Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`’ publication, data tables and accompanying infographics can be found at:
+:::
+
+\
+      [`r f_format_link(paste0("https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-", current_year))`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`)
 \
 
-1. The ‘Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`’ publication, data tables and accompanying infographics can be found at: [`r f_format_link(paste0("https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-", current_year))`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`)
-\
-1. The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between `r survey_start_mth` to `r survey_end_mth` `r current_year`. The percentages reported are based on a representative sample of the population (`r sample_size` persons) and are therefore estimates.
-\
-1. NISRA is an Agency within the Department of Finance and provides statistical services across government in Northern Ireland. The majority of Northern Ireland official statistics are produced by NISRA staff. NISRA branches can be found within all Northern Ireland Departments and many Arm’s Length Bodies.
-\
-1. [`r f_format_link("NISRA produces official statistics for Northern Ireland")`](https://www.nisra.gov.uk/statistics) on a wide range of issues, including births, deaths and marriages; the size of the population of Northern Ireland; qualifications of school leavers; recorded levels of crime; hospital waiting times; people living in poverty; the NI Census; journeys made by walking, cycling or public transport; and the unemployment rate.
-\
-1. Official statistics are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies. Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. National Statistics are a subset of official statistics.
-\
-1. The [`r f_format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR),outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
+
+:::{custom-style="numbered_style_2"}
+The questions were asked in the Northern Ireland Continuous Household Survey (CHS) between `r survey_start_mth` to `r survey_end_mth` `r current_year`. The percentages reported are based on a representative sample of the population (`r sample_size` persons) and are therefore estimates.
+:::
+ 
+
+:::{custom-style="numbered_style_2"}
+NISRA is an Agency within the Department of Finance and provides statistical services across government in Northern Ireland. The majority of Northern Ireland official statistics are produced by NISRA staff. NISRA branches can be found within all Northern Ireland Departments and many Arm’s Length Bodies.
+:::
+ 
+
+:::{custom-style="numbered_style_2"}
+[`r f_format_link("NISRA produces official statistics for Northern Ireland")`](https://www.nisra.gov.uk/statistics) on a wide range of issues, including births, deaths and marriages; the size of the population of Northern Ireland; qualifications of school leavers; recorded levels of crime; hospital waiting times; people living in poverty; the NI Census; journeys made by walking, cycling or public transport; and the unemployment rate.
+:::
+ 
+
+:::{custom-style="numbered_style_2"}
+Official statistics are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies. Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. National Statistics are a subset of official statistics.
+:::
+ 
+
+:::{custom-style="numbered_style_2"}
+The [`r f_format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR),outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
 :::
 
 :::{custom-style="bullet_style"}
@@ -92,17 +113,26 @@ __Trustworthiness__ is about having confidence in the people and organisations t
 __Quality__ is about using data and methods that produce assured statistics.
 :::
 :::{custom-style="bullet_style"}
-__Value__ is about producing statistics that support society’s needs for information.\
+__Value__ is about producing statistics that support society’s needs for information.
+:::
+ 
+
+:::{custom-style="numbered_style_2"}
+Further information on the statistics provided in this publication can be obtained from NISRA Statistical Support Branch.
 :::
 
+\
+      Lead Statistician: Norma Broomfield, Statistical Support Branch, NISRA
 
-:::{custom-style="paragraph_style"}
-7. Further information on the statistics provided in this publication can be obtained from NISRA Statistical Support Branch.\
-Lead Statistician: Norma Broomfield, Statistical Support Branch, NISRA\
-[`r f_format_link("Norma.Broomfield@nisra.gov.uk")`](mailto:Norma.Broomfield@nisra.gov.uk) Tel: 028 9038 8481
 \
-8. For media queries, please contact the DoF Press Office at dof.pressoffice@finance-ni.gov.uk or on Tel: 028 90816724. The Executive Information Service operates an out of hours service **for media enquiries only** between 1800hrs and 0800hrs Monday to Friday and at weekends and public holidays. The duty press officer can be contacted on 028 9037 8110.
+      [`r f_format_link("Norma.Broomfield@nisra.gov.uk")`](mailto:Norma.Broomfield@nisra.gov.uk) Tel: 028 9038 8481
 \
-9. Follow NISRA on [`r f_format_link("Twitter")`](http://x.com/NISRA), [`r f_format_link("Facebook")`](https://www.facebook.com/nisra.gov.uk) and [`r f_format_link("YouTube")`](https://www.youtube.com/user/nisrastats)
+
+:::{custom-style="numbered_style_2"}
+For media queries, please contact the DoF Press Office at dof.pressoffice@finance-ni.gov.uk or on Tel: 028 90816724. The Executive Information Service operates an out of hours service **for media enquiries only** between 1800hrs and 0800hrs Monday to Friday and at weekends and public holidays. The duty press officer can be contacted on 028 9037 8110.
 :::
+ 
 
+:::{custom-style="numbered_style_2"}
+Follow NISRA on [`r f_format_link("Twitter")`](http://x.com/NISRA), [`r f_format_link("Facebook")`](https://www.facebook.com/nisra.gov.uk) and [`r f_format_link("YouTube")`](https://www.youtube.com/user/nisrastats)
+:::
