@@ -21,78 +21,81 @@ source(paste0(here(), "/code/html_publication/data_prep.R"))
 :::{custom-style="size_9_bold"}
 <!---BLOCK_MULTICOL_START--->
 `r external_img(paste0(here(),"/data/images/NISRA_logo_bilingual_colour.png"), height = 2.5, width = 6.5, unit = "cm")`
-
 `r run_columnbreak()`Ruth Fulton\
 Head of Statistical Support Branch\
 NISRA\
 :::
 
 :::{custom-style="size_9"}
-2nd Floor \
-Colby House \
-Stranmillis Court \
-BELFAST BT9 5RR \
-Tel No:  028 9038 8466 \
-Email:  ruth.fulton@nisra.gov.uk \
+2nd Floor\
+Colby House\
+Stranmillis Court\
+BELFAST BT9 5RR\
+Tel No:  028 9038 8466\
+Email:  ruth.fulton@nisra.gov.uk
 :::
-
 <!---BLOCK_MULTICOL_STOP{widths: [4.5, 2.5], space: 0.2, sep: false}--->
-
+:::{custom-style="left_text"}
 **FROM:**`r f_tab(2)`Ruth Fulton\
-`r f_tab(3)`NISRA Statistical Support Branch\
+`r f_tab(3)`NISRA Statistical Support Branch
 
 **DATE:**`r f_tab(3)``r pub_date_words_dmy``r f_tab(4)`**Copy Distribution List Below**\
 
 **TO:**`r f_tab(3)`Neil Gibson\
 `r f_tab(3)`Permanent Secretary\
+:::
 
-**STATISTICS BULLETIN – PUBLIC AWARENESS OF AND TRUST IN OFFICIAL STATISTICS, NORTHERN IRELAND `r current_year`**\
+**STATISTICS BULLETIN – PUBLIC AWARENESS OF AND TRUST IN OFFICIAL STATISTICS, NORTHERN IRELAND `r current_year`**
 
 <!---BLOCK_MULTICOL_START--->
-
 **Issue:**
-
 `r run_columnbreak()`To advise the Permanent Secretary of the publication of the Statistics Bulletin summarising results on Public Awareness of and Trust in Official Statistics, Northern Ireland `r current_year`.
-
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
-
 **Timing:**
-
 `r run_columnbreak()`Desk Immediate - this Statistics Bulletin was published today, `r weekdays(pub_date, abbreviate = FALSE)` `r pub_date_words_dmy`, at 9.30am.
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
 **Freedom of Information:**
 `r run_columnbreak()`This note is fully disclosable.
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
 **Presentational Issues:**
 `r run_columnbreak()`None.  The publication of these Statistics Bulletins historically has not generated any significant media interest. There will be an accompanying Press Release and the release will be publicised through NISRA social media channels. Officials will handle any press enquiries should there be a need.
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
 **Financial Implications:**
 `r run_columnbreak()`None.
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
 **Legislation Implications:**
 `r run_columnbreak()`None.
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 <!---BLOCK_MULTICOL_START--->
 **Recommendation:**
+
+:::{custom-style="left_text"}
 `r run_columnbreak()`The Permanent Secretary is invited to note:\
 
 i. the results of the public opinion survey on public awareness of and trust in official statistics; and\
-  
-ii. the publication of the Statistics Bulletin
-<!---BLOCK_MULTICOL_STOP{widths: [2.5, 4.5], space: 0.2, sep: false}--->
+
+ii. the publication of the Statistics Bulletin.
+:::
+<!---BLOCK_MULTICOL_STOP{widths: [2, 5], space: 0.2, sep: false}--->
 
 **BACKGROUND**\
 
-1.	In 2008 the Statistics Authority was set up as a non-Ministerial government department with a remit to improve public confidence and trust in official statistics. In 2009, questions relating to Public Awareness of and Trust in Official Statistics were placed in the Northern Ireland Omnibus Survey. These questions were repeated in 2010, 2012, 2014 and 2016, and more recently in the Continuous Household Survey (CHS) in 2019, 2020, 2021 `r f_red_text("and 2022")`. Awareness of NISRA was also asked in 2018.\
+:::{custom-style="numbered_point"}
+In 2008 the Statistics Authority was set up as a non-Ministerial government department with a remit to improve public confidence and trust in official statistics. In 2009, questions relating to Public Awareness of and Trust in Official Statistics were placed in the Northern Ireland Omnibus Survey. These questions were repeated in 2010, 2012, 2014 and 2016, and more recently in the Continuous Household Survey (CHS) in 2019, 2020, 2021 `r f_red_text("and 2022")`. Awareness of NISRA was also asked in 2018.
+:::
 
-2.	Official statistics (which include National Statistics) are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies.  Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The majority of Northern Ireland official statistics are produced by NISRA staff. NISRA branches can be found within all NICS Departments and many Arm’s Length Bodies.\
+:::{custom-style="numbered_point"}
+Official statistics (which include National Statistics) are statistical outputs produced by Government departments and agencies, the Office for National Statistics, and by other Crown bodies.  Official statistics are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The majority of Northern Ireland official statistics are produced by NISRA staff. NISRA branches can be found within all NICS Departments and many Arm’s Length Bodies.
+:::
 
-3.	The [`r f_format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR), outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
+:::{custom-style="numbered_point"}
+The [`r f_format_link("Code of Practice for Statistics")`](https://code.statisticsauthority.gov.uk/the-code/), produced by the Office for Statistics Regulation (OSR), outlines the principles and detailed practices that producers of official statistics must commit to when producing and releasing official statistics. It is based on three pillars:
+:::
 
 :::{custom-style="bullet_style"}
 **Trustworthiness** is about having confidence in the people and organisations that produce statistics and data.
@@ -103,71 +106,105 @@ ii. the publication of the Statistics Bulletin
 :::
 
 :::{custom-style="bullet_style"}
-**Value** is about producing statistics that support society’s needs for information.\
+**Value** is about producing statistics that support society’s needs for information.
 :::
-    
-4.	The questions were asked most recently in the Continuous Household Survey (CHS) between `r survey_start_mth` `r current_year` and `r survey_end_mth` `r current_year`. A total of `r sample_size` persons, aged 16 and over living in private households, answered the questions. All percentages are based on a representative sample of the population and are therefore estimates.\
 
-5.	The key findings from the statistics bulletin, Public Awareness of and Trust in Official Statistics Northern Ireland `r current_year`, are outlined below and a copy is attached for information. Detailed tables have been [`r f_format_link("published")`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) alongside the report, and include the source data for the charts and commentary and further breakdowns. The release also includes accompanying infographics on ‘Public Awareness of NISRA’ and ‘Public Trust in Official Statistics’.\
+:::{custom-style="numbered_point"}    
+The questions were asked most recently in the Continuous Household Survey (CHS) between `r survey_start_mth` `r current_year` and `r survey_end_mth` `r current_year`. A total of `r sample_size` persons, aged 16 and over living in private households, answered the questions. All percentages are based on a representative sample of the population and are therefore estimates.
+:::
 
-\newpage
-
-**KEY FINDINGS**\
-
-**Awareness of NISRA**\
-
-6.	Public awareness of NISRA is moderate, with `r f_red_text("almost half")` of respondents (`r heard_of_nisra`%) indicating they had heard of the Agency before being contacted about the survey.\
-
-7.	Awareness of NISRA `r f_red_text("has decreased since 2021, when 55%")` of respondents had heard of NISRA, but `r f_red_text("remains notably higher than in previous years (2009 to 2019) when 35% or less")` respondents had heard of NISRA\
-
-**Trust in NISRA**\
-
-8.	Trust in NISRA as an institution is `r f_red_text("high")`, with `r trust_in_nisra`% of respondents trusting NISRA a great deal or tending to trust NISRA. This is `r f_red_text("higher")` than the level of trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("very favourably")` with the media (`r trust_in_media`%) and the Northern Ireland Assembly (`r trust_in_assembly`%). Trust levels `r f_red_text("increase")` to `r heard_of_and_trust_nisra`% amongst those that have heard of NISRA by name.\
-
-9.	Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%). However, when only those who gave an opinion, i.e. excluding ‘don’t knows’, are considered, trust levels are higher for NISRA.\
-
-**Trust in NISRA statistics**\
-
-10.	Public trust in the statistics produced by NISRA is `r f_red_text("also high")` (`r trust_in_nisra_stats`%). Among those that have heard of NISRA by name, trust in NISRA statistics `r f_red_text("increases")` to `r heard_of_and_trust_nisra_stats`%\
-
-11.	For respondents who gave an opinion, there was `r f_red_text("no significant difference")` in the level of trust in NISRA statistics between `r current_year - 1` and `r current_year` However for these respondents, trust in NISRA statistics is `r f_red_text("higher in 2022 compared to 2019 and previous years.")`\
-
-12.	Trust in NISRA statistics is `r f_red_text("similar")` to the level of trust in ONS statistics (`r trust_in_ons_stats`%). However, distrust in NISRA statistics (`r distrust_nisra_stats`%) is `r f_red_text("notably lower")` than distrust in ONS statistics (`r distrust_ons_stats`%).\
-
-**Value**\
-
-13.	The statistics produced by NISRA are `r f_red_text("valued")`, with `r importance_of_stats`% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.\
+:::{custom-style="numbered_point"}
+The key findings from the statistics bulletin, Public Awareness of and Trust in Official Statistics Northern Ireland `r current_year`, are outlined below and a copy is attached for information. Detailed tables have been [`r f_format_link("published")`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) alongside the report, and include the source data for the charts and commentary and further breakdowns. The release also includes accompanying infographics on ‘Public Awareness of NISRA’ and ‘Public Trust in Official Statistics’.\
+:::
 
 \newpage
 
-**Political Interference**\
+**KEY FINDINGS**
 
-14.	`r f_red_text("Over four-fifths")` (`r free_from_interference`) of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while `r f_red_text("1 in 20")` (`r free_from_interference`%) disagree.\
+**Awareness of NISRA**
 
-**Confidentiality**\
+:::{custom-style="numbered_point"}
+Public awareness of NISRA is moderate, with `r f_red_text("almost half")` of respondents (`r heard_of_nisra`%) indicating they had heard of the Agency before being contacted about the survey.
+:::
 
-15.	`r f_red_text("Over nine out of every ten")` (`r agree_confidential`%) respondents agree that personal information provided to NISRA is kept confidential.\
+:::{custom-style="numbered_point"}
+Awareness of NISRA `r f_red_text("has decreased since 2021, when 55%")` of respondents had heard of NISRA, but `r f_red_text("remains notably higher than in previous years (2009 to 2019) when 35% or less")` respondents had heard of NISRA.
+:::
 
-**Likely Media Interest**\
+**Trust in NISRA**
 
-16.	The release of these statistics historically has not generated any significant media interest. There is an accompanying Statistical Press Release and the release has been publicised through NISRA social media channels. Officials will handle any press enquiries should there be a need.\
+:::{custom-style="numbered_point"}
+Trust in NISRA as an institution is `r f_red_text("high")`, with `r trust_in_nisra`% of respondents trusting NISRA a great deal or tending to trust NISRA. This is `r f_red_text("higher")` than the level of trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("very favourably")` with the media (`r trust_in_media`%) and the Northern Ireland Assembly (`r trust_in_assembly`%). Trust levels `r f_red_text("increase")` to `r heard_of_and_trust_nisra`% amongst those that have heard of NISRA by name.
+:::
 
-**Recommendation**\
+:::{custom-style="numbered_point"}
+Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%). However, when only those who gave an opinion, i.e. excluding ‘don’t knows’, are considered, trust levels are higher for NISRA.
+:::
 
-17.	The Permanent Secretary is invited to note: \
+**Trust in NISRA statistics**
 
-   i. the results of the public opinion survey on public awareness of and trust in official statistics; and\
-  
-   ii. the publication of the Statistics Bulletin today (`r pub_date_words_dmy`)\
-\
+:::{custom-style="numbered_point"}
+Public trust in the statistics produced by NISRA is `r f_red_text("also high")` (`r trust_in_nisra_stats`%). Among those that have heard of NISRA by name, trust in NISRA statistics `r f_red_text("increases")` to `r heard_of_and_trust_nisra_stats`%.
+:::
+
+:::{custom-style="numbered_point"}
+For respondents who gave an opinion, there was `r f_red_text("no significant difference")` in the level of trust in NISRA statistics between `r current_year - 1` and `r current_year` However for these respondents, trust in NISRA statistics is `r f_red_text("higher in 2022 compared to 2019 and previous years.")`
+:::
+
+:::{custom-style="numbered_point"}
+Trust in NISRA statistics is `r f_red_text("similar")` to the level of trust in ONS statistics (`r trust_in_ons_stats`%). However, distrust in NISRA statistics (`r distrust_nisra_stats`%) is `r f_red_text("notably lower")` than distrust in ONS statistics (`r distrust_ons_stats`%).
+:::
+
+**Value**
+
+:::{custom-style="numbered_point"}
+The statistics produced by NISRA are `r f_red_text("valued")`, with `r importance_of_stats`% of respondents agreeing that statistics produced by NISRA are important to understand Northern Ireland.
+:::
+
+**Political Interference**
+
+:::{custom-style="numbered_point"}
+`r f_red_text("Over four-fifths")` (`r free_from_interference`)% of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while `r f_red_text("1 in 20")` (`r disagree_interference`%) disagree.
+:::
+
+\newpage
+
+**Confidentiality**
+
+:::{custom-style="numbered_point"}
+`r f_red_text("Over nine out of every ten")` (`r agree_confidential`%) respondents agree that personal information provided to NISRA is kept confidential.
+:::
+
+**Likely Media Interest**
+
+:::{custom-style="numbered_point"}
+The release of these statistics historically has not generated any significant media interest. There is an accompanying Statistical Press Release and the release has been publicised through NISRA social media channels. Officials will handle any press enquiries should there be a need.
+:::
+
+**Recommendation**
+
+:::{custom-style="numbered_point"}
+The Permanent Secretary is invited to note:
+:::
+
+:::{custom-style="roman_point"}
+the results of the public opinion survey on public awareness of and trust in official statistics; and
+
+the publication of the Statistics Bulletin today (`r pub_date_words_dmy`).
+:::
+
 \
 
 `r external_img(paste0(here(),"/data/images/ruth_fulton_signature.png"), height = 0.58, width = 4.1, unit = "cm")`\
 
-**RUTH FULTON**\
-&#9742;028 90 388466\
 
+:::{custom-style="left_text"}
+**RUTH FULTON**\
+&#9742;028 90 388466
+
+\
 **cc:**`r f_tab()`Dr Philip Wales (Chief Executive, NISRA)\
 `r f_tab()`Mark McLaughlin (Head of Communications and Engagement Division, DoF)\
 `r f_tab()`Nicola Fisher (Acting Director of Analysis and Research, NISRA)\
 `r f_tab()`Ciarrai Conlan (Principal Information Officer, DoF)
+:::
