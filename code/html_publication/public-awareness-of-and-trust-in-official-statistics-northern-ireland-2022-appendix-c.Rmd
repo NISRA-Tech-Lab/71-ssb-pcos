@@ -48,6 +48,8 @@ h3, h4 {
 
 ## Appendix C: Survey Questions
 
+The following questions were included in the Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` `r current_year`:
+
 ### Qu 1: Awareness of NISRA
 
 Before being contacted about this survey had you heard of NISRA, the Northern Ireland Statistics and Research Agency?

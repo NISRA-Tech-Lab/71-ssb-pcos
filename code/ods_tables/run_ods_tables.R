@@ -371,7 +371,7 @@ f_worksheet(wb,
     ),
     list(
       data = table_4d_data,
-      title = paste0("Table 4d: Trust ONS Statistics, 2014 to ", ons_year)
+      title = paste0("Table 4d: Trust in ONS statistics, 2014 to ", ons_year)
     )
   )
 )

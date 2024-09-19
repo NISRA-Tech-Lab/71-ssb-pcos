@@ -78,7 +78,7 @@ In the UK, the Office for National Statistics (ONS) is the largest producer of o
 
 Detailed tables are published alongside this report. These include the source data for all the charts and commentary and additional breakdowns (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
-Differences are only noted in the commentary when they are likely to represent a real difference taking account of the margin of error in the sample-based estimates (see ‘Survey Estimates’ in Appendix A for further detail).
+Differences are only noted in the commentary when they are likely to represent a real difference taking account of the margin of error in the sample-based estimates (see ‘Survey Estimates’ in [Appendix A](#Appendix_A:_Methodology_and_Quality_Information) for further detail).
 
 `r f_borderline()`
 
@@ -86,9 +86,11 @@ Differences are only noted in the commentary when they are likely to represent a
 
 ### Current year, `r current_year`
 
-Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
+Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISRA before being contacted about the survey.
 
 ### Comparison over time
+
+This has decreased since 2020 and 2021, when 58% and 55% of respondents respectively had heard of NISRA.
 
 Although there has been a decrease since 2020 and 2021, awareness of NISRA in 2022 is notably higher than in 2019 (35%) and previous years, before the start of the COVID-19 pandemic (Chart 1).
 
@@ -140,7 +142,6 @@ plot_ly(aware_nisra_data,
       showline = TRUE,
       range = c(0, 100),
       linecolor = "#000000",
-      showgrid = FALSE,
       fixedrange = TRUE
     ),
     annotations = list(
@@ -210,8 +211,14 @@ plot_ly(aware_nisra_ons_data,
   config(displayModeBar = FALSE)
 
 
+f_embed_ods(df = table_1a_data,
+  sheet_title = paste0("Table 1a: Awareness of NISRA, 2009-", current_year),
+  tab_name = "awareness_of_nisra")
+
+div(style = "height: 20px; width: 100%")
+
 f_embed_ods(df = table_1c_data,
-  sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"),
+  sheet_title = paste0("Table 1c: Awareness of ONS, 2014 to ", ons_year),
   tab_name = "awareness_of_ons")
 
 ```
@@ -220,7 +227,7 @@ f_embed_ods(df = table_1c_data,
 
 ### Aware of NISRA statistics, not previously heard of NISRA
 
-Respondents who had not previously heard of NISRA were asked whether they had heard of specific NISRA statistics. `r not_heard_aware_none`% of these respondents had not heard of any of the statistics listed, while `r not_heard_aware_all`% had heard of all the statistics.
+Respondents who had not previously heard of NISRA were asked whether they had heard of specific NISRA statistics. `r not_heard_aware_none`% of these respondents had not heard of any of the statistics listed, while `r not_heard_aware_all`% had heard of all the statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](#public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
 `r not_heard_aware_census`% of respondents who had not previously heard of NISRA were aware of the Northern Ireland Census, while more than a third had heard of the unemployment rate (`r not_heard_aware_unemployment`%), hospital waiting times (`r not_heard_aware_hospital`%) and the number of people who live in NI (`r not_heard_aware_people`%). Only `r not_heard_aware_cycling`% of these respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
 
@@ -238,11 +245,12 @@ plot_ly(aware_stats_data,
         hoverinfo = "name+text",
         texttemplate = "<b>%{x:.0f}</b>",
         textposition = "inside",
-        insidetextanchor = "middle") %>%
+        insidetextanchor = "start") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
             name = "No",
-            hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
+            hovertext = ~paste0(output, ": ", round_half_up(no), "%"),
+            insidetextanchor = "end") %>%
   add_trace(x = ~dont_know,
             marker = list(color = "#757575"),
             name = "Don't Know",
@@ -257,6 +265,7 @@ plot_ly(aware_stats_data,
                       title = "",
                       fixedrange = TRUE),
          xaxis = list(title = "Percentage",
+                      titlefont = list(size = 11),
                       fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
@@ -293,11 +302,12 @@ plot_ly(aware_stats_by_nisra_data,
         hoverinfo = "name+text",
         texttemplate = "<b>%{x:.0f}</b>",
         textposition = "inside",
-        insidetextanchor = "middle") %>%
+        insidetextanchor = "start") %>%
   add_trace(x = ~no,
             marker = list(color = nisra_blue),
             name = "No",
-            hovertext = ~paste0(output, ": ", round_half_up(no), "%")) %>%
+            hovertext = ~paste0(output, ": ", round_half_up(no), "%"),
+            insidetextanchor = "end") %>%
   add_trace(x = ~dont_know,
             marker = list(color = "#757575"),
             name = "Don't Know",
@@ -312,6 +322,7 @@ plot_ly(aware_stats_by_nisra_data,
                       title = "",
                       fixedrange = TRUE),
          xaxis = list(title = "Percentage",
+                      titlefont = list(size = 11),
                       fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
@@ -413,6 +424,7 @@ plot_ly(trust_institutions_data,
                       title = "",
                       fixedrange = TRUE),
          xaxis = list(title = "Percentage",
+                      titlefont = list(size = 11),
                       fixedrange = TRUE),
          legend = list(orientation = "h",
                        x = 0.5,
@@ -459,7 +471,7 @@ Amongst those who expressed an opinion there was no significant difference in tr
 f_stacked_bar_vertical(trust_stats_data)
 
 f_embed_ods(df = table_4a_data, 
-  sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), 
+  sheet_title = paste0("Table 4a: Trust in NISRA statistics, 2014 to ", current_year), 
   tab_name = "trust_stats")
 
 ```
@@ -592,7 +604,7 @@ When only those who expressed an opinion are considered, there is no significant
 f_stacked_bar_vertical(confidential_data)
 
 f_embed_ods(df = table_7a_data, 
-  sheet_title = paste0("Table 37: Personal information provided to NISRA will be kept confidential, 2014-", current_year),
+  sheet_title = paste0("Table 7a: Personal information provided to NISRA will be kept confidential, 2014 to ", current_year),
   tab_name = "confidential_nisra")
 
 ```
@@ -643,6 +655,12 @@ Our statistical practice is regulated by the Office for Statistics Regulation (O
 
 This report presents the results of questions relating to Public Awareness and Trust in Official Statistics in Northern Ireland that were included in the Continuous Household Survey (CHS). The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. Prior to 2018, the questions were included as a module within the NI Omnibus Survey but following the temporary suspension of the NI Omnibus Survey in 2018, the questions were moved to the CHS. Both surveys use probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households. This means that comparisons can continue to be made over time and significance tests carried out to determine if observed differences are likely to be real or due to sampling error.
 
+```{r Processing Note}
+
+# Update the number of addresses selected, mid-year estimates used for weighting, and achieved response rate in Appendix A (and check everything else is correct), as these updates could easily be missed, as a lot of the other info is automated.
+
+```
+
 Each year CSU sets the content of the CHS questionnaire in consultation with clients. The questionnaire consists of both an overall household interview, and an individual interview with each person aged 16 and over. Both the household and individual questionnaires consist of core items that are included each year, and modules that recur on a regular cycle. Core items include household and individual demographics, accommodation, tenure, internet access, environmental issues, domestic tourism, participation in sports, arts and leisure, employment status, health and section 75 classifications. Interviews are spread over 12 months from April to March, with the module on ‘Public Awareness and Trust in Official Statistics’ normally included during the Autumn months (`r survey_start_mth` to `r survey_end_mth` in `r current_year`). The questions included in the `r current_year` module are available in [Appendix C](https://datavis.nisra.gov.uk/techlab/drpvze/public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html) of this report.
 
 ### Data Collection
@@ -669,7 +687,7 @@ On receipt of the CHS data, Statistical Support Branch validate and perform qual
 
 Due to the COVID-19 pandemic, data collection for the CHS moved from face-to-face interviewing to telephone mode in March 2020. This required a reduction in the number of questions in the overall questionnaire. While the Public Awareness and Trust in Official Statistics questions were unaltered, the change in data collection mode and the number of questions may have altered how people responded to the survey. In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the survey dual modality.
 
-The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to 55%) and slightly lower than normal in 2021/22 (41%). As a result the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this has maintained the precision of the 2020 estimates and enabled comparisons with 2021 and other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the CHS in 2022/23 was 51%. More information is available on the [NISRA website](https://www.nisra.gov.uk).
+The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to 55%) and slightly lower than normal in 2021/22 (41%). As a result the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this has maintained the precision of the 2020 estimates and enabled comparisons with 2021 and other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the CHS in 2022/23 was 51%. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
 
 ### Further Information
 
@@ -689,7 +707,7 @@ Detailed tables including the source data for all the charts and commentary and 
 
 The following questions were included in the Continuous Household Survey (CHS) between `r survey_start_mth` and `r survey_end_mth` `r current_year`:
 
-[Public Awareness and Trust in Official Statistics Questions (2022)](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
+[Public Awareness and Trust in Official Statistics Questions (`r current_year`)](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-c.html)
 
 <!-- closing main div -->
 :::

@@ -32,26 +32,60 @@ f_embed_ods <- function(df, sheet_title, tab_name, app_b = FALSE) {
     tableStyle = "none",
     withFilter = FALSE,
     tableName = tab_name,
-    headerStyle = hs
+    headerStyle = ch_lined,
+    keepNA = TRUE,
+    na.string = "No data"
   )
-
+  
+  r = 3
+  
   addStyle(wb, tab_name,
-    style = hs2,
-    rows = 3,
-    cols = 1
+           rows = r,
+           cols = 1,
+           style = ch_lined_left
   )
-
+  
   addStyle(wb, tab_name,
-    style = ns,
-    rows = 4:(nrow(df) + 3),
-    cols = 2:ncol(df),
-    gridExpand = TRUE
+           rows = (r + 1):(r + nrow(df) - 1),
+           cols = 2:(ncol(df)),
+           style = ns,
+           gridExpand = TRUE
+  )
+  
+  addStyle(wb, tab_name,
+           rows = (r + nrow(df)),
+           cols = 2:(ncol(df)),
+           style = ns_italic,
+           gridExpand = TRUE
+  )
+  
+  addStyle(wb, tab_name,
+           rows = (r + nrow(df)),
+           cols = 1,
+           style = num_resp
+  )
+  
+  addStyle(wb, tab_name,
+           rows = (r + 1):(r + nrow(df) - 1),
+           cols = 1,
+           style = pt2
+  )
+  
+  na_rows <- which(is.na(df)) %% nrow(df)
+  na_cols <- (which(is.na(df)) - na_rows) / nrow(df)
+  
+  addStyle(wb, tab_name,
+           rows = r + na_rows,
+           cols = 1 + na_cols,
+           style = wt,
+           gridExpand = TRUE
   )
 
-  setColWidths(wb, tab_name,
-    cols = 1,
-    widths = 23
-  )
+  setColWidths(wb,
+               tab_name,
+               cols = 1:ncol(df),
+               widths = c(27, rep(12, ncol(df) - 1))
+               )
 
   xl_name <- paste0(here(), "/outputs/table_data/", tab_name, "_", current_year, ".xlsx")
   ods_name <- gsub(".xlsx", ".ods", xl_name)

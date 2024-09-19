@@ -48,7 +48,7 @@ h3 {
 
 ## Appendix B: Detailed Tables
 
-Detailed tables including the source data for all the charts and commentary and additional breakdowns are published alongside this report. A full list of tables is provided below.
+Detailed tables including the source data for all the charts and commentary and additional breakdowns are published alongside this report.
 
 `r embed_file(ods_filename, text = "Download all tables")` (.ODS format; `r ods_filesize`)
 
@@ -56,7 +56,7 @@ Detailed tables including the source data for all the charts and commentary and 
 
  * `r f_embed_ods(df = table_1a_data, sheet_title = paste0("Table 1a: Awareness of NISRA, 2009 to ", current_year), tab_name = "awareness_of_nisra", app_b = TRUE)`
  * `r f_embed_ods(df = table_1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 1b: Awareness of NISRA and ONS, ", current_year)} else {paste0("Table 1b: Awareness of NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "awareness_of_nisra_and_ons", app_b = TRUE)`
- * `r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS (2014 to ", ons_year, ")"), tab_name = "awareness_of_ons", app_b = TRUE)`
+ * `r f_embed_ods(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS, 2014 to ", ons_year), tab_name = "awareness_of_ons", app_b = TRUE)`
 
 ### Awareness of NISRA statistics among those who had not previously heard of NISRA
 
@@ -93,22 +93,22 @@ Detailed tables including the source data for all the charts and commentary and 
 
 ### Trust in the Civil Service
 
-* `r f_embed_ods(df = table_3.2a_data, sheet_title = paste0("Table 3.2: Trust in the Civil Service, 2014 to ", current_year), tab_name = "trust_nics", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.2a_data, sheet_title = paste0("Table 3.2a: Trust in the Civil Service, 2014 to ", current_year), tab_name = "trust_nics", app_b = TRUE)`
 
 ### Trust in the Northern Ireland Assembly
 
-* `r f_embed_ods(df = table_3.3a_data, sheet_title = paste0("Table 3.3: Trust in the Northern Ireland Assembly, 2014 to ", current_year), tab_name = "trust_assembly", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.3a_data, sheet_title = paste0("Table 3.3a: Trust in the Northern Ireland Assembly, 2014 to ", current_year), tab_name = "trust_assembly", app_b = TRUE)`
 
 ### Trust in the Media
 
-* `r f_embed_ods(df = table_3.4a_data, sheet_title = paste0("Table 3.4: Trust in the Media, 2014 to ", current_year), tab_name = "trust_media", app_b = TRUE)`
+* `r f_embed_ods(df = table_3.4a_data, sheet_title = paste0("Table 3.4a: Trust in the Media, 2014 to ", current_year), tab_name = "trust_media", app_b = TRUE)`
 
 ### Trust in the statistics produced by NISRA
 
-* `r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 4a: Trust in NISRA Statistics, 2014 to ", current_year), tab_name = "trust_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_4a_data, sheet_title = paste0("Table 4a: Trust in NISRA statistics, 2014 to ", current_year), tab_name = "trust_stats", app_b = TRUE)`
 * `r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats", app_b = TRUE)`
-* `r f_embed_ods(df = table_4c_data, sheet_title = paste0("Table 4c: Trust in NISRA Statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
-* `r f_embed_ods(df = table_4d_data, sheet_title = paste0("Table 4d: Trust ONS Statistics, 2014 to ", current_year), tab_name = "trust_ons_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_4c_data, sheet_title = paste0("Table 4c: Trust in NISRA statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
+* `r f_embed_ods(df = table_4d_data, sheet_title = paste0("Table 4d: Trust in ONS statistics, 2014 to ", ons_year), tab_name = "trust_ons_stats", app_b = TRUE)`
 
 ### Value
 

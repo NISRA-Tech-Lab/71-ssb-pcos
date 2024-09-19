@@ -42,12 +42,12 @@ f_worksheet <- function(wb,
 
   if (length(tables) == 1) {
     writeData(wb, sheet_name,
-      x = paste("This worksheet contains one table, ", outlining),
+      x = paste("This worksheet contains one table,", outlining),
       startRow = r
     )
   } else {
     writeData(wb, sheet_name,
-      x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, ", outlining),
+      x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between,", outlining),
       startRow = r
     )
   }

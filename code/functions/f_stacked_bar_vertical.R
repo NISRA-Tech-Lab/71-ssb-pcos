@@ -80,7 +80,7 @@ f_stacked_bar_vertical <- function(df) {
       yanchor = "middle",
       text = ~cat_1_outside,
       showarrow = FALSE,
-      font = list(color = nisra_navy)
+      font = list(color = "#000000")
     ) %>%
     add_annotations(
       x = as.numeric(row.names(df)) - 1,
@@ -96,7 +96,7 @@ f_stacked_bar_vertical <- function(df) {
       yanchor = "middle",
       text = ~cat_2_outside,
       showarrow = FALSE,
-      font = list(color = nisra_blue)
+      font = list(color = "#000000")
     ) %>%
     add_annotations(
       x = as.numeric(row.names(df)) - 1,
@@ -112,7 +112,7 @@ f_stacked_bar_vertical <- function(df) {
       yanchor = "middle",
       text = ~cat_3_outside,
       showarrow = FALSE,
-      font = list(color = "#757575")
+      font = list(color = "#000000")
     ) %>%
     layout(
       font = list(family = "Arial", size = 12),

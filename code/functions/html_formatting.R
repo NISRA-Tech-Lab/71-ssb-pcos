@@ -144,7 +144,7 @@ f_header <- function() {
       class = "row", style = "display:flex",
       div(
         style = "width: 60%; padding-left:15px; font-size: 12pt;",
-        strong("Status: "), a(href = "#status", statistic_type_text)
+        strong("Status: "), a(href = "#Official_Statistics", onclick = "window.location.href = '#Official_Statistics';", statistic_type_text)
       ),
       div(
         style = "width: 40%; font-size: 12pt;",

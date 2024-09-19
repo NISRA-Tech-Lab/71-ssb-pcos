@@ -40,7 +40,7 @@ f_trust_instiutions <- function(title, tables) {
     )
   } else {
     writeData(wb, sheet_name,
-      x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, outling trust in public institutions."),
+      x = paste("This worksheet contains", english(length(tables)), "tables, presented vertically with one blank row in between, outlining trust in public institutions."),
       startRow = r
     )
   }
