@@ -1787,9 +1787,9 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.9788853"
-     inkscape:cx="708.4589"
-     inkscape:cy="312.08968"
+     inkscape:zoom="22.149646"
+     inkscape:cx="772.40513"
+     inkscape:cy="92.484549"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="1912"
@@ -1816,7 +1816,7 @@
      y="-23.541672"
      style="image-rendering:optimizeQuality"
      inkscape:svg-dpi="1"
-     alt="info2alt"/>
+     alt="info2alt" />
   <image
      height="408.99084"
      width="422.24652"
@@ -1824,7 +1824,7 @@
      id="image3"
      x="2.1970391"
      y="385.55334"
-     alt="info3alt"/>
+     alt="info3alt" />
   <image
      height="294.21039"
      width="314.14291"
@@ -1832,7 +1832,7 @@
      id="image1"
      x="17.755003"
      y="103.53574"
-     alt="info1alt"/>
+     alt="info1alt" />
   <image
      height="369.63953"
      width="687.3385"
@@ -1840,7 +1840,7 @@
      id="image4"
      x="430.51151"
      y="399.90961"
-     alt="info4alt"/>
+     alt="info4alt" />
   <g
      id="g3"
      inkscape:groupmode="layer"
@@ -1916,8 +1916,8 @@
        id="tspan17" /></text>
   <path
      id="path14"
-     d="m 761.89512,96.59274 h 53.6 v -2.08 h -53.6 z"
-     style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.33333" />
+     d="m 761.89512,96.01274 h 53.6 v -1.5 h -53.6 z"
+     style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.849208;stroke-dasharray:none" />
   <g
      id="g16"
      style="fill:#00205b;fill-opacity:1"

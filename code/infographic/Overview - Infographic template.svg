@@ -7,7 +7,7 @@
    width="1122.5601"
    height="793.76001"
    viewBox="0 0 1122.5601 793.76001"
-   sodipodi:docname="Overview - Infographic Template.svg"
+   sodipodi:docname="Overview - Infographic template.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -1669,15 +1669,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.69217645"
-     inkscape:cx="698.52131"
-     inkscape:cy="526.59983"
-     inkscape:window-width="3440"
-     inkscape:window-height="1369"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="g8">
+     inkscape:zoom="0.34608822"
+     inkscape:cx="436.30493"
+     inkscape:cy="-202.26057"
+     inkscape:window-width="1557"
+     inkscape:window-height="1360"
+     inkscape:window-x="3794"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8">
     <inkscape:page
        x="0"
        y="0"
@@ -1689,21 +1689,29 @@
        bleed="0" />
   </sodipodi:namedview>
   <image
-     height="306.22003"
-     width="362.47977"
+     height="327.673"
+     width="282.79727"
      href="../../outputs/infographics/Overview1.png"
      id="image1"
-     x="-31.541569"
-     y="135.18039"
-     alt="overview1alt"/>
+     x="3.1918154"
+     y="125.00783"
+     alt="overview1alt" />
   <image
      height="302.06711"
-     width="415.55249"
+     width="434.96234"
      href="../../outputs/infographics/Overview2.png"
      id="image2"
-     x="304.14169"
+     x="290.86127"
      y="132.30566"
-     alt="overview2alt"/>
+     alt="overview2alt" />
+  <image
+     height="296.85724"
+     width="594.02894"
+     href="../../outputs/infographics/Overview5.png"
+     id="image5"
+     x="522.8924"
+     y="479.50513"
+     alt="overview5alt" />
   <image
      height="333.05875"
      width="376.47864"
@@ -1711,23 +1719,15 @@
      id="image3"
      x="740.1748"
      y="118.19765"
-     alt="overview3alt"/>
+     alt="overview3alt" />
   <image
-     height="327.70834"
-     width="667.51428"
-     href="../../outputs/infographics/Overview5.png"
-     id="image5"
-     x="478.96487"
-     y="433.53442"
-     alt="overview5alt"/>
-  <image
-     height="289.3515"
-     width="484.24216"
+     height="295.11453"
+     width="479.87374"
      href="../../outputs/infographics/Overview4.png"
      id="image4"
      x="23.246729"
-     y="482.43906"
-     alt="overview4alt"/>
+     y="478.35278"
+     alt="overview4alt" />
   <g
      id="g8"
      inkscape:groupmode="layer"
@@ -1823,9 +1823,8 @@
            id="tspan12">YEAR</tspan></text>
       <path
          id="path14"
-         d="m 628.42,524.38 h 40.2 v 1.56 h -40.2 z"
-         style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         transform="matrix(1.3333333,0,0,-1.3333333,0,793.76)" />
+         d="m 837.89331,94.006684 h 53.6 v -1.5 h -53.6 z"
+         style="fill:#00205b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.13228" />
     </g>
     <g
        id="g16"

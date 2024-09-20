@@ -320,14 +320,14 @@
      inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.45254835"
-     inkscape:cx="172.35727"
-     inkscape:cy="539.16891"
-     inkscape:window-width="1552"
-     inkscape:window-height="1360"
-     inkscape:window-x="3799"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:zoom="0.9050967"
+     inkscape:cx="857.91938"
+     inkscape:cy="288.9194"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      inkscape:current-layer="g1">
     <inkscape:page
        x="0"
@@ -350,15 +350,15 @@
        id="image1"
        x="-40.108559"
        y="93.667854"
-       alt="trust1alt"/>
+       alt="trust1alt" />
     <image
-       height="339.79373"
-       width="450.31601"
+       height="355.26166"
+       width="455.84027"
        href="../../outputs/infographics/trust3.png"
        id="image3"
        x="25.827831"
-       y="439.67715" 
-       alt="trust3alt"/>
+       y="438.57233"
+       alt="trust3alt" />
     <image
        height="287.91629"
        width="697.36658"
@@ -366,7 +366,7 @@
        id="image2"
        x="390.66882"
        y="123.65128"
-       alt="trust2alt"/>
+       alt="trust2alt" />
     <image
        height="344.18613"
        width="581.41406"
@@ -374,7 +374,7 @@
        id="image4"
        x="519.00891"
        y="446.19135"
-       alt="trust4alt"/>
+       alt="trust4alt" />
     <g
        id="g22">
       <path
@@ -468,7 +468,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Arial;-inkscape-font-specification:'Arial Condensed';fill:#ffffff">Statistics and Research Agency YEAR</tspan></text>
     <path
        style="fill:#ffffff;stroke:#ffffff;stroke-width:1.86774;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-       d="M 858.37208,82.472657 H 909.9834"
+       d="M 858.37208,82.104917 H 909.9834"
        id="path3" />
     <g
        id="g3"
