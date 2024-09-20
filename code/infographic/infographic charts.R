@@ -279,7 +279,7 @@ aware_trust_chart_4 <- ggplot(important_df, aes(fill = Category, y = Percentage,
 
 aware_trust_chart_4
 
-save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 16, height = 10)
+save_plot(paste0(here(), "/outputs/infographics/Overview4.png"), fig = aware_trust_chart_4, width = 13, height = 8)
 
 overview4alt <- paste0(
   "Stacked bar chart showing belief that NISRA statistics are important to understand Northern Ireland. ",
@@ -304,17 +304,17 @@ aware_trust_chart_5 <- ggplot(
   scale_fill_manual(values = alpha(c("#888A87", "#cdda28", "#00205b"))) +
   labs(title = bquote("Trust in" ~ bold("NISRA") ~ "compared to other institutions")) +
   theme(
-    text = element_text(size = 20),
+    text = element_text(size = 18),
     legend.position = "top",
     legend.justification = "center",
     axis.title.y = element_blank(),
     axis.title.x = element_text(size = 10),
-    axis.text = element_text(size = 12),
+    axis.text = element_text(size = 9),
     legend.title = element_blank(),
     axis.line.x = element_blank(),
     axis.line.y = element_blank(),
     axis.ticks = element_blank(),
-    legend.text = element_text(size = 10),
+    legend.text = element_text(size = 8),
     legend.key = element_blank(),
     axis.line = element_line(colour = "black"),
     panel.grid.major = element_blank(),
@@ -332,7 +332,7 @@ aware_trust_chart_5 <- ggplot(
   scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
   geom_text(aes(label = Percentage),
     fontface = "bold",
-    size = 4,
+    size = 3.5,
     position = position_stack(vjust = 0.5),
     color = ifelse(trust_compared_df$Category == "Tend to distrust/distrust a great deal",
       "#000000",
