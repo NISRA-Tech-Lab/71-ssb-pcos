@@ -14,7 +14,7 @@ Carry out the following updates each year to create new publication:
 
 -   Run `renv::restore()` in the R console.
 
--   In `code\config.R` file, update the following values:
+-   In [code/config.R](code/config.R) file, update the following values:
 
     -   `data_filename` - This is the file name of the SPSS data that is stored in the `Raw` folder
     -   `password` - The password needed to open the Raw data
