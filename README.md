@@ -233,7 +233,7 @@ In order to output a new version of the Appendix C HTML document:
 
 #### [background-quality-report.Rmd](code/html_publication/background-quality-report.Rmd)
 
-In order to output a new version of the Background Quality Report HTML document:
+This script is not automatically updated with values from the data and requires manual editing before creating a new version. In order to output a new version of the Background Quality Report HTML document:
 
  1. Ensure `config.R` script is up to date.
  2. Update text in Rmd file.
