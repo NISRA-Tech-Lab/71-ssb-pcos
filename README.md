@@ -78,13 +78,31 @@ __To revisit the Project after closing RStudio, double click on the .Rproj file 
 
 ### install necessary packages using renv
 
-In RStudio, switch from the "Terminal" tab to the "Console" tab. Enter the code in the Console:
+#### Initialisation
 
-`renv::restore()`
+`Renv` is used to lock the current version of the packages within this project so that any future users can directly recreate the results and outputs using the same renv specification. `Renv` only needs to be activated once at the start of each reporting year and it will attempt to automatically activate when you open the project.
 
-press Enter and follow any on screen prompts in the Console.
+Upon opening the `rap-skeleton.Rproj` file for the first time you should see a message in the console similar to:
 
-You can check packages have been correctly installed by running `renv::status()`.
+```
+# Bootstrapping renv 1.0.7 ---------------------------------------------------
+- Downloading renv ... OK
+- Installing renv  ... OK
+
+- Project 'C:/.../71-ssb-pcos' loaded. [renv 1.0.7]
+- One or more packages recorded in the lockfile are not installed.
+- Use `renv::status()` for more details.
+```
+Next open the `renv_setup.R` script and follow the steps within titled `renv::restore()` and `renv::status()`. If successful, renv should now be activated and all required packages should be available.
+For further information visit the [Renv website.](https://rstudio.github.io/renv/index.html)
+
+#### Help & Troubleshooting
+
+If the above steps do not appear to work or error messages appear, read more about troubleshooting renv in our [R Documentation](https://datavis.nisra.gov.uk/techlab/drpvze/r.html#renv_troubleshooting) 
+
+#### Continuing development within Renv
+
+This version of the RAP Skeleton points to an internal NISRA repository of packages, which are called upon in the above setup. However if you need to develop further with your project, and add new packages, follow the instructions under the title `renv::install() and renv::snapshot()` in the `renv_setup.R` script.
 
 #### Troubleshooting
 
