@@ -30,16 +30,14 @@ knitr::opts_chunk$set(
 
 library(here)
 
-source(paste0(here(), "/code/config.R"))
+source(paste0(here(), "/code/html_publication/data_prep.R"))
 ```
 
-`r f_banner(rmarkdown::metadata$title)`
-
-## Public Awareness of and Trust in Official Statistics, Northern Ireland
+`r f_banner(title = "Background Quality Report", subtitle = "Public Awareness of and Trust in Official Statistics, Northern Ireland")`
 
 This report provides information on the quality of the data used to produce the official statistics: [Public Awareness of and Trust in Official Statistics, Northern Ireland](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos). It informs users about the quality of the information upon which they may be drawing conclusions and making decisions.
 
-The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB))](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/e7f85f07-91db-4312-8118-f729c75878c7?t=1528447068000). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) requires that:
+The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB))](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) requires that:
 
 > __Q3.3__ _The quality of the statistics and data, including their accuracy and reliability, coherence and comparability, and timeliness and punctuality, should be monitored and reported regularly._
 
@@ -55,7 +53,7 @@ Following the initial release in 2009, the report was produced biennially until 
 
 Prior to 2018, the survey was included as a module within the NI Omnibus Survey. In 2018, the module moved to the [Continuous Household Survey](https://www.nisra.gov.uk/statistics/find-your-survey/continuous-household-survey) (CHS) due to the suspension of the NI Omnibus Survey. From 2014, the questions have been asked in the Autumn of the year.
 
-The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. It is based on a representative sample of the general population, aged 16 and over, resident in private households. Prior to the COVID-19 pandemic, the CHS was based exclusively on face-to-face interviews carried out using computer-assisted personal interviewing (CAPI) where interviewers record responses to the questionnaire on tablets. During the pandemic, data collection switched to computer-assisted telephone interviewing (CATI). In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the CHS dual modality. Interviews are spread over the 12 months from April to March, with the ‘Public Awareness and Trust in Official Statistics’ module included from September to December in 2022.
+The CHS is one of the largest continuous surveys carried out in Northern Ireland, designed and administered by the Central Survey Unit (CSU), NISRA. It is based on a representative sample of the general population, aged 16 and over, resident in private households. Prior to the COVID-19 pandemic, the CHS was based exclusively on face-to-face interviews carried out using computer-assisted personal interviewing (CAPI) where interviewers record responses to the questionnaire on tablets. During the pandemic, data collection switched to computer-assisted telephone interviewing (CATI). In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the CHS dual modality. Interviews are spread over the 12 months from April to March, with the ‘Public Awareness and Trust in Official Statistics’ module included from `r survey_start_mth` to `r survey_end_mth` in `r current_year`.
 
 The data are used to monitor and report on awareness of NISRA, trust in NI official statistics and NISRA, as well as the public’s view on the value of official statistics, freedom from political interference and data confidentiality. This reflects the Trustworthiness, Quality and Value pillars of the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/), which all official statistics and producers of official statistics must be compliant with. 
 
@@ -63,7 +61,7 @@ The data are used to monitor and report on awareness of NISRA, trust in NI offic
 
 <span style = "color: #1460aa">The degree to which the statistical product meets user needs in both coverage and content.</span>
 
-NISRA provides statistical services across government in Northern Ireland. Official statistics produced by NISRA are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The [Statistics and Registration Service Act](https://www.legislation.gov.uk/ukpga/2007/18/made) 2007 states that official statistics should ‘serve the public good’ by informing the public about social and economic matters, and assisting in the development and evaluation of public policy. For the public to use official statistics effectively they must know who produces them and where to find them. The statistics in this release allow NISRA to monitor awareness levels and use these insights to inform communication and marketing strategies.
+NISRA provides statistical services across government in Northern Ireland. Official statistics produced by NISRA are fundamental to good government, to the delivery of public services and to decision-making in all sectors of society. The [Statistics and Registration Service Act 2007](https://www.legislation.gov.uk/ukpga/2007/18/made) states that official statistics should ‘serve the public good’ by informing the public about social and economic matters, and assisting in the development and evaluation of public policy. For the public to use official statistics effectively they must know who produces them and where to find them. The statistics in this release allow NISRA to monitor awareness levels and use these insights to inform communication and marketing strategies.
 
 Official statistics must be produced in accordance with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/). The Code is structured under three pillars. Together these pillars support public confidence in official statistics.
 
@@ -79,7 +77,7 @@ The Code explicitly states that “Those producing and releasing statistics shou
 
 For each of the indicators, the report includes a population level analysis and also a breakdown by various sections of society. Comparisons are made with other institutions (the Civil Service, the media and the NI Assembly) and the Office for National Statistics (ONS), the largest producer of UK statistics, where there are appropriate data to do so.
 
-A core set of questions have been included in each survey (since 2014) allowing trends to be monitored over time. Questions have been aligned with the equivalent survey carried out by the Office of National Statistics ([Public Confidence in Official Statistics](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)) and the OECD Committee for Statistics recommendations on [Measuring Trust in Official Statistics](https://www.oecd.org/sdd/modelsurveyquestionnaireonmeasuringtrustinofficialstatistics.htm#:~:text=In%202009%2C%20the%20OECD%20Committee%20on%20Statistics%20formally,a%20number%20of%20National%20Statistical%20Offices%20and%20Agencies.).
+A core set of questions have been included in each survey (since 2014) allowing trends to be monitored over time. Questions have been aligned with the equivalent survey carried out by the Office of National Statistics ([Public Confidence in Official Statistics](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)) and the OECD Committee for Statistics recommendations on Measuring Trust in Official Statistics (June 2011).
 
 Consultation is carried out prior to each run of the survey with key users to agree the questions to be included and to ensure they continue to cover the main requirements for users.
 
@@ -93,21 +91,21 @@ The data in the most recent report are derived from the [Continuous Household Su
 
 ### Sample Design and Sampling Frame
 
-The sample for the survey consists of a systematic random sample of 9,000 addresses selected from the NISRA Address Register (NAR). The NAR is developed within NISRA and is primarily based on the Land and Property Services (LPS) [Pointer](https://www.nidirect.gov.uk/articles/pointer) database which contains address information for every property in NI. The addresses on the NAR are sorted by district council and ward, so the sample is effectively stratified geographically. A starting point in the sampling frame is randomly selected and then every nth (fixed interval) is selected by counting through the frame. As the survey is asked to a representative sample of the Northern Ireland population there are no major coverage issues. People living in institutions are excluded.
+The sample for the survey consists of a systematic random sample of 9,000 addresses selected from the NISRA Address Register (NAR). The NAR is developed within NISRA and is primarily based on the Land and Property Services (LPS) [Pointer](https://www.nidirect.gov.uk/articles/pointer) database which contains address information for every property in NI. The addresses on the NAR are sorted by district council and ward, so the sample is effectively stratified geographically. A starting point in the sampling frame is randomly selected and then every nth (fixed interval) address is selected by counting through the frame. As the survey is asked to a representative sample of the Northern Ireland population there are no major coverage issues. People living in institutions are excluded.
 
 ### Response Rate
 
-The target response rate for the CHS is 55%. That is, obtaining interviews at 55% of eligible addresses. Addresses which are vacant, derelict etc. and which do not contain people are deemed to be ineligible. Due to the ongoing impact of the COVID-19 pandemic, the achieved response rate in the 2022/23 CHS was slightly lower than normal (51%) but was still sufficient to carry out the required analyses. Of the 2,990 addresses selected for interview from September to December 2022, 1,622 persons participated in this module of the survey.
+The target response rate for the CHS is 55%. That is, obtaining interviews at 55% of eligible addresses. Addresses which are vacant, derelict etc. and which do not contain people are deemed to be ineligible. Due to the ongoing impact of the COVID-19 pandemic, the achieved response rate in the 2022/23 CHS was slightly lower than normal (51%) but was still sufficient to carry out the required analyses. Of the 2,990 addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
 
 ### CHS data collection and processing
 
 In March 2020, due to the COVID-19 pandemic, data collection for the CHS moved from face-to-face interviewing using CAPI (computer-assisted personal interviewing) to telephone mode using CATI (computer-assisted telephone interviewing). Face-to-face interviewing was reinstated alongside telephone interviewing in July 2022, thus making the 2022/23 survey dual modality. In computer-assisted interviewing, interviewers record responses to the questionnaire on tablets which allows plausibility and consistency checks to be incorporated to improve data quality. Data are returned from the field via FTP dial up. Data are then downloaded onto secure network drives and processed through the CHS data management system. Responses are coded and fully validated by CSU statistical staff. 
 
-The CHS interviews are spread over the 12 months from April to March, with the 2022 ‘Public Awareness and Trust in Official Statistics’ module included from September to December 2022. 
+The CHS interviews are spread over the 12 months from April to March, with the `r current_year` ‘Public Awareness and Trust in Official Statistics’ module included from `r survey_start_mth` to `r survey_end_mth` `r current_year`. 
 
 ### CHS quality control and quality assurance
 
-Questions are pre-tested before they go into field. The questionnaire is scripted in Blaise which allows CSU staff to define range and consistency checks for each question and to control routing throughout the questionnaire. The data are subject to further validation checks including treatment of outliers and detailed consistency checking including non-credible checks. A 100% check of all coded data is undertaken by statistical staff to ensure that coding procedures are of a high standard. A random sample of 10% of completed CHS interviews are back-checked with respondents to ensure that interviews are valid. Interviewers undergo intensive induction training and are trained (face-to-face) before working on CHS. The quality of data returned by interviewers is assessed and is scored as part of their performance management.
+Questions are pre-tested before they go into field. The questionnaire is scripted in Blaise which allows CSU staff to define range and consistency checks for each question and to control routing throughout the questionnaire. The data are subject to further validation checks including treatment of outliers and detailed consistency checking including non-credible checks. A 100% check of all coded data is undertaken by statistical staff to ensure that coding procedures are of a high standard. A random sample of 10% of completed CHS interviews are back-checked with respondents to ensure that interviews are valid. Interviewers undergo intensive induction training and are trained (face-to-face) before working on the CHS. The quality of data returned by interviewers is assessed and is scored as part of their performance management.
 
 ### Imputation
 
@@ -115,7 +113,7 @@ There is no imputation on the CHS.
 
 ### Weighting
 
-The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduce non-response bias to the results. A chi square goodness-of-fit test shows that the CHS achieved sample is not representative of the population by age and sex when compared with the Population Estimates for Northern Ireland. Young males are particularly underrepresented. To counter this, weights are applied to analysis on the basis of age and gender. Weights are calculated based on how the age and gender profile of the survey respondents differ from that of the latest mid-year population estimates published by NISRA. The 2021 mid-year estimates (rather than the 2022 mid-year estimates) were used for 2022/23, due to the later publication of the 2022 mid-year estimates. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults rather than of addresses, thus allowing inferences to be made about the population. 
+The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduces non-response bias to the results. A chi square goodness-of-fit test shows that the CHS achieved sample is not representative of the population by age and sex when compared with the Population Estimates for Northern Ireland. Young males are particularly underrepresented. To counter this, weights are applied to analysis on the basis of age and gender. Weights are calculated based on how the age and gender profile of the survey respondents differ from that of the latest mid-year population estimates published by NISRA. The 2021 mid-year estimates (rather than the 2022 mid-year estimates) were used for 2022/23, due to the later publication of the 2022 mid-year estimates. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults rather than of addresses, thus allowing inferences to be made about the population. 
 
 ### SSB quality assurance checks 
 
@@ -131,7 +129,7 @@ Significance tests are carried out to determine if the observed differences in t
 
 <span style = "color: #1460aa">Timeliness refers to the time gap between publication and the reference period. Punctuality refers to the gap between planned and actual publication dates.</span>
 
-The ‘Public Awareness of and Trust in Official Statistics’ survey questions are normally asked in Autumn with the report published the following Autumn.
+The ‘Public Awareness of and Trust in Official Statistics’ survey questions are normally asked in Autumn and the report is published the following Autumn.
 
 The delay is primarily due to the need to wait until three months after the end of the CHS survey cycle (which runs to March) for the validation of the explanatory variables to be completed and the weights produced based on the previous year’s population estimates which are usually published towards the end of June. The data are provided to SSB in mid-July and the reported is published in September/ October.
 
@@ -171,7 +169,7 @@ Trust in NISRA as an institution is compared with other institutions (the Civil 
 
 A similar survey ([Public Confidence in Official Statistics](https://natcen.ac.uk/our-research/research/public-confidence-in-official-statistics/)) is carried out by NatCen on behalf of the Office for National Statistics (ONS), the largest producer of UK official statistics. Where an equivalent question is asked and reported on in both surveys, the wording and response categories are aligned allowing comparisons to be made between NISRA and ONS. The Awareness of ONS/NISRA, Trust in ONS/NISRA, Trust in ONS/NISRA statistics, value, political interference and confidentiality questions are asked in both surveys. 
 
-The questions asked in the survey have also been aligned with the OECD Committee for Statistics recommendations on [Measuring Trust in Official Statistics](https://www.oecd.org/sdd/modelsurveyquestionnaireonmeasuringtrustinofficialstatistics.htm#:~:text=In%202009%2C%20the%20OECD%20Committee%20on%20Statistics%20formally,a%20number%20of%20National%20Statistical%20Offices%20and%20Agencies.).
+The questions asked in the survey have also been aligned with the OECD Committee for Statistics recommendations on Measuring Trust in Official Statistics (June 2011).
 
 ### Impact of the COVID-19 pandemic
 
@@ -189,7 +187,7 @@ The ‘Public Awareness of and Trust in Official Statistics’ survey has been c
 
 <span style = "color: #1460aa">Trade-offs are the extent to which different aspects of quality are balanced against each other.</span>
 
-The main trade-off is timeliness against accuracy and comparability. Although the questions are asked in the Autumn interviews (September to December in 2022) finalised data from the CHS are not available until the following July meaning that there is a 9-13 month delay between the reference period and the results being published the following October. 
+The main trade-off is timeliness against accuracy and comparability. Although the questions are asked in the Autumn interviews (`r survey_start_mth` to `r survey_end_mth` in `r current_year`) finalised data from the CHS are not available until the following July meaning that there is a 9-13 month delay between the reference period and the results being published the following October. 
 
 Other surveys were considered but the CHS is the only survey which uses probabilistic sampling to select a representative sample of the general population, aged 16 and over, resident in private households at a similar cost to the NI Omnibus. Using the CHS means that the results can be generalised to the (household) population and that comparisons can be made over time.
 
@@ -213,5 +211,5 @@ In 2020, the last year for which data are available, the CHS module took on aver
 
 The CHS data received by SSB are anonymised (name/address information removed). In addition, the data represent a sample of the population and there is no way to identify the sample chosen from the population. The data are held within SSB’s secure record management system (CM), with restricted access and subject to approved record retention protocols. Responses are presented as weighted percentages and analysis is only carried out if the sample size in the population sub-category is large enough. Consequently, the ‘don’t know’ category for the ‘Awareness’ question is not broken down by age group, educational achievement and employment status. There are therefore no small cells which need to have disclosure control methods applied.
 
-Document last updated: October 2023
+Document last updated: `r month.name[month(today())]` `r year(today())`
 
