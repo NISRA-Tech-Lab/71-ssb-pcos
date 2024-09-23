@@ -82,7 +82,7 @@ __To revisit the Project after closing RStudio, double click on the .Rproj file 
 
 `Renv` is used to lock the current version of the packages within this project so that any future users can directly recreate the results and outputs using the same renv specification. `Renv` only needs to be activated once at the start of each reporting year and it will attempt to automatically activate when you open the project.
 
-Upon opening the `rap-skeleton.Rproj` file for the first time you should see a message in the console similar to:
+Upon opening the `71-ssb-pcos.Rproj` file for the first time you should see a message in the console similar to:
 
 ```
 # Bootstrapping renv 1.0.7 ---------------------------------------------------
