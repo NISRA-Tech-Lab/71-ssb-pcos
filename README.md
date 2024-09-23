@@ -102,7 +102,7 @@ If the above steps do not appear to work or error messages appear, read more abo
 
 #### Continuing development within Renv
 
-This version of the RAP Skeleton points to an internal NISRA repository of packages, which are called upon in the above setup. However if you need to develop further with your project, and add new packages, follow the instructions under the title `renv::install() and renv::snapshot()` in the `renv_setup.R` script.
+This version of the RAP Skeleton points to an internal NISRA repository of packages, which are called upon in the above setup. However if you need to develop further with your project, and add new packages, follow the instructions under the title `renv::install()` and `renv::snapshot()` in the [renv_setup.R](code/renv_setup.R) script.
 
 #### Troubleshooting
 
