@@ -169,7 +169,14 @@ if (!file.exists(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Da
 source(paste0(here(), "/code/html_publication/check_created_variables.R"))
 
 ## Supplementary tables output to outputs folder ####
-source(paste0(here(), "/code/html_publication/supplementary_tables.R"))
+f_supplementary_tables(data = data_final,
+                       year = current_year,
+                       trust_q = trust_q_new,
+                       agree_q = agree_q_new,
+                       co_var = c("AGE2", "DERHIanalysis", "EMPST2"),
+                       age_weight = age_weight,
+                       sex_weight = sex_weight,
+                       weight = weight)
 
 # Create data frames for charts ####
 

@@ -38,6 +38,11 @@ survey_end_mth <- "December"
 # or "TrustElectedRep2" (name when Assembly isn't sitting, eg 2019)
 trust_body_var <- "TrustNIAssembly2"
 
+# Weights used for current year for analysis by age, sex and all other co-vars
+age_weight <- "W1"
+sex_weight <- "W2"
+weight <- "W3"
+
 ##### HEADER ######
 # Select the Statistic type for the report - select from the list of five below
 

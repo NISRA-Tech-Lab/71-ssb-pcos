@@ -37,7 +37,7 @@ source(paste0(here(), "/code/html_publication/data_prep.R"))
 
 This report provides information on the quality of the data used to produce the official statistics: [Public Awareness of and Trust in Official Statistics, Northern Ireland](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos). It informs users about the quality of the information upon which they may be drawing conclusions and making decisions.
 
-The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB))](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) requires that:
+The report is structured around the five quality dimensions for statistical outputs (from the [European Statistics Code of Practice, PDF (458 KB)](https://ec.europa.eu/eurostat/documents/4031688/8971242/KS-02-18-142-EN-N.pdf/). The UK Statistics Authority’s [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/)) requires that:
 
 > __Q3.3__ _The quality of the statistics and data, including their accuracy and reliability, coherence and comparability, and timeliness and punctuality, should be monitored and reported regularly._
 

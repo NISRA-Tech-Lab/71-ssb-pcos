@@ -101,14 +101,28 @@ for (i in 1:length(recoded_vars)) {
   addStyle(wb, "Recoded Variables",
     hs2,
     rows = r,
-    cols = c(1, 5, 9)
+    cols = c(1, 5)
   )
 
   addStyle(wb, "Recoded Variables",
     ns3d,
     rows = (r + 1):(r + nrow(frequency_table) - 1),
-    cols = c(2, 3, 6, 7, 9:14),
+    cols = c(2, 3, 6, 7, 9, 10, 13, 14),
     gridExpand = TRUE
+  )
+  
+  addStyle(wb, "Recoded Variables",
+           ns3d,
+           rows = r + nrow(frequency_table),
+           cols = c(13, 14),
+           gridExpand = TRUE
+  )
+  
+  addStyle(wb, "Recoded Variables",
+           ns_comma,
+           rows = (r + 1):(r + nrow(frequency_table)),
+           cols = c(11, 12),
+           gridExpand = TRUE
   )
 
   r <- r + nrow(frequency_table) + 2
@@ -116,7 +130,7 @@ for (i in 1:length(recoded_vars)) {
 
 setColWidths(wb, "Recoded Variables",
   cols = 1:14,
-  widths = c(24, 12.67, 12.67, 8, 24, 12.67, 12.67, 8, rep(12.67, 6))
+  widths = c(24, 15, 15, 8, 24, 15, 15, 8, rep(15, 6))
 )
 
 freezePane(wb, "Recoded Variables",
@@ -141,24 +155,38 @@ for (i in 1:length(new_q)) {
 
   new_q_options <- levels(data_final[[new_q[i]]])
 
-  if (new_q[i] == "DERHIanalysis") {
-    new_q_options <- c(new_q_options, "Missing")
-  }
+  old_q_options <- c(old_q_options, "Missing")
+  new_q_options <- c(new_q_options, "Missing")
+  
 
   crosstab <- data.frame(new = new_q_options)
 
   for (j in 1:length(new_q_options)) {
     for (k in 1:length(old_q_options)) {
       if (new_q_options[j] == "Missing") {
-        crosstab[[old_q_options[k]]][j] <- data_final %>%
-          filter(is.na(.[[new_q[i]]]) &
-            .[[old_q[i]]] == old_q_options[k]) %>%
-          nrow()
+        if (old_q_options[k] == "Missing") {
+          crosstab[[old_q_options[k]]][j] <- data_final %>%
+            filter(is.na(.[[new_q[i]]]) &
+                   is.na(.[[old_q[i]]])) %>%
+            nrow()
+        } else {
+          crosstab[[old_q_options[k]]][j] <- data_final %>%
+            filter(is.na(.[[new_q[i]]]) &
+              .[[old_q[i]]] == old_q_options[k]) %>%
+            nrow()
+        }
       } else {
-        crosstab[[old_q_options[k]]][j] <- data_final %>%
-          filter(.[[new_q[i]]] == new_q_options[j] &
-            .[[old_q[i]]] == old_q_options[k]) %>%
-          nrow()
+        if (old_q_options[k] == "Missing") {
+          crosstab[[old_q_options[k]]][j] <- data_final %>%
+            filter(.[[new_q[i]]] == new_q_options[j] &
+                   is.na(.[[old_q[i]]])) %>%
+            nrow()
+        } else {
+          crosstab[[old_q_options[k]]][j] <- data_final %>%
+            filter(.[[new_q[i]]] == new_q_options[j] &
+              .[[old_q[i]]] == old_q_options[k]) %>%
+            nrow()
+        }
       }
     }
   }
@@ -203,7 +231,7 @@ for (i in 1:length(new_q)) {
 
 setColWidths(wb, "Crosstabs",
   cols = 1:length(unique(data_final$AGE)),
-  widths = c(52, rep(13, length(unique(data_final$AGE)) - 1))
+  widths = c(55, rep(13, length(unique(data_final$AGE)) - 1))
 )
 
 freezePane(wb, "Crosstabs",

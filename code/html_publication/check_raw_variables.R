@@ -91,7 +91,7 @@ for (i in 1:length(PCOS_vars)) {
     adorn_totals()
 
   names(frequency_table) <- c(
-    if (PCOS_vars[i] %in% old_q) paste0(gsub("2", "", new_q[which(old_q == PCOS_vars[i])]), " (", PCOS_vars[i], ")") else PCOS_vars[i],
+    if (PCOS_vars[i] %in% old_q) paste0(gsub("2", "", new_q[which(old_q == PCOS_vars[i])[1]]), " (", PCOS_vars[i], ")") else PCOS_vars[i],
     paste("Weighted %\n", current_year - 1),
     paste("Weighted %\n", current_year),
     paste("Unweighted %\n", current_year),
@@ -144,14 +144,28 @@ for (i in 1:length(PCOS_vars)) {
   addStyle(wb, "Raw Variables",
     hs2,
     rows = r,
-    cols = c(1, 5, 9)
+    cols = c(1, 5)
   )
 
   addStyle(wb, "Raw Variables",
     ns3d,
     rows = (r + 1):(r + nrow(frequency_table) - 1),
-    cols = c(2, 3, 6, 7, 9:14),
+    cols = c(2, 3, 6, 7, 9, 10, 13, 14),
     gridExpand = TRUE
+  )
+  
+  addStyle(wb, "Raw Variables",
+           ns3d,
+           rows = r + nrow(frequency_table),
+           cols = c(13, 14),
+           gridExpand = TRUE
+  )
+  
+  addStyle(wb, "Raw Variables",
+           ns_comma,
+           rows = (r + 1):(r + nrow(frequency_table)),
+           cols = c(11, 12),
+           gridExpand = TRUE
   )
 
   r <- r + nrow(frequency_table) + 2
@@ -159,7 +173,7 @@ for (i in 1:length(PCOS_vars)) {
 
 setColWidths(wb, "Raw Variables",
   cols = 1:14,
-  widths = c(24, 12.67, 12.67, 8, 24, 12.67, 12.67, 8, rep(12.67, 6))
+  widths = c(24, 15, 15, 8, 24, 15, 15, 8, rep(15, 6))
 )
 
 freezePane(wb, "Raw Variables",

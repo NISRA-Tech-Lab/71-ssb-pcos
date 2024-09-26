@@ -105,9 +105,9 @@ for (question in questions) {
           `TLIST(A1)` = year,
           EQUALGROUPS = "N92000002",
           `Variable name` = "Northern Ireland",
-          `Lower limit` = ni_ci[["lower_cl"]] * 100,
-          VALUE = ni_value,
-          `Upper limit` = ni_ci[["upper_cl"]] * 100
+          `Lower limit` = round_half_up(ni_ci[["lower_cl"]] * 100, 1),
+          VALUE = round_half_up(ni_value, 1),
+          `Upper limit` = round_half_up(ni_ci[["upper_cl"]] * 100, 1)
         )
 
       ### Append this row to question_data data frame ####
@@ -229,9 +229,9 @@ for (question in questions) {
                 `TLIST(A1)` = year,
                 EQUALGROUPS = EQUALGROUP,
                 `Variable name` = co_val,
-                `Lower limit` = ci[["lower_cl"]] * 100,
-                VALUE = p_weighted,
-                `Upper limit` = ci[["upper_cl"]] * 100
+                `Lower limit` = round_half_up(ci[["lower_cl"]] * 100, 1),
+                VALUE = round_half_up(p_weighted, 1),
+                `Upper limit` = round_half_up(ci[["upper_cl"]] * 100, 1)
               )
 
             question_data <- question_data %>%
@@ -244,7 +244,12 @@ for (question in questions) {
 
   ## Sort final data frame ####
 
-  sort_order <- c("Northern Ireland", sort(unique(question_data$`Variable name`[question_data$`Variable name` != "Northern Ireland"])))
+  sort_order <- c("Northern Ireland",
+                  levels(data_year$AGE2),
+                  levels(data_year$EMPST2),
+                  levels(data_year$DERHIanalysis),
+                  levels(data_year$SEX),
+                  levels(data_year$URBH))
 
   question_data <- question_data %>%
     mutate(`Variable name` = factor(`Variable name`,
