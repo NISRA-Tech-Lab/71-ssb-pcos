@@ -223,7 +223,7 @@ f_work_stats <- function(var, value1, value2 = NA, dk = TRUE) {
     )
   } else {
     work_stats <- data.frame(
-      trust = c("%", "Base"),
+      trust = c("% Yes", "Base"),
       work = c(
         f_return_p_group(data_current, var, value1, "EMPST2", "In paid employment", dk = FALSE) * 100,
         data_current %>%
@@ -307,11 +307,7 @@ f_qual_stats <- function(var, value1, value2 = NA, dk = TRUE) {
 
     for (qual in quals) {
       qual_stats[[qual]] <- c(
-        data_current %>%
-          filter(!is.na(.[[var]]) & .[[var]] == value1 & DERHIanalysis == qual) %>%
-          nrow() / data_current %>%
-            filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == qual) %>%
-            nrow() * 100,
+        f_return_p_group(data_current, var, value1, "DERHIanalysis", qual, dk = FALSE) * 100,
         data_current %>%
           filter(!is.na(.[[var]]) & .[[var]] != "Don't know" & DERHIanalysis == qual) %>%
           nrow()
@@ -456,15 +452,15 @@ f_nisra_ons_ex_dk <- function(var, val) {
   
   df <- data.frame(
     trust = c("% Yes", "Base"),
-    nisra = c(f_return_p(data_current, var, val) * 100,
+    nisra = c(f_return_p(data_current, var, val, dk = FALSE) * 100,
       data_current %>%
         filter(!is.na(.[[var]]) & .[[var]] != "Don't know") %>%
         nrow()
     ),
-    ons = c(
-      data_ons[[val]][data_ons$`Related Variable` == var] /
-        (data_ons$`Weighted base`[data_ons$`Related Variable` == var] -
-          data_ons$`Don't know`[data_ons$`Related Variable` == var]) * 100,
+    ons = c(data_ons %>%
+              filter(`Related Variable` == var) %>%
+              mutate(pct = .[[val]] / `Weighted base (ex DK)` * 100) %>%
+              pull("pct"),
       data_ons$`Unweighted base (ex DK)`[data_ons$`Related Variable` == var]
     )
   ) %>%
@@ -526,7 +522,7 @@ f_trend <- function(sheet) {
 
   if (sheet != "Awareness") {
     trend <- trend %>%
-      select(-`2018`, -`2012`)
+      select(-`2009`, -`2010`, -`2012`, -`2018`)
   }
 
   names(trend)[names(trend) == "stat"] <- " "

@@ -105,9 +105,9 @@ for (question in questions) {
           `TLIST(A1)` = year,
           EQUALGROUPS = "N92000002",
           `Variable name` = "Northern Ireland",
-          `Lower limit` = round_half_up(ni_ci[["lower_cl"]] * 100, 1),
-          VALUE = round_half_up(ni_value, 1),
-          `Upper limit` = round_half_up(ni_ci[["upper_cl"]] * 100, 1)
+          `Lower limit` = ni_ci[["lower_cl"]] * 100,
+          VALUE = ni_value,
+          `Upper limit` = ni_ci[["upper_cl"]] * 100
         )
 
       ### Append this row to question_data data frame ####
@@ -229,9 +229,9 @@ for (question in questions) {
                 `TLIST(A1)` = year,
                 EQUALGROUPS = EQUALGROUP,
                 `Variable name` = co_val,
-                `Lower limit` = round_half_up(ci[["lower_cl"]] * 100, 1),
-                VALUE = round_half_up(p_weighted, 1),
-                `Upper limit` = round_half_up(ci[["upper_cl"]] * 100, 1)
+                `Lower limit` = ci[["lower_cl"]] * 100,
+                VALUE = p_weighted,
+                `Upper limit` = ci[["upper_cl"]] * 100
               )
 
             question_data <- question_data %>%
@@ -244,33 +244,39 @@ for (question in questions) {
 
   ## Sort final data frame ####
 
-  sort_order <- c("Northern Ireland",
-                  levels(data_year$AGE2),
-                  levels(data_year$EMPST2),
-                  levels(data_year$DERHIanalysis),
-                  levels(data_year$SEX),
-                  levels(data_year$URBH))
+  sort_order <- c("Northern Ireland")
+  
+  for (var in co_vars) {
+    
+    sort_order <- c(sort_order, levels(data_year[[var]]))
+    
+  }
 
   question_data <- question_data %>%
     mutate(`Variable name` = factor(`Variable name`,
       levels = sort_order
     )) %>%
     arrange(`Variable name`, `TLIST(A1)`)
+  
+  question_data_rounded <- question_data %>%
+    mutate(`Lower limit` = round_half_up(`Lower limit`, 1),
+           VALUE = round_half_up(VALUE, 1),
+           `Upper limit` = round_half_up(`Upper limit`, 1))
 
 
   ## Write to Excel ####
 
-  addWorksheet(wb, question)
+  addWorksheet(wb, question, tabColour = "#00205B")
 
   writeDataTable(wb, question,
-    x = question_data,
+    x = question_data_rounded,
     tableStyle = "none",
     withFilter = FALSE
   )
 
   addStyle(wb, question,
     style = ns_pfg,
-    rows = 2:(nrow(question_data) + 1),
+    rows = 2:(nrow(question_data_rounded) + 1),
     cols = 5:7,
     gridExpand = TRUE
   )
@@ -278,6 +284,28 @@ for (question in questions) {
   setColWidths(wb, question,
     cols = 1:7,
     widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71)
+  )
+  
+  unrounded_sheet <- paste(substr(question, 1, 19), "(UNROUNDED)")
+  
+  addWorksheet(wb, unrounded_sheet, tabColour = "#3878C5")
+  
+  writeDataTable(wb, unrounded_sheet,
+                 x = question_data,
+                 tableStyle = "none",
+                 withFilter = FALSE
+  )
+  
+  addStyle(wb, unrounded_sheet,
+           style = ns_pfg,
+           rows = 2:(nrow(question_data) + 1),
+           cols = 5:7,
+           gridExpand = TRUE
+  )
+  
+  setColWidths(wb, unrounded_sheet,
+               cols = 1:7,
+               widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71)
   )
 }
 

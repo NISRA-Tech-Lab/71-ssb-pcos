@@ -14,6 +14,8 @@ if (!dir.exists(paste0(data_folder, "Trend/2021"))) {
 
 ods_file_path <- paste0(data_folder, "Trend/PCOS Tables 2022 reduced.ODS")
 
+correct_2016_data <- paste0(data_folder, "Trend/Correct 2016 data.XLSX")
+
 # Awareness of NISRA ####
 
 ## Table 1a: Awareness of NISRA by year ####
@@ -47,7 +49,7 @@ saveRDS(table_1c_data, paste0(data_folder, "Trend/2021/table_1c_data.RDS"))
 
 ## Table 3.1a: Trust in NISRA by year ####
 
-table_3.1a_data <- read_ods(ods_file_path, sheet = "Trust_NISRA", range = "A4:F8")
+table_3.1a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A4:F8")
 
 saveRDS(table_3.1a_data, paste0(data_folder, "Trend/2021/table_3.1a_data.RDS"))
 
@@ -55,13 +57,13 @@ saveRDS(table_3.1a_data, paste0(data_folder, "Trend/2021/table_3.1a_data.RDS"))
 
 ## Table 3.2a: Trust in the Civil Service by year ####
 
-table_3.2a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A4:F8")
+table_3.2a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A11:F15")
 
 saveRDS(table_3.2a_data, paste0(data_folder, "Trend/2021/table_3.2a_data.RDS"))
 
 ## Table 3.3a: Trust in the Northern Ireland Assembly by year ####
 
-table_3.3a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A10:F14")
+table_3.3a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A18:F22")
 
 names(table_3.3a_data) <- gsub("Note 5", "Note 2", names(table_3.3a_data))
 
@@ -69,7 +71,7 @@ saveRDS(table_3.3a_data, paste0(data_folder, "Trend/2021/table_3.3a_data.RDS"))
 
 ## Table 3.4a: Trust in the Media by year ####
 
-table_3.4a_data <- read_ods(ods_file_path, sheet = "Trust_Civil_Service", range = "A17:F21")
+table_3.4a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A26:F30")
 
 saveRDS(table_3.4a_data, paste0(data_folder, "Trend/2021/table_3.4a_data.RDS"))
 
@@ -77,7 +79,7 @@ saveRDS(table_3.4a_data, paste0(data_folder, "Trend/2021/table_3.4a_data.RDS"))
 
 ## Table 4a: Trust NISRA Statistics by year ####
 
-table_4a_data <- read_ods(ods_file_path, sheet = "Trust_NISRA_Statistics", range = "A4:F8")
+table_4a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A33:F37")
 
 saveRDS(table_4a_data, paste0(data_folder, "Trend/2021/table_4a_data.RDS"))
 
@@ -96,7 +98,7 @@ saveRDS(table_4d_data, paste0(data_folder, "Trend/2021/table_4d_data.RDS"))
 
 ## Table 5a: Statistics produced by NISRA are important to understand Northern Ireland by year ####
 
-table_5a_data <- read_ods(ods_file_path, sheet = "Value", range = "A4:E8")
+table_5a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A40:E44")
 
 saveRDS(table_5a_data, paste0(data_folder, "Trend/2021/table_5a_data.RDS"))
 
@@ -104,7 +106,7 @@ saveRDS(table_5a_data, paste0(data_folder, "Trend/2021/table_5a_data.RDS"))
 
 ## Table 6a: Statistics produced by NISRA are free from political interference by year ####
 
-table_6a_data <- read_ods(ods_file_path, sheet = "Political_Interference", range = "A4:F8")
+table_6a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A47:F51")
 
 saveRDS(table_6a_data, paste0(data_folder, "Trend/2021/table_6a_data.RDS"))
 
@@ -112,6 +114,6 @@ saveRDS(table_6a_data, paste0(data_folder, "Trend/2021/table_6a_data.RDS"))
 
 ## Table 7a: Personal information provided to NISRA will be kept confidential by year ####
 
-table_7a_data <- read_ods(ods_file_path, sheet = "Confidentiality", range = "A4:F8")
+table_7a_data <- readxl::read_xlsx(correct_2016_data, sheet = "2016", range = "A54:F58")
 
 saveRDS(table_7a_data, paste0(data_folder, "Trend/2021/table_7a_data.RDS"))

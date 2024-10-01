@@ -307,6 +307,46 @@ for (year in trend_years) {
   
 }
 
+# Trust Civil Service ###
+
+trend_years <- c(2014, 2016, 2019:2021)
+
+nics_trend <- data.frame(stat = c("Trust Civil Service - % Yes",
+                                  "Trust Civil Service - % No",
+                                  "Trust Civil Service - % DK",
+                                  "Trust Civil Service - Base",
+                                  "TruNICSExDK - % Yes",
+                                  "TruNICSExDK - Base"))
+
+for (year in trend_years) {
+  
+  year_data <- readRDS(paste0(data_folder, "Final/PCOS ", year, " Final Dataset.RDS")) %>%
+    filter(TrustCivilService2 != "Refusal")
+  
+  levels(year_data$TrustCivilService2)[levels(year_data$TrustCivilService2) == "Tend to trust/trust a great deal"] <- "Trust a great deal/Tend to trust"
+  levels(year_data$TrustCivilService2)[levels(year_data$TrustCivilService2) == "Tend to distrust/distrust greatly"] <- "Tend to distrust/Distrust greatly"
+  levels(year_data$TrustCivilService2)[levels(year_data$TrustCivilService2) == "Don't Know"] <- "Don't know"
+  
+  
+  weight <- if (year == 2020) {
+    "W4"
+  } else if (year %in% 2012:2016) {
+    "weight"
+  } else {
+    "W3"
+  }
+  
+  nics_trend$value <- c(f_return_p(year_data, "TrustCivilService2", "Trust a great deal/Tend to trust", weight = weight) * 100,
+                        f_return_p(year_data, "TrustCivilService2", "Tend to distrust/Distrust greatly", weight = weight) * 100,
+                        f_return_p(year_data, "TrustCivilService2", "Don't know", weight = weight) * 100,
+                        f_return_n(year_data$TrustCivilService2),
+                        f_return_p(year_data, "TrustCivilService2", "Trust a great deal/Tend to trust", weight = weight, dk = FALSE) * 100,
+                        f_return_n(year_data$TrustCivilService2[year_data$TrustCivilService2 != "Don't know"]))
+  
+  names(nics_trend)[names(nics_trend) == "value"] <- year
+  
+}
+
 # Bind data frame and save out RDS ####
 
 weighted_trend <- bind_rows(aware_trend,
@@ -321,6 +361,7 @@ weighted_trend <- bind_rows(aware_trend,
                             confidential_trend,
                             confidential_trend_ex_dk,
                             assembly_trend,
-                            media_trend)
+                            media_trend,
+                            nics_trend)
 
 saveRDS(weighted_trend, paste0(data_folder, "Trend/2021/weighted trend data.RDS"))

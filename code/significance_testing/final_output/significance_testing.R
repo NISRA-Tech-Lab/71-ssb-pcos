@@ -34,6 +34,7 @@ names(data_ons_raw) <- gsub(".", " ", names(data_ons_raw), fixed = TRUE)
 data_ons <- data_ons_raw %>%
   mutate(
     `Weighted base` = 100 - `Prefer not to answer`,
+    `Weighted base (ex DK)` = `Weighted base` - `Don't know`,
     across(.cols = `Don't know`:`Strongly disagree`, ~ .x / `Weighted base` * 100),
     `Trust a great deal/Tend to trust` = `Trust a great deal` + `Tend to trust`,
     `Tend to distrust/Distrust greatly` = `Tend to distrust` + `Distrust greatly`,
@@ -93,7 +94,13 @@ weighted_new <- data.frame(stat = weighted_old$stat) %>%
     f_return_p(data_current, "TrustMedia2", "Don't know") * 100,
     f_return_n(data_current$TrustMedia2),
     f_return_p(data_current, "TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
-    f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"])
+    f_return_n(data_current$TrustMedia2[data_current$TrustMedia2 != "Don't know"]),
+    f_return_p(data_current, "TrustCivilService2", "Trust a great deal/Tend to trust") * 100,
+    f_return_p(data_current, "TrustCivilService2", "Tend to distrust/Distrust greatly") * 100,
+    f_return_p(data_current, "TrustCivilService2", "Don't know") * 100,
+    f_return_n(data_current$TrustCivilService2),
+    f_return_p(data_current, "TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+    f_return_n(data_current$TrustCivilService2[data_current$TrustCivilService2 != "Don't know"])
   ))
 
 ## Add new variables to this list. Take 6 lines for last variable and change var name
@@ -335,13 +342,13 @@ products <- c(
 heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1c", i), "Yes") * 100
   heard_stats$current[i] <- f_return_p(data_current, paste0("PCOS1c", i), "Yes") * 100
+  heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1c", i), "Yes") * 100
   heard_stats$z[i] <- f_return_z(
-    p1 = f_return_p(data_last, paste0("PCOS1c", i), "Yes"),
-    n1 = f_return_n(data_last[[paste0("PCOS1c", i)]]),
-    p2 = f_return_p(data_current, paste0("PCOS1c", i), "Yes"),
-    n2 = f_return_n(data_current[[paste0("PCOS1c", i)]])
+    p1 = f_return_p(data_current, paste0("PCOS1c", i), "Yes"),
+    n1 = f_return_n(data_current[[paste0("PCOS1c", i)]]),
+    p2 = f_return_p(data_last, paste0("PCOS1c", i), "Yes"),
+    n2 = f_return_n(data_last[[paste0("PCOS1c", i)]])
   )
 }
 
@@ -349,26 +356,26 @@ heard_stats <- heard_stats %>%
   mutate(diff = current - last) %>%
   rbind(data.frame(
     product = "Base",
-    last = f_return_n(data_last$PCOS1c1),
     current = f_return_n(data_current$PCOS1c1),
+    last = f_return_n(data_last$PCOS1c1),
     z = NA,
     diff = NA
   ))
 
-names(heard_stats) <- c("% Aware produced by NISRA", current_year - 1, current_year, "Z", "Difference in %")
+names(heard_stats) <- c("% Aware produced by NISRA", current_year, current_year - 1,  "Z", "Difference in %")
 
 ## Had not heard of NISRA: This year vs previous year ####
 
 not_heard_stats <- data.frame(product = products)
 
 for (i in 1:length(products)) {
-  not_heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1d", i), "Yes") * 100
   not_heard_stats$current[i] <- f_return_p(data_current, paste0("PCOS1d", i), "Yes") * 100
+  not_heard_stats$last[i] <- f_return_p(data_last, paste0("PCOS1d", i), "Yes") * 100
   not_heard_stats$z[i] <- f_return_z(
-    p1 = f_return_p(data_last, paste0("PCOS1d", i), "Yes"),
-    n1 = f_return_n(data_last[[paste0("PCOS1d", i)]]),
-    p2 = f_return_p(data_current, paste0("PCOS1d", i), "Yes"),
-    n2 = f_return_n(data_current[[paste0("PCOS1d", i)]])
+    p1 = f_return_p(data_current, paste0("PCOS1d", i), "Yes"),
+    n1 = f_return_n(data_current[[paste0("PCOS1d", i)]]),
+    p2 = f_return_p(data_last, paste0("PCOS1d", i), "Yes"),
+    n2 = f_return_n(data_last[[paste0("PCOS1d", i)]])
   )
 }
 
@@ -376,13 +383,13 @@ not_heard_stats <- not_heard_stats %>%
   mutate(diff = current - last) %>%
   rbind(data.frame(
     product = "Base",
-    last = f_return_n(data_last$PCOS1d1),
     current = f_return_n(data_current$PCOS1d1),
+    last = f_return_n(data_last$PCOS1d1),
     z = NA,
     diff = NA
   ))
 
-names(not_heard_stats) <- c("% Aware of statistics", current_year - 1, current_year, "Z", "Difference in %")
+names(not_heard_stats) <- c("% Aware of statistics", current_year, current_year - 1, "Z", "Difference in %")
 
 # Trust in NISRA ####
 
@@ -830,7 +837,7 @@ interference_illness_ex_dk <- f_ill_stats("Political2", "Strongly Agree/Tend to 
 
 ## Trend ####
 
-confidential_trend <- f_trend("Interference")
+confidential_trend <- f_trend("Confidentiality")
 
 confidential_trend_z_scores_yes <- f_trend_z_scores(confidential_trend, "% Yes")
 
@@ -897,3 +904,185 @@ confidential_qual_z_scores_ex_dk <- f_qual_z_scores("Confidential2", "Strongly A
 ## Limiting longstanding illness ####
 
 confidential_illness_ex_dk <- f_ill_stats("Confidential2", "Strongly Agree/Tend to Agree", dk = FALSE)
+
+# Trust Civil Service ####
+
+## Trend ####
+
+nics_trend <- f_trend("Trust Civil Service")
+
+nics_trend_z_scores_yes <- f_trend_z_scores(nics_trend, "% Yes")
+
+nics_trend_z_scores_no <- f_trend_z_scores(nics_trend, "% No")
+
+nics_trend_z_scores_dk <- f_trend_z_scores(nics_trend, "% DK")
+
+## In work vs not in work ####
+
+nics_work_stats <- f_work_stats("TrustCivilService2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+## By Age ####
+
+nics_age_stats <- f_age_stats("TrustCivilService2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+nics_age_z_scores <- f_age_z_scores("TrustCivilService2", "Trust a great deal/Tend to trust")
+
+nics_disagree_age_z_scores <- f_age_z_scores("TrustCivilService2", "Tend to distrust/Distrust greatly")
+
+nics_dont_know_age_z_scores <- f_age_z_scores("TrustCivilService2", "Don't know")
+
+## By Qualification ####
+
+nics_qual_stats <- f_qual_stats("TrustCivilService2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+nics_qual_z_scores <- f_qual_z_scores("TrustCivilService2", "Trust a great deal/Tend to trust")
+
+nics_disagree_qual_z_scores <- f_qual_z_scores("TrustCivilService2", "Tend to distrust/Distrust greatly")
+
+nics_dont_know_qual_z_scores <- f_qual_z_scores("TrustCivilService2", "Don't know")
+
+## Limiting longstanding illness ####
+
+nics_illness <- f_ill_stats("TrustCivilService2", "Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly")
+
+# Trust Civil Service (exc DK) ####
+
+## Trend ####
+
+nics_trend_ex_dk <- f_trend("TruNICSExDK")
+
+nics_trend_z_scores_ex_dk <- f_trend_z_scores(nics_trend_ex_dk, "% Yes")
+
+## In work vs not in work ####
+
+nics_work_ex_dk <- f_work_stats("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+##  By Age ####
+
+nics_age_ex_dk <- f_age_stats("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Age comparison ####
+
+nics_age_z_scores_ex_dk <- f_age_z_scores("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## By qualification ####
+
+nics_qual_ex_dk <- f_qual_stats("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Qualification comparison ####
+
+nics_qual_z_scores_ex_dk <- f_qual_z_scores("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+## Limiting longstanding illness ####
+
+nics_illness_ex_dk <- f_ill_stats("TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE)
+
+# Trust comparisons ####
+
+## Trust NISRA vs Trust NI Assembly/Elected Body ####
+
+trust_assembly_compare <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
+                                     nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust") * 100,
+                                               f_return_p(data_current, "TrustNISRA2", "Tend to distrust/Distrust greatly") * 100,
+                                               f_return_p(data_current, "TrustNISRA2", "Don't know") * 100,
+                                               f_return_n(data_current$TrustNISRA2)),
+                                     assembly = c(f_return_p(data_current, "TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust") * 100,
+                                                  f_return_p(data_current, "TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly") * 100,
+                                                  f_return_p(data_current, "TrustAssemblyElectedBody2", "Don't know") * 100,
+                                                  f_return_n(data_current$TrustAssemblyElectedBody2))) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = assembly / 100,
+                                         n2 = assembly[stat == "Base"])))
+
+names(trust_assembly_compare) <- c(" ", "Trust NISRA", "Trust Assembly/ Elected Body", "Z Score")
+
+trust_assembly_compare_ex_dk <- data.frame(stat = c("% Yes", "Base"),
+           nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                     data_current %>%
+                       filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know") %>%
+                       nrow()),
+           assembly = c(f_return_p(data_current, "TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                        data_current %>%
+                          filter(!is.na(TrustAssemblyElectedBody2) & TrustAssemblyElectedBody2 != "Don't know") %>%
+                          nrow())) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = assembly / 100,
+                                         n2 = assembly[stat == "Base"])))
+
+names(trust_assembly_compare_ex_dk) <- c(" ", "Trust NISRA", "Trust Assembly/ Elected Body", "Z Score")
+
+## Trust NISRA vs Trust Media ####
+
+trust_media_compare <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
+nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust") * 100,
+          f_return_p(data_current, "TrustNISRA2", "Tend to distrust/Distrust greatly") * 100,
+          f_return_p(data_current, "TrustNISRA2", "Don't know") * 100,
+          f_return_n(data_current$TrustNISRA2)),
+media = c(f_return_p(data_current, "TrustMedia2", "Trust a great deal/Tend to trust") * 100,
+          f_return_p(data_current, "TrustMedia2", "Tend to distrust/Distrust greatly") * 100,
+          f_return_p(data_current, "TrustMedia2", "Don't know") * 100,
+          f_return_n(data_current$TrustMedia2))) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = media / 100,
+                                         n2 = media[stat == "Base"])))
+
+names(trust_media_compare) <- c(" ", "Trust NISRA", "Trust Media", "Z Score")
+
+trust_media_compare_ex_dk <- data.frame(stat = c("% Yes", "Base"),
+                                        nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                                                  data_current %>%
+                                                    filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know") %>%
+                                                    nrow()),
+                                        media = c(f_return_p(data_current, "TrustMedia2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                                                  data_current %>%
+                                                    filter(!is.na(TrustMedia2) & TrustMedia2 != "Don't know") %>%
+                                                    nrow())) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = media / 100,
+                                         n2 = media[stat == "Base"])))
+
+names(trust_media_compare_ex_dk) <- c(" ", "Trust NISRA", "Trust Media", "Z Score")
+
+## Trust NISRA vs Trust Civil Service ####
+
+trust_nics_compare <- data.frame(stat = c("% Yes", "% No", "% DK", "Base"),
+                                 nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust") * 100,
+                                           f_return_p(data_current, "TrustNISRA2", "Tend to distrust/Distrust greatly") * 100,
+                                           f_return_p(data_current, "TrustNISRA2", "Don't know") * 100,
+                                           f_return_n(data_current$TrustNISRA2)),
+                                 nics = c(f_return_p(data_current, "TrustCivilService2", "Trust a great deal/Tend to trust") * 100,
+                                          f_return_p(data_current, "TrustCivilService2", "Tend to distrust/Distrust greatly") * 100,
+                                          f_return_p(data_current, "TrustCivilService2", "Don't know") * 100,
+                                          f_return_n(data_current$TrustCivilService2))) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = nics / 100,
+                                         n2 = nics[stat == "Base"])))
+
+names(trust_nics_compare) <- c(" ", "Trust NISRA", "Trust Civil Service", "Z Score")
+
+trust_nics_compare_ex_dk <- data.frame(stat = c("% Yes", "Base"),
+                                       nisra = c(f_return_p(data_current, "TrustNISRA2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                                                 data_current %>%
+                                                   filter(!is.na(TrustNISRA2) & TrustNISRA2 != "Don't know") %>%
+                                                   nrow()),
+                                       nics = c(f_return_p(data_current, "TrustCivilService2", "Trust a great deal/Tend to trust", dk = FALSE) * 100,
+                                                data_current %>%
+                                                  filter(!is.na(TrustCivilService2) & TrustCivilService2 != "Don't know") %>%
+                                                  nrow())) %>%
+  mutate(z = case_when(stat == "Base" ~ NA,
+                       TRUE ~ f_return_z(p1 = nisra / 100,
+                                         n1 = nisra[stat == "Base"],
+                                         p2 = nics / 100,
+                                         n2 = nics[stat == "Base"])))
+
+names(trust_nics_compare_ex_dk) <- c(" ", "Trust NISRA", "Trust Civil Service", "Z Score")
