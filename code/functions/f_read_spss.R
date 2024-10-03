@@ -1,10 +1,14 @@
-f_read_spss <- function (filepath, pass = "") {
+f_read_spss <- function (filepath, pass = NA) {
   
-  data <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
-                              pass = password,
-                              use.missings = FALSE
-  )
-  
+  data <- if (is.na(pass)) {
+    readspss::read.sav(filepath,
+                       use.missings = FALSE)
+  } else {
+    readspss::read.sav(filepath,
+                       pass = pass,
+                       use.missings = FALSE)
+  }
+
   # Add labels to variables
   raw_labels <- attributes(data)$var.label
   has_label <- attributes(data)$varmatrix[, 2]

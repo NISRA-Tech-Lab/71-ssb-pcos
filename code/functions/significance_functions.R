@@ -671,7 +671,7 @@ f_extract_question_text <- function(df, var) {
   # This function extracts the question text as stored in the SPSS file for a specific variable
   df <- get(df)
   # print(var)
-  qText <- attributes(df)$variable.labels[var]
+  qText <- attributes(df[[var]])$label
 
 
   return(q = qText)

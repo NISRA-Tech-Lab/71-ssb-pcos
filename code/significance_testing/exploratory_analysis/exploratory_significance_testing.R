@@ -241,7 +241,7 @@ stVars$Answer <- rep(answer, number_rows_stvars)
 
 # Extract question text
 question <- apply(stVars, 1, function(y) f_extract_question_text(y["year1"], y["var1"]))
-stVars$question <- "A"
+
 stVars <- cbind(stVars, question) %>%
   filter(var1 != "All")
 
@@ -456,6 +456,10 @@ for (i in 1:nrow(vars)) {
   addWorksheet(wb, vars$data_current[i])
   
   setColWidths(wb, vars$data_current[i], cols = 1:4, widths = c(6, 48, 6, 48))
+  
+  writeData(wb,
+            sheet = vars$data_current[i],
+            x = attributes(data_current[[vars$data_current[i]]])$label)
 
   writeDataTable(wb,
     sheet = vars$data_current[i],
@@ -501,6 +505,10 @@ for (i in 1:nrow(vars)) {
     )
 
     addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
+    
+    writeData(wb,
+              sheet = paste0(vars$data_current[i], "_excl_dk"),
+              x = attributes(data_current[[vars$data_current[i]]])$label)
     
     setColWidths(wb, paste0(vars$data_current[i], "_excl_dk"), cols = 1:4, widths = c(6, 48, 6, 48))
 

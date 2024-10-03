@@ -3,7 +3,7 @@ source(paste0(here(), "/code/config.R"))
 
 # 2021 Data ####
 
-data_2021 <- readspss::read.sav(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022) (PCOS1 DK set to valid).sav"), use.missings = TRUE) %>%
+data_2021 <- f_read_spss(paste0(data_folder, "Final/PCOS 2021 FINAL (JULY 2022) (PCOS1 DK set to valid).sav")) %>%
   mutate(
     AwareNISRA2 = PCOS1,
     TrustAssemblyElectedBody2 = TrustNIAssembly2,
@@ -20,7 +20,7 @@ saveRDS(data_2021, paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))
 
 # 2020 Data ####
 
-data_2020 <- readspss::read.sav(paste0(data_folder, "Final/DATA  PCOS 2020 - Sept 21 (PCOS1 DK set to valid).sav"), use.missings = TRUE) %>%
+data_2020 <- f_read_spss(paste0(data_folder, "Final/DATA  PCOS 2020 - Sept 21 (PCOS1 DK set to valid).sav")) %>%
   mutate(
     TrustAssemblyElectedBody2 = TrustNIAssembly2,
     OwnRelig2 = factor(OwnRelig,
@@ -37,7 +37,7 @@ saveRDS(data_2020, paste0(data_folder, "Final/PCOS 2020 Final Dataset.RDS"))
 
 # 2019 Data ####
 
-data_2019 <- readspss::read.sav(paste0(data_folder, "Final/FOR REPORT PCOS_2019 - Sept 20 (Conf corrected, no refusals in recode var).sav"), use.missings = TRUE) %>%
+data_2019 <- f_read_spss(paste0(data_folder, "Final/FOR REPORT PCOS_2019 - Sept 20 (Conf corrected, no refusals in recode var).sav")) %>%
   mutate(
     TrustAssemblyElectedBody2 = TrustElectedRep2,
     OwnRelig2 = factor(Religion2,
@@ -50,14 +50,14 @@ saveRDS(data_2019, paste0(data_folder, "Final/PCOS 2019 Final Dataset.RDS"))
 
 # 2018 Data ####
 
-data_2018 <- readspss::read.sav(paste0(data_folder, "Final/Norma - PCOS 2018 weighted (Sep 19) - Working Copy.sav"), use.missings = TRUE) %>%
+data_2018 <- f_read_spss(paste0(data_folder, "Final/Norma - PCOS 2018 weighted (Sep 19) - Working Copy.sav")) %>%
   mutate(DERHIanalysis = derhiRECODE)
 
 saveRDS(data_2018, paste0(data_folder, "Final/PCOS 2018 Final Dataset.RDS"))
 
 # 2016 Data ####
 
-data_2016 <- readspss::read.sav(paste0(data_folder, "Final/omoctPCOS_2016_partial_recoded.sav"), use.missings = TRUE) %>%
+data_2016 <- f_read_spss(paste0(data_folder, "Final/omoctPCOS_2016_partial_recoded.sav")) %>%
   mutate(
     TrustAssemblyElectedBody2 = TrustNIAssembly2,
     AGE2 = pcosage,
@@ -85,7 +85,7 @@ saveRDS(data_2016, paste0(data_folder, "Final/PCOS 2016 Final Dataset.RDS"))
 
 # 2014 Data ####
 
-data_2014 <- readspss::read.sav(paste0(data_folder, "Final/OMSEP14PCOS_partial_recoded.sav"), use.missings = TRUE) %>%
+data_2014 <- f_read_spss(paste0(data_folder, "Final/OMSEP14PCOS_partial_recoded.sav")) %>%
   mutate(
     TrustAssemblyElectedBody2 = TrustNIAssembly2,
     AGE2 = pcosage,
@@ -113,7 +113,7 @@ saveRDS(data_2014, paste0(data_folder, "Final/PCOS 2014 Final Dataset.RDS"))
 
 # 2012 Data ####
 
-data_2012 <- readspss::read.sav(paste0(data_folder, "Final/PCOS 2012 (PCOS4 Refusals set to missing).sav"), use.missings = TRUE) %>%
+data_2012 <- f_read_spss(paste0(data_folder, "Final/PCOS 2012 (PCOS4 Refusals set to missing).sav")) %>%
   mutate(
     SEX = persex,
     EMPST2 = factor(empst2,
