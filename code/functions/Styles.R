@@ -117,6 +117,9 @@ num_resp <- createStyle(
 # Style to right align cells
 ra <- createStyle(halign = "right")
 
+rab <- createStyle(halign = "right",
+                   textDecoration = "bold")
+
 # Style to left align cells
 la <- createStyle(halign = "left")
 

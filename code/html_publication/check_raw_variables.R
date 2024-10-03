@@ -6,7 +6,7 @@ PCOS1d_vars <- names(data_raw)[grepl("PCOS1d", names(data_raw)) & names(data_raw
 
 data_last <- readRDS(paste0(data_folder, "Raw/PCOS ", current_year - 1, " Dataset.RDS"))
 
-first_label <- which(grepl("Before being contacted", attributes(data_raw)$var.label))
+# first_label <- which(grepl("Before being contacted", attributes(data_raw)$var.label))
 
 old_q <- c("PCOS1", trust_q_old, agree_q_old)
 new_q <- c("AwareNISRA2", trust_q_new, agree_q_new)
@@ -103,7 +103,7 @@ for (i in 1:length(PCOS_vars)) {
   )
 
   writeData(wb, "Raw Variables",
-    if (PCOS_vars[i] %in% c("DERHI", "EMPST2", "AGE")) paste("Covariate:", PCOS_vars[i]) else attributes(data_raw)$var.label[first_label + i - 1],
+    if (PCOS_vars[i] %in% c("DERHI", "EMPST2", "AGE")) paste("Covariate:", PCOS_vars[i]) else attributes(data_raw[[PCOS_vars[i]]])$label,
     startRow = r
   )
 

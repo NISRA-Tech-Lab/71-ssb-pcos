@@ -157,7 +157,6 @@ for (i in 1:length(new_q)) {
 
   old_q_options <- c(old_q_options, "Missing")
   new_q_options <- c(new_q_options, "Missing")
-  
 
   crosstab <- data.frame(new = new_q_options)
 
@@ -221,7 +220,7 @@ for (i in 1:length(new_q)) {
   )
 
   addStyle(wb, "Crosstabs",
-    hs2,
+    rab,
     rows = r:(r + nrow(crosstab)),
     cols = 1
   )

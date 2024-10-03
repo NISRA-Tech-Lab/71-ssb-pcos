@@ -410,7 +410,7 @@ excel_df <- vardf %>%
     ),
     score = as.numeric(score)
   ) %>%
-  select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, answer, p1, n1, p2, n2, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
 
@@ -428,14 +428,11 @@ excel_df_excl_dk <- vardf_excl_dk %>%
     ),
     score = as.numeric(score)
   ) %>%
-  select(year1, grouping1, var1, year2, grouping2, var2, answer, score) %>%
+  select(year1, grouping1, var1, year2, grouping2, var2, answer, p1, n1, p2, n2, score) %>%
   rename(`Grouping 1` = grouping1, `Grouping 2` = grouping2, `z Score` = score) %>%
   arrange(var1)
 
-# Sorting columns
-
 excel_df_excl_dk <- excel_df_excl_dk[!duplicated(excel_df_excl_dk), ]
-
 
 for (i in 1:nrow(vars)) {
   assign(
@@ -444,10 +441,11 @@ for (i in 1:nrow(vars)) {
       filter(var1 == vars$data_current[i]) %>%
       select(-var1, -var2) %>%
       mutate(
-        `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
-        `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
+        `Grouping 1` = factor(`Grouping 1`, levels = grouping_order),
+        `Grouping 2` = factor(`Grouping 2`, levels = grouping_order),
+        answer = factor(answer, levels = c("yes", "no", "dont_know"))
       ) %>%
-      arrange(-year2, `Grouping 1`, `Grouping 2`)
+      arrange(-year2, `Grouping 1`, `Grouping 2`, answer)
   )
 
   if (vars$data_current[i] == "AwareNISRA2") {
@@ -456,6 +454,8 @@ for (i in 1:nrow(vars)) {
   }
 
   addWorksheet(wb, vars$data_current[i])
+  
+  setColWidths(wb, vars$data_current[i], cols = 1:4, widths = c(6, 48, 6, 48))
 
   writeDataTable(wb,
     sheet = vars$data_current[i],
@@ -470,18 +470,18 @@ for (i in 1:nrow(vars)) {
   )
 
   for (j in 1:nrow(get(paste0(vars$data_current[i], "_df")))) {
-    if (!is.na(get(paste0(vars$data_current[i], "_df"))[j, 6])) {
-      if (abs(get(paste0(vars$data_current[i], "_df"))[j, 6]) > qnorm(0.975)) {
+    if (!is.na(get(paste0(vars$data_current[i], "_df"))[j, 10])) {
+      if (abs(get(paste0(vars$data_current[i], "_df"))[j, 10]) > qnorm(0.975)) {
         addStyle(wb, vars$data_current[i],
           style = sig,
           rows = 2 + j,
-          cols = 6
+          cols = 10
         )
       } else {
         addStyle(wb, vars$data_current[i],
           style = not_sig,
           rows = 2 + j,
-          cols = 6
+          cols = 10
         )
       }
     }
@@ -494,13 +494,15 @@ for (i in 1:nrow(vars)) {
         filter(var1 == vars$data_current[i] & answer != "no") %>%
         select(-var1, -var2) %>%
         mutate(
-          `Grouping 1` = factor(`Grouping 1`, levels = c(grouping_order)),
-          `Grouping 2` = factor(`Grouping 2`, levels = c(grouping_order))
+          `Grouping 1` = factor(`Grouping 1`, levels = grouping_order),
+          `Grouping 2` = factor(`Grouping 2`, levels = grouping_order)
         ) %>%
         arrange(-year2, `Grouping 1`, `Grouping 2`)
     )
 
     addWorksheet(wb, paste0(vars$data_current[i], "_excl_dk"))
+    
+    setColWidths(wb, paste0(vars$data_current[i], "_excl_dk"), cols = 1:4, widths = c(6, 48, 6, 48))
 
     writeDataTable(wb,
       sheet = paste0(vars$data_current[i], "_excl_dk"),
@@ -515,18 +517,18 @@ for (i in 1:nrow(vars)) {
     )
 
     for (j in 1:nrow(get(paste0(vars$data_current[i], "_df_excl_dk")))) {
-      if (!is.na(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 6])) {
-        if (abs(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 6]) > qnorm(0.975)) {
+      if (!is.na(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 10])) {
+        if (abs(get(paste0(vars$data_current[i], "_df_excl_dk"))[j, 10]) > qnorm(0.975)) {
           addStyle(wb, paste0(vars$data_current[i], "_excl_dk"),
             style = sig,
             rows = 2 + j,
-            cols = 6
+            cols = 10
           )
         } else {
           addStyle(wb, paste0(vars$data_current[i], "_excl_dk"),
             style = not_sig,
             rows = 2 + j,
-            cols = 6
+            cols = 10
           )
         }
       }

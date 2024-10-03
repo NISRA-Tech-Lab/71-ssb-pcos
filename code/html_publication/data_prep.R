@@ -17,10 +17,8 @@ agree_q_new <- c("NISRAstatsImp2", "Political2", "Confidential2")
 
 # Read data in from SPSS ####
 
-data_raw <- readspss::read.spss(paste0(data_folder, "Raw/", data_filename),
-  pass = password,
-  use.missings = FALSE
-)
+data_raw <- f_read_spss(filepath = paste0(data_folder, "Raw/", data_filename),
+                        pass = password)
 
 ## Raw variable check ran and output to Excel workbook in Outputs folder ####
 source(paste0(here(), "/code/html_publication/check_raw_variables.R"))
@@ -101,6 +99,8 @@ for (i in 1:length(trust_q_old)) {
     TRUE ~ data_final[[trust_q_old[i]]]
   ) %>%
     factor(levels = c("Trust a great deal/Tend to trust", "Tend to distrust/Distrust greatly", "Don't know"))
+  
+  attributes(data_final[[trust_q_new[i]]])$label <- attributes(data_final[[trust_q_old[i]]])$label
 }
 
 ## Loop to recode all "agree" based answers ####
@@ -113,6 +113,8 @@ for (i in 1:length(agree_q_old)) {
     TRUE ~ data_final[[agree_q_old[i]]]
   ) %>%
     factor(levels = c("Strongly Agree/Tend to Agree", "Tend to disagree/Strongly disagree", "Don't know"))
+  
+  attributes(data_final[[agree_q_new[i]]])$label <- attributes(data_final[[agree_q_old[i]]])$label
 }
 
 ## Recode Refusals to Missing ####
@@ -227,8 +229,6 @@ aware_nisra_ons_data <- aware_nisra_ons_data %>%
 ## Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA ####
 
 # Use variable label to extract output name
-outputs <- sub("\\..*", "", attributes(data_final)$var.label[grepl("Heard", attributes(data_final)$var.label)]) %>%
-  trimws()
 
 aware_stats_data <- data.frame(
   output = character(),
@@ -237,10 +237,10 @@ aware_stats_data <- data.frame(
   dont_know = numeric()
 )
 
-for (i in 1:length(outputs)) {
+for (i in 1:length(PCOS1d_vars)) {
   aware_stats_data <- aware_stats_data %>%
     rbind(data.frame(
-      output = f_wrap_labels(outputs[i], 47),
+      output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1d_vars[i]]])$label) %>% trimws(), 47),
       yes = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
       no = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
       dont_know = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100
@@ -263,10 +263,10 @@ aware_stats_by_nisra_data <- data.frame(
   dont_know = numeric()
 )
 
-for (i in 1:length(outputs)) {
+for (i in 1:length(PCOS1c_vars)) {
   aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
     rbind(data.frame(
-      output = f_wrap_labels(outputs[i], 47),
+      output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws(), 47),
       yes = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
       no = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
       dont_know = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100

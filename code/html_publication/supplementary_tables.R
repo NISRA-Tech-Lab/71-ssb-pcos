@@ -1,6 +1,8 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
+# To run for 
+
 # Set year
 sup_year <- 2021
 
