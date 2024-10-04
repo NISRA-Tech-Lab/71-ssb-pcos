@@ -9,8 +9,6 @@ source(paste0(here(), "/code/config.R"))
 trust_q_old <- c("PCOS2a", "PCOS2b", "PCOS2b", "PCOS2c", "PCOS2d", "PCOS3")
 trust_q_new <- c("TrustCivilService2", trust_body_var, "TrustAssemblyElectedBody2", "TrustMedia2", "TrustNISRA2", "TrustNISRAstats2")
 
-# TrustElectedBodies2
-
 # Old and new names for all "agree" based answers
 agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
 agree_q_new <- c("NISRAstatsImp2", "Political2", "Confidential2")
@@ -84,10 +82,12 @@ data_final <- data_raw %>%
     ),
     EMPST2 = factor(EMPST2, levels = c("In paid employment", "Not in paid employment")),
     remove = FALSE,
-    AwareNISRA2 = PCOS1
+    AwareNISRA2 = factor(PCOS1, levels = setdiff(levels(PCOS1), "Refusal"), labels = gsub("DontKnow", "Don't know", setdiff(levels(PCOS1), "Refusal")))
   ) %>% ## Added for later
   relocate("AGE2a", .after = "Age1") %>%
   relocate("AGE2", .after = "W3")
+
+attributes(data_final$AwareNISRA2)$label <- attributes(data_final$PCOS1)$label
 
 ## Loop to recode all "Trust" based answers ####
 
@@ -207,7 +207,7 @@ if (!dir.exists(paste0(data_folder, "Trend/", current_year))) {
 aware_nisra_data <- aware_nisra_data %>%
   rbind(data.frame(
     year = current_year,
-    pct = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100
+    pct = f_return_p(data_final, "AwareNISRA2", "Yes") * 100
   ))
 
 saveRDS(aware_nisra_data, paste0(data_folder, "Trend/", current_year, "/aware_nisra_data.RDS"))
@@ -217,7 +217,7 @@ saveRDS(aware_nisra_data, paste0(data_folder, "Trend/", current_year, "/aware_ni
 aware_nisra_ons_data <- aware_nisra_ons_data %>%
   rbind(data.frame(
     year = current_year,
-    nisra = sum(data_final$W3[data_final$PCOS1 == "Yes"]) / sum(data_final$W3) * 100,
+    nisra = aware_nisra_data$pct[aware_nisra_data$year == current_year],
     ons = if (current_year == ons_year) data_ons$Yes[data_ons$`Related Variable` == "PCOS1"] else NA
   ))
 
@@ -241,9 +241,9 @@ for (i in 1:length(PCOS1d_vars)) {
   aware_stats_data <- aware_stats_data %>%
     rbind(data.frame(
       output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1d_vars[i]]])$label) %>% trimws(), 47),
-      yes = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
-      no = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100,
-      dont_know = sum(data_final$W3[data_final[[PCOS1d_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1d_vars[i]]])]) * 100
+      yes = f_return_p(data_final, PCOS1d_vars[i], "Yes") * 100,
+      no = f_return_p(data_final, PCOS1d_vars[i], "No") * 100,
+      dont_know = f_return_p(data_final, PCOS1d_vars[i], "DontKnow") * 100
     ))
 }
 
@@ -267,9 +267,9 @@ for (i in 1:length(PCOS1c_vars)) {
   aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
     rbind(data.frame(
       output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws(), 47),
-      yes = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "Yes"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
-      no = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "No"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100,
-      dont_know = sum(data_final$W3[data_final[[PCOS1c_vars[i]]] == "DontKnow"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final[[PCOS1c_vars[i]]])]) * 100
+      yes = f_return_p(data_final, PCOS1c_vars[i], "Yes") * 100,
+      no = f_return_p(data_final, PCOS1c_vars[i], "No") * 100,
+      dont_know = f_return_p(data_final, PCOS1c_vars[i], "DontKnow") * 100
     ))
 }
 
@@ -283,9 +283,9 @@ aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
 trust_nisra_data <- trust_nisra_data %>%
   rbind(data.frame(
     year = current_year,
-    trust = sum(data_final$W3[data_final$TrustNISRA2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100,
-    distrust = sum(data_final$W3[data_final$TrustNISRA2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100,
-    dont_know = sum(data_final$W3[data_final$TrustNISRA2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRA2)]) * 100
+    trust = f_return_p(data_final, "TrustNISRA2", "Trust a great deal/Tend to trust") * 100,
+    distrust =  f_return_p(data_final, "TrustNISRA2", "Tend to distrust/Distrust greatly") * 100,
+    dont_know = f_return_p(data_final, "TrustNISRA2", "Don't know") * 100
   ))
 
 saveRDS(trust_nisra_data, paste0(data_folder, "Trend/", current_year, "/trust_nisra_data.RDS"))
@@ -317,19 +317,19 @@ trust_institutions_data <-
     data.frame(
       org = c("The NI Assembly", "The Civil Service", "The media"),
       trust = c(
-        sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
-        sum(data_final$W3[data_final$TrustCivilService2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
-        sum(data_final$W3[data_final$TrustMedia2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100
+        f_return_p(data_final, "TrustAssemblyElectedBody2", "Trust a great deal/Tend to trust") * 100,
+        f_return_p(data_final, "TrustCivilService2", "Trust a great deal/Tend to trust") * 100,
+        f_return_p(data_final, "TrustMedia2", "Trust a great deal/Tend to trust") * 100
       ),
       distrust = c(
-        sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
-        sum(data_final$W3[data_final$TrustCivilService2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
-        sum(data_final$W3[data_final$TrustMedia2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100
+        f_return_p(data_final, "TrustAssemblyElectedBody2", "Tend to distrust/Distrust greatly") * 100,
+        f_return_p(data_final, "TrustCivilService2", "Tend to distrust/Distrust greatly") * 100,
+        f_return_p(data_final, "TrustMedia2", "Tend to distrust/Distrust greatly") * 100
       ),
       dont_know = c(
-        sum(data_final$W3[data_final$TrustAssemblyElectedBody2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustAssemblyElectedBody2)]) * 100,
-        sum(data_final$W3[data_final$TrustCivilService2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustCivilService2)]) * 100,
-        sum(data_final$W3[data_final$TrustMedia2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustMedia2)]) * 100
+        f_return_p(data_final, "TrustAssemblyElectedBody2", "Don't know") * 100,
+        f_return_p(data_final, "TrustCivilService2", "Don't know") * 100,
+        f_return_p(data_final, "TrustMedia2", "Don't know") * 100
       )
     ),
     trust_nisra_data %>%
@@ -344,9 +344,9 @@ trust_institutions_data <-
 trust_stats_data <- trust_stats_data %>%
   rbind(data.frame(
     year = current_year,
-    trust = sum(data_final$W3[data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100,
-    distrust = sum(data_final$W3[data_final$TrustNISRAstats2 == "Tend to distrust/Distrust greatly"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100,
-    dont_know = sum(data_final$W3[data_final$TrustNISRAstats2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$TrustNISRAstats2)]) * 100
+    trust = f_return_p(data_final, "TrustNISRAstats2", "Trust a great deal/Tend to trust") * 100,
+    distrust = f_return_p(data_final, "TrustNISRAstats2", "Tend to distrust/Distrust greatly") * 100,
+    dont_know = f_return_p(data_final, "TrustNISRAstats2", "Don't know") * 100
   ))
 
 saveRDS(trust_stats_data, paste0(data_folder, "Trend/", current_year, "/trust_stats_data.RDS"))
@@ -376,9 +376,9 @@ trust_stats_nisra_ons_data <- trust_stats_data %>%
 stats_important_data <- stats_important_data %>%
   rbind(data.frame(
     year = current_year,
-    agree = sum(data_final$W3[data_final$NISRAstatsImp2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100,
-    disagree = sum(data_final$W3[data_final$NISRAstatsImp2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100,
-    dont_know = sum(data_final$W3[data_final$NISRAstatsImp2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$NISRAstatsImp2)]) * 100
+    agree = f_return_p(data_final, "NISRAstatsImp2", "Strongly Agree/Tend to Agree") * 100,
+    disagree = f_return_p(data_final, "NISRAstatsImp2", "Tend to disagree/Strongly disagree") * 100,
+    dont_know = f_return_p(data_final, "NISRAstatsImp2", "Don't know") * 100
   ))
 
 saveRDS(stats_important_data, paste0(data_folder, "Trend/", current_year, "/stats_important_data.RDS"))
@@ -407,9 +407,9 @@ stats_important_nisra_ons_data <- stats_important_data %>%
 political_data <- political_data %>%
   rbind(data.frame(
     year = current_year,
-    agree = sum(data_final$W3[data_final$Political2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Political2)]) * 100,
-    disagree = sum(data_final$W3[data_final$Political2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Political2)]) * 100,
-    dont_know = sum(data_final$W3[data_final$Political2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Political2)]) * 100
+    agree = f_return_p(data_final, "Political2", "Strongly Agree/Tend to Agree") * 100,
+    disagree = f_return_p(data_final, "Political2", "Tend to disagree/Strongly disagree") * 100,
+    dont_know = f_return_p(data_final, "Political2", "Don't know") * 100
   ))
 
 saveRDS(political_data, paste0(data_folder, "Trend/", current_year, "/political_data.RDS"))
@@ -438,9 +438,9 @@ political_nisra_ons_data <- political_data %>%
 confidential_data <- confidential_data %>%
   rbind(data.frame(
     year = current_year,
-    agree = sum(data_final$W3[data_final$Confidential2 == "Strongly Agree/Tend to Agree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100,
-    disagree = sum(data_final$W3[data_final$Confidential2 == "Tend to disagree/Strongly disagree"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100,
-    dont_know = sum(data_final$W3[data_final$Confidential2 == "Don't know"], na.rm = TRUE) / sum(data_final$W3[!is.na(data_final$Confidential2)]) * 100
+    agree = f_return_p(data_final, "Confidential2", "Strongly Agree/Tend to Agree") * 100,
+    disagree = f_return_p(data_final, "Confidential2", "Tend to disagree/Strongly disagree") * 100,
+    dont_know = f_return_p(data_final, "Confidential2", "Don't know") * 100
   ))
 
 saveRDS(confidential_data, paste0(data_folder, "Trend/", current_year, "/confidential_data.RDS"))
@@ -532,8 +532,8 @@ data_final <- data_final %>%
   )
 
 
-not_heard_aware_none <- round_half_up(sum(data_final$W3[data_final$not_heard_aware_none]) / sum(data_final$W3[data_final$PCOS1 == "No"]) * 100)
-not_heard_aware_all <- round_half_up(sum(data_final$W3[data_final$not_heard_aware_all]) / sum(data_final$W3[data_final$PCOS1 == "No"]) * 100)
+not_heard_aware_none <- round_half_up(f_return_p_group(data_final, "not_heard_aware_none", TRUE, "PCOS1", "No") * 100)
+not_heard_aware_all <- round_half_up(f_return_p_group(data_final, "not_heard_aware_all", TRUE, "PCOS1", "No") * 100)
 
 ### Not heard of NISRA but aware of outputs ####
 
@@ -545,8 +545,8 @@ not_heard_aware_cycling <- round_half_up(aware_stats_data$yes[grepl("cycling", a
 
 ### Heard of NISRA and aware of all / none of the statistics ####
 
-heard_aware_none <- round_half_up(sum(data_final$W3[data_final$heard_aware_none]) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
-heard_aware_all <- round_half_up(sum(data_final$W3[data_final$heard_aware_all]) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
+heard_aware_none <- round_half_up(f_return_p_group(data_final, "heard_aware_none", TRUE, "PCOS1", "Yes") * 100)
+heard_aware_all <- round_half_up(f_return_p_group(data_final, "heard_aware_all", TRUE, "PCOS1", "Yes") * 100)
 
 heard_aware_census <- round_half_up(aware_stats_by_nisra_data$yes[grepl("NI Census", aware_stats_by_nisra_data$output)])
 heard_aware_people <- round_half_up(aware_stats_by_nisra_data$yes[grepl("number of people", aware_stats_by_nisra_data$output)])
@@ -560,7 +560,7 @@ heard_of_aware_cycling <- round_half_up(aware_stats_by_nisra_data$yes[grepl("cyc
 dont_know_trust_nisra <- round_half_up(trust_nisra_data$dont_know[trust_nisra_data$year == current_year])
 distrust_nisra <- round_half_up(trust_nisra_data$distrust[trust_nisra_data$year == current_year])
 
-heard_of_and_trust_nisra <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRA2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
+heard_of_and_trust_nisra <- round_half_up(f_return_p_group(data_final, "TrustNISRA2", "Trust a great deal/Tend to trust", "PCOS1", "Yes") * 100)
 
 trust_in_ons <- round_half_up(trust_nisra_ons_data$trust[grepl("ONS", trust_nisra_ons_data$org)])
 trust_in_media <- round_half_up(trust_institutions_data$trust[grepl("The media", trust_institutions_data$org)])
@@ -573,7 +573,7 @@ trust_in_nics <- round_half_up(trust_institutions_data$trust[grepl("Civil Servic
 distrust_nisra_stats <- round_half_up(trust_stats_data$distrust[trust_stats_data == current_year])
 dont_know_trust_nisra_stats <- round_half_up(trust_stats_data$dont_know[trust_stats_data == current_year])
 
-heard_of_and_trust_nisra_stats <- round_half_up(sum(data_final$W3[data_final$PCOS1 == "Yes" & data_final$TrustNISRAstats2 == "Trust a great deal/Tend to trust"], na.rm = TRUE) / sum(data_final$W3[data_final$PCOS1 == "Yes"]) * 100)
+heard_of_and_trust_nisra_stats <- round_half_up(f_return_p_group(data_final, "TrustNISRAstats2", "Trust a great deal/Tend to trust", "PCOS1", "Yes") * 100)
 
 trust_in_ons_stats <- round_half_up(trust_stats_nisra_ons_data$trust[grepl("ONS", trust_stats_nisra_ons_data$org)])
 distrust_ons_stats <- round_half_up(trust_stats_nisra_ons_data$distrust[grepl("ONS", trust_stats_nisra_ons_data$org)])

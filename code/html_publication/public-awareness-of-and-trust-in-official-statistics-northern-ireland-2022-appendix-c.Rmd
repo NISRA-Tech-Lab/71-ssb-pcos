@@ -59,7 +59,7 @@ Before being contacted about this survey had you heard of NISRA, the Northern Ir
 
 _If answered 'yes' to Qu1 then_
 
-<div style = "margin-left: 30px">
+<div style = "margin-left: 2em">
 
 #### Qu 2a: Aware statistics produced by NISRA 
 
@@ -69,11 +69,17 @@ I am going to list a number of these and want you to tell me if you knew before 
 
 ```{r PCOS1c}
 
-pcos1 <- data.frame(
+outputs <- c()
+
+for (i in 1:length(PCOS1c_vars)) {
+  outputs[i] <- sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws()
+}
+
+pcos1c <- data.frame(
   Question = outputs) %>%
   mutate(`Aware produced by NISRA?` = rep("Yes/No", nrow(.)))
 
-kbl(pcos1) %>%
+kbl(pcos1c) %>%
   kable_styling()
 
 ```
@@ -82,7 +88,7 @@ kbl(pcos1) %>%
 
 _If answered 'no' to Qu1 then_
 
-<div style = "margin-left: 30px">
+<div style = "margin-left: 2em">
 
 #### Qu 2b: Aware of NISRA statistics 
 
@@ -91,7 +97,7 @@ NISRA produces official statistics for Northern Ireland on a wide range of issue
 I am going to list a number of these and want you to tell me if you have heard of them or not.
 
 ```{r PCOS1d}
-kbl(pcos1 %>%
+kbl(pcos1c %>%
       rename(`Heard of?` = `Aware produced by NISRA?`)) %>%
   kable_styling()
 ```
@@ -102,7 +108,7 @@ kbl(pcos1 %>%
 
 I will name a list of institutions. For each, please indicate whether you tend to trust it or tend not to trust it.
 
-<div style = "margin-left: 30px">
+<div style = "margin-left: 2em">
 
 #### Qu 3a: Trust Civil Service
 

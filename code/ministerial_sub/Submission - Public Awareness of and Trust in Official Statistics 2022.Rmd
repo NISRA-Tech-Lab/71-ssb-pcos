@@ -114,7 +114,7 @@ The questions were asked most recently in the Continuous Household Survey (CHS) 
 :::
 
 :::{custom-style="numbered_point"}
-The key findings from the statistics bulletin, Public Awareness of and Trust in Official Statistics Northern Ireland `r current_year`, are outlined below and a copy is attached for information. Detailed tables have been [`r f_format_link("published")`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) alongside the report, and include the source data for the charts and commentary and further breakdowns. The release also includes accompanying infographics on ‘Public Awareness of NISRA’ and ‘Public Trust in Official Statistics’.\
+The key findings from the statistics bulletin, Public Awareness of and Trust in Official Statistics Northern Ireland `r current_year`, are outlined below and a copy is attached for information. Detailed tables have been [`r f_format_link("published")`](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`) alongside the report, and include the source data for the charts and commentary and further breakdowns. The release also includes accompanying infographics on ‘`r f_red_text("Public Awareness of NISRA")`’ and ‘`r f_red_text("Public Trust in Official Statistics")`’.\
 :::
 
 \newpage
@@ -124,7 +124,7 @@ The key findings from the statistics bulletin, Public Awareness of and Trust in 
 **Awareness of NISRA**
 
 :::{custom-style="numbered_point"}
-Public awareness of NISRA is moderate, with `r f_red_text("almost half")` of respondents (`r heard_of_nisra`%) indicating they had heard of the Agency before being contacted about the survey.
+Public awareness of NISRA is `r f_red_text("moderate")`, with `r f_red_text("almost half")` of respondents (`r heard_of_nisra`%) indicating they had heard of the Agency before being contacted about the survey.
 :::
 
 :::{custom-style="numbered_point"}
@@ -138,7 +138,7 @@ Trust in NISRA as an institution is `r f_red_text("high")`, with `r trust_in_nis
 :::
 
 :::{custom-style="numbered_point"}
-Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%). However, when only those who gave an opinion, i.e. excluding ‘don’t knows’, are considered, trust levels are higher for NISRA.
+Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%). However, when only those who gave an opinion, i.e. excluding ‘don’t knows’, are considered, trust levels are `r f_red_text("higher")` for NISRA.
 :::
 
 **Trust in NISRA statistics**
@@ -164,7 +164,7 @@ The statistics produced by NISRA are `r f_red_text("valued")`, with `r importanc
 **Political Interference**
 
 :::{custom-style="numbered_point"}
-`r f_red_text("Over four-fifths")` (`r free_from_interference`)% of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while `r f_red_text("1 in 20")` (`r disagree_interference`%) disagree.
+`r f_red_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while `r f_red_text("1 in 20")` (`r disagree_interference`%) disagree.
 :::
 
 \newpage

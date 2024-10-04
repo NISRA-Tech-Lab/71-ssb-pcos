@@ -128,6 +128,7 @@ addStyle(wb, "Contents",
 
 setRowHeights(wb, "Contents", rows = 2, heights = 30)
 
+# cr is a row counter for the contents page see f_worksheet()
 cr <- 3
 
 setColWidths(wb, "Contents", widths = 114, cols = 1)

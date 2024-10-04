@@ -1,7 +1,9 @@
 library(here)
 source(paste0(here(), "/code/config.R"))
 
-# To run for 
+# To run for older year (2021 and before) check values sup_year, sup_trust_q, sup_agree_q
+# and sup_covar below and then press Ctrl + Alt + R to run.
+# Tables will appear in outputs folder.
 
 # Set year
 sup_year <- 2021

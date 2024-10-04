@@ -146,6 +146,7 @@ f_supplementary_tables <- function (data, year, trust_q, agree_q, co_var, age_we
       r <- r + nrow(unweighted) + 2
     }
     
+    setColWidths(wb, sheet_name, cols = 1:(max_levels * 2 + 3), widths = 12)
     setColWidths(wb, sheet_name, cols = c(1, max_levels + 3), widths = 29)
   }
   
